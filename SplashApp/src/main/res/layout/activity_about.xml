@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.standard.AboutActivity">
+
+    <TextView
+        android:id="@+id/aboutTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:text="@string/act_about_about"
+        android:textSize="24sp"
+        android:textColor="@color/colorfirst"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/sepaInAboutFirst"
+        android:layout_width="350dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="2dp"
+        android:layout_below="@+id/aboutTitle"
+        android:layout_marginTop="18dp"
+        android:background="@color/colorfirst"/>
+
+    <RelativeLayout
+        android:id="@+id/contactUsRelativeFirst"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/sepaInAboutFirst"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground">
+
+        <LinearLayout
+            android:id="@+id/contactUsLinear"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/contactUsIcon"
+                android:src="@drawable/locationdesciconblue"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/contactUsTitle"
+                android:text="@string/act_about_contactUs"
+                android:textColor="#2196F3"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/sepaIncontactUs"
+            android:layout_width="330dp"
+            android:layout_centerHorizontal="true"
+            android:layout_height="2dp"
+            android:layout_below="@+id/contactUsLinear"
+            android:layout_marginTop="8dp"
+            android:background="#c0c0c0"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/privacyPolicyRelativeFirst"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/termsRelativeFirst"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground">
+
+        <LinearLayout
+            android:id="@+id/privacyPolicyLinear"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/privacyPolicyIcon"
+                android:src="@drawable/privacypolicy"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/privacyPolicyTitle"
+                android:text="@string/act_about_privacyPolicy"
+                android:textColor="#2196F3"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/sepaInprivacyPolicy"
+            android:layout_width="330dp"
+            android:layout_centerHorizontal="true"
+            android:layout_height="2dp"
+            android:layout_below="@+id/privacyPolicyLinear"
+            android:layout_marginTop="8dp"
+            android:background="#c0c0c0"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/termsRelativeFirst"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/contactUsRelativeFirst"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground">
+
+        <LinearLayout
+            android:id="@+id/termsLinear"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/termsIcon"
+                android:src="@drawable/termsofuse"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/termsTitle"
+                android:text="@string/act_about_termsOfUse"
+                android:textColor="#2196F3"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/sepaInTerms"
+            android:layout_width="330dp"
+            android:layout_centerHorizontal="true"
+            android:layout_height="2dp"
+            android:layout_below="@+id/termsLinear"
+            android:layout_marginTop="8dp"
+            android:background="#c0c0c0"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

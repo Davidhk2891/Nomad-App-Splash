@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.nomadapp.splash.ui.activity.carownerside.CarAdditionActivity">
+
+    <TextView
+        android:id="@+id/addCarPageTitle"
+        android:layout_centerHorizontal="true"
+        android:text="@string/act_addCar_addCar"
+        android:layout_marginTop="38dp"
+        android:textSize="24sp"
+        android:textColor="@color/colorfirst"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/carBrandEdit"
+        android:hint="@string/act_addCar_brand"
+        android:textColorHint="#BDBDBD"
+        android:textSize="17sp"
+        android:background="@drawable/selective_bg_stroked_thin"
+        android:layout_below="@+id/addCarPageTitle"
+        android:layout_marginTop="26dp"
+        android:inputType="textCapWords"
+        android:padding="10dp"
+        android:maxLength="12"
+        android:imeOptions="actionNext"
+        android:layout_centerHorizontal="true"
+        android:ems="16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp" />
+
+    <ImageView
+        android:id="@+id/brandIcon"
+        android:layout_alignEnd="@+id/carBrandEdit"
+        android:layout_alignTop="@+id/carBrandEdit"
+        android:src="@drawable/carbrand"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/modelIcon"
+        android:layout_alignEnd="@+id/carModelEdit"
+        android:layout_alignTop="@+id/carModelEdit"
+        android:src="@drawable/cutebluecar"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/colorIcon"
+        android:layout_alignEnd="@+id/carColorEdit"
+        android:layout_alignTop="@+id/carColorEdit"
+        android:src="@drawable/carcolor"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/yearIcon"
+        android:visibility="gone"
+        android:layout_alignEnd="@+id/carYearEdit"
+        android:layout_alignTop="@+id/carYearEdit"
+        android:src="@drawable/caryear"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/numPlateIcon"
+        android:layout_alignEnd="@+id/carPlateNEdit"
+        android:layout_alignTop="@+id/carPlateNEdit"
+        android:src="@drawable/carplatenumber"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        tools:ignore="ContentDescription" />
+
+    <EditText
+        android:id="@+id/carModelEdit"
+        android:hint="@string/act_addCar_model"
+        android:textColorHint="#BDBDBD"
+        android:textSize="17sp"
+        android:background="@drawable/selective_bg_stroked_thin"
+        android:layout_below="@+id/carBrandEdit"
+        android:layout_marginTop="16dp"
+        android:inputType="textCapWords"
+        android:padding="10dp"
+        android:maxLength="12"
+        android:imeOptions="actionNext"
+        android:layout_centerHorizontal="true"
+        android:ems="16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp" />
+
+    <EditText
+        android:id="@+id/carColorEdit"
+        android:hint="@string/act_addCar_color"
+        android:textColorHint="#BDBDBD"
+        android:textSize="17sp"
+        android:background="@drawable/selective_bg_stroked_thin"
+        android:layout_below="@+id/carModelEdit"
+        android:layout_marginTop="16dp"
+        android:inputType="textCapWords"
+        android:padding="10dp"
+        android:maxLength="12"
+        android:imeOptions="actionNext"
+        android:layout_centerHorizontal="true"
+        android:ems="16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp" />
+
+    <EditText
+        android:id="@+id/carYearEdit"
+        android:visibility="gone"
+        android:hint="@string/act_addCar_year"
+        android:textSize="17sp"
+        android:background="@drawable/selective_bg_stroked_thin"
+        android:layout_below="@+id/carColorEdit"
+        android:layout_marginTop="16dp"
+        android:inputType="number"
+        android:padding="10dp"
+        android:maxLength="4"
+        android:imeOptions="actionNext"
+        android:layout_centerHorizontal="true"
+        android:ems="16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp" />
+
+    <EditText
+        android:id="@+id/carPlateNEdit"
+        android:hint="@string/act_addCar_plateNum"
+        android:textColorHint="#BDBDBD"
+        android:textSize="17sp"
+        android:background="@drawable/selective_bg_stroked_thin"
+        android:layout_below="@+id/carYearEdit"
+        android:inputType="number"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
+        android:maxLength="7"
+        android:imeOptions="actionDone"
+        android:layout_centerHorizontal="true"
+        android:ems="16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp" />
+
+    <Button
+        android:id="@+id/finishAddCar"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/carPlateNEdit"
+        android:layout_marginTop="20dp"
+        android:onClick="finitoAddingCar"
+        android:background="@drawable/btn_shape"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="@string/act_addCar_add"
+        android:textColor="#ffffff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

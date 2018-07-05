@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.parse:parsefacebookutils-v4-android-1.10.4">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/parsefacebookutils-v4-android-1.10.4.aar/bbdeaee5f748acd8a9544556eec9b978/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/parsefacebookutils-v4-android-1.10.4.aar/bbdeaee5f748acd8a9544556eec9b978/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.parse/parsefacebookutils-v4-android/1.10.4/964f55554d35029e26491f157321f4e625bb3547/parsefacebookutils-v4-android-1.10.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

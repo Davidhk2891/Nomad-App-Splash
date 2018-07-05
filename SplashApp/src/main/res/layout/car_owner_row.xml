@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/rowThumbNail"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/theemptyface"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:contentDescription="@string/car_owner_row_profilePic" />
+
+    <TextView
+        android:id="@+id/rowDistance"
+        android:text="@string/car_owner_row_distance"
+        android:layout_toEndOf="@+id/rowThumbNail"
+        android:layout_marginStart="12dp"
+        android:textSize="14sp"
+        android:textColor="#4990E2"
+        android:layout_alignTop="@+id/rowThumbNail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/rowAvailableUntil"
+        android:text="@string/car_owner_row_availableUntil"
+        android:layout_below="@+id/rowDistance"
+        android:layout_alignStart="@+id/rowDistance"
+        android:layout_marginTop="4dp"
+        android:textColor="#4990E2"
+        android:layout_toEndOf="@+id/rowThumbNail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/rowPrice"
+        android:text="@string/car_owner_row_youGet"
+        android:layout_below="@+id/rowAvailableUntil"
+        android:layout_alignStart="@+id/rowAvailableUntil"
+        android:layout_marginTop="4dp"
+        android:textColor="#4990E2"
+        android:layout_toEndOf="@+id/rowThumbNail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/rowDistanceItem"
+        android:text="@string/car_owner_row_xxx"
+        android:layout_toEndOf="@+id/rowDistance"
+        android:layout_marginStart="6dp"
+        android:textSize="14sp"
+        android:textColor="#4990E2"
+        android:layout_alignTop="@+id/rowDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="RelativeOverlap" />
+
+    <TextView
+        android:id="@+id/rowAvailableUntilItem"
+        android:text="@string/car_owner_row_xxx"
+        android:layout_toEndOf="@+id/rowAvailableUntil"
+        android:layout_marginStart="6dp"
+        android:textSize="14sp"
+        android:textColor="#4990E2"
+        android:layout_alignTop="@+id/rowAvailableUntil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/rowPriceItem"
+        android:text="@string/car_owner_row_xxx"
+        android:layout_toEndOf="@+id/rowPrice"
+        android:layout_marginStart="6dp"
+        android:textSize="14sp"
+        android:textColor="#ffffff"
+        android:padding="5dp"
+        android:layout_marginBottom="11dp"
+        android:background="@color/green_500"
+        android:layout_alignTop="@+id/rowPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/badgeInRequestList"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/rowThumbNail"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:contentDescription="@string/car_owner_row_badge" />
+
+    <ImageView
+        android:id="@+id/bikeService"
+        android:layout_toEndOf="@+id/rowDistanceItem"
+        android:src="@drawable/motorbikealone"
+        android:visibility="gone"
+        android:layout_marginStart="50dp"
+        android:layout_alignTop="@+id/rowDistanceItem"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/inListOfTomorrow"
+        android:layout_toEndOf="@+id/rowPriceItem"
+        android:layout_below="@+id/rowAvailableUntilItem"
+        android:layout_marginStart="4dp"
+        android:textSize="10sp"
+        android:textColor="#4990E2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="SmallSp" />
+
+</RelativeLayout>

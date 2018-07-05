@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00A2FF"
+    tools:context="com.nomadapp.splash.ui.activity.standard.SplashScreenActivity">
+
+    <ImageView
+        android:id="@+id/mainLogoFirstSplash"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/newsplashicon"
+        android:layout_centerVertical="true"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_centerHorizontal="true"
+        tools:ignore="ContentDescription" />
+
+</RelativeLayout>

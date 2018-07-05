@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.nomadapp.splash.ui.activity.carownerside.WashServiceShowActivity">
+
+    <TextView
+        android:id="@+id/washingStatusTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="@string/act_car_being_washed_washing"
+        android:textColor="#03a9f4"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/doneWashingStatusTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="@string/act_car_being_washed_allDone"
+        android:textColor="#03a9f4"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ProgressBar
+        android:id="@+id/barAnimationWashingCar"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_toEndOf="@+id/washingStatusTitle"
+        android:layout_alignBottom="@+id/washingStatusTitle"
+        android:layout_marginStart="5dp"
+        android:indeterminate="true" />
+
+    <TextView
+        android:id="@+id/washingStatusSubtitle"
+        android:layout_below="@+id/washingStatusTitle"
+        android:textColor="#03a9f4"
+        android:textAlignment="center"
+        android:text="@string/act_car_being_washed_strdTime"
+        android:textSize="12sp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!--Seekbar possibly here-->
+    <net.qiujuer.genius.ui.widget.SeekBar
+        android:id="@+id/updatedSeekBarTwo"
+        android:layout_marginTop="65dp"
+        android:layout_width="290dp"
+        android:padding="6dp"
+        android:background="@drawable/selective_bg_stroked"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        app:gMax="3"
+        app:gMin="0"
+        app:gValue="2"
+        app:gIndicator="none"
+        app:gTickSize="4dp"/>
+
+    <ScrollView
+        android:id="@+id/scrollViewGrandPa"
+        android:layout_below="@+id/updatedSeekBarTwo"
+        android:scrollbars="none"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/washingInboundPicsRelative2"
+            android:background="@drawable/selective_bg_filled_stroked"
+            android:layout_width="315dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/washingCarPicsBeforeTitle2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="@string/act_car_being_washed_picsCar"
+                android:textAlignment="center"
+                android:padding="2dp"
+                android:textColor="#03a9f4"
+                android:textSize="13sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <HorizontalScrollView
+                android:id="@+id/fetchedAllPicsHorizontalScroll2"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/washingCarPicsBeforeTitle2"
+                android:layout_marginTop="5dp"
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="400dp">
+
+                <LinearLayout
+                    android:id="@+id/fetchedPicsBfLinearLayout2"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/totalLinear1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/bfFinalFrontFetched"
+                            android:layout_width="@dimen/picHolderSquareDimen"
+                            android:layout_height="@dimen/picHolderSquareDimen"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/selective_bg_filled_stroked"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/frontcar"
+                            android:contentDescription="@string/act_car_being_washed_front" />
+
+                        <ImageView
+                            android:id="@+id/afFinalFrontFetched"
+                            android:layout_width="@dimen/picHolderSquareDimen"
+                            android:layout_height="@dimen/picHolderSquareDimen"
+                            android:adjustViewBounds="true"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/selective_bg_filled_stroked"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/frontcar"
+                            android:contentDescription="@string/act_car_being_washed_front" />
+
+                        <ImageView
+                            android:id="@+id/comparison1"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="6dp"
+                            android:src="@drawable/comparison"
+                            android:onClick="toDetail"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            tools:ignore="ContentDescription" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/totalLinear2"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginStart="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/bfFinalRearFetched"
+                            android:layout_width="@dimen/picHolderSquareDimen"
+                            android:layout_height="@dimen/picHolderSquareDimen"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/selective_bg_filled_stroked"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/frontcar"
+                            android:contentDescription="@string/act_car_being_washed_rear" />
+
+                        <ImageView
+                            android:id="@+id/afFinalRearFetched"
+                            android:layout_width="@dimen/picHolderSquareDimen"
+                            android:layout_height="@dimen/picHolderSquareDimen"
+                            android:adjustViewBounds="true"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/selective_bg_filled_stroked"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/frontcar"
+                            android:contentDescription="@string/act_car_being_washed_rear" />
+
+                        <ImageView
+                            android:id="@+id/comparison2"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/comparison"
+                            android:layout_marginBottom="6dp"
+                            android:onClick="toDetail"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            tools:ignore="ContentDescription" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/totalLinear3"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginStart="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/bfFinalLeftFetched"
+                            android:layout_width="@dimen/picHolderSquareDimen"
+                            android:layout_height="@dimen/picHolderSquareDimen"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/selective_bg_filled_stroked"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/frontcar"
+                            android:contentDescription="@string/act_car_being_washed_left" />
+
+                        <ImageView
+                            android:id="@+id/afFinalLeftFetched"
+                            android:layout_width="@dimen/picHolderSquareDimen"
+                            android:layout_height="@dimen/picHolderSquareDimen"
+                            android:adjustViewBounds="true"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/selective_bg_filled_stroked"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/frontcar"
+                            android:contentDescription="@string/act_car_being_washed_left" />
+
+                        <ImageView
+                            android:id="@+id/comparison3"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/comparison"
+                            android:layout_marginBottom="6dp"
+                            android:onClick="toDetail"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            tools:ignore="ContentDescription" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/totalLinear4"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginStart="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/bfFinalRightFetched"
+                            android:layout_width="@dimen/picHolderSquareDimen"
+                            android:layout_height="@dimen/picHolderSquareDimen"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/selective_bg_filled_stroked"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/frontcar"
+                            android:contentDescription="@string/act_car_being_washed_right" />
+
+                        <ImageView
+                            android:id="@+id/afFinalRightFetched"
+                            android:layout_width="@dimen/picHolderSquareDimen"
+                            android:layout_height="@dimen/picHolderSquareDimen"
+                            android:adjustViewBounds="true"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/selective_bg_filled_stroked"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/frontcar"
+                            android:contentDescription="@string/act_car_being_washed_right" />
+
+                        <ImageView
+                            android:id="@+id/comparison4"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/comparison"
+                            android:layout_marginBottom="6dp"
+                            android:onClick="toDetail"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            tools:ignore="ContentDescription" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <!--/////////// Rating and Tip ////////////-->
+            <TextView
+                android:id="@+id/rateThisSplasherTitle"
+                android:layout_below="@+id/fetchedAllPicsHorizontalScroll2"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/act_car_being_washed_rateSplasher"
+                android:textColor="#03a9f4"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                android:id="@+id/rateThisSplasherAction"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/rateThisSplasherTitle"
+                android:layout_marginTop="12dp"
+                style="@style/Widget.MaterialRatingBar.RatingBar" />
+
+            <TextView
+                android:id="@+id/tipThisSplasherTitle"
+                android:layout_below="@+id/rateThisSplasherAction"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/act_car_being_washed_tip"
+                android:textColor="#03a9f4"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tipMoneySymbol"
+                android:layout_below="@+id/rateThisSplasherAction"
+                android:layout_toEndOf="@+id/tipThisSplasherAction"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/shekel"
+                android:textColor="#03a9f4"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/tipThisSplasherAction"
+                android:background="@drawable/selective_bg_filled_stroked"
+                android:ems="2"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@+id/tipThisSplasherTitle"
+                android:layout_alignBaseline="@+id/tipThisSplasherTitle"
+                android:padding="3dp"
+                android:maxLines="1"
+                android:maxLength="2"
+                android:inputType="number"
+                android:imeOptions="actionDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="LabelFor" />
+
+            <Button
+                android:id="@+id/goToCheckout"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/btn_shape"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_below="@+id/tipThisSplasherTitle"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/act_car_being_washed_goCheckout"
+                android:padding="7sp"
+                android:textColor="#ffffff"
+                android:onClick="goToCheckout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/washingInboundPicsRelative"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/updatedSeekBarTwo"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/selective_bg_filled_stroked"
+        android:layout_width="315dp"
+        android:layout_height="315dp">
+
+        <TextView
+            android:id="@+id/washingCarPicsBeforeTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp"
+            android:text="@string/act_car_being_washed_beforeCarPics"
+            android:textAlignment="center"
+            android:padding="2dp"
+            android:textColor="#03a9f4"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <HorizontalScrollView
+            android:id="@+id/fetchedBfPicsHorizontalScroll"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/washingCarPicsBeforeTitle"
+            android:layout_marginTop="20dp"
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <LinearLayout
+                android:id="@+id/fetchedPicsBfLinearLayout"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/bfFrontFetched"
+                    android:layout_width="@dimen/picHolderSquareDimen"
+                    android:layout_height="@dimen/picHolderSquareDimen"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/selective_bg_filled_stroked"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/frontcar"
+                    android:contentDescription="@string/act_car_being_washed_front" />
+
+                <ImageView
+                    android:id="@+id/bfRearFetched"
+                    android:layout_width="@dimen/picHolderSquareDimen"
+                    android:layout_height="@dimen/picHolderSquareDimen"
+                    android:adjustViewBounds="true"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/selective_bg_filled_stroked"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/backcar"
+                    android:contentDescription="@string/act_car_being_washed_rear" />
+
+                <ImageView
+                    android:id="@+id/bfLeftFetched"
+                    android:layout_width="@dimen/picHolderSquareDimen"
+                    android:layout_height="@dimen/picHolderSquareDimen"
+                    android:adjustViewBounds="true"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/selective_bg_filled_stroked"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/leftcar"
+                    android:contentDescription="@string/act_car_being_washed_left" />
+
+                <ImageView
+                    android:id="@+id/bfRightFetched"
+                    android:layout_width="@dimen/picHolderSquareDimen"
+                    android:layout_height="@dimen/picHolderSquareDimen"
+                    android:adjustViewBounds="true"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/selective_bg_filled_stroked"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/rightcar"
+                    android:contentDescription="@string/act_car_being_washed_right" />
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <RelativeLayout
+            android:id="@+id/loadingBeforePicsRelative"
+            android:layout_below="@+id/washingCarPicsBeforeTitle"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/selective_bg_filled_stroked"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <ProgressBar
+                android:id="@+id/barAnimationBfPics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:indeterminate="true" />
+
+            <TextView
+                android:id="@+id/gettingTheBfPicsTitle"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/barAnimationBfPics"
+                android:layout_marginTop="7dp"
+                android:textAlignment="center"
+                android:padding="5dp"
+                android:text="@string/act_car_being_washed_waitingFoBefoPics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/gettingAllPicsWait"
+        android:orientation="vertical"
+        android:background="#33000000"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
+
+</RelativeLayout>

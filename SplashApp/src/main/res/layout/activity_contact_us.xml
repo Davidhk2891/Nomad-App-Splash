@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00A2FF"
+    tools:context=".ui.activity.standard.ContactUsActivity">
+
+    <TextView
+        android:id="@+id/userNameCon"
+        android:text="@string/act_main_username"
+        android:textSize="19sp"
+        android:textColor="#ffffff"
+        android:layout_marginTop="14dp"
+        android:layout_alignStart="@+id/contactUsUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/emailCon"
+        android:text="@string/act_main_email"
+        android:textSize="19sp"
+        android:textColor="#ffffff"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/contactUsUsername"
+        android:layout_alignStart="@+id/contactUsUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/messageCon"
+        android:text="@string/act_contactUs_howCanWe"
+        android:textSize="19sp"
+        android:textColor="#ffffff"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/contactUsEmail"
+        android:layout_alignStart="@+id/contactUsUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/messageConEdit"
+        android:gravity="start"
+        android:layout_marginTop="10dp"
+        android:imeOptions="actionDone"
+        android:maxLength="320"
+        android:padding="18dp"
+        android:background="@drawable/selective_bg_filled_stroked"
+        android:layout_centerHorizontal="true"
+        android:layout_width="300dp"
+        android:layout_height="170dp"
+        android:layout_alignStart="@+id/contactUsEmail"
+        android:layout_alignEnd="@+id/contactUsEmail"
+        android:layout_below="@+id/messageCon"
+        tools:ignore="LabelFor,TextFields" />
+
+    <RelativeLayout
+        android:id="@+id/photoUploadCULinear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/messageConEdit"
+        android:layout_alignStart="@+id/messageConEdit"
+        android:layout_alignEnd="@+id/messageConEdit"
+        android:layout_centerHorizontal="true"
+        android:onClick="photoUpload"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/selective_bg_filled_stroked"
+        android:orientation="horizontal"
+        android:padding="7dp">
+
+        <TextView
+            android:id="@+id/photoUploadCUTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:maxLength="14"
+            android:maxLines="1"
+            android:hint="@string/act_contactUs_uploadFileOptional"
+            tools:ignore="RelativeOverlap" />
+
+        <ImageView
+            android:id="@+id/photoUploadCUFileUpload"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="2dp"
+            android:onClick="photoUpload"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_file_upload_black_24dp"
+            tools:ignore="ContentDescription" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/contactUsEmail"
+        android:ems="19"
+        android:layout_below="@+id/emailCon"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/selective_bg_filled_stroked"
+        android:layout_marginStart="15dp"
+        android:textAllCaps="false"
+        android:maxLines="1"
+        android:padding="9dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:id="@+id/contactUsUsername"
+        android:ems="19"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/selective_bg_filled_stroked"
+        android:layout_marginStart="15dp"
+        android:layout_below="@+id/userNameCon"
+        android:textAllCaps="false"
+        android:maxLines="1"
+        android:padding="9dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="LabelFor" />
+
+    <Button
+        android:id="@+id/sendMessage"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/photoUploadCULinear"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/btn_shape_whitebg"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="@string/act_contactUs_send"
+        android:textColor="#00A2FF"
+        android:onClick="sendMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

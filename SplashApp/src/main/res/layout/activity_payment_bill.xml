@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/selective_bg_stroke_curved"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp"
+    tools:context=".ui.activity.carownerside.payment.PaymentBillActivity">
+
+    <TextView
+        android:id="@+id/billTitleTitle"
+        android:text="@string/payment_bill_bill"
+        android:textSize="32sp"
+        android:layout_centerHorizontal="true"
+        android:padding="4dp"
+        android:textColor="#03a9f4"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/billDescriptionTitle"
+        android:text="@string/payment_bill_description"
+        android:textSize="24sp"
+        android:padding="4dp"
+        android:textColor="#03a9f4"
+        android:layout_marginStart="14dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/billTitleTitle"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/billPriceTitle"
+        android:text="@string/payment_bill_price"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBaseline="@+id/billDescriptionTitle"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:padding="4dp"
+        android:textColor="#03a9f4"
+        android:layout_marginEnd="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/sepaInBill"
+        android:layout_width="350dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="2dp"
+        android:layout_below="@+id/billDescriptionTitle"
+        android:layout_marginTop="18dp"
+        android:background="@color/colorfirst"/>
+
+    <TextView
+        android:id="@+id/billCarWashItem"
+        android:layout_below="@+id/sepaInBill"
+        android:text="@string/payment_bill_carWash"
+        android:textSize="24sp"
+        android:padding="4dp"
+        android:textColor="#03a9f4"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/billSplashFeeItem"
+        android:layout_below="@+id/billCarWashItem"
+        android:text="@string/payment_bill_splasherFee"
+        android:textSize="24sp"
+        android:padding="4dp"
+        android:textColor="#03a9f4"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/billCCFeeItem"
+        android:layout_below="@+id/billSplashFeeItem"
+        android:text="@string/payment_bill_creditCardFee"
+        android:textSize="24sp"
+        android:padding="4dp"
+        android:textColor="#03a9f4"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/billTipItem"
+        android:layout_below="@+id/billCCFeeItem"
+        android:text="@string/payment_bill_tip"
+        android:textSize="24sp"
+        android:padding="4dp"
+        android:textColor="#03a9f4"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/sepa2InBill"
+        android:layout_width="350dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="2dp"
+        android:layout_below="@+id/billTipItem"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorfirst"/>
+
+    <TextView
+        android:id="@+id/billTotalItem"
+        android:layout_below="@+id/sepa2InBill"
+        android:text="@string/payment_bill_total"
+        android:textSize="24sp"
+        android:padding="4dp"
+        android:textColor="#03a9f4"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/billCarWashPrice"
+        android:layout_alignBaseline="@+id/billCarWashItem"
+        android:layout_alignStart="@+id/billPriceTitle"
+        android:textSize="18sp"
+        android:padding="4dp"
+        android:textColor="#03a9f4"
+        android:layout_marginStart="-18dp"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/billSplashFeePrice"
+        android:layout_alignBaseline="@+id/billSplashFeeItem"
+        android:layout_alignStart="@+id/billCarWashPrice"
+        android:textSize="18sp"
+        android:padding="4dp"
+        android:textColor="#03a9f4"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/billCCFeePrice"
+        android:layout_alignBaseline="@+id/billCCFeeItem"
+        android:layout_alignStart="@+id/billCarWashPrice"
+        android:textSize="18sp"
+        android:padding="4dp"
+        android:textColor="#03a9f4"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/billTipPrice"
+        android:layout_alignBaseline="@+id/billTipItem"
+        android:layout_alignStart="@+id/billCarWashPrice"
+        android:textSize="18sp"
+        android:padding="4dp"
+        android:textColor="#03a9f4"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/billTotalPrice"
+        android:layout_alignBaseline="@+id/billTotalItem"
+        android:layout_alignStart="@+id/billCarWashPrice"
+        android:textSize="22sp"
+        android:padding="4dp"
+        android:textColor="#03a9f4"
+        android:layout_marginStart="-14dp"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/billCheckout"
+        android:layout_centerHorizontal="true"
+        android:text="@string/payment_bill_pay"
+        android:background="@drawable/btn_shape"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="checkout"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/billTotalItem"
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

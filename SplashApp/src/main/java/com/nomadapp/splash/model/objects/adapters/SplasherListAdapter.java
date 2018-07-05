@@ -1,0 +1,143 @@
+package com.nomadapp.splash.model.objects.adapters;
+
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.nomadapp.splash.R;
+import com.nomadapp.splash.model.imagehandler.GlideImagePlacement;
+import com.nomadapp.splash.model.objects.MySplasher;
+import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+
+import java.util.ArrayList;
+
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
+
+/**
+ * Created by David on 6/5/2018 for Splash.
+ */
+public class SplasherListAdapter extends ArrayAdapter<MySplasher> {
+
+    private Context context;
+    private int layoutResource;
+    private MySplasher splasher;
+    private ArrayList<MySplasher> mData;
+
+    private ToastMessages toastMessages = new ToastMessages();
+
+    //Constructor
+    public SplasherListAdapter(Context ctx, int resource, ArrayList<MySplasher> data) {
+        super(ctx, resource, data);
+
+        this.context = ctx;
+        layoutResource = resource;
+        mData = data;
+
+        notifyDataSetChanged();
+
+    }
+
+    public MySplasher getSplasher() {
+        return splasher;
+    }
+
+    public void setSplasher(MySplasher splasher) {
+        this.splasher = splasher;
+    }
+
+    @Override
+    public int getCount() {
+        return mData.size();
+    }
+
+    @Nullable
+    @Override
+    public MySplasher getItem(int position) {
+        return mData.get(position);
+    }
+
+    @Override
+    public int getPosition(@Nullable MySplasher item) {
+        return super.getPosition(item);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
+    }
+
+    @NonNull
+    @Override
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+        View row = convertView;
+        ViewHolder holder;
+        GlideImagePlacement glideImagePlacement = new GlideImagePlacement(context);
+
+        if ((row == null) || (row.getTag() == null)){
+
+            LayoutInflater theInflator = LayoutInflater.from(context);
+
+            row = theInflator.inflate(layoutResource, null);
+
+            holder = new ViewHolder();
+
+            holder.mSplasherName = row.findViewById(R.id.rowSName);
+
+            holder.mSplasherPrice = row.findViewById(R.id.rowSPrice);
+
+            holder.mSplasherNumWashes = row.findViewById(R.id.rowSNumWashes);
+
+            holder.mSplasherRatingBar = row.findViewById(R.id.rowSRatingBar);
+            holder.mSplasherRatingBar.setEnabled(false);
+            holder.mSplasherRatingBar.setClickable(false);
+
+            holder.mProfPicUri = row.findViewById(R.id.splasherRowThumbNail);
+
+            row.setTag(holder);
+
+        }else{
+
+            holder = (ViewHolder) row.getTag();
+
+        }
+
+        holder.holderSplasher = getItem(position);
+
+        if (holder.holderSplasher != null){
+            holder.mSplasherName.setText(holder.holderSplasher.getSplasherUsername());
+            holder.mSplasherPrice.setText(holder.holderSplasher.getSplasherPrice());
+            holder.mSplasherNumWashes.setText(holder.holderSplasher.getSplasherNumOfWashes());
+            int fixedProgress = (holder.holderSplasher.getSplasherAvgRating()) * 2;
+            holder.mSplasherRatingBar.setProgress(fixedProgress);
+            glideImagePlacement.roundImagePlacementFromString(holder.holderSplasher
+                        .getSplasherProfPic(),holder.mProfPicUri);
+        }else{
+            toastMessages.productionMessage(context.getApplicationContext()
+                    ,"Some elements from the splasher list could not be retrieved." +
+                            " Check your internet connection and try again",1);
+        }
+
+        return row;
+    }
+
+    class ViewHolder{
+
+        MySplasher holderSplasher;
+
+        TextView mSplasherName;
+        TextView mSplasherPrice;
+        TextView mSplasherNumWashes;
+        MaterialRatingBar mSplasherRatingBar;
+        ImageView mProfPicUri;
+        //int mId;
+
+    }
+
+}

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.standard.AlertsActivity">
+
+    <TextView
+        android:id="@+id/alertsTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:text="@string/act_alerts_alerts"
+        android:textSize="24sp"
+        android:textColor="@color/colorfirst"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/sepaInAlerts"
+        android:layout_width="350dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="2dp"
+        android:layout_below="@+id/alertsTitle"
+        android:layout_marginTop="18dp"
+        android:background="@color/colorfirst"/>
+
+    <RelativeLayout
+        android:id="@+id/pushNotiRelative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sepaInAlerts"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:padding="5dp"
+        android:layout_marginTop="5dp">
+
+        <ImageView
+            android:id="@+id/alertIconAlert"
+            android:src="@drawable/ic_notifications_black_24dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/alertsTitleAlerts"
+            android:text="@string/act_alerts_requestStatus"
+            android:textColor="#2196F3"
+            android:layout_toEndOf="@+id/alertIconAlert"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="2dp"
+            android:layout_alignTop="@+id/alertIconAlert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="RelativeOverlap" />
+
+        <Switch
+            android:id="@+id/switchAlerts"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/sepaInAlerts2"
+        android:layout_width="350dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="2dp"
+        android:layout_below="@+id/pushNotiRelative"
+        android:layout_marginTop="8dp"
+        android:background="#BDBDBD"/>
+
+    <RelativeLayout
+        android:id="@+id/pushNotiRelative2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sepaInAlerts2"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:padding="5dp"
+        android:layout_marginTop="5dp">
+
+        <ImageView
+            android:id="@+id/alertIconAlert2"
+            android:src="@drawable/ic_notifications_black_24dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/alertsTitleAlerts2"
+            android:text="@string/act_alerts_reminders"
+            android:textColor="#2196F3"
+            android:layout_toEndOf="@+id/alertIconAlert2"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="2dp"
+            android:layout_alignTop="@+id/alertIconAlert2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="RelativeOverlap" />
+
+        <Switch
+            android:id="@+id/switchAlerts2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2015-present, Parse, LLC.
+  ~ All rights reserved.
+  ~
+  ~ This source code is licensed under the BSD-style license found in the
+  ~ LICENSE file in the root directory of this source tree. An additional grant
+  ~ of patent rights can be found in the PATENTS file in the same directory.
+  -->
+<resources>
+    <!--
+    *& = &amp;
+    *white spacing = &#160;
+    *... = &#8230;
+    */ = &#189;
+     -->
+
+    <string name="threeDots">&#8230;</string>
+    <string name="x">X</string>
+
+    <string name="please_wait">Please wait&#8230;</string>
+
+    <!--IGNORE-->
+    <string name="parse_app_id">YOUR_APPLICATION_ID</string>
+    <string name="parse_client_key">YOUR_CLIENT_KEY</string>
+
+    <!--IGNORE-->
+    <string name="app_name">Splash</string>
+
+    <!--IGNORE-->
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_rider">Splash</string>
+    <string name="title_activity_driver_location">Splash</string>
+    <string name="title_activity_car_owner">Splash</string>
+
+    <string name="splashPartnersProgramsTitle">Join our Splash Partners program.</string>
+    <string name="contactAgreement">By proceeding, I agree that Splash or its representatives may
+        contact me by email, phone, or SMS (including by automated means) at the email address
+        or number I provide, including for marketing purposes. I have read and understand
+        the Splasher Privacy Statement.</string>
+    <string name="title_activity_car_owner_location">Map</string>
+
+    <string name="equipment">    -100 ml Waterless Car-wash formula spray. \n-2 Microfiber towels (5 reuses).</string>
+    <string name="steps">    -Spray the formula and wipe before it gets dry. \n-Wipe in circles. \n-Work on small sections at a time.</string>
+    <string name="beforeWash">BEFORE wash: \nTake 4 pictures of the car</string>
+    <string name="afterWash">AFTER wash: \nTake 4 pictures of the car</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <!--Facebook App ID-->
+    <!--IGNORE-->
+    <string name="facebook_app_id">399400473846538</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb399400473846538</string>
+
+    <!--//////-Strings on Activities-///////-->
+
+    <!--Others-->
+    <string name="shekel">₪</string>
+    <!--//////-->
+
+    <!--activity_wash_requests-->
+    <string name="act_about_about">About</string>
+    <string name="act_about_contactUs">Contact Us</string>
+    <string name="act_about_privacyPolicy">Privacy Policy</string>
+    <string name="act_about_termsOfUse">Terms Of Use</string>
+    <!--///////////////////////////-->
+
+    <!--activity_add_addresses-->
+    <string name="act_addAddresses_myAddresses">Add custom address</string>
+    <string name="act_addAddresses_home">Home</string>
+    <string name="act_addAddresses_work">Work</string>
+    <string name="act_addAddresses_other">Other</string>
+    <string name="act_addAddresses_done">Done</string>
+    <!--//////////////////////-->
+
+    <!--activity_alerts-->
+    <string name="act_alerts_alerts">Alerts</string>
+    <string name="act_alerts_requestStatus">Request status</string>
+    <string name="act_alerts_reminders">Reminders (Coming soon)</string>
+    <!--///////////////-->
+
+    <!--activity_car_addition-->
+    <string name="act_addCar_addCar">Add Car</string>
+    <string name="act_addCar_brand">Brand</string>
+    <string name="act_addCar_model">Model</string>
+    <string name="act_addCar_color">Color:</string>
+    <string name="act_addCar_year">Year:</string>
+    <string name="act_addCar_plateNum">Plate #:</string>
+    <string name="act_addCar_add">add</string>
+    <!--////////////////-->
+
+    <!--activity_splasher_application-->
+    <string name="act_become_splash_signUp_first">First Name</string>
+    <string name="act_become_splash_signUp_last">Last Name</string>
+    <string name="act_become_splash_signUp_email">Email: name@example.com</string>
+    <string name="act_become_splash_signUp_phone">Phone</string>
+    <string name="act_become_splash_signUp_userName">Username</string>
+    <string name="act_become_splash_signUp_password">Password</string>
+    <string name="act_become_splash_signUp_repeatPass">Repeat Password</string>
+    <string name="act_become_splash_signUp_city">City</string>
+    <string name="act_become_splash_signUp_street">Street</string>
+    <string name="act_become_splash_signUp_streetNum">No.</string>
+    <string name="act_become_splash_signUp_signUp">Apply</string>
+    <string name="act_become_splash_signUp_login">Log In</string>
+    <string name="act_become_splash_signUp_orLogin">or SignUp</string>
+    <string name="act_become_splasher_signUp_countryID">Country ID (Teudad Zeut)</string>
+    <string name="act_become_splasher_signUp_countryIdIssued">Country ID issue date</string>
+    <string name="act_become_splasher_signUp_dateOfBirth">Date of birth</string>
+    <string name="act_become_splasher_signUp_genderMale">Male</string>
+    <string name="act_become_splasher_signUp_genderFemale">Female</string>
+    <string name="act_become_splasher_signUp_bankCode">Bank code</string>
+    <string name="act_become_splasher_signUp_bankBranch">Bank branch #</string>
+    <string name="act_become_splasher_signUp_bankAccNum">Bank Account number</string>
+    <string name="becomeSplasher_act_java_photoOfId">Photo of ID</string>
+    <string name="becomeSplasher_act_java_photoOfBankAcc">Photo of bank account proof</string>
+    <string name="becomeSplasher_act_java_photoOfincDoc">Photo of incorporation document</string>
+    <!--////////////////////////-->
+
+    <!-- activity_splasher_camera-->
+    <string name="act_camera_intent_frontNBack">Front And Back:</string>
+    <string name="act_camera_intent_frontSide">Front Side</string>
+    <string name="act_camera_intent_RearSide">Rear Side</string>
+    <string name="act_camera_intent_LeftSide">Left Side</string>
+    <string name="act_camera_intent_RightSide">Right Side</string>
+    <string name="act_camera_intent_leftNRight_sides">Left and Right side:</string>
+    <string name="act_camera_intent_send">send</string>
+    <string name="act_camera_intent_sendNFinish">send &amp; finish</string>
+    <string name="act_camera_intent_sendingPictures">Sending pictures</string>
+    <string name="act_camera_intent_underScore1">_</string>
+    <string name="act_camera_intent_letsWash">Let\'s Wash!</string>
+    <string name="act_camera_intent_dryMethod">Dry Method:</string>
+    <string name="act_camera_intent_equipment">Equipment:</string>
+    <string name="act_camera_intent_steps">Steps:</string>
+    <string name="act_camera_intent_done">done!</string>
+    <!--///////////////////////-->
+
+    <!--activity_wash_service_show-->
+    <string name="act_car_being_washed_washing">Washing</string>
+    <string name="act_car_being_washed_allDone">All done. Your car is washed!</string>
+    <string name="act_car_being_washed_strdTime">(Standard car wash time may take up to 30 min. Sit tight)</string>
+    <string name="act_car_being_washed_picsCar">Pictures of your car before and after the wash</string>
+    <string name="act_car_being_washed_front">front</string>
+    <string name="act_car_being_washed_rear">rear</string>
+    <string name="act_car_being_washed_left">left</string>
+    <string name="act_car_being_washed_right">right</string>
+    <string name="act_car_being_washed_rateSplasher">Rate this Splasher</string>
+    <string name="act_car_being_washed_tip">Tip</string>
+    <string name="act_car_being_washed_goCheckout">Go to checkout</string>
+    <string name="act_car_being_washed_beforeCarPics">Pictures of your car before the wash</string>
+    <string name="act_car_being_washed_waitingFoBefoPics">Waiting for the pictures of your car\'s current state</string>
+    <!--/////////////////////////-->
+
+    <!--activity_home-->
+    <string name="act_car_owner_washMyCar">Wash my car</string>
+    <string name="act_car_owner_cancelWash">Cancel wash</string>
+    <string name="act_car_owner_letWashCar">Let\'s wash a car</string>
+    <string name="act_car_owner_splasherStatus">Splasher status</string>
+    <string name="act_car_owner_carOwnerDets">Car-Owner Details</string>
+    <string name="act_car_owner_profPicWindow">Profile pic</string>
+    <string name="act_car_owner_responsibility">Responsibility: 0</string>
+    <string name="act_car_owner_generosity">Generosity: 0</string>
+    <string name="act_car_owner_accuracy">Accuracy: 0</string>
+    <string name="act_car_owner_fairness">Fairness: 0</string>
+    <string name="act_car_owner_distanceTitle">- Distance:</string>
+    <string name="act_car_owner_distanceValue">XXXm</string>
+    <string name="act_car_owner_availableTitle">- Available Until:</string>
+    <string name="act_car_owner_availableValue">00:00</string>
+    <string name="act_car_owner_youGetTitle">- You Get:</string>
+    <string name="act_car_owner_youGetValue">$XXX</string>
+    <string name="act_car_owner_cancel">Cancel</string>
+    <string name="act_car_owner_go">Go</string>
+    <string name="act_car_owner_version">V.1.0.1</string>
+    <string name="act_car_owner_levelWanted">Splasher Level Wanted</string>
+    <string name="act_car_owner_contentDesc">Splasher Badge</string>
+    <string name="act_car_owner_comingsoon">Coming soon</string>
+    <!--//////////////////-->
+
+    <!--activity_splasher_client_route-->
+    <string name="act_car_owner_location_profPicBadge">profPicBadge</string>
+    <string name="act_car_owner_location_clientTitle">Client: </string>
+    <string name="act_car_owner_location_username">Username</string>
+    <string name="act_car_owner_location_CarAddress">Car Address: </string>
+    <string name="act_car_owner_location_5lines">-----</string>
+    <string name="act_car_owner_location_carAddressDescTitle">Car Address Details: </string>
+    <string name="act_car_owner_location_carUntilTimeTitle">Until Time: </string>
+    <string name="act_car_owner_location_serviceTtypeTitle">Service Type: </string>
+    <string name="act_car_owner_location_car">Car: </string>
+    <string name="act_car_owner_location_color">Color: </string>
+    <string name="act_car_owner_location_plate">plate: </string>
+    <string name="act_car_owner_location_getDirections">get Directions ?</string>
+    <string name="act_car_owner_location_foundCarText1">XX Km</string>
+    <string name="act_car_owner_location_foundCarText2">  Found the car </string>
+    <string name="act_car_owner_location_vertSepa">&#160;&#160;|&#160;</string>
+    <string name="act_car_owner_location_gettingYourLocation">Getting your location&#8230;</string>
+    <string name="act_car_owner_location_acceptRequest">Accept Request</string>
+    <string name="act_car_owner_location_cancelRequest">Cancel Request</string>
+    <!--///////////////////////////-->
+
+    <!--activity_wash_requests-->
+    <string name="noRequests">You have no requests nearby :(</string>
+    <string name="act_car_owner_request_sendingPics">Sending Pictures: </string>
+    <string name="act_car_owner_request_Under">_</string>
+    <string name="act_car_owner_request_gettingNearRequests">Getting nearby requests&#8230;</string>
+    <!--///////////////////////////-->
+
+    <!--act_detailed_comparison-->
+    <string name="act_detailed_comparison_before">Before</string>
+    <string name="act_detailed_comparison_after">After</string>
+    <!--///////////////////////-->
+
+    <!--act_main-->
+    <string name="act_main_welcomeBack">WELCOME BACK!</string>
+    <string name="act_main_enterYourAccountInfo">Enter your account info</string>
+    <string name="act_main_email">Email</string>
+    <string name="act_main_username">Username</string>
+    <string name="act_main_password">Password</string>
+    <string name="act_main_repeatPassword">Repeat Password</string>
+    <string name="act_main_login">LogIn</string>
+    <string name="act_main_or">or</string>
+    <string name="act_main_loginWithFacebook">Login with Facebook</string>
+    <string name="act_main_becomeASplasher">Become a \n splasher</string>
+    <string name="act_main_forgotPassword">Forgot \nPassword</string>
+    <string name="act_main_signUp">SignUp</string>
+    <string name="act_main_passwordRecovery">Password Recovery</string>
+    <string name="act_main_cancel">Cancel</string>
+    <string name="act_main_send">send</string>
+    <string name="act_main_passMustContain">Your password must contain at least 8 characters, 1 Capital letter and 1 digit</string>
+    <string name="act_main_iAgreeWith">I agree to the</string>
+    <string name="act_main_termsOfUse">&#160;<u>Terms of Use</u></string>
+    <!--////////-->
+
+    <!--act_web-->
+    <string name="act_feedback_loading">Loading&#8230;</string>
+    <!--////////////-->
+
+    <!--act_payment_settings-->
+    <string name="act_payment_settings_PaymentDetails">Payment Details</string>
+    <string name="act_payment_settings_addCreditCard">Add credit card</string>
+    <string name="act_payment_settings_cardNumber">Card Number: </string>
+    <string name="act_payment_settings_expiryDate">Expiry Date: </string>
+    <string name="act_payment_settings_cvv">CVV: </string>
+    <string name="act_payment_settings_nameOnCard">Name on Card: </string>
+    <string name="act_payment_settings_phoneNumber">Phone Number: </string>
+    <string name="act_payment_settings_saveCcNumber">Save credit card details for future transactions.</string>
+    <string name="act_payment_settings_done">Done</string>
+    <string name="act_payment_settings_issuedInIsrael">Israeli credit card?</string>
+    <string name="act_payment_settings_yes">yes</string>
+    <string name="act_payment_settings_no">no</string>
+    <string name="act_payment_settings_idNumber">Identification number:</string>
+    <!--////////////////////-->
+
+    <!--act_wash_my_car-->
+    <string name="act_wash_my_car_today">Today</string>
+    <string name="act_wash_my_car_tomorrow">Tomorrow</string>
+    <string name="act_wash_my_car_cancel">Cancel</string>
+    <string name="act_wash_my_car_set">Set</string>
+    <string name="act_wash_my_car_next">Next</string>
+    <string name="act_wash_my_car_ofTomorrow">(of tomorrow)</string>
+    <!--/////-->
+    <string name="act_wash_my_car_carDetails">Car Details</string>
+    <string name="act_wash_my_car_enterAddress">Enter Address</string>
+    <string name="act_wash_my_car_inputLocationDetails">Location Details (Optional)</string>
+    <string name="act_wash_my_car_untilWhatTime">Until what time</string>
+    <string name="act_wash_my_car_chooseACar">Choose a car</string>
+    <string name="act_wash_my_car_couponCode">Coupon Code</string>
+    <!--/////-->
+    <string name="act_wash_my_car_plus">+</string>
+    <string name="act_wash_my_car_1of2">1 of 2</string>
+    <string name="act_wash_my_car_ratingAndPayment">Rating and Payment</string>
+    <!--ON DOLLAR SETTING: minimumPrice = $5 & maximumPrice = $25-->
+    <string name="act_wash_my_car_minimumPrice">₪10</string>
+    <string name="act_wash_my_car_maximumPrice">₪70</string>
+    <!--/////////////////////////////////////////////////////////-->
+    <string name="act_wash_my_car_fivePointZero">  5.0</string>
+    <string name="act_wash_my_car_dollar">$</string>
+    <string name="act_wash_my_car_paymentMethod">Payment Method</string>
+    <string name="act_wash_my_car_ccNotSaved">Credit card(Not saved)</string>
+    <string name="act_wash_my_car_pleaseChoosePaymentM">Please choose a payment method</string>
+    <string name="act_wash_my_car_order">Order</string>
+    <string name="act_wash_my_car_2of2">2 0f 2</string>
+    <string name="act_wash_my_car_services">Services</string>
+    <string name="act_wash_my_car_selectService">Select service:</string>
+    <string name="act_wash_my_car_selectPrice">Fixed price:</string>
+    <string name="act_wash_my_car_comingSoon">Coming soon</string>
+    <string name="act_wash_car_pressPlusToAdd">Press + to add a car</string>
+    <!--Select price-->
+    <!--Fixed price-->
+    <string name="act_wash_my_car_youWillBeCharged">*You will be charged upon reviewing and
+        tiping your washer   or 12 hours after the time limit you set</string>
+    <string name="act_wash_my_car_externalWash">External wash</string>
+    <string name="act_wash_my_car_extAndIntWash">External &amp; Internal</string>
+    <string name="act_wash_my_car_motorcycle">Motorcycle</string>
+    <string name="act_wash_my_car_selectSplasher">Select splasher:</string>
+    <string name="act_wash_my_car_autoSelect">Auto Select:</string>
+    <!--///////////////-->
+
+    <!--splasher_row-->
+    <string name="splasher_row_splasherName">Splasher name</string>
+    <string name="splasher_row_splasherPrice">xx</string>
+    <string name="spalsher_row_splasherPriceTitle">Price</string>
+    <string name="splasher_row_splasherWashes">(xx washes)</string>
+    <!--////////////-->
+
+    <!--car_owner_row-->
+    <string name="car_owner_row_profilePic">Profile Picture</string>
+    <string name="car_owner_row_distance">Distance:</string>
+    <string name="car_owner_row_availableUntil">Available until:</string>
+    <string name="car_owner_row_youGet">You get:</string>
+    <string name="car_owner_row_xxx">XXX</string>
+    <string name="car_owner_row_badge">badge</string>
+    <!--/////////////-->
+
+    <!--car_row-->
+    <string name="car_row_carBrand">Car Brand</string>
+    <string name="car_row_carModel">Car Model</string>
+    <string name="car_row_carYear">Car Year</string>
+    <string name="car_row_carColor">Car Color</string>
+    <string name="car_row_carPlateNum">Car Plate Num</string>
+    <!--///////-->
+
+    <!--header-->
+    <string name="header_profPic">Profile Pic</string>
+    <string name="header_username">Username</string>
+    <string name="header_email">Email</string>
+    <string name="header_usertype">UserType</string>
+    <string name="header_ratingBadge">ratingBadge</string>
+    <string name="header_hiPleaseLogIn">Hi. Please Log In</string>
+    <!--//////-->
+
+    <!--nav_menu-->
+    <string name="nav_menu_addAddress">Add Address</string>
+    <string name="nav_menu_alerts">Alerts</string>
+    <string name="nav_menu_feedback">Feedback</string>
+    <string name="nav_menu_payment">Payment</string>
+    <string name="nav_menu_about">About</string>
+    <string name="nav_menu_faq">FAQ</string>
+    <string name="nav_menu_logout">Logout</string>
+    <string name="nav_menu_login">Login</string>
+    <string name="nav_menu_quickTour">Quick tour</string>
+    <!--////////-->
+
+    <!--payment_menu-->
+    <string name="payment_menu_trash">Delete Details</string>
+    <string name="payment_menu_deleteCCDetails">Delete this credit card?</string>
+    <string name="payment_menu_youHaveNotSaved">You haven\'t saved any credit card</string>
+    <string name="payment_menu_editCreditCard">Edit credit card</string>
+    <string name="payment_menu_editCreditCardDets">Edit this credit card details?</string>
+    <!--////////////-->
+
+    <!--service_show_menu-->
+    <string name="serviceShow_menu_reportUser">report user</string>
+    <!--/////////////////-->
+
+    <!--payment_bill-->
+    <string name="payment_bill_bill">Invoice</string>
+    <string name="payment_bill_description">Description</string>
+    <string name="payment_bill_price">Price</string>
+    <string name="payment_bill_carWash">- Car wash:</string>
+    <string name="payment_bill_splasherFee">- Splash fee:</string>
+    <string name="payment_bill_creditCardFee">- Credit card fee:</string>
+    <string name="payment_bill_tip">- Tip:</string>
+    <string name="payment_bill_total">- Total:</string>
+    <string name="payment_bill_pay">Pay</string>
+    <string name="payment_bill_thankYouForChoosing">Thank you for choosing Splash</string>
+
+    <!--act_account-->
+    <string name="act_account_username">First name:</string>
+    <string name="act_account_lastName">Last name:</string>
+    <string name="act_account_email">Email:</string>
+    <string name="act_account_phone">Phone:</string>
+    <string name="act_account_takePhoto">Take photo</string>
+    <string name="act_account_fromGallery">Choose from gallery</string>
+    <string name="act_account_add">Add</string>
+    <string name="act_account_edit">edit</string>
+    <string name="act_account_editTitle">Edit account details</string>
+    <string name="act_account_editMessage">Edit your account details?</string>
+    <string name="act_account_editOk">OK</string>
+    <string name="act_account_editCancel">Cancel</string>
+    <string name="act_account_accInfoUpdated">Account details updated</string>
+    <string name="act_account_failedToUpdateInfo">Account details update failed. Please try again</string>
+    <!--///////////-->
+
+    <!--act_termOfUse-->
+    <string name="act_termsOfUse_loading">Loading&#8230;</string>
+    <!--////////////-->
+
+    <!--act_contact_us-->
+    <string name="act_contactUs_howCanWe">How can we help you?</string>
+    <string name="act_contactUs_send">send</string>
+    <string name="act_contactUs_messageNotSend">Message not send. Please try again</string>
+    <string name="act_contactUs_messageSend">Message send</string>
+    <string name="act_contactUs_pleaseWriteAMsg">Please write a message first</string>
+    <string name="act_contactUs_uploadFileOptional">Upload file (optional)</string>
+    <!--//////////////-->
+
+    <!--act_quick_tour-->
+    <string name="act_quick_tour_back">back</string>
+    <string name="act_quick_tour_next">next</string>
+    <string name="act_quick_tour_finish">finish</string>
+    <!--//////////////-->
+
+    <!--STRINGS ONLY ON JAVA FILES (.class)-->
+    <!--SignUpLogInActivity.java-->
+    <string name="main_act_java_emailSent">"An email was sent to you with instructions to reset your password"</string>
+    <string name="main_act_java_enterValidEmail">Please enter a valid email</string>
+    <string name="main_act_java_nameEmailRequired">Your Email and Password are required</string>
+    <string name="main_act_java_ok">OK</string>
+    <string name="main_act_java_pleaseLogThrough">Please LogIn through your respective user type account: Splasher</string>
+    <string name="main_act_java_wrongUserType">Wrong user type</string>
+    <string name="main_act_java_bothPassMustMatch">Both passwords must match. Try again</string>
+    <string name="main_act_java_userPassEmailReq">A username, password and email are required</string>
+    <string name="main_act_java_userType">Car Owner</string>
+    <string name="main_act_java_userPassReq">A username and a password are required</string>
+    <string name="main_act_java_login">LogIn</string>
+    <string name="main_act_java_signup">SignUp</string>
+    <string name="main_act_java_letsGetStarted">Let\'s get started</string>
+    <string name="main_act_java_welcome">WELCOME!</string>
+    <!--/////////////////-->
+
+    <!--HomeActivity.java-->
+    <string name="carOwner_act_java_ok">OK</string>
+    <string name="carOwner_act_java_no">No</string>
+    <string name="carOwner_act_java_yes">Yes</string>
+    <string name="carOwner_act_java_logoutAnyway">Logout anyway</string>
+    <string name="carOwner_act_java_youHaveSentACarWash">You have sent a car wash request - Login
+        out does not cancel this request. If you wish to cancel it, please do so before login out</string>
+    <string name="carOwner_act_java_carWashReqActive">Car wash request active</string>
+    <string name="carOwner_act_java_requestNotDeletedTry">Request not deleted. Try again</string>
+    <string name="carOwner_act_java_requestDeleted">Request deleted</string>
+    <string name="carOwner_act_java_cancel">Cancel</string>
+    <string name="carOwner_act_java_notLoggedIn">Not logged in</string>
+    <string name="carOwner_act_java_youHaveToSignOrLog">You have to SignUp/LogIn in order to access
+        your car owner's requests</string>
+    <string name="carOwner_act_java_yourRatingNotHigh">Your rating is not high enough to take this request</string>
+    <string name="carOwner_act_java_ofTomorrow">of tomorrow</string>
+    <string name="carOwner_act_java_yourCar">your car</string>
+    <string name="carOwner_act_java_yourBike">your bike</string>
+    <string name="carOwner_act_java_splasherCanceledYourRequest">Your splasher has canceled your request.
+        We will keep looking to find you another splasher</string>
+    <string name="carOwner_act_java_splasherCanceled">Splasher canceled</string>
+    <string name="carOwner_act_java_yourSplasher">Your splasher</string>
+    <string name="carOwner_act_java_is">is</string>
+    <string name="carOwner_act_java_kmAwayFromCar">km away from your car</string>
+    <string name="carOwner_act_java_hasArrived">has arrived to your car</string>
+    <string name="carOwner_act_java_view">view</string>
+    <string name="carOwner_act_java_youCarHasBeenWashed">Your car has been washed!</string>
+    <string name="carOwner_act_java_status">Status</string>
+    <string name="carOwner_act_java_yourRequestHasBeenTaken">Your request has been taken</string>
+    <string name="carOwner_act_java_noSplasherPickedUp">No splasher picked up your request. Please try
+        again later</string>
+    <string name="carOwner_act_java_yourTimesUp">Your time\'s up</string>
+    <string name="carOwner_act_java_profPicDidNotSend">Profile pic did not send. Please try again or
+        try a different picture</string>
+    <string name="carOwner_act_java_sizeTooBig">Size too big. Please choose another picture</string>
+    <string name="carOwner_act_java_profPicSent">Profile pic sent and saved</string>
+    <string name="carOwner_act_java_youNeedToLogInBfProfPic">You need to log in before changing
+        you account settings</string>
+    <string name="carOwner_act_java_youHaveToSignLogPayment">You have to Signup/Login in order to change
+        your payment settings</string>
+    <string name="carOwner_act_java_youHaveToSignLogFeedback">You have to Signup/Login in order to submit
+        feedback</string>
+    <string name="carOwner_act_java_youHaveToSignLogAlerts">You have to Signup/Login in  order to change
+        your alerts settings</string>
+    <string name="carOwner_act_java_youHaeToSignLogAddress">You have to Signup/Login in order to add
+        or change your addresses</string>
+    <string name="carOwner_act_java_aSplasherIsOnTheWay">A splasher is already on the way to your car.
+        Canceling now will affect your reputation directly. Proceed?</string>
+    <string name="carOwner_act_java_cancelRequest">Cancel Request?</string>
+    <string name="carOwner_act_java_areYouSureCancel">Are you sure you want to cancel your request?</string>
+    <string name="carOwner_act_java_youHaveToSignLogRequest">You have to Signup/Login in order to
+        request a car wash</string>
+    <string name="carOwner_act_java_splasher">Splasher</string>
+    <string name="carOwner_act_java_carOwner">Car Owner</string>
+    <string name="carOwner_act_java_serverSplasher">splasher</string>
+    <string name="carOwner_act_java_serverCarOwner">carOwner</string>
+    <string name="carOwner_act_java_pressAgain">Press again</string>
+    <string name="carOwner_act_java_internetAndGPSDont">Both your GPS and Internet services don\'t work</string>
+    <string name="carOwner_act_java_balance">₪ 00.00</string>
+    <string name="carOwner_act_java_pendingReqTitle">Pending request</string>
+    <string name="carOwner_act_java_pendingReqBody">You have a request that still needs to be paid and rated</string>
+    <string name="carOwner_act_java_go">go</string>
+    <string name="carOwner_Act_java_cancel">Cancel</string>
+    <!--/////////////////////-->
+
+    <!--WashRequestsActivity.java-->
+    <string name="carOWnerRequest_act_java_yourRatingIsntHigh">Your rating is not high enough to take this request</string>
+    <string name="carOWnerRequest_act_java_ofTomorrow">of tomorrow</string>
+    <!--/////////////////////////////-->
+
+    <!--CarAdditionActivity.java-->
+    <string name="AddCar_act_java_ok">OK</string>
+    <string name="AddCar_act_java_pleaseFillAllFields">Please fill all fields to save your car</string>
+    <string name="AddCar_act_java_missingFields">Missing fields</string>
+    <!--///////////////////-->
+
+    <!--becomeSplasherActivity.java-->
+    <string name="becomeSplasher_act_java_telAviv">Tel Aviv</string>
+    <string name="becomeSplasher_act_java_ramatGan">Ramat Gan</string>
+    <string name="becomeSplasher_act_java_herzliya">Herzliya</string>
+    <string name="becomeSplasher_act_java_ok">OK</string>
+    <string name="becomeSplasher_act_java_pleaseLoginThroughRespec">Please log in through your respective user type account: Car Owner</string>
+    <string name="becomeSplasher_act_java_wrongUserType">Wrong user type</string>
+    <string name="becomeSplasher_act_java_loginFailed">Login failed. Please try again</string>
+    <string name="becomeSplasher_act_java_userNameAndPass">A username and a password are required</string>
+    <string name="becomeSplasher_act_java_pleaseEnterValidEmail">Please enter a valid email</string>
+    <string name="becomeSplasher_act_java_bothPasswords">Both password must match. Please try again</string>
+    <string name="becomeSplasher_act_java_pleaseFillAll">Please fill all of the fields to sign up</string>
+    <string name="becomeSplasher_act_java_login">LogIn</string>
+    <string name="becomeSplasher_act_java_signup">SignUp</string>
+    <string name="becomeSplasher_act_java_welcomeBack">Welcome back</string>
+    <!--///////////////////////////-->
+
+    <!--cameraIntentActivity.java-->
+    <string name="cameraIntent_act_java_cancel">Cancel</string>
+    <string name="cameraIntent_act_java_imDone">I\'m done</string>
+    <string name="cameraIntent_act_java_byPressingImDone">By pressing \'I\'m done\', you agree that you have fully washed this car
+        and may accept any rating score given back by this car owner. If you are not sure, press cancel.</string>
+    <string name="cameraIntent_act_java_areYouDoneWashing">Are you done washing?</string>
+    <string name="cameraIntent_act_java_take4Pics">Take 4 pictures of the car before proceeding</string>
+    <string name="cameraIntent_act_java_pic1Sent">Picture 1 sent</string>
+    <string name="cameraIntent_act_java_pic2Sent">Picture 2 sent</string>
+    <string name="cameraIntent_act_java_pic3Sent">Picture 3 sent</string>
+    <string name="cameraIntent_act_java_pic4sent">Picture 4 sent</string>
+    <string name="cameraIntent_act_java_permissionToWrite">Permission to write to external storage has not been granted, cannot save pictures taken.</string>
+    <string name="cameraIntent_act_java_permissionGranted">Permission granted. Please press again</string>
+    <string name="cameraIntent_act_java_externalStoragePermissionReq">External storage permission required to save images in Splash</string>
+    <string name="cameraIntent_act_java_takePicRight">Take a picture of the car right\'s side</string>
+    <string name="cameraIntent_act_java_takePicLeft">Take a picture of the car left\'s side</string>
+    <string name="cameraIntent_act_java_takePicRear">Take a picture of the car rear\'s side</string>
+    <string name="cameraIntent_act_java_takePicFront">Take a picture of the car front\'s side</string>
+    <!--/////////////////////////-->
+
+    <!--WashServiceShowActivity.java-->
+    <string name="carBeingWashed_act_java_pleaseRateSplasher">Please rate the splasher. Minimum 1 star.</string>
+    <string name="carBeingWashed_act_java_slowConnectionPlease">Slow connection. Please try again.</string>
+    <string name="carBeingWashed_act_java_checkedOut">Checked out</string>
+    <string name="carBeingWashed_act_java_view">View</string>
+    <string name="carBeingWashed_act_java_youCarHasBeenWashed">Your car has been washed!</string>
+    <string name="carBeingWashed_act_java_status">Status</string>
+    <string name="carBeingWashed_act_java_retrying">Retrying</string>
+    <string name="carBeingWashed_act_java_picDisplayFailed">Picture display Failed. Slow internet connection.
+        Loading raw file</string>
+    <!--///////////////////////////-->
+
+    <!--SplasherClientRouteActivity.java-->
+    <string name="carOwnerLocation_act_java_no">No</string>
+    <string name="carOwnerLocation_act_java_yes">Yes</string>
+    <string name="carOwnerLocation_act_java_areYouSure">Are you sure?</string>
+    <string name="carOwnerLocation_act_java_connected">Connected</string>
+    <string name="carOwnerLocation_act_java_youAreAgreeingToWash">You are agreeing to take this request and wash this car. Canceling
+        requests amid process will affect your rating directly. Continue?</string>
+    <string name="carOwnerLocation_act_java_acceptingRequests">Accepting requests</string>
+    <string name="carOwnerLocation_act_java_ok">OK</string>
+    <string name="carOwnerLocation_act_java_connectionLostMakeSure">Connection lost. Make sure you are connected
+        to your carrier or a wifi without restrictions.</string>
+    <string name="carOwnerLocation_act_java_connectionLost">Connection lost</string>
+    <string name="carOwnerLocation_act_java_thisCarWashRequestWasCanceled">This car wash request was canceled by its user or it is already taken.
+        The Splash team encourages you to keep looking for another car wash request</string>
+    <string name="carOwnerLocation_act_java_carOwnerCanceled">Car owner canceled</string>
+    <string name="carOwnerLocation_act_java_youAreWithinA100">You are within 100 meters of the car. Open the details window to see
+        the car details.</string>
+    <string name="carOwnerLocation_act_java_yourClient">Your client</string>
+    <string name="carOwnerLocation_act_java_cancelingRequestsWill">Canceling requests will affect your splasher rating directly. Continue?</string>
+    <string name="carOwnerLocation_act_java_youHaveAnActiveRequest">You have an active request. If you leave, the request will be canceled and affect
+        your rating directly. Continue?</string>
+    <string name="carOwnerLocation_act_java_youNeedToBe100m">You need to be at least 100 meters from the car</string>
+    <!--/////////////////////////////-->
+
+    <!--WashReqParamsActivity.java-->
+    <string name="washMyCar_act_java_cancel">Cancel</string>
+    <string name="washMyCar_act_java_chooseACar">Choose a car</string>
+    <string name="washMyCar_act_java_deleteCar">Delete car?</string>
+    <string name="washMyCar_act_java_yes">Yes</string>
+    <string name="washMyCar_act_java_washRequestSent">Wash request sent successfully</string>
+    <string name="washMyCar_act_java_ok">OK</string>
+    <string name="washMyCar_act_java_StandardWash">Standard wash</string>
+    <string name="washMyCar_act_java_StandardWashPlus">Standard wash + wax</string>
+    <string name="washMyCar_act_java_motorcycle">Motorcycle</string>
+    <string name="washMyCar_act_java_minimumDuration">Minimum duration of a car wash request must be at least 3 hours</string>
+    <string name="washMyCar_act_java_yourWashTimeLimit">Your wash time limit is set before your local time.
+        Please change it</string>
+    <string name="washMyCar_act_java_yourWashLimitShort">Your wash time limit is too short. Please change it</string>
+    <string name="washMyCar_act_java_pleaseFillAll">Please fill all of the fields before proceeding</string>
+    <string name="washMyCar_act_java_selectTime">Select time</string>
+    <string name="washMyCar_act_java_inputLocationDetails">Input location details</string>
+    <string name="washMyCar_act_java_inputLocation">Input location</string>
+    <string name="washMyCar_act_java_missingFields">Missing Fields</string>
+    <string name="washMyCar_act_java_washTimeLimit">Wash time limit</string>
+    <!--//////////////////////-->
+
+    <!--PaymentSettingsActivity.java-->
+    <string name="paymentSettings_act_java_thereWasAProblem">There was a problem getting your e-mail. Please try again.</string>
+    <string name="paymentSettings_act_java_missingFields">Missing Fields</string>
+    <string name="paymentSettings_act_java_pleaseFillAll">Please fill all of the fields before proceeding</string>
+    <string name="paymentSettings_act_java_wrongEmail">Wrong Email</string>
+    <string name="paymentSettings_act_java_emailIsIncorrect">Your Email is incorrect</string>
+    <string name="paymentSettings_act_java_cantTakeScreen">Can\'t take screenshot due to security policy</string>
+    <string name="paymentSettings_act_java_protectedPayment">Protected payment by credit card. Easy, efficient and safe.</string>
+    <string name="paymentSettings_act_java_byClickingDone">By pressing \"done\" I agree to receive electronic receipts via email and certify that have read the payment system\'s Terms of Use</string>
+    <string name="paymentSettings_act_java_termsOfUse">&#160;<u>Terms of Use</u></string>
+    <!--////////////////////////////-->
+
+    <!--ConnectionLost.java-->
+    <string name="connectionLost_java_connectionLost">Connection lost</string>
+    <string name="connectionLost_java_checkYourInternet">Check your internet connection and try again</string>
+    <!--///////////////////-->
+
+    <!--AddressAdditionActivity.java-->
+    <string name="addAddress_act_java_tryAgain">Try again</string>
+    <!--///////////////////////-->
+
+    <!--AboutActivity.java-->
+    <string name="about_act_java_comingSoon">Coming Soon</string>
+    <!--//////////////////-->
+
+    <!--BoxedLoadingDialog-->
+    <string name="boxedLoadingDialog_act_java_pleasewait">Please wait&#8230;</string>
+    <string name="boxedLoadingDialog_act_java_errTitle">Connection error</string>
+    <string name="boxedLoadingDialog_act_java_errMessage">The server is taking longer than expected to respond. Check your internet connection and try again.</string>
+    <string name="boxedLoadingDialog_act_java_errOk">OK</string>
+    <!--//////////////////-->
+
+    <!--LogoutMessage.java-->
+    <string name="logout_message_Logout">Logout</string>
+    <string name="logout_message_areYouSureLogout">Are you sure you want to Logout?</string>
+    <string name="logout_message_yes">yes</string>
+    <string name="logout_message_no">no</string>
+    <!--//////////////////-->
+
+    <!--Forced_alert_dialog.java-->
+    <string name="forced_alert_dialog_title">Pending request</string>
+    <string name="forced_alert_dialog_msg">You have an unfinished request</string>
+    <string name="forced_alert_dialog_go">Go</string>
+    <string name="forced_alert_missing_tou_title">Terms of Use</string>
+    <string name="forced_alert_missing_tou_msg">You must agree to the Terms of Use</string>
+    <string name="forced_Alert_missing_tou_ok">OK</string>
+    <string name="forced_Alert_somethingWrong_title">Something went wrong</string>
+    <string name="forced_Alert_somethingWrong_msg">Something went wrong while loggin you in. we
+     are loggin you out. Please try again</string>
+    <string name="forced_Alert_somethingWrong_ok">OK</string>
+    <string name="forced_Alert_somethingWrongFb_title">Facebook login failed</string>
+    <string name="forced_Alert_somethingWrongFb_msg">Couldn\'t login with facebook. Please try again</string>
+    <string name="forced_Alert_somethingWrongFb_ok">OK</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--////////////////////////-->
+    <!--////////////////////////////////////-->
+</resources>

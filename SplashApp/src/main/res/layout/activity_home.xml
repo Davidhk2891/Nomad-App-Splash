@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home"
+    tools:context="com.nomadapp.splash.ui.activity.standard.HomeActivity">
+
+    <fragment
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.nomadapp.splash.ui.activity.standard.HomeActivity" />
+
+    <RelativeLayout
+        android:id="@+id/gettinLocaionRelativeHome"
+        android:orientation="vertical"
+        android:background="#33000000"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/gettingLocTitleHome"
+            android:text="@string/act_car_owner_location_gettingYourLocation"
+            android:textColor="#ffffff"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/secondRel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#3388C0FD"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <!--Splasher's e-wallet UI-->
+        <RelativeLayout
+            android:id="@+id/splashWalletRelative"
+            android:layout_toEndOf="@+id/drawerCheese"
+            android:layout_marginStart="20dp"
+            android:layout_alignBaseline="@+id/drawerCheese"
+            android:layout_marginTop="10dp"
+            android:padding="8dp"
+            android:background="@drawable/transparent_black_curved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/splashWalletImg"
+                android:src="@drawable/ic_account_balance_wallet_black_24dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/splashWalletTextView"
+                android:layout_toEndOf="@+id/splashWalletImg"
+                android:layout_marginStart="10dp"
+                android:textColor="#ffffff"
+                android:text="@string/carOwner_act_java_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+        <!--//////////////////////-->
+
+        <ImageView
+            android:id="@+id/drawerCheese"
+            android:src="@drawable/hammenu"
+            android:background="@drawable/bg_blue"
+            android:padding="5dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="13dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            tools:ignore="ContentDescription" />
+
+        <RelativeLayout
+            android:id="@+id/splasherStatusDetails"
+            android:background="@drawable/bg_blue_whiteborder_curved_stroke"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            android:onClick="requestRequestSplasherStats"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="96dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp">
+
+            <TextView
+                android:id="@+id/showAndHideDots"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="-20dp"
+                android:textColor="#ffffff"
+                android:text="@string/threeDots"
+                android:textSize="45sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/showAndHideX"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:textColor="#ffffff"
+                android:text="@string/x"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </RelativeLayout>
+        <!--ADD BUTTON RIPPLE EFFECT IN ALL THE BUTTONS-->
+        <Button
+            android:id="@+id/findMeAWash"
+            android:background="@drawable/btn_shape"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_centerHorizontal="true"
+            android:text="@string/act_car_owner_washMyCar"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:layout_marginBottom="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="320dp"
+            android:layout_height="70dp" />
+
+        <Button
+            android:id="@+id/cancelMyWash"
+            android:background="@drawable/btn_shape"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_centerHorizontal="true"
+            android:text="@string/act_car_owner_cancelWash"
+            android:visibility="gone"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:layout_marginBottom="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="320dp"
+            android:layout_height="70dp" />
+
+        <Button
+            android:id="@+id/letsWashACar"
+            android:background="@drawable/btn_shape"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_centerHorizontal="true"
+            android:text="@string/act_car_owner_letWashCar"
+            android:visibility="gone"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:onClick="letsWashACar"
+            android:layout_marginBottom="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="320dp"
+            android:layout_height="70dp" />
+
+<!--
+        <View
+            android:id="@+id/sepa"
+            android:layout_width="300dp"
+            android:layout_centerHorizontal="true"
+            android:layout_height="2dp"
+            android:layout_below="@+id/requestListTitle"
+            android:layout_marginTop="15dp"
+            android:background="#c0c0c0"/>
+
+        -->
+        <!--Dont forget to set this RelativeLayout back to visible-->
+        <!--////Car Owner Related pop up view////-->
+        <RelativeLayout
+            android:id="@+id/splasherUpdatedStatusRelative"
+            android:background="@drawable/bg_blueborder_stroke_andcolor_curved"
+            android:layout_width="320dp"
+            android:layout_height="268dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
+
+            <net.qiujuer.genius.ui.widget.SeekBar
+                android:id="@+id/updatedSeekBarOne"
+                android:layout_marginTop="25dp"
+                android:layout_width="290dp"
+                android:padding="6dp"
+                android:background="@drawable/selective_bg_stroked"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                app:gMax="3"
+                app:gMin="0"
+                app:gValue="0"
+                app:gIndicator="none"
+                app:gTickSize="4dp"/>
+
+            <ImageView
+                android:id="@+id/splasherPicInStatusWindow"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/updatedSeekBarOne"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/theemptyface"
+                android:contentDescription="@string/act_car_owner_profPicWindow" />
+
+            <TextView
+                android:id="@+id/splasherStatus"
+                android:text="@string/act_car_owner_splasherStatus"
+                android:textAlignment="center"
+                android:layout_below="@+id/splasherPicInStatusWindow"
+                android:padding="12dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+        <!--////////////////////////////////////////-->
+
+        <!--Do not forget to set this RelativeLayout back visible-->
+        <!--////Splasher Related pop up view////-->
+        <RelativeLayout
+            android:id="@+id/carOwnerPrevDetailsRelative"
+            android:background="@drawable/bg_blueborder_stroke_andcolor_curved"
+            android:layout_width="320dp"
+            android:layout_height="350dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
+
+            <LinearLayout
+                android:id="@+id/prevDetTitleLinear"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/cuteLittleCarBlue"
+                    android:src="@drawable/cutebluecar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/prevDetailsTitle"
+                    android:textSize="20sp"
+                    android:layout_marginStart="18dp"
+                    android:text="@string/act_car_owner_carOwnerDets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/sepaCarOwnerDetails"
+                android:layout_width="300dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/prevDetTitleLinear"
+                android:layout_height="2dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:background="#29b6f6"/>
+
+            <!--Subject to Change-->
+            <LinearLayout
+                android:id="@+id/detsPicsAndStatsLinearHor"
+                android:layout_below="@+id/sepaCarOwnerDetails"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/carOwnerDetsProfilePic"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/theemptyface"
+                    android:contentDescription="@string/act_car_owner_profPicWindow" />
+
+                <LinearLayout
+                    android:id="@+id/statsLinearVertical"
+                    android:layout_marginStart="15dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/responsaTitle"
+                        android:text="@string/act_car_owner_responsibility"
+                        android:textAlignment="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/generoTitle"
+                        android:text="@string/act_car_owner_generosity"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/accuracyTitle"
+                        android:text="@string/act_car_owner_accuracy"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/fairnessTitle"
+                        android:text="@string/act_car_owner_fairness"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/splashWantedLinear"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="@string/act_car_owner_levelWanted"/>
+
+                    <ImageView
+                        android:id="@+id/infoWindowSplashBadge"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:contentDescription="@string/act_car_owner_contentDesc" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <!--/////////////////-->
+
+            <TextView
+                android:id="@+id/distanceDetsTitle"
+                android:layout_below="@+id/detsPicsAndStatsLinearHor"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/act_car_owner_distanceTitle"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/distanceDetsValue"
+                android:layout_below="@+id/detsPicsAndStatsLinearHor"
+                android:layout_toEndOf="@+id/distanceDetsTitle"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/act_car_owner_distanceValue"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/availableUntilDetsTitle"
+                android:layout_below="@+id/distanceDetsTitle"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/act_car_owner_availableTitle"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/availableUntilDetsValue"
+                android:layout_below="@+id/distanceDetsTitle"
+                android:layout_toEndOf="@+id/availableUntilDetsTitle"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/act_car_owner_availableValue"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tomorrowText"
+                android:layout_below="@+id/distanceDetsTitle"
+                android:layout_toEndOf="@+id/availableUntilDetsValue"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="17dp"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/youGetDetsTitle"
+                android:layout_below="@+id/availableUntilDetsTitle"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/act_car_owner_youGetTitle"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/youGetDetsValue"
+                android:layout_below="@+id/availableUntilDetsTitle"
+                android:layout_toEndOf="@+id/youGetDetsTitle"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/act_car_owner_youGetValue"
+                android:textColor="#ffffff"
+                android:padding="7dp"
+                android:background="@color/green_500"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/goAndCancelLinear"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="5dp"
+                android:layout_below="@+id/youGetDetsTitle"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/cancelCODets"
+                    android:onClick="cancelCODets"
+                    android:background="@drawable/btn_shape"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="@string/act_car_owner_cancel"
+                    android:textColor="#ffffff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:ignore="ButtonStyle" />
+
+                <Button
+                    android:id="@+id/goCODets"
+                    android:onClick="goCODets"
+                    android:background="@drawable/btn_shape"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:layout_marginStart="35dp"
+                    android:text="@string/act_car_owner_go"
+                    android:textColor="#ffffff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:ignore="ButtonStyle" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+        <!--/////////////////////////////////////-->
+
+        <com.nomadapp.splash.utils.radar.RadarView
+            android:id="@+id/radarView"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:layout_width="260dp"
+            android:layout_height="260dp" />
+
+        <ImageView
+            android:id="@+id/markerView"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/bigcarpinforrequest"
+            android:layout_alignTop="@id/radarView"
+            android:visibility="gone"
+            android:layout_marginTop="30dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/markerView2"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/bigbikepinforrequest"
+            android:layout_alignTop="@id/radarView"
+            android:visibility="gone"
+            android:layout_marginTop="30dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            tools:ignore="ContentDescription" />
+
+    </RelativeLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navView"
+        app:headerLayout="@layout/header"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:itemTextColor="@color/ColorPrimaryDark"
+        app:itemIconTint="@color/ColorPrimaryDark"
+        app:menu="@menu/nav_menu"
+        android:layout_gravity="start"
+        android:theme="@style/NavigationViewStyle"
+        android:clickable="true"
+        android:focusable="true">
+
+    </android.support.design.widget.NavigationView>
+
+</android.support.v4.widget.DrawerLayout>

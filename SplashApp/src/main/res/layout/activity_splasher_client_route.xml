@@ -1,0 +1,437 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/home"
+    tools:context="com.nomadapp.splash.ui.activity.splasherside.SplasherClientRouteActivity" >
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.parse.starter.com.kid.starter.CarOwnerLocationActivity" />
+
+    <RelativeLayout
+        android:id="@+id/secondRel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#3388C0FD"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:id="@+id/userBadge2"
+            android:background="@drawable/user_badge_layout"
+            android:layout_width="170dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+
+            <ImageView
+                android:id="@+id/userBadgePic2"
+                android:layout_centerVertical="true"
+                android:src="@drawable/theemptyface"
+                android:layout_marginStart="6dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@string/act_car_owner_location_profPicBadge" />
+
+            <TextView
+                android:id="@+id/userBadgeName2"
+                android:layout_alignTop="@+id/userBadgePic2"
+                android:layout_toEndOf="@+id/userBadgePic2"
+                android:layout_marginStart="11dp"
+                android:text=""
+                android:textColor="#ffffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/userBadgeUserType2"
+                android:layout_alignStart="@+id/userBadgeName2"
+                android:layout_below="@+id/userBadgeName2"
+                android:layout_marginTop="5dp"
+                android:text=""
+                android:textColor="#ffffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/requestDetails"
+            android:background="@drawable/request_details_layout"
+            android:layout_alignParentEnd="true"
+            android:onClick="requestRequestDetails"
+            android:layout_above="@+id/getdirectionsLayout"
+            android:layout_marginTop="20dp"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:src="@drawable/newarrow"
+                android:padding="7dp"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/requestDetailsInFull"
+            android:background="@drawable/bg_blueborder_stroke_andcolor_curved"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/userBadge2"
+            android:layout_marginTop="16dp"
+            android:layout_width="320dp"
+            android:layout_height="268dp"
+            android:layout_alignEnd="@+id/acceptRequest">
+
+            <ScrollView
+                android:id="@+id/requestDetailsScrollView"
+                android:layout_width="match_parent"
+                android:padding="12dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/coUsernameTitle"
+                        android:text="@string/act_car_owner_location_clientTitle"
+                        android:layout_alignStart="@+id/coUsername"
+                        android:textSize="17sp"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/coUsername"
+                        android:text="@string/act_car_owner_location_username"
+                        android:textSize="17sp"
+                        android:textColor="#2196F3"
+                        android:layout_marginTop="6dp"
+                        android:layout_below="@+id/coUsernameTitle"
+                        android:layout_marginStart="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/coCarAddressTitle"
+                        android:text="@string/act_car_owner_location_CarAddress"
+                        android:layout_below="@+id/coUsername"
+                        android:layout_alignStart="@+id/coUsername"
+                        android:textSize="17sp"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/coCarAddressEdit"
+                        android:text="@string/act_car_owner_location_5lines"
+                        android:textSize="17sp"
+                        android:layout_width="280dp"
+                        android:textColor="#2196F3"
+                        android:layout_below="@+id/coCarAddressTitle"
+                        android:layout_marginTop="6dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/coUsername" />
+
+                    <TextView
+                        android:id="@+id/coCarAddressDescTitle"
+                        android:text="@string/act_car_owner_location_carAddressDescTitle"
+                        android:layout_below="@+id/coCarAddressEdit"
+                        android:layout_alignStart="@+id/coUsername"
+                        android:textSize="17sp"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/coCarAddressDescEdit"
+                        android:text="@string/act_car_owner_location_5lines"
+                        android:textSize="17sp"
+                        android:layout_width="280dp"
+                        android:textColor="#2196F3"
+                        android:layout_below="@+id/coCarAddressDescTitle"
+                        android:layout_marginTop="6dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/coUsername" />
+
+                    <TextView
+                        android:id="@+id/coCarUntilTimeTitle"
+                        android:text="@string/act_car_owner_location_carUntilTimeTitle"
+                        android:layout_below="@+id/coCarAddressDescEdit"
+                        android:layout_alignStart="@+id/coUsername"
+                        android:textSize="17sp"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/coCarUntilTimeEdit"
+                        android:text="@string/act_car_owner_location_5lines"
+                        android:layout_toEndOf="@+id/coCarUntilTimeTitle"
+                        android:layout_alignBaseline="@+id/coCarUntilTimeTitle"
+                        android:textSize="17sp"
+                        android:textColor="#2196F3"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/coCarServiceTypeTitle"
+                        android:text="@string/act_car_owner_location_serviceTtypeTitle"
+                        android:layout_below="@+id/coCarUntilTimeTitle"
+                        android:layout_alignStart="@+id/coUsername"
+                        android:textSize="17sp"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/coCarServiceTypeEdit"
+                        android:text="@string/act_car_owner_location_5lines"
+                        android:layout_toEndOf="@+id/coCarServiceTypeTitle"
+                        android:layout_alignBaseline="@+id/coCarServiceTypeTitle"
+                        android:textSize="17sp"
+                        android:textColor="#2196F3"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <View
+                        android:id="@+id/sepaCarDetails"
+                        android:layout_width="300dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_height="2dp"
+                        android:layout_below="@+id/coCarServiceTypeTitle"
+                        android:layout_marginTop="15dp"
+                        android:background="#c0c0c0"/>
+                <!--/////////////////////////////////////////////////////////////////////-->
+
+                    <TextView
+                        android:id="@+id/carTitle"
+                        android:text="@string/act_car_owner_location_car"
+                        android:layout_below="@+id/sepaCarDetails"
+                        android:layout_alignStart="@+id/coUsername"
+                        android:textSize="24sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/coCarBrand"
+                        android:text="@string/act_car_owner_location_5lines"
+                        android:layout_below="@+id/carTitle"
+                        android:layout_alignStart="@+id/coUsername"
+                        android:textSize="17sp"
+                        android:textColor="#2196F3"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/coCarModel"
+                        android:text="@string/act_car_owner_location_5lines"
+                        android:layout_below="@+id/carTitle"
+                        android:layout_toEndOf="@+id/coCarBrand"
+                        android:layout_marginStart="14dp"
+                        android:textSize="17sp"
+                        android:textColor="#2196F3"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/coCarYear"
+                        android:text="@string/act_car_owner_location_5lines"
+                        android:layout_below="@+id/carTitle"
+                        android:layout_toEndOf="@+id/coCarModel"
+                        android:layout_marginStart="14dp"
+                        android:textSize="17sp"
+                        android:textColor="#2196F3"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/coCarColorTitle"
+                        android:text="@string/act_car_owner_location_color"
+                        android:layout_below="@+id/coCarBrand"
+                        android:layout_alignStart="@+id/coUsername"
+                        android:textSize="17sp"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/coCarColorEdit"
+                        android:text="@string/act_car_owner_location_5lines"
+                        android:layout_below="@+id/coCarBrand"
+                        android:layout_toEndOf="@+id/coCarColorTitle"
+                        android:textSize="17sp"
+                        android:textColor="#2196F3"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/coCarPlateTitle"
+                        android:text="@string/act_car_owner_location_plate"
+                        android:layout_below="@+id/coCarColorTitle"
+                        android:layout_alignStart="@+id/coUsername"
+                        android:textSize="17sp"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/coCarPlateEdit"
+                        android:text="@string/act_car_owner_location_5lines"
+                        android:layout_below="@+id/coCarColorTitle"
+                        android:layout_toEndOf="@+id/coCarPlateTitle"
+                        android:textSize="17sp"
+                        android:textColor="#2196F3"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+            </ScrollView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/getdirectionsLayout"
+            android:background="@drawable/getdirections_layout"
+            android:layout_alignParentEnd="true"
+            android:onClick="getDirections"
+            android:layout_alignBottom="@+id/foundTheCar"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            tools:ignore="RelativeOverlap">
+
+            <TextView
+                android:id="@+id/getDirections"
+                android:text="@string/act_car_owner_location_getDirections"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+        <!-- not attaching above "Accept Request" button. fix -->
+        <RelativeLayout
+            android:id="@+id/foundTheCar"
+            android:background="@drawable/user_badge_layout"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="90dp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp">
+
+            <LinearLayout
+                android:id="@+id/foundTheCarUI"
+                android:layout_width="wrap_content"
+                android:padding="5dp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true">
+
+                <TextView
+                    android:id="@+id/foundTheCarText"
+                    android:text="@string/act_car_owner_location_foundCarText1"
+                    android:textColor="#ffffff"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/vertSeparator"
+                    android:text="@string/act_car_owner_location_vertSepa"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/foundItText"
+                    android:text="@string/act_car_owner_location_foundCarText2"
+                    android:textSize="15sp"
+                    android:textColor="#616161"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/gettinLocaionLinear"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="#90000000"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/gettinLocProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/gettingLocTitle"
+                android:text="@string/act_car_owner_location_gettingYourLocation"
+                android:textColor="#ffffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/acceptRequest"
+            android:background="@drawable/btn_shape"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/act_car_owner_location_acceptRequest"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:layout_marginBottom="15dp"
+            android:stateListAnimator="@null"
+            android:layout_width="320dp"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            tools:ignore="UnusedAttribute" />
+
+        <Button
+            android:id="@+id/cancelRequest"
+            android:background="@drawable/btn_shape"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_centerHorizontal="true"
+            android:text="@string/act_car_owner_location_cancelRequest"
+            android:visibility="gone"
+            android:onClick="cancelRequest"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:layout_marginBottom="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="320dp"
+            android:layout_height="70dp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

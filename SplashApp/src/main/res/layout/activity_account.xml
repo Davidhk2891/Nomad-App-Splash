@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.standard.AccountActivity">
+
+    <RelativeLayout
+        android:id="@+id/picAndOptionsRelative"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:padding="8dp"
+        android:background="@drawable/bg_blueborder_stroke_andcolor_curved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/accountPicHolder"
+            android:layout_centerVertical="true"
+            android:src="@drawable/theemptyface"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            tools:ignore="ContentDescription" />
+
+        <Button
+            android:id="@+id/takePhoto"
+            android:layout_width="210dp"
+            android:layout_toEndOf="@+id/accountPicHolder"
+            android:text="@string/act_account_takePhoto"
+            android:onClick="accTakePhoto"
+            android:layout_marginStart="10dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/chooseFromGallery"
+            android:layout_width="210dp"
+            android:layout_toEndOf="@+id/accountPicHolder"
+            android:text="@string/act_account_fromGallery"
+            android:onClick="accChooseFromGallery"
+            android:layout_below="@+id/takePhoto"
+            android:layout_marginStart="10dp"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/namePhoneEmailRelative"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:padding="8dp"
+        android:layout_below="@+id/picAndOptionsRelative"
+        android:background="@drawable/bg_blueborder_stroke_andcolor_curved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/usernameText"
+            android:text="@string/act_account_username"
+            android:textSize="22sp"
+            android:layout_alignBaseline="@+id/usernameEdit"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/lastNameText"
+            android:text="@string/act_account_lastName"
+            android:textSize="22sp"
+            android:layout_below="@+id/usernameText"
+            android:layout_alignBaseline="@+id/lastNameEdit"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/emailText"
+            android:text="@string/act_account_email"
+            android:textSize="22sp"
+            android:padding="4dp"
+            android:layout_below="@id/lastNameText"
+            android:layout_alignBaseline="@+id/emailEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/phoneText"
+            android:text="@string/act_account_phone"
+            android:textSize="22sp"
+            android:padding="4dp"
+            android:layout_alignBaseline="@+id/phoneEdit"
+            android:layout_below="@id/emailText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/usernameEdit"
+            android:layout_toEndOf="@id/usernameText"
+            android:layout_marginStart="4dp"
+            android:layout_alignParentEnd="true"
+            android:inputType="textPersonName"
+            android:layout_below="@+id/emailEdit"
+            android:imeOptions="actionNext"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:hint="@string/act_account_add"
+            android:layout_marginEnd="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="LabelFor" />
+
+        <EditText
+            android:id="@+id/lastNameEdit"
+            android:layout_toEndOf="@id/usernameText"
+            android:layout_marginStart="4dp"
+            android:layout_alignParentEnd="true"
+            android:inputType="textPersonName"
+            android:layout_below="@+id/usernameEdit"
+            android:imeOptions="actionNext"
+            android:hint="@string/act_account_add"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:layout_marginEnd="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="LabelFor" />
+
+        <EditText
+            android:id="@+id/emailEdit"
+            android:layout_toEndOf="@id/usernameText"
+            android:layout_marginStart="4dp"
+            android:layout_alignParentEnd="true"
+            android:inputType="textEmailAddress"
+            android:imeOptions="actionNext"
+            android:maxLength="22"
+            android:maxLines="1"
+            android:layout_marginEnd="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="LabelFor" />
+
+        <EditText
+            android:id="@+id/phoneEdit"
+            android:layout_toEndOf="@id/usernameText"
+            android:layout_marginStart="4dp"
+            android:layout_alignParentEnd="true"
+            android:inputType="phone"
+            android:layout_below="@+id/lastNameEdit"
+            android:imeOptions="actionDone"
+            android:hint="@string/act_account_add"
+            android:maxLength="15"
+            android:maxLines="1"
+            android:layout_marginEnd="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="LabelFor" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

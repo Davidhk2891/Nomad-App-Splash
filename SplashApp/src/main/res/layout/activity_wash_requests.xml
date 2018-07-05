@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.nomadapp.splash.ui.activity.splasherside.WashRequestsActivity">
+
+    <ListView
+        android:id="@+id/carRequestsList"
+        android:padding="6dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true">
+
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/picturesAfterSentStatus"
+        android:orientation="horizontal"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
+        android:padding="3dp"
+        android:background="@drawable/selective_bg_filled_stroked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="RelativeOverlap">
+
+        <TextView
+            android:id="@+id/sendingPicsText"
+            android:text="@string/act_camera_intent_sendingPictures"
+            android:layout_marginTop="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/animationsRelative"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/picSendingAfterAnim1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:text="@string/act_car_owner_request_Under"
+                android:textSize="17sp"/>
+
+            <ImageView
+                android:id="@+id/picSentAfter1"
+                android:src="@drawable/checkmark"
+                android:visibility="invisible"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/picSendingAfterAnim2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toEndOf="@+id/picSendingAfterAnim1"
+                android:text="@string/act_car_owner_request_Under"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/picSentAfter2"
+                android:layout_toEndOf="@+id/picSentAfter1"
+                android:src="@drawable/checkmark"
+                android:visibility="invisible"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/picSendingAfterAnim3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toEndOf="@+id/picSendingAfterAnim2"
+                android:text="@string/act_car_owner_request_Under"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/picSentAfter3"
+                android:src="@drawable/checkmark"
+                android:layout_toEndOf="@+id/picSentAfter2"
+                android:visibility="invisible"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/picSendingAfterAnim4"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toEndOf="@+id/picSendingAfterAnim3"
+                android:text="@string/act_car_owner_request_Under"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/picSentAfter4"
+                android:layout_toEndOf="@+id/picSentAfter3"
+                android:src="@drawable/checkmark"
+                android:visibility="invisible"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                tools:ignore="ContentDescription" />
+
+            <ProgressBar
+                android:id="@+id/animationSendingAfter"
+                android:layout_toEndOf="@+id/picSendingAfterAnim4"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/loadingPanel"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:layout_marginTop="1dp"
+        android:gravity="center" >
+
+        <ProgressBar
+            android:id="@+id/barAnimation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:indeterminate="true" />
+
+        <TextView
+            android:id="@+id/noNearbyRequests"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/barAnimation"
+            android:layout_marginTop="28dp"
+            android:text="@string/act_car_owner_request_gettingNearRequests"
+            android:textSize="22sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/emptyList"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textAlignment="center"
+        android:text="@string/noRequests"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

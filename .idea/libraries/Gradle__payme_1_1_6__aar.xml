@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: payme-1.1.6:@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/payme-1.1.6.aar/26379c05f4e78c1ff5c19e10744771f0/jars/libs/moshi-1.1.0.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/payme-1.1.6.aar/26379c05f4e78c1ff5c19e10744771f0/jars/libs/okio-1.8.0.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/payme-1.1.6.aar/26379c05f4e78c1ff5c19e10744771f0/jars/libs/okhttp-3.2.0.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/payme-1.1.6.aar/26379c05f4e78c1ff5c19e10744771f0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/payme-1.1.6.aar/26379c05f4e78c1ff5c19e10744771f0/jars/libs/logging-interceptor-3.2.0.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/payme-1.1.6.aar/26379c05f4e78c1ff5c19e10744771f0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
