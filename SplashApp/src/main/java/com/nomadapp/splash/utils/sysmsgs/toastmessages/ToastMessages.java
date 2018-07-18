@@ -19,7 +19,7 @@ public class ToastMessages {
            Theoretically, if i comment out the below "Toast", it should disable all debug messages
            across the app.
          */
-        //Toast.makeText(context.getApplicationContext(), message, ml).show();
+        Toast.makeText(context.getApplicationContext(), message, ml).show();
         Log.i("Message",message);
     }
     public void productionMessage(Context context, String message, int ml){

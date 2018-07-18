@@ -147,21 +147,21 @@ public final class R {
         public static final int always = 0x7f090041;
         public static final int auto = 0x7f090047;
         public static final int bottom = 0x7f090073;
-        public static final int circle = 0x7f0900a1;
-        public static final int click = 0x7f0900a3;
-        public static final int ease = 0x7f0900f1;
-        public static final int left = 0x7f090158;
-        public static final int line = 0x7f09015d;
-        public static final int longClick = 0x7f090166;
-        public static final int none = 0x7f09019d;
+        public static final int circle = 0x7f0900a2;
+        public static final int click = 0x7f0900a4;
+        public static final int ease = 0x7f0900f2;
+        public static final int left = 0x7f09015a;
+        public static final int line = 0x7f09015f;
+        public static final int longClick = 0x7f090168;
+        public static final int none = 0x7f09019f;
         public static final int press = 0x7f0901e4;
-        public static final int right = 0x7f090205;
-        public static final int ripple = 0x7f090208;
-        public static final int slide = 0x7f09024d;
-        public static final int top = 0x7f0902b3;
+        public static final int right = 0x7f090206;
+        public static final int ripple = 0x7f090209;
+        public static final int slide = 0x7f090259;
+        public static final int top = 0x7f0902bf;
     }
     public static final class string {
-        public static final int g_font_file = 0x7f1001b1;
+        public static final int g_font_file = 0x7f1001be;
     }
     public static final class style {
         public static final int Genius_Widget_BalloonMarker = 0x7f1100a9;

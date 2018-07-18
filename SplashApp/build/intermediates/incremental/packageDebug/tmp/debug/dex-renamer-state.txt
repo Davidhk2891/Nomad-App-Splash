@@ -1,7 +1,13 @@
-#Thu Jul 05 15:42:48 IDT 2018
-base.0=C\:\\Splash\\SplashApp\\build\\intermediates\\transforms\\dexMerger\\debug\\34
-path.1=classes2.dex
-renamed.1=classes2.dex
+#Mon Jul 16 12:16:04 IDT 2018
+path.3=classes.dex
+path.2=classes.dex
+path.1=classes.dex
 path.0=classes.dex
+renamed.3=classes4.dex
+renamed.2=classes3.dex
+renamed.1=classes2.dex
 renamed.0=classes.dex
-base.1=C\:\\Splash\\SplashApp\\build\\intermediates\\transforms\\dexMerger\\debug\\34
+base.3=C\:\\Splash\\SplashApp\\build\\intermediates\\transforms\\dexMerger\\debug\\150
+base.2=C\:\\Splash\\SplashApp\\build\\intermediates\\transforms\\dexMerger\\debug\\148
+base.1=C\:\\Splash\\SplashApp\\build\\intermediates\\transforms\\dexMerger\\debug\\151
+base.0=C\:\\Splash\\SplashApp\\build\\intermediates\\transforms\\dexMerger\\debug\\149

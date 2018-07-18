@@ -13,6 +13,7 @@ public class MyRequest {
     public String price;
     public String tomorrow;
     public String bikeService;
+    public String requestType;
     public Uri profPicFbUri;
     public Uri profPicUri;
     public int numBadge;
@@ -80,6 +81,14 @@ public class MyRequest {
 
     public void setBikeService(String bikeService) {
         this.bikeService = bikeService;
+    }
+
+    public String getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(String requestType) {
+        this.requestType = requestType;
     }
 
     public int getItemId() {

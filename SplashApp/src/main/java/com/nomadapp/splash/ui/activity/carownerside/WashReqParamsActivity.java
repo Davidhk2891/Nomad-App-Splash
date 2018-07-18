@@ -25,7 +25,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -50,6 +49,8 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
 import com.nomadapp.splash.model.constants.PaymeConstants;
+import com.nomadapp.splash.model.server.parseserver.queries.MetricsClassQuery;
+import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.ui.activity.carownerside.payment.PaymentSettingsActivity;
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
@@ -108,34 +109,33 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     private boolean carChecked = false;
     private boolean timeChecked = false;
     private Button cSaveRequest;
-    private TextView cRequestSteps;
 
     //primitive variables
-    private String address;
-    private LatLng carCoordinates;
-    private String carAddressDescription;
-    private String selectedTime;
-    private String getServiceType;
-    private String carBrandToUpload;
-    private String carModelToUpload;
-    private String carColorToUpload;
-    private String carPlateToUpload;
-    private String profPicNoFbString;
+    private static String address;
+    private static LatLng carCoordinates;
+    private static String carAddressDescription;
+    private static String selectedTime;
+    private static String getServiceType;
+    private static String carBrandToUpload;
+    private static String carModelToUpload;
+    private static String carColorToUpload;
+    private static String carPlateToUpload;
+    private static String profilePicToUpload;
+    private static String profPicNoFbString;
     private String stringPriceSet;
-    private String dollarSetPrice;
-    private String fullDate;
+    private static String dollarSetPrice;
+    private static String fullDate;
 
     //Rating and pricing
     private RelativeLayout cRatingAndPricingRelative;
     private ImageView cTheRating;
     private SeekBar cThePrice;
     private TextView cSplasherPriceSet;
-    private TextView cPayMethodTextView;
     private double readyPrice;
     private double dpValue;
-    private int numericalBadge;
+    private static int numericalBadge;
     private TextView mSplasherPriceSetComingSoon;
-    private boolean temporalKeyActive = false;
+    private static boolean temporalKeyActive = false;
     private WriteReadDataInFile writeReadDataInFile =
             new WriteReadDataInFile(WashReqParamsActivity.this);
     private Button cFinallyOrder;
@@ -150,6 +150,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     private boolean carCoordinatesIn = false;
     private boolean untilTimeWithinRules = true;
     private boolean timePickerMoved = false;
+    private boolean internalWashedPicked = false;
 
     //others
     private RelativeLayout cFirstRelative;
@@ -157,7 +158,55 @@ public class WashReqParamsActivity extends AppCompatActivity implements
 
     private ToastMessages toastMessages = new ToastMessages();
     private ConnectionLost clm = new ConnectionLost(WashReqParamsActivity.this);
-    private BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog(WashReqParamsActivity.this);
+    private BoxedLoadingDialog boxedLoadingDialog =
+            new BoxedLoadingDialog(WashReqParamsActivity.this);
+    private MetricsClassQuery metricsClassQuery =
+            new MetricsClassQuery(WashReqParamsActivity.this);
+
+    //Getters//
+    //TRY THIS METHOD
+    public String getAddress() {
+        return address;
+    }
+    public String getCarAddressDescription() {
+        return carAddressDescription;
+    }
+    //coordinates here in double//
+    public LatLng getCarCoordinates(){
+        return carCoordinates;
+    }
+    public String getSelectedTime() {
+        return selectedTime;
+    }
+    public String getFullDate() {
+        return fullDate;
+    }
+    public String getGetServiceType() {
+        return getServiceType;
+    }
+    public String getCarBrandToUpload() {
+        return carBrandToUpload;
+    }
+    public String getCarModelToUpload() {
+        return carModelToUpload;
+    }
+    public String getCarColorToUpload() {
+        return carColorToUpload;
+    }
+    public String getCarPlateToUpload() {
+        return carPlateToUpload;
+    }
+    public String getDollarSetPrice(){
+        //TEMPORARY//
+        return String.valueOf(PaymeConstants.STATIC_TEMPORAL_PRICE);
+    }
+    public int getNumericalBadge(){
+        return numericalBadge;
+    }
+    public boolean isTemporalKeyActive() {
+        return temporalKeyActive;
+    }
+    //-------//
 
     @Override
     public void onContentChanged() {
@@ -236,7 +285,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         cSaveRequest = findViewById(R.id.saveCarOwner);
         cFirstRelative = findViewById(R.id.firstRelative);
         cElPropioRelative = findViewById(R.id.elPropioRelative);
-        cRequestSteps = findViewById(R.id.requestSteps);
 
         //car Owner car address Details hide keyboard onPress outside
         cFirstRelative.setOnClickListener(new View.OnClickListener(){
@@ -255,12 +303,10 @@ public class WashReqParamsActivity extends AppCompatActivity implements
             @Override public void onClick(View v){
                 hideKeyboardTwo();clockState(View.GONE, View.VISIBLE, true);}});
 
-        //com.kid.splash.utils.rating and pricing 2
         cRatingAndPricingRelative = findViewById(R.id.ratingAndPriceRelative);
         cTheRating = findViewById(R.id.theRating);
         cThePrice = findViewById(R.id.thePrice);
         cSplasherPriceSet = findViewById(R.id.splasherPriceSet);
-        cPayMethodTextView = findViewById(R.id.payMethodTextView);
         mSplasherPriceSetComingSoon = findViewById(R.id.splasherPriceSetComingSoon);
         cFinallyOrder = findViewById(R.id.finallyOrder);
         cRatingAndPricingRelative.setVisibility(View.GONE);
@@ -428,9 +474,10 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                             cRatingAndPricingRelative.animate().translationXBy(-1000f)
                                     .setDuration(500);
                             cSaveRequest.setVisibility(View.GONE);
-                            new CountDownTimer(800, 800) {
+                            new CountDownTimer(600, 600) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {
+                                    cFinallyOrder.setVisibility(View.VISIBLE);
                                 }
 
                                 @Override
@@ -448,12 +495,18 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                                     // .rating and payment. and set up the controller for it
                                 }
                             }.start();
+                            Log.i("p1",address + " & " + getAddress());
+                            Log.i("p2",carAddressDescription);
+                            Log.i("p3",fullDate);
+                            Log.i("p4",selectedTime);
                         }
                     }
                 }catch(NullPointerException n1){
                     n1.printStackTrace();
-                    warningDialog(getResources().getString(R.string.washMyCar_act_java_missingFields)
-                            , getResources().getString(R.string.washMyCar_act_java_pleaseFillAll));
+                    warningDialog(getResources().getString
+                                    (R.string.washMyCar_act_java_missingFields)
+                            , getResources()
+                                    .getString(R.string.washMyCar_act_java_pleaseFillAll));
                 }
             }
 
@@ -463,18 +516,20 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         cFinallyOrder.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(cPayMethodTextView.getText().toString().isEmpty() ||
-                        cPayMethodTextView .getText().toString().equals(getResources()
-                                .getString(R.string.act_wash_my_car_paymentMethod)) ||
-                        ((writeReadDataInFile.readFromFile("buyer_key_temporal")
-                                .isEmpty()) && writeReadDataInFile
+                if((writeReadDataInFile.readFromFile("buyer_key_temporal")
+                                .isEmpty()) && (writeReadDataInFile
                                 .readFromFile("buyer_key_permanent").isEmpty())) {
                     toastMessages.productionMessage(getApplicationContext()
                     ,getResources().getString(R.string.act_wash_my_car_pleaseChoosePaymentM)
                     ,1);
+                    startActivity(new Intent(WashReqParamsActivity.this
+                            ,PaymentSettingsActivity.class));
                 }else{
+                    String splasherUsername = "clear";
+                    String requestType = "public";
                     boxedLoadingDialog.showLoadingDialog();
-                    loadRequest();
+                    loadRequest(splasherUsername,requestType);
+                    //Metrics class attached to the button finallyOrder. inside LOADREQUEST method
                 }
             }
         });
@@ -930,20 +985,19 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                     //HERE IS THE PROBLEM//
                     mSplasherPriceSetComingSoon.setVisibility(View.VISIBLE);
                     cSplasherPriceSet.setVisibility(View.INVISIBLE);
-                    cFinallyOrder.setBackgroundResource(R.drawable.btn_shape_grey);
+                    finallyOrderBtnInactiveBg();
                     cFinallyOrder.setEnabled(false);
                     cFinallyOrder.setClickable(false);
+                    if (!internalWashedPicked) {
+                        updateInternalWashCounter();
+                        internalWashedPicked = true;
+                    }
                 }else{
                     mSplasherPriceSetComingSoon.setVisibility(View.INVISIBLE);
                     cSplasherPriceSet.setVisibility(View.VISIBLE);
-                    cFinallyOrder.setBackgroundResource(R.drawable.btn_shape);
+                    finallyOrderBtnActiveBg();
                     cFinallyOrder.setEnabled(true);
                     cFinallyOrder.setClickable(true);
-                    if (writeReadDataInFile.readFromFile("buyer_key_permanent").equals("")
-                            && writeReadDataInFile.readFromFile("buyer_key_temporal")
-                            .equals("")){
-                        cFinallyOrder.setBackgroundResource(R.drawable.btn_shape_grey);
-                    }
                 }
                 getServiceType = cCrServicesEdit.getSelectedItem().toString();//<--FINAL1
                 toastMessages.debugMesssage(getApplicationContext(),"here",1);
@@ -1045,36 +1099,32 @@ public class WashReqParamsActivity extends AppCompatActivity implements
 
         }
 
-        //Hide page index 1 of 2 (1)
-        cElPropioRelative.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver
-                .OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                int heightDiff = cElPropioRelative.getRootView().getHeight() - cElPropioRelative
-                        .getHeight();
-                if (heightDiff > dpToPx(WashReqParamsActivity.this)) { // if more than 200 dp, it's probably a keyboard...
-                    //Handle code which triggers when keyboard is open
-                    cRequestSteps.setVisibility(View.GONE);
-                }else{
-                    cRequestSteps.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
         //cCarList.setVisibility(View.GONE);
         //cAddcar.setVisibility(View.GONE);
         onStartSubmitButtonState();
-
         splasherListFragmentInit();
     }
 
+    public void updateInternalWashCounter(){
+        metricsClassQuery.queryMetricsToUpdate("internalWash");
+    }
+
+    public void updateOrderWashCounter(){
+        metricsClassQuery.queryMetricsToUpdate("orderWash");
+    }
+
     public void splasherListFragmentInit(){
+        RelativeLayout mSplasher_fragment_container = findViewById(R.id.splasher_fragment_container);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         SplasherListFragment splasherListFragment = new SplasherListFragment();
         fragmentTransaction.add(R.id.splasher_fragment_container, splasherListFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+
+        if (mSplasher_fragment_container.getVisibility() == View.VISIBLE){
+            cFinallyOrder.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -1237,17 +1287,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                 Log.i("car CoordLonSaved", sC1lon);
 
             } else if (requestCode == REQUEST_CC_FROM_CCDETS) {
-
                 String ccMask = data.getStringExtra("paymeCCMask");
-
-                Log.i("RequestCode", "Were in CC_FROM_CCDETS");
-                Log.i("RequestCodeNData", ccMask);
-
-                if (ccMask.equals("Payment Method")) {
-                    cPayMethodTextView.setText(ccMask);
-                } else {
-                    cPayMethodTextView.setText(ccMask);
-                }
             }
         }
     }
@@ -1278,7 +1318,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         if(!writeReadDataInFile.readFromFile("buyer_key_permanent").equals("") &&
                 writeReadDataInFile.readFromFile("buyer_key_temporal").equals("")){
 
-            cPayMethodTextView.setText(writeReadDataInFile.readFromFile("cleanStringCCMask"));
             toastMessages.debugMesssage(getApplicationContext(),"there is a permanent key"
             ,1);
             finallyOrderBtnActiveBg();
@@ -1290,7 +1329,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         }else if(writeReadDataInFile.readFromFile("buyer_key_permanent").equals("") &&
                 !writeReadDataInFile.readFromFile("buyer_key_temporal").equals("")){
 
-            cPayMethodTextView.setText(getResources().getString(R.string.act_wash_my_car_ccNotSaved));
             toastMessages.debugMesssage(getApplicationContext()
                     ,"there is a temporal key",1);
             finallyOrderBtnActiveBg();
@@ -1302,10 +1340,8 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         }else if(writeReadDataInFile.readFromFile("buyer_key_permanent").equals("") &&
                 writeReadDataInFile.readFromFile("buyer_key_temporal").equals("")){
             //This means both buyer_keys are empty
-            cPayMethodTextView.setHint(getResources().getString(R.string.act_wash_my_car_paymentMethod));
             toastMessages.debugMesssage(getApplicationContext()
             ,"there is no key, no saved credit card",1);
-            finallyOrderBtnInactiveBg();
 
         }else{
             toastMessages.productionMessage(getApplicationContext()
@@ -1546,20 +1582,20 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     }
 
     //Load Request to Parse Server 2
-    public void loadRequest() {
+    public void loadRequest(String splasherUsername, String requestType) {
 
         try {
 
             if (!cCrLocationDescriptionEdit.getText().toString().isEmpty())
-                carAddressDescription = cCrLocationDescriptionEdit.getText().toString();//<--FINAL
+                carAddressDescription = cCrLocationDescriptionEdit.getText().toString();////<--FINAL
             else
                 carAddressDescription = "empty";
 
-            String profilePicToUpload;
             if (!(ParseUser.getCurrentUser().getString("fbProfilePic") == null)) {
                 profilePicToUpload = ParseUser.getCurrentUser().getString("fbProfilePic");
                 if (!profilePicToUpload.contains("https")) {
-                    ParseFile profPicNoFbFile = ParseUser.getCurrentUser().getParseFile("localProfilePic");
+                    ParseFile profPicNoFbFile = ParseUser.getCurrentUser()
+                            .getParseFile("localProfilePic");
                     profPicNoFbString = profPicNoFbFile.getUrl();
                 } else if (profilePicToUpload.contains("https")) {
                     profPicNoFbString = "none";
@@ -1577,24 +1613,16 @@ public class WashReqParamsActivity extends AppCompatActivity implements
             writeLocationDescToFile("");
 
             Log.i("address", address); //Address
-
             Log.i("latlng", carCoordinates.toString()); //Coordinates
-
             Log.i("carAddressDescription", carAddressDescription); // Address description
-
             Log.i("Until Time Selected", fullDate + " " + selectedTime); //Until Time
-
             Log.i("Car Wash Service Type", getServiceType); //Service Type
-
-            Log.i("Selected Car: ", carBrandToUpload + " " + carModelToUpload + " " + carColorToUpload
+            Log.i("Selected Car: ", carBrandToUpload + " " + carModelToUpload + " "
+                    + carColorToUpload
                     + " " + " " + carPlateToUpload); //Selected Car
-
             Log.i("Final Price", dollarSetPrice); // set Price
-
             Log.i("Profile Pic", profilePicToUpload); //Profile Pic
-
             Log.i("numerical badge", String.valueOf(numericalBadge));
-
             if (!profilePicToUpload.contains("https")) {
                 Log.i("Profile Pic NoFb", profPicNoFbString); //Profile Pic Not Facebook
             }
@@ -1604,83 +1632,67 @@ public class WashReqParamsActivity extends AppCompatActivity implements
             if(writeReadDataInFile.readFromFile("buyer_key_permanent").equals("") &&
                     !writeReadDataInFile.readFromFile("buyer_key_temporal").equals("")){
                 //Temporal buyer_key
-                Log.i("disposableBuyerKey", writeReadDataInFile.readFromFile("buyer_key_temporal"));
+                Log.i("disposableBuyerKey", writeReadDataInFile
+                        .readFromFile("buyer_key_temporal"));
             }else if(writeReadDataInFile.readFromFile("buyer_key_temporal").equals("") &&
                     !writeReadDataInFile.readFromFile("buyer_key_permanent").equals("")){
                 //Permanent buyer_key
-                Log.i("permanentBuyerKey", writeReadDataInFile.readFromFile("buyer_key_permanent"));
+                Log.i("permanentBuyerKey", writeReadDataInFile
+                        .readFromFile("buyer_key_permanent"));
             }
 
-            //-----------------------------------------------------------------------------------------
+            //------------------------------------------------------------------------------------//
             ParseObject request = new ParseObject("Request");
-
             request.put("username", ParseUser.getCurrentUser().getUsername());
-
             request.put("carAddress", address); //1
-
-            ParseGeoPoint carGeoPoint = new ParseGeoPoint(carCoordinates.latitude, carCoordinates.longitude);
-
+            ParseGeoPoint carGeoPoint = new ParseGeoPoint(carCoordinates.latitude,
+                    carCoordinates.longitude);
             request.put("carCoordinates", carGeoPoint); //2
-
             request.put("carAddressDesc", carAddressDescription); //3
-
             request.put("untilTime", fullDate + " " + selectedTime); //4
-
             request.put("serviceType", getServiceType); //5
-
             request.put("carBrand", carBrandToUpload); //6
-
             request.put("carModel", carModelToUpload); //7
-
             request.put("carColor", carColorToUpload); //8
-
             request.put("carplateNumber", carPlateToUpload); //10
-
             String shekels = "₪";
             String shekelsSetPriceFinal = dollarSetPrice + " " + shekels;
             request.put("priceWanted", shekelsSetPriceFinal);
-
             request.put("fbProfilePic", profilePicToUpload); //13
-
             if (!profilePicToUpload.contains("https")) {
                 request.put("ProfPicNoFb", profPicNoFbString); //14
             }
-
             //Temporary until we implement back the badge system://
             numericalBadge = 2;
             request.put("badgeWanted", String.valueOf(numericalBadge)); //15
-
             request.put("taken", "no"); //16
-
-            request.put("splasherUsername", "clear"); //17
-
+            request.put("splasherUsername", splasherUsername); //17
             request.put("picturesInbound", "false"); //18
-
             request.put("washFinished", "no");//19
-
             request.put("paid", "no");//20
-
+            request.put("requestType", requestType);//21
             //TODO: Payme Code: Sending Car owner's buyer_key to Request PUT
             //!writeReadDataInFile.readFromFile("buyer_key_permanent").equals("")
             if(writeReadDataInFile.readFromFile("buyer_key_permanent").equals("") &&
                     !writeReadDataInFile.readFromFile("buyer_key_temporal").equals("")){
                 //Temporal buyer_key
-                request.put("buyerKey", writeReadDataInFile.readFromFile("buyer_key_temporal"));//21
+                request.put("buyerKey", writeReadDataInFile.readFromFile
+                        ("buyer_key_temporal"));//22
                 //Activate boolean value that marks it is a temporal buyer_key
                 temporalKeyActive = true;
             }else if(writeReadDataInFile.readFromFile("buyer_key_temporal").equals("") &&
                     !writeReadDataInFile.readFromFile("buyer_key_permanent").equals("")){
                 //Permanent buyer_key
-                request.put("buyerKey", writeReadDataInFile.readFromFile("buyer_key_permanent"));//21
+                request.put("buyerKey", writeReadDataInFile.readFromFile
+                        ("buyer_key_permanent"));//22
             }
-
             //-----------------------------------------------
-
             request.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
 
                     if (e == null) {
+                        updateOrderWashCounter();
                         //Works. Now work on this boolean below: findCarWasherRequestActive
                         //findCarWasherRequestActive = true;
                         toastMessages.debugMesssage(getApplicationContext()
@@ -1704,62 +1716,38 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                             toastMessages.debugMesssage(getApplicationContext()
                             ,"temporal key sent to request class on server and destroyed" +
                                             " from local .txt file right after",1);
+                            toastMessages.productionMessage(WashReqParamsActivity.this,
+                                    getResources().getString(R.string.act_wash_my_car_requestSent)
+                                    ,1);
                         }
                         startActivity(intent);
                     }
                 }
             });
-
         }catch(NullPointerException e){
-
             e.printStackTrace();
         }
-    }
-
-    //TODO: Handling 'know-how' for app to recognize where data comes from 1
-    public void toCCDetails(View view){
-
-        Intent intent = new Intent(WashReqParamsActivity.this, PaymentSettingsActivity.class);
-        startActivityForResult(intent, REQUEST_CC_FROM_CCDETS);
-
     }
 
     private void refreshData(){
 
         dbCars.clear();
-
         dbh = new CarLocalDatabaseHandler(WashReqParamsActivity.this);
-
         ArrayList<MyCar> carsFromDB = dbh.getCars();
-
         for(int i = 0; i < carsFromDB.size(); i++){
-
             //String title = wishesFromDB.get(i).getTitle();
-
             String refreshedBrand = carsFromDB.get(i).getBrand();
-
             String refreshedModel = carsFromDB.get(i).getModel();
-
             String refreshedColor = carsFromDB.get(i).getColorz();
-
             String refreshedPlate = carsFromDB.get(i).getPlateNum();
-
             int myId = carsFromDB.get(i).getItemId();
-
             MyCar refreshedCar = new MyCar();
-
             refreshedCar.setBrand(refreshedBrand);
-
             refreshedCar.setModel(refreshedModel);
-
             refreshedCar.setColorz(refreshedColor);
-
             refreshedCar.setPlateNum(refreshedPlate);
-
             refreshedCar.setItemId(myId);
-
             dbCars.add(refreshedCar);
-
         }
 
         dbh.close();
@@ -1834,28 +1822,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         public void setActivity(Activity activity) {
             this.activity = activity;
         }
-
-        /*
-        public int getLayoutResource() {
-            return layoutResource;
-        }
-        public void setLayoutResource(int layoutResource) {
-            this.layoutResource = layoutResource;
-        }
-        public MyCar getCarro() {
-            return carro;
-        }
-        public void setCarro(MyCar carro) {
-            this.carro = carro;
-        }
-        public ArrayList<MyCar> getmData() {
-            return mData;
-        }
-        public void setmData(ArrayList<MyCar> mData) {
-            this.mData = mData;
-        }
-        */
-        //getCount, getItem, getPosition, getItemId, getView
 
         @Override
         public int getCount() {

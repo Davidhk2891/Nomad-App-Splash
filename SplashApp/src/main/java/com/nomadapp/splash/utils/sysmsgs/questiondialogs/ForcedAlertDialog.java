@@ -1,6 +1,5 @@
 package com.nomadapp.splash.utils.sysmsgs.questiondialogs;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,7 +10,6 @@ import com.nomadapp.splash.R;
 import com.nomadapp.splash.ui.activity.splasherside.SplasherCameraActivity;
 import com.nomadapp.splash.ui.activity.splasherside.SplasherClientRouteActivity;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
-import com.nomadapp.splash.ui.activity.standard.SignUpLogInActivity;
 import com.parse.LogOutCallback;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
@@ -46,6 +44,7 @@ public class ForcedAlertDialog {
         pendingPaymentDialog.setCancelable(false);
         pendingPaymentDialog.show();
     }
+
     private void goSplashCamFromScratch(ParseObject object){
         Intent intent = new Intent(context, SplasherCameraActivity.class);
         intent.putExtra("fetchedUntilTime", object.getString("untilTime"));
@@ -73,6 +72,7 @@ public class ForcedAlertDialog {
         pendingPaymentDialog.show();
 
     }
+
     private void goCODetsFromScratch(ParseObject object, LatLng latLng, Double d1, Double d2){
         Intent intent = new Intent(context,SplasherClientRouteActivity.class);
 
@@ -113,6 +113,7 @@ public class ForcedAlertDialog {
         //-----------------------------//
         context.startActivity(intent);
     }
+
     public void mustAcceptTOUFirst(){
         AlertDialog.Builder TOUDialog = new AlertDialog.Builder(context);
         TOUDialog.setTitle(context.getResources().getString
@@ -125,6 +126,7 @@ public class ForcedAlertDialog {
         TOUDialog.setCancelable(false);
         TOUDialog.show();
     }
+
     public void somethingWentWrong(){
         AlertDialog.Builder TOUDialog = new AlertDialog.Builder(context);
         TOUDialog.setTitle(context.getResources().getString
@@ -148,6 +150,7 @@ public class ForcedAlertDialog {
         TOUDialog.setCancelable(false);
         TOUDialog.show();
     }
+
     public void somethingWentWrongFacebook(){
         AlertDialog.Builder TOUDialog = new AlertDialog.Builder(context);
         TOUDialog.setTitle(context.getResources().getString

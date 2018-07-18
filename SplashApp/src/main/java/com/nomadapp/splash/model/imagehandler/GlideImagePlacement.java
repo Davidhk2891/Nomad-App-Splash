@@ -27,7 +27,7 @@ public class GlideImagePlacement {
     public void roundImagePlacementFromString(String string, ImageView imageView){
         Drawable defaultBg = context.getResources().getDrawable(R.drawable.theemptyface);
         GlideApp
-                .with(context)
+                .with(context.getApplicationContext())
                 .load(string)
                 .placeholder(R.drawable.custom_progress_bar)
                 .error(defaultBg)
@@ -38,7 +38,7 @@ public class GlideImagePlacement {
     public void roundImagePlacementFromUri(Uri uri, ImageView imageView){
         Drawable defaultBg = context.getResources().getDrawable(R.drawable.theemptyface);
         GlideApp
-                .with(context)
+                .with(context.getApplicationContext())
                 .load(uri)
                 .placeholder(R.drawable.custom_progress_bar)
                 .error(defaultBg)
@@ -49,7 +49,7 @@ public class GlideImagePlacement {
     public void roundImagePlacementFromDrawable(int drawables, ImageView imageView){
         Drawable defaultBg = context.getResources().getDrawable(drawables);
         GlideApp
-                .with(context)
+                .with(context.getApplicationContext())
                 .load(drawables)
                 .placeholder(R.drawable.custom_progress_bar)
                 .error(defaultBg)
@@ -61,7 +61,7 @@ public class GlideImagePlacement {
     public void squaredImagePlacementFromString(String string, ImageView imageView, int drawables){
         Drawable defaultBg = context.getResources().getDrawable(drawables);
         GlideApp
-                .with(context)
+                .with(context.getApplicationContext())
                 .load(string)
                 .placeholder(R.drawable.custom_progress_bar)
                 .error(defaultBg)
@@ -71,7 +71,7 @@ public class GlideImagePlacement {
     public void squaredImagePlacementFromUri(Uri uri, ImageView imageView, int drawables){
         Drawable defaultBg = context.getResources().getDrawable(drawables);
         GlideApp
-                .with(context)
+                .with(context.getApplicationContext())
                 .load(uri)
                 .placeholder(R.drawable.custom_progress_bar)
                 .error(defaultBg)
@@ -81,7 +81,7 @@ public class GlideImagePlacement {
     public void squaredImagePlacementFromDrawable(int drawables, ImageView imageView){
         Drawable defaultBg = context.getResources().getDrawable(drawables);
         GlideApp
-                .with(context)
+                .with(context.getApplicationContext())
                 .load(drawables)
                 .placeholder(R.drawable.custom_progress_bar)
                 .error(defaultBg)

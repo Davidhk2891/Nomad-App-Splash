@@ -3536,6 +3536,10 @@
         "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-places-15.0.1.aar\\e9c638284ab719065bd99a17637b8f4f\\res\\drawable-mdpi-v4\\places_ic_search.png"
     },
     {
+        "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\layout_request_header.xml.flat",
+        "source": "C:\\Splash\\SplashApp\\src\\main\\res\\layout\\request_header.xml"
+    },
+    {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable_visaicon.png.flat",
         "source": "C:\\Splash\\SplashApp\\src\\main\\res\\drawable\\visaicon.png"
     },

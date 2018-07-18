@@ -35,6 +35,7 @@ import android.widget.TextView;
 
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.imagehandler.GlideImagePlacement;
+import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.FindCallback;
@@ -71,6 +72,7 @@ public class WashRequestsActivity extends AppCompatActivity {
     private String carOwnerCarAddressDesc;
     private String carOwnerCarUntilTime;
     private String carOwnerCarServiceType;
+    private String carOwnerReqType;
 
     private String carOwnerCarBrand;
     private String carOwnerCarModel;
@@ -92,6 +94,7 @@ public class WashRequestsActivity extends AppCompatActivity {
     private ArrayList<String> carUntilTimeList = new ArrayList<>();
     private ArrayList<String> carServiceTypeList = new ArrayList<>();
     private ArrayList<String> carOwnerSetPrice = new ArrayList<>();
+    private ArrayList<String> carOwnerReqTypeList = new ArrayList<>();
     private ArrayList<Integer> requestNumBadgeList = new ArrayList<>();
     //----------------------------------------------------------------
     private ArrayList<String> carBrandList = new ArrayList<>();
@@ -103,7 +106,8 @@ public class WashRequestsActivity extends AppCompatActivity {
 
     //Sending after pictures status-----------------------------------
     private LinearLayout cPicturesAfterSentStatus;
-    private TextView cPicSendingAfterAnim1, cPicSendingAfterAnim2, cPicSendingAfterAnim3, cPicSendingAfterAnim4;
+    private TextView cPicSendingAfterAnim1, cPicSendingAfterAnim2, cPicSendingAfterAnim3
+            , cPicSendingAfterAnim4;
     private ImageView cPicSentAfter1, cPicSentAfter2, cPicSentAfter3, cPicSentAfter4;
     private ProgressBar cAnimationSendingAfter;
     private boolean allMarksVisible = false;
@@ -111,6 +115,7 @@ public class WashRequestsActivity extends AppCompatActivity {
 
     private ToastMessages toastMessages = new ToastMessages();
     private ConnectionLost clm = new ConnectionLost(WashRequestsActivity.this);
+    private UserClassQuery userClassQuery = new UserClassQuery(WashRequestsActivity.this);
 
     //TODO:1
     private ArrayList<MyRequest> requestList = new ArrayList<>();
@@ -150,14 +155,12 @@ public class WashRequestsActivity extends AppCompatActivity {
 
         if (location != null) {
 
-            //Here, i am a Splasher....bitch.
-            //FILTER ON TAKEN(YES/NO), SPLASHER(CLEAR) & TIME(IF NOT PAST TIME(1HOUR BEFORE ORIGINAL SET))
-
             final ParseQuery<ParseObject> requestQuery = ParseQuery.getQuery("Request");
 
-            final ParseGeoPoint geoPointSelfLocation = new ParseGeoPoint(location.getLatitude(), location.getLongitude());
+            final ParseGeoPoint geoPointSelfLocation = new ParseGeoPoint(location.getLatitude()
+                    , location.getLongitude());
 
-            String[] splashStatus = {"clear", "canceled"};
+            String[] splashStatus = {"clear", "canceled", userClassQuery.userName()};
 
             requestQuery.whereNear("carCoordinates", geoPointSelfLocation);
 
@@ -233,20 +236,26 @@ public class WashRequestsActivity extends AppCompatActivity {
                                 carOwnerCarColor = object.getString("carColor");//9
                                 carOwnerCarYear = object.getString("carYear");//10
                                 carOwnerCarPlate = object.getString("carplateNumber");//11
+                                carOwnerReqType = object.getString("requestType");
 
-                                Log.i("stuff", carOwnerCarAddress + " " + carOwnerCarAddressDesc + " " +
+                                Log.i("stuff", carOwnerCarAddress + " "
+                                        + carOwnerCarAddressDesc + " " +
                                         carOwnerCarUntilTime + " " + carOwnerCarServiceType + " " +
-                                        carOwnerCarBrand + " " + carOwnerCarModel + " " + carOwnerCarColor + " " +
-                                        carOwnerCarYear + " " + carOwnerCarPlate);
+                                        carOwnerCarBrand + " " + carOwnerCarModel + " "
+                                        + carOwnerCarColor + " " +
+                                        carOwnerCarYear + " " + carOwnerCarPlate + " " +
+                                        carOwnerReqType);
 
-                                Double distanceToRequestsInKm = geoPointSelfLocation.distanceInKilometersTo(requestLocation);
+                                Double distanceToRequestsInKm = geoPointSelfLocation
+                                        .distanceInKilometersTo(requestLocation);
 
-                                Double distanceInOneDP = (double) Math.round(distanceToRequestsInKm * 10) / 10;//<--------
+                                Double distanceInOneDP = (double) Math.round(distanceToRequestsInKm
+                                        * 10) / 10;//<--------
 
                                 String distanceString = distanceInOneDP.toString() + " Km";
 
                                 //requests.add(carOwnerUsername + " " + distanceString +
-                                        //" " + carOwnerCarUntilTime);
+                                //" " + carOwnerCarUntilTime);
 
                                 //FILTER OF TIME (ZELDA?) STARTS HERE (i think)-------------------//
                                 //Phone's Actual time and date--------------------------------//
@@ -263,7 +272,8 @@ public class WashRequestsActivity extends AppCompatActivity {
 
                                 int yearSplasherSide = listViewCalendar.get(Calendar.YEAR);
                                 String newFullDateSS;
-                                newFullDateSS = String.valueOf(daySplasherSide) + "-" + String.valueOf(monthSplasherSide)
+                                newFullDateSS = String.valueOf(daySplasherSide) + "-"
+                                        + String.valueOf(monthSplasherSide)
                                         + "-" + String.valueOf(yearSplasherSide);
 
                                 int hourPlusOneSS;
@@ -275,21 +285,25 @@ public class WashRequestsActivity extends AppCompatActivity {
                                 @SuppressLint("DefaultLocale")
                                 final String fullTotalDateSS = newFullDateSS + " " +
                                         String.format("%02d:%02d", hourPlusOneSS,
-                                                minuteSplasherSide).toUpperCase(Locale.getDefault());
+                                                minuteSplasherSide).toUpperCase(Locale
+                                                .getDefault());
                                 //------------------------------------------------------------//
 
                                 //Selected Until Time Request---------------------------------//
                                 String cutCarOwnerCarUntilTime;
                                 if (carOwnerCarUntilTime.contains(" AM")) {
-                                    cutCarOwnerCarUntilTime = carOwnerCarUntilTime.replace(" AM", "");
+                                    cutCarOwnerCarUntilTime = carOwnerCarUntilTime
+                                            .replace(" AM", "");
                                 } else {
-                                    cutCarOwnerCarUntilTime = carOwnerCarUntilTime.replace(" PM", "");
+                                    cutCarOwnerCarUntilTime = carOwnerCarUntilTime
+                                            .replace(" PM", "");
                                 }
                                 //------------------------------------------------------------//
 
                                 //Current Request's 'Until Time' and phone's Date-------------//
                                 @SuppressLint("SimpleDateFormat")
-                                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                                SimpleDateFormat sdf = new
+                                        SimpleDateFormat("dd-MM-yyyy HH:mm");
                                 Date currentSSDate1 = null;
                                 Date savedSSDate2 = null;
                                 try {
@@ -308,11 +322,13 @@ public class WashRequestsActivity extends AppCompatActivity {
                                         request.setUntilTime(carOwnerCarUntilTime);
                                         request.setPrice(price);
                                         String ofTomorrow = getResources().
-                                                getString(R.string.carOWnerRequest_act_java_ofTomorrow);
+                                                getString(R.string
+                                                        .carOWnerRequest_act_java_ofTomorrow);
                                         request.setTomorrow(ofTomorrow);
                                         request.setProfPicFbUri(fbPic);
                                         request.setProfPicUri(noFbPic);
                                         request.setBikeService(carOwnerCarServiceType);
+                                        request.setRequestType(carOwnerReqType);
 
                                         int intNumBadgeNew = Integer.parseInt(requestNumBadge);
                                         request.setNumBadge(intNumBadgeNew);
@@ -370,7 +386,8 @@ public class WashRequestsActivity extends AppCompatActivity {
     public void goToDirectionMapWithAllData(int position) {
         if (requestLatitudes.size() > position && requestLongitudes.size() > position) {
 
-            Intent intent = new Intent(WashRequestsActivity.this, SplasherClientRouteActivity.class);
+            Intent intent = new Intent(WashRequestsActivity.this
+                    , SplasherClientRouteActivity.class);
 
             intent.putExtra("requestLatitudes", requestLatitudes.get(position));
             intent.putExtra("requestLongitudes", requestLongitudes.get(position));
@@ -426,7 +443,8 @@ public class WashRequestsActivity extends AppCompatActivity {
         cEmptyList.setVisibility(View.GONE);
 
         //TODO:2
-        myRequestAdapter = new RequestAdapter(WashRequestsActivity.this, R.layout.car_owner_row, requestList);
+        myRequestAdapter = new RequestAdapter(WashRequestsActivity.this, R.layout
+                .car_owner_row, requestList);
         requestList.clear();
         cCarRequestList.setAdapter(myRequestAdapter);
         //get splasher com.kid.splash.utils.rating numBadge from intent from carOwnerActivity
@@ -448,8 +466,9 @@ public class WashRequestsActivity extends AppCompatActivity {
                     goToDirectionMapWithAllData(position);
                 }else{
                     toastMessages.productionMessage(getApplicationContext()
-                    ,getResources().getString(R.string.carOWnerRequest_act_java_yourRatingIsntHigh)
-                    ,1);
+                            ,getResources().getString(R.string
+                                    .carOWnerRequest_act_java_yourRatingIsntHigh)
+                            ,1);
                 }
             }
         });
@@ -492,14 +511,21 @@ public class WashRequestsActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT < 23) {
             //listening();
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission
+                    .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(this, Manifest.permission
+                            .ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, locationListener);
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER
+                    , 10000, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER
+                    , 10000, 0, locationListener);
 
-            Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            Location lastKnownLocation2 = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Location lastKnownLocation = locationManager.getLastKnownLocation
+                    (LocationManager.GPS_PROVIDER);
+            Location lastKnownLocation2 = locationManager.getLastKnownLocation
+                    (LocationManager.NETWORK_PROVIDER);
 
             if(lastKnownLocation == null){
 
@@ -517,20 +543,26 @@ public class WashRequestsActivity extends AppCompatActivity {
 
         } else {
 
-            if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
+            if(ContextCompat.checkSelfPermission(this, android.Manifest.permission
+                    .ACCESS_FINE_LOCATION) !=
                     PackageManager.PERMISSION_GRANTED){
 
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest
+                        .permission.ACCESS_FINE_LOCATION}, 1);
 
             } else {
 
                 //We have permission
 
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, locationListener);
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 0, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER
+                        , 10000, 0, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER
+                        , 10000, 0, locationListener);
 
-                Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                Location lastKnownLocation2 = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                Location lastKnownLocation = locationManager.getLastKnownLocation
+                        (LocationManager.GPS_PROVIDER);
+                Location lastKnownLocation2 = locationManager.getLastKnownLocation
+                        (LocationManager.NETWORK_PROVIDER);
 
                 if(lastKnownLocation == null){
 
@@ -599,20 +631,27 @@ public class WashRequestsActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions
+            , @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(requestCode == 1){
 
-            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager
+                    .PERMISSION_GRANTED){
 
-                if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                if(ContextCompat.checkSelfPermission(this, android.Manifest
+                        .permission.ACCESS_FINE_LOCATION) ==
                         PackageManager.PERMISSION_GRANTED){
 
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, locationListener);
-                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 0, locationListener);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER
+                            , 10000, 0, locationListener);
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER
+                            , 10000, 0, locationListener);
 
-                    Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    Location lastKnownLocation2 = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    Location lastKnownLocation = locationManager.getLastKnownLocation
+                            (LocationManager.GPS_PROVIDER);
+                    Location lastKnownLocation2 = locationManager.getLastKnownLocation
+                            (LocationManager.NETWORK_PROVIDER);
 
                     if (lastKnownLocation == null){
                         if(lastKnownLocation2 != null) {
@@ -623,9 +662,10 @@ public class WashRequestsActivity extends AppCompatActivity {
                     }
                 } else {
                     toastMessages.productionMessage(getApplicationContext()
-                    ,"problem with context compat or checking self permission"
-                    ,1);
-                    Log.e("RequestPermission Error", "problem with context compat or checking self permission");
+                            ,"problem with context compat or checking self permission"
+                            ,1);
+                    Log.e("RequestPermission Error", "problem with context compat or" +
+                            " checking self permission");
                 }
             } else {
                 toastMessages.productionMessage(getApplicationContext()
@@ -635,8 +675,8 @@ public class WashRequestsActivity extends AppCompatActivity {
             }
         } else {
             toastMessages.productionMessage(getApplicationContext()
-            ,"request code error"
-            ,1);
+                    ,"request code error"
+                    ,1);
             Log.e("request code error", "request code error");
         }
     }
@@ -752,15 +792,17 @@ public class WashRequestsActivity extends AppCompatActivity {
             //return super.getView(position, convertView, parent);
             //BUGS REPORT RELATED TO ROW VIEW//
             /*
-                *1 bug IS triggered when one of the rows becomes unavailable due to past its time. find out why and FIX
-                *2 then add screen for when requestList is empty.
-                *3 then add refresh button on toolBar
+             *1 bug IS triggered when one of the rows becomes unavailable due to past its time.
+                  find out why and FIX
+             *2 then add screen for when requestList is empty.
+             *3 then add refresh button on toolBar
              */
             //-------------------------------//
 
             View row = convertView;
             ViewHolder holder;
-            GlideImagePlacement glideImagePlacement = new GlideImagePlacement(WashRequestsActivity.this);
+            GlideImagePlacement glideImagePlacement = new GlideImagePlacement
+                    (WashRequestsActivity.this);
 
             if((row == null) || (row.getTag() == null)){
 
@@ -784,6 +826,8 @@ public class WashRequestsActivity extends AppCompatActivity {
 
                 holder.mBikeService = row.findViewById(R.id.bikeService);
 
+                holder.mReqType = row.findViewById(R.id.req_header2);
+
                 row.setTag(holder);
 
             }else{
@@ -794,10 +838,10 @@ public class WashRequestsActivity extends AppCompatActivity {
             holder.holderRequest = getItem(position);
 
             if(holder.holderRequest != null)
-            holder.mDistance.setText(holder.holderRequest.getDistance());//<<<<<<<<<<<<<<<<<<<<<
+                holder.mDistance.setText(holder.holderRequest.getDistance());//<<<<<<<<<<<<<<<<<<<<<
             else
-            toastMessages.productionMessage(getApplicationContext()
-                    ,"Error. Pleasse try again",1);
+                toastMessages.productionMessage(getApplicationContext()
+                        ,"Error. Pleasse try again",1);
 
             //DELETE DATE AND ADD (of tomorrow) IF DATE REGISTERS FOR NEXT DAY
             //Phone's DATE for infoWindow Date removal---//
@@ -813,9 +857,11 @@ public class WashRequestsActivity extends AppCompatActivity {
                 monthSplasherSideIW = getViewCalendar.get(Calendar.MONTH) + 1;
 
             int yearSplasherSideIW = getViewCalendar.get(Calendar.YEAR);
-            String newFullDateIW = String.valueOf(daySplasherSideIW) + "-" + String.valueOf(monthSplasherSideIW)
+            String newFullDateIW = String.valueOf(daySplasherSideIW) + "-"
+                    + String.valueOf(monthSplasherSideIW)
                     + "-" + String.valueOf(yearSplasherSideIW);
-            String newFullDateIW2 = String.valueOf(daySplasherSideIW2) + "-" + String.valueOf(monthSplasherSideIW)
+            String newFullDateIW2 = String.valueOf(daySplasherSideIW2) + "-"
+                    + String.valueOf(monthSplasherSideIW)
                     + "-" + String.valueOf(yearSplasherSideIW);
             Log.i("info dates", uncutFullUntilTime + "." + newFullDateIW);
             //18-1-2018 20:30 PM..
@@ -825,36 +871,40 @@ public class WashRequestsActivity extends AppCompatActivity {
                 if (daySplasherSideIW < 10) {
                     if (monthSplasherSideIW < 10) {
                         newUntilTime = uncutFullUntilTime.substring(9, 17);
+                        holder.mTomorrow.setVisibility(View.GONE);
                     } else {//>
                         newUntilTime = uncutFullUntilTime.substring(10, 18);
+                        holder.mTomorrow.setVisibility(View.GONE);
                     }
                 } else {//>
                     if (monthSplasherSideIW < 10) {
                         newUntilTime = uncutFullUntilTime.substring(10, 18);
+                        holder.mTomorrow.setVisibility(View.GONE);
                     } else {//>
                         newUntilTime = uncutFullUntilTime.substring(11, 19);
+                        holder.mTomorrow.setVisibility(View.GONE);
                     }
                 }
             } else if (uncutFullUntilTime.contains(newFullDateIW2)) {
                 if (daySplasherSideIW < 10) {
                     if (monthSplasherSideIW < 10) {
                         newUntilTime = uncutFullUntilTime.substring(9, 17);
-                        holder.mTomorrow.setText(holder.holderRequest.getTomorrow());
+                        //holder.mTomorrow.setText(holder.holderRequest.getTomorrow());
                     } else {//>
                         newUntilTime = uncutFullUntilTime.substring(10, 18);
-                        holder.mTomorrow.setText(holder.holderRequest.getTomorrow());
+                        //holder.mTomorrow.setText(holder.holderRequest.getTomorrow());
                     }
                 } else {//>
                     if (monthSplasherSideIW < 10) {
                         newUntilTime = uncutFullUntilTime.substring(10, 18);
-                        holder.mTomorrow.setText(holder.holderRequest.getTomorrow());
+                        //holder.mTomorrow.setText(holder.holderRequest.getTomorrow());
                     } else {//>
                         newUntilTime = uncutFullUntilTime.substring(11, 19);
-                        holder.mTomorrow.setText(holder.holderRequest.getTomorrow());
+                        //holder.mTomorrow.setText(holder.holderRequest.getTomorrow());
                     }
                 }
             }else{
-                holder.mTomorrow.setText("");
+                holder.mTomorrow.setVisibility(View.GONE);
             }
             //Here
             //Log.i("info dates2", "is: " + newUntilTime);
@@ -904,6 +954,15 @@ public class WashRequestsActivity extends AppCompatActivity {
                         (R.drawable.bronzebadge,holder.mBadgeInRequestList);
             }
             //---------------------------------//
+            //holder.reqType work logic//
+            if (holder.holderRequest.getRequestType().equals("private")){
+                holder.mReqType.setVisibility(View.VISIBLE);
+                holder.mReqType.setText(getResources().getString(R.string
+                        .carOWnerRequest_act_java_private));
+            }else if (holder.holderRequest.getRequestType().equals("public")){
+                holder.mReqType.setVisibility(View.INVISIBLE);
+            }
+            //-------------------------//
             //ENDS HERE---------------------------------------------------------------------------//
             return row;
         }
@@ -917,6 +976,7 @@ public class WashRequestsActivity extends AppCompatActivity {
         TextView mUntiltime;
         TextView mPrice;
         TextView mTomorrow;
+        TextView mReqType;
         ImageView mProfPicUri;
         ImageView mBadgeInRequestList;
         ImageView mBikeService;

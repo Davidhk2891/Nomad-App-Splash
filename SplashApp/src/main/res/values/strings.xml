@@ -173,6 +173,11 @@
     <string name="act_car_owner_levelWanted">Splasher Level Wanted</string>
     <string name="act_car_owner_contentDesc">Splasher Badge</string>
     <string name="act_car_owner_comingsoon">Coming soon</string>
+    <string name="act_car_owner_youHaveNewOrders">You have new orders!</string>
+    <string name="act_car_owner_isAsking">People are asking for your services.
+        Check out these requests?</string>
+    <string name="act_car_owner_yes">yes</string>
+    <string name="act_car_owner_decline">not now</string>
     <!--//////////////////-->
 
     <!--activity_splasher_client_route-->
@@ -292,6 +297,13 @@
     <string name="act_wash_my_car_motorcycle">Motorcycle</string>
     <string name="act_wash_my_car_selectSplasher">Select splasher:</string>
     <string name="act_wash_my_car_autoSelect">Auto Select:</string>
+    <string name="act_wash_my_car_requestSent">Request sent</string>
+    <string name="act_wash_my_car_requestAWashFrom">Request a wash from</string>
+    <string name="act_wash_my_car_wash">wash</string>
+    <string name="act_wash_my_car_washes">washes</string>
+    <string name="act_wash_my_car_active">active</string>
+    <string name="act_wash_my_car_price">price</string>
+    <string name="act_wash_my_car_requestOrder">Request order</string>
     <!--///////////////-->
 
     <!--splasher_row-->
@@ -485,6 +497,8 @@
     <!--WashRequestsActivity.java-->
     <string name="carOWnerRequest_act_java_yourRatingIsntHigh">Your rating is not high enough to take this request</string>
     <string name="carOWnerRequest_act_java_ofTomorrow">of tomorrow</string>
+    <string name="carOWnerRequest_act_java_public">public</string>
+    <string name="carOWnerRequest_act_java_private">private</string>
     <!--/////////////////////////////-->
 
     <!--CarAdditionActivity.java-->

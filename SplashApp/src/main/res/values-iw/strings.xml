@@ -178,8 +178,13 @@
     <string name="act_car_owner_go">ללכת</string>
     <string name="act_car_owner_version">V.1.0.1</string>
     <string name="act_car_owner_levelWanted"> רמה מבוקשת</string>
-    <string name="act_car_owner_contentDesc">Splasher תג</string>
+    <string name="act_car_owner_contentDesc">תג שוטף</string>
     <string name="act_car_owner_comingsoon">בקרוב</string>
+    <string name="act_car_owner_youHaveNewOrders">יש לך הזמנות חדשות!</string>
+    <string name="act_car_owner_isAsking">אנשים מבקשים את השירותים שלך.
+        בדוק את הבקשות?</string>
+    <string name="act_car_owner_yes">כן</string>
+    <string name="act_car_owner_decline">לא עכשיו</string>
     <!--//////////////////-->
 
     <!--activity_splasher_client_route-->
@@ -298,6 +303,13 @@
     <string name="act_wash_my_car_motorcycle">אופנוע</string>
     <string name="act_wash_my_car_selectSplasher">בחר שוטף</string>
     <string name="act_wash_my_car_autoSelect">בחירה אוטומטית</string>
+    <string name="act_wash_my_car_requestSent">בקשה נשלחה</string>
+    <string name="act_wash_my_car_requestAWashFrom">בקשה לשטיפה מ</string>
+    <string name="act_wash_my_car_wash">שטיפה</string>
+    <string name="act_wash_my_car_washes">שטיפות</string>
+    <string name="act_wash_my_car_active">פעיל</string>
+    <string name="act_wash_my_car_price">מחיר</string>
+    <string name="act_wash_my_car_requestOrder">בקש הזמנה</string>
     <!--///////////////-->
 
     <!--splasher_row-->
@@ -482,6 +494,8 @@
     <!--WashRequestsActivity.java-->
     <string name="carOWnerRequest_act_java_yourRatingIsntHigh">הדירוג שלך אינו גבוה מספיק כדי לקבל את הבקשה</string>
     <string name="carOWnerRequest_act_java_ofTomorrow">של מחר</string>
+    <string name="carOWnerRequest_act_java_public">פומבי</string>
+    <string name="carOWnerRequest_act_java_private">פרטי</string>
     <!--/////////////////////////////-->
 
     <!--CarAdditionActivity.java-->

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/splasherGridFragment"
     android:layout_centerHorizontal="true"
     android:background="@drawable/selective_bg_filled_stroked"
@@ -18,5 +19,176 @@
         android:scrollbars="none"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--
+         android:layout_height="350dp"
+         app:behavior_peekHeight="90dp"
+        -->
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/bottomSheetSplasherList"
+            android:layout_width="match_parent"
+            android:padding="3dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="6dp"
+            android:layout_height="290dp"
+            android:background="#B3E5FC"
+            app:layout_behavior="@string/bottom_sheet_behavior"
+            app:behavior_hideable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/exitBtmSheet"
+                    android:layout_alignParentEnd="true"
+                    android:src="@android:drawable/ic_menu_close_clear_cancel"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginTop="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="#B3E5FC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/requestAWashTo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:text=""
+                    android:textSize="18sp"
+                    android:layout_width="220dp"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:id="@+id/sepaInSL"
+                    android:layout_width="320dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="2dp"
+                    android:layout_below="@+id/requestAWashTo"
+                    android:layout_marginTop="8dp"
+                    android:background="#BDBDBD"/>
+
+                <ImageView
+                    android:id="@+id/slProfPic"
+                    android:src="@drawable/theemptyface"
+                    android:layout_below="@+id/sepaInSL"
+                    android:layout_alignStart="@+id/sepaInSL"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/slUsername"
+                    android:layout_toEndOf="@+id/slProfPic"
+                    android:layout_alignTop="@+id/slProfPic"
+                    android:layout_marginStart="10dp"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                    android:id="@+id/slRatingBar"
+                    android:layout_alignStart="@+id/slUsername"
+                    android:layout_below="@+id/slUsername"
+                    android:numStars="5"
+                    android:layout_marginTop="0dp"
+                    android:layout_width="85dp"
+                    android:layout_height="18dp"
+                    style="@style/Widget.MaterialRatingBar.RatingBar"/>
+
+                <TextView
+                    android:id="@+id/slNumWashes"
+                    android:layout_toEndOf="@+id/slRatingBar"
+                    android:layout_alignTop="@+id/slRatingBar"
+                    android:layout_marginStart="4dp"
+                    android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/slStatus"
+                    android:layout_alignStart="@+id/slProfPic"
+                    android:layout_below="@+id/slProfPic"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="3dp"
+                    android:textColor="@color/green_700"
+                    android:text="@string/act_wash_my_car_active"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:id="@+id/sepaInSL2"
+                    android:layout_width="320dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="2dp"
+                    android:layout_below="@+id/slStatus"
+                    android:layout_marginTop="8dp"
+                    android:background="#BDBDBD"/>
+
+                <TextView
+                    android:id="@+id/slPriceTitle"
+                    android:layout_below="@+id/sepaInSL2"
+                    android:layout_alignStart="@+id/sepaInSL2"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="6dp"
+                    android:text="@string/act_wash_my_car_price"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/slPriceData"
+                    android:layout_below="@+id/slPriceTitle"
+                    android:layout_alignStart="@+id/slPriceTitle"
+                    android:layout_marginTop="0dp"
+                    android:textStyle="bold"
+                    android:text=""
+                    android:textSize="24sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:id="@+id/sepaInSL3"
+                    android:layout_width="320dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="2dp"
+                    android:layout_below="@+id/slPriceData"
+                    android:layout_marginTop="8dp"
+                    android:background="#BDBDBD"/>
+
+                <Button
+                    android:id="@+id/slFinallyOrder"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sepaInSL3"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="1dp"
+                    android:background="@drawable/btn_shape"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="@string/act_wash_my_car_requestOrder"
+                    android:layout_alignStart="@+id/sepaInSL3"
+                    android:layout_alignEnd="@+id/sepaInSL3"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="#ffffff" />
+
+            </RelativeLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>
 
 </FrameLayout>
