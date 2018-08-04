@@ -52,6 +52,7 @@
             android:layout_alignBaseline="@+id/drawerCheese"
             android:layout_marginTop="10dp"
             android:padding="8dp"
+            android:onClick="goToMyWallet"
             android:background="@drawable/transparent_black_curved"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -120,46 +121,65 @@
 
         </RelativeLayout>
         <!--ADD BUTTON RIPPLE EFFECT IN ALL THE BUTTONS-->
+
+        <RelativeLayout
+            android:id="@+id/majorButtonsBackSpace"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:background="#CCffffff"
+            android:layout_height="90dp">
+
+        </RelativeLayout>
+
         <Button
             android:id="@+id/findMeAWash"
             android:background="@drawable/btn_shape"
             android:foreground="?android:attr/selectableItemBackground"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:text="@string/act_car_owner_washMyCar"
             android:textColor="#fff"
             android:textSize="15sp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_alignParentBottom="true"
-            android:layout_width="320dp"
+            android:layout_width="wrap_content"
             android:layout_height="70dp" />
 
         <Button
             android:id="@+id/cancelMyWash"
             android:background="@drawable/btn_shape"
             android:foreground="?android:attr/selectableItemBackground"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:text="@string/act_car_owner_cancelWash"
-            android:visibility="gone"
             android:textColor="#fff"
             android:textSize="15sp"
-            android:layout_marginBottom="15dp"
+            android:visibility="gone"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_alignParentBottom="true"
-            android:layout_width="320dp"
+            android:layout_width="wrap_content"
             android:layout_height="70dp" />
 
         <Button
             android:id="@+id/letsWashACar"
             android:background="@drawable/btn_shape"
             android:foreground="?android:attr/selectableItemBackground"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:text="@string/act_car_owner_letWashCar"
-            android:visibility="gone"
             android:textColor="#fff"
-            android:textSize="15sp"
             android:onClick="letsWashACar"
-            android:layout_marginBottom="15dp"
+            android:textSize="15sp"
+            android:visibility="gone"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_alignParentBottom="true"
-            android:layout_width="320dp"
+            android:layout_width="wrap_content"
             android:layout_height="70dp" />
 
 <!--

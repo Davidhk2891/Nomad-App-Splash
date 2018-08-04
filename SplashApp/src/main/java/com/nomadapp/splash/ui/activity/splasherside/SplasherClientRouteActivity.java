@@ -577,7 +577,8 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
                 //Sending location updates to server//
                 ParseGeoPoint splasherGeoPoint = null;
                 if (ParseUser.getCurrentUser() != null) {
-                    splasherGeoPoint = new ParseGeoPoint(location.getLatitude(), location.getLongitude());
+                    splasherGeoPoint = new ParseGeoPoint(location.getLatitude(), location
+                            .getLongitude());
                     ParseUser.getCurrentUser().put("location", splasherGeoPoint);
                     ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
                         @Override

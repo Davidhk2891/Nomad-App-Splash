@@ -1,5 +1,6 @@
 package com.nomadapp.splash.ui.activity.standard;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -15,12 +16,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.nomadapp.splash.R;
+import com.nomadapp.splash.model.server.parseserver.MessageClassInterface;
+import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
+import com.nomadapp.splash.model.server.parseserver.send.MessageClassSend;
 import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
-import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
@@ -29,15 +32,17 @@ import java.io.IOException;
 
 public class ContactUsActivity extends AppCompatActivity {
 
+    private Context ctx = ContactUsActivity.this;
+
     private TextView mContactUsUsername, mContactUsEmail, mMessageConEdit;
-    private ParseUser currentUser = ParseUser.getCurrentUser();
     private String currentUsername, currentEmail;
 
     private Bitmap socialBitmapGal;
     private TextView mPhotoUploadCUTextView;
 
+    private UserClassQuery userClassQuery = new UserClassQuery(ctx);
     private ToastMessages toastMessages = new ToastMessages();
-    private BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog(ContactUsActivity.this);
+    private BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog(ctx);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,42 +66,37 @@ public class ContactUsActivity extends AppCompatActivity {
     }
 
     public void getUserData(){
-        if (currentUser != null){
-            currentUsername = currentUser.getUsername();
-            currentEmail = currentUser.getEmail();
+        if (userClassQuery.userExists()){
+            currentUsername = userClassQuery.userName();
+            currentEmail = userClassQuery.email();
             mContactUsUsername.setText(currentUsername);
             mContactUsEmail.setText(currentEmail);
         }
     }
 
     public void sendMessage(View view){
-        if (currentUser != null){
+        if (userClassQuery.userExists()){
             if (!mMessageConEdit.getText().toString().isEmpty()){
                 boxedLoadingDialog.showLoadingDialog();
                 String lockedMessage = mMessageConEdit.getText().toString();
-                ParseObject message = new ParseObject("Messages");
-                message.put("username", currentUsername);
-                message.put("userEmail", currentEmail);
-                message.put("message", lockedMessage);
-                if (!mPhotoUploadCUTextView.getText().toString().isEmpty()){
-                    message.put("file", compressedMessageFile());
-                }
-                message.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e == null){
-                            toastMessages.productionMessage(getApplicationContext(),
-                                    getResources().getString(R.string.act_contactUs_messageSend)
-                                    ,1);
-                            finish();
-                        }else{
-                            toastMessages.productionMessage(getApplicationContext(),
-                                    getResources().getString(R.string.act_contactUs_messageNotSend)
-                                    ,1);
-                            boxedLoadingDialog.hideLoadingDialog();
-                        }
-                    }
-                });
+                MessageClassSend mcs = new MessageClassSend();
+                mcs.sendMessagesToServer(currentUsername, currentEmail, lockedMessage
+                        , compressedMessageFile(), new MessageClassInterface() {
+                            @Override
+                            public void afterMessageSent(ParseException e) {
+                                if (e == null){
+                                    toastMessages.productionMessage(getApplicationContext(),
+                                            getResources().getString(R.string
+                                                    .act_contactUs_messageSend),1);
+                                    finish();
+                                }else{
+                                    toastMessages.productionMessage(getApplicationContext(),
+                                            getResources().getString(R.string
+                                                    .act_contactUs_messageNotSend),1);
+                                    boxedLoadingDialog.hideLoadingDialog();
+                                }
+                            }
+                        });
             }else{
                 toastMessages.productionMessage(getApplicationContext(),
                         getResources().getString(R.string.act_contactUs_pleaseWriteAMsg)

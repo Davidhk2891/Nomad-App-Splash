@@ -37,12 +37,10 @@ import static com.nomadapp.splash.R.id.otherAddress3;
 public class AddressAdditionActivity extends AppCompatActivity {
 
     private TextView cHomeAddress, cWorkAddress, cOtherAddress1, cOtherAddress2, cOtherAddress3;
-
     private ParseUser currentUser = new ParseUser();
-
     private ToastMessages toastMessages = new ToastMessages();
-
-    private WriteReadDataInFile writeReadDataInFile = new WriteReadDataInFile(AddressAdditionActivity.this);
+    private WriteReadDataInFile writeReadDataInFile = new WriteReadDataInFile
+            (AddressAdditionActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +56,8 @@ public class AddressAdditionActivity extends AppCompatActivity {
 
         //Navigate back to parent activity
         if (getSupportActionBar() != null) {
-
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         }
         //--------------------------------
 
@@ -96,32 +91,41 @@ public class AddressAdditionActivity extends AppCompatActivity {
                                 if(objects.size() > 0){
                                     for(ParseObject object : objects){
                                         if(!(cHomeAddress.getText().toString().isEmpty())) {
-                                            object.put("HomeAddress", cHomeAddress.getText().toString());
+                                            object.put("HomeAddress", cHomeAddress.getText()
+                                                    .toString());
                                         }
                                         if(!(cWorkAddress.getText().toString().isEmpty())) {
-                                            object.put("WorkAddress", cWorkAddress.getText().toString());
+                                            object.put("WorkAddress", cWorkAddress.getText()
+                                                    .toString());
                                         }
                                         if(!(cOtherAddress1.getText().toString().isEmpty())) {
-                                            object.put("OtherAddress1", cOtherAddress1.getText().toString());
+                                            object.put("OtherAddress1", cOtherAddress1.getText()
+                                                    .toString());
                                         }
                                         if(!(cOtherAddress2.getText().toString().isEmpty())) {
-                                            object.put("OtherAddress2", cOtherAddress2.getText().toString());
+                                            object.put("OtherAddress2", cOtherAddress2.getText()
+                                                    .toString());
                                         }
                                         if(!(cOtherAddress3.getText().toString().isEmpty())) {
-                                            object.put("OtherAddress3", cOtherAddress3.getText().toString());
+                                            object.put("OtherAddress3", cOtherAddress3.getText()
+                                                    .toString());
                                         }
                                         object.saveInBackground(new SaveCallback() {
                                             @Override
                                             public void done(ParseException e) {
                                                 if(e == null) {
-                                                    toastMessages.productionMessage(getApplicationContext()
+                                                    toastMessages.productionMessage
+                                                            (getApplicationContext()
                                                     ,"Addresses saved",1);
-                                                    startActivity(new Intent(AddressAdditionActivity.this, HomeActivity.class));
+                                                    startActivity(new Intent
+                                                            (AddressAdditionActivity
+                                                                    .this, HomeActivity.class));
                                                 }else{
-                                                    toastMessages.productionMessage(getApplicationContext()
+                                                    toastMessages.productionMessage
+                                                            (getApplicationContext()
                                                     ,e.getMessage() + " " + getResources()
-                                                    .getString(R.string.addAddress_act_java_tryAgain)
-                                                    ,1);
+                                                    .getString(R.string
+                                                            .addAddress_act_java_tryAgain),1);
                                                 }
                                             }
                                         });
@@ -204,7 +208,8 @@ public class AddressAdditionActivity extends AppCompatActivity {
                 try {
                     intent = builder.build(AddressAdditionActivity.this);
                     startActivityForResult(intent, 1);//<--1
-                } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+                } catch (GooglePlayServicesRepairableException |
+                        GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -214,7 +219,8 @@ public class AddressAdditionActivity extends AppCompatActivity {
                 try {
                     intent2 = builder2.build(AddressAdditionActivity.this);
                     startActivityForResult(intent2, 2);//<--1
-                } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+                } catch (GooglePlayServicesRepairableException |
+                        GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -224,7 +230,8 @@ public class AddressAdditionActivity extends AppCompatActivity {
                 try {
                     intent3 = builder3.build(AddressAdditionActivity.this);
                     startActivityForResult(intent3, 3);//<--1
-                } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+                } catch (GooglePlayServicesRepairableException |
+                        GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -234,7 +241,8 @@ public class AddressAdditionActivity extends AppCompatActivity {
                 try {
                     intent4 = builder4.build(AddressAdditionActivity.this);
                     startActivityForResult(intent4, 4);//<--1
-                } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+                } catch (GooglePlayServicesRepairableException |
+                        GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -244,7 +252,8 @@ public class AddressAdditionActivity extends AppCompatActivity {
                 try {
                     intent5 = builder5.build(AddressAdditionActivity.this);
                     startActivityForResult(intent5, 5);//<--1
-                } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+                } catch (GooglePlayServicesRepairableException |
+                        GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -252,7 +261,8 @@ public class AddressAdditionActivity extends AppCompatActivity {
     }
 
     //Add saving feature to "Save" button instead
-    //craft UI and code to be able to fetch saved addresses from the carLocation section at WashReqParamsActivity
+    //craft UI and code to be able to fetch saved addresses from the carLocation section
+    // at WashReqParamsActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

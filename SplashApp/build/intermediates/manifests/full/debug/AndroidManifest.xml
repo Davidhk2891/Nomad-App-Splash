@@ -9,8 +9,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nomadapp.splash"
-    android:versionCode="23"
-    android:versionName="1.4.3" >
+    android:versionCode="28"
+    android:versionName="1.4.8" >
 
     <uses-sdk
         android:minSdkVersion="19"
@@ -205,6 +205,14 @@
         <activity
             android:name="com.nomadapp.splash.ui.activity.carownerside.QuickTourActivity"
             android:label="Quick Tour"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.nomadapp.splash.ui.activity.splasherside.SplasherWalletActivity"
+            android:label="My wallet"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.nomadapp.splash.ui.activity.splasherside.SplasherServicesActivity"
+            android:label="My services"
             android:screenOrientation="portrait" />
         <activity android:name="com.facebook.CustomTabMainActivity" />
 

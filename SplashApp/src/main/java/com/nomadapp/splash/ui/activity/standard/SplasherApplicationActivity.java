@@ -1,5 +1,6 @@
 package com.nomadapp.splash.ui.activity.standard;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -8,11 +9,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +35,9 @@ import android.widget.TextView;
 import com.nomadapp.splash.model.constants.PaymeConstants;
 
 import com.nomadapp.splash.R;
+import com.nomadapp.splash.model.imagehandler.ImageFileStorage;
+import com.nomadapp.splash.model.localdatastorage.StoragePermission;
+import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
 import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.LogInCallback;
@@ -49,11 +51,8 @@ import com.parse.SignUpCallback;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import static com.nomadapp.splash.R.id.socialIDProofFileUpload;
 import static com.nomadapp.splash.R.id.bankAccProofFileUpload;
@@ -66,6 +65,8 @@ import static com.nomadapp.splash.R.id.incDocProofCameraUpload;
 import com.nomadapp.splash.utils.sysmsgs.connectionlost.ConnectionLost;
 
 public class SplasherApplicationActivity extends AppCompatActivity {
+
+    private Context ctx = SplasherApplicationActivity.this;
 
     private Spinner cSplasherSignUpCity;
     private EditText cSplasherSignUpName, cSplasherSignUpLastName, cSplasherSignUpEmail,
@@ -116,12 +117,12 @@ public class SplasherApplicationActivity extends AppCompatActivity {
     //gallery function for all gallery-file-upload operations: docsFromGallery()
     //-----------------------------------------------------------------//
 
-    private BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog(SplasherApplicationActivity.this);
+    private BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog(ctx);
 
     //--------------------------------------------------------------------------------------------//
 
     ToastMessages toastMessages = new ToastMessages();
-    ConnectionLost clm = new ConnectionLost(SplasherApplicationActivity.this);
+    ConnectionLost clm = new ConnectionLost(ctx);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +132,7 @@ public class SplasherApplicationActivity extends AppCompatActivity {
         if(getSupportActionBar() != null)
         getSupportActionBar().hide();
 
-        createImageGallery();
+        ImageFileStorage.createImageGallery();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -242,7 +243,7 @@ public class SplasherApplicationActivity extends AppCompatActivity {
 
         spinnerCities();
 
-        clm.connectivityStatus(SplasherApplicationActivity.this);
+        clm.connectivityStatus(ctx);
 
     }
 
@@ -257,6 +258,8 @@ public class SplasherApplicationActivity extends AppCompatActivity {
         final String numericalBadge = "2";
 
         final String setPrice = "15";
+        final String setPriceEInt = "15";
+        final String setPriceMoto = "15";
 
         //If im giving 3 of Rating, then it has to be counted as 1 done wash for math porpuses.
         //When it'll come to show number of washes to the Splasher, simply substract 1 from the var.
@@ -284,46 +287,37 @@ public class SplasherApplicationActivity extends AppCompatActivity {
                 cBankAccProofTextView.getText().toString().isEmpty() ||
                 cIncDocProofTextView.getText().toString().isEmpty()){
 
-            toastMessages.productionMessage(SplasherApplicationActivity.this
+            toastMessages.productionMessage(ctx
                     ,getResources().getString(R.string.becomeSplasher_act_java_pleaseFillAll),
                     1);
 
         } else if(!cSplasherSignUpPassword.getText().toString().equals(cSplasherSignUpPassword2
                 .getText().toString())) {
 
-            toastMessages.productionMessage(SplasherApplicationActivity.this
+            toastMessages.productionMessage(ctx
                     ,getResources().getString(R.string.becomeSplasher_act_java_bothPasswords),
                     1);
 
         } else if(!cSplasherSignUpEmail.getText().toString().contains("@")
                 || !cSplasherSignUpEmail.getText().toString().contains(".com")) {
 
-            toastMessages.productionMessage(SplasherApplicationActivity.this
-                    ,getResources().getString(R.string.becomeSplasher_act_java_pleaseEnterValidEmail),
+            toastMessages.productionMessage(ctx
+                    ,getResources().getString(R.string
+                            .becomeSplasher_act_java_pleaseEnterValidEmail),
                     1);
 
         } else {
 
             boxedLoadingDialog.showLoadingDialog();
-
             splasherUser = new ParseUser();
-
             splasherUser.setUsername(cSplasherSignUpUserName.getText().toString());
-
             splasherUser.setPassword(cSplasherSignUpPassword.getText().toString());
-
-            splasherUser.setEmail(cSplasherSignUpEmail.getText().toString());//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-            splasherUser.put("city", cityText);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-            splasherUser.put("phonenumber", cSplasherSignUpPhoneNumber.getText().toString());//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-            splasherUser.put("name", cSplasherSignUpName.getText().toString());//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-            splasherUser.put("lastname", cSplasherSignUpLastName.getText().toString());//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
+            splasherUser.setEmail(cSplasherSignUpEmail.getText().toString());//<<<<<<<<<<<<<<<<<<<<<
+            splasherUser.put("city", cityText);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+            splasherUser.put("phonenumber", cSplasherSignUpPhoneNumber.getText().toString());//<<<<<
+            splasherUser.put("name", cSplasherSignUpName.getText().toString());//<<<<<<<<<<<<<<<<<<<
+            splasherUser.put("lastname", cSplasherSignUpLastName.getText().toString());//<<<<<<<<<<<
             splasherUser.put("CarOwnerOrSplasher", splasher);
-
             //upload images
             splasherUser.signUpInBackground(new SignUpCallback() {
                 @Override
@@ -341,6 +335,8 @@ public class SplasherApplicationActivity extends AppCompatActivity {
 
                         profile.put("numericalBadge", numericalBadge);
                         profile.put("setPrice", setPrice);
+                        profile.put("setPriceEInt",setPriceEInt);
+                        profile.put("setPriceMoto",setPriceMoto);
 
                         profile.put("status", "active");
 
@@ -443,12 +439,14 @@ public class SplasherApplicationActivity extends AppCompatActivity {
             toastMessages.productionMessage(getApplicationContext(),getResources(
             ).getString(R.string.becomeSplasher_act_java_userNameAndPass),1);
         } else {
-            ParseUser.logInInBackground(cSplasherSignUpUserName.getText().toString(), cSplasherSignUpPassword.getText().toString()
+            ParseUser.logInInBackground(cSplasherSignUpUserName.getText().toString()
+                    , cSplasherSignUpPassword.getText().toString()
                     , new LogInCallback() {
                         @Override
                         public void done(ParseUser user, ParseException e) {
                             if (user != null && e == null) {
-                                if (user.getString("CarOwnerOrSplasher").equals(carOwnerWrong)) {
+                                if (user.getString("CarOwnerOrSplasher")
+                                        .equals(carOwnerWrong)) {
                                     cWrongUserTypeDialog();
                                 } else {
                                     Log.i("LogIn", "logIn Successful");
@@ -480,39 +478,59 @@ public class SplasherApplicationActivity extends AppCompatActivity {
     }
 
     public void backToMainFromLogin(){
-        Intent intent = new Intent(SplasherApplicationActivity. this, HomeActivity. class);
+        Intent intent = new Intent(ctx, HomeActivity. class);
         startActivity(intent);
     }
 
     public void backToMainFromSignUp(){
 
-        final Intent intent = new Intent(SplasherApplicationActivity. this, HomeActivity. class);
+        final Intent intent = new Intent(ctx, HomeActivity. class);
 
         intent.putExtra("PaymentClientKey", PaymeConstants.PAYMENT_CLIENT_KEY);//READY//
         intent.putExtra("sellerFirstName", cSplasherSignUpName.getText().toString());//READY//
-        intent.putExtra("sellerLastName", cSplasherSignUpLastName.getText().toString());//READY//
-        intent.putExtra("sellerSocialId", cSplasherSignUpCountryID.getText().toString());//READY//
-        intent.putExtra("sellerBirthDate", cSplasherSignUpDateOfBirth.getText().toString());//READY//
-        intent.putExtra("sellerSocialIdIssued", cSplasherSignUpCountryIdIssued.getText().toString());//READY//
-        intent.putExtra("sellerGender", splasherGenderProcessor(cSplasherSignUpGender));//READY// ----//Int//----
+        intent.putExtra("sellerLastName", cSplasherSignUpLastName.getText()
+                .toString());//READY//
+        intent.putExtra("sellerSocialId", cSplasherSignUpCountryID.getText()
+                .toString());//READY//
+        intent.putExtra("sellerBirthDate", cSplasherSignUpDateOfBirth.getText()
+                .toString());//READY//
+        intent.putExtra("sellerSocialIdIssued", cSplasherSignUpCountryIdIssued.getText()
+                .toString());//READY//
+        intent.putExtra("sellerGender",
+                splasherGenderProcessor(cSplasherSignUpGender));//READY// ----//Int//----
         intent.putExtra("sellerEmail", cSplasherSignUpEmail.getText().toString());//READY//
-        intent.putExtra("sellerPhoneNumber", cSplasherSignUpPhoneNumber.getText().toString());//READY//
+        intent.putExtra("sellerPhoneNumber", cSplasherSignUpPhoneNumber.getText()
+                .toString());//READY//
 
-        intent.putExtra("sellerBankCode", Integer.parseInt(cSplasherSignUpBankCodeNum.getText().toString()));//READY// ----//Int//----
-        intent.putExtra("sellerBankBranch", Integer.parseInt(cSplasherSignUpBankBranchNum.getText().toString()));//READY// ----//Int//----
-        intent.putExtra("sellerBankAccountNumber", Integer.parseInt(cSplasherSignUpBankAccNum.getText().toString()));//READY// ----//Int//----
+        intent.putExtra("sellerBankCode", Integer.parseInt(cSplasherSignUpBankCodeNum
+                .getText().toString()));//READY// ----//Int//----
+        intent.putExtra("sellerBankBranch", Integer.parseInt(cSplasherSignUpBankBranchNum
+                .getText().toString()));//READY// ----//Int//----
+        intent.putExtra("sellerBankAccountNumber", Integer.parseInt(cSplasherSignUpBankAccNum
+                .getText().toString()));//READY// ----//Int//----
+        WriteReadDataInFile writeReadDataInFile = new WriteReadDataInFile(ctx);
+        writeReadDataInFile.writeToFile("sellerBankCode",cSplasherSignUpBankCodeNum
+                .getText().toString());
+        writeReadDataInFile.writeToFile("sellerBankBranch",cSplasherSignUpBankBranchNum
+                .getText().toString());
+        writeReadDataInFile.writeToFile("sellerBankAccountNumber",cSplasherSignUpBankAccNum
+                .getText().toString());
 
         intent.putExtra("sellerDescription", PaymeConstants.SELLER_DESCRIPTION);//READY//
         intent.putExtra("sellerSiteUrl", PaymeConstants.SELLER_SITE_URL);//READY//
-        intent.putExtra("sellerPersonBussinessType", PaymeConstants.SELLER_PERSON_BUSINESS_TYPE);//READY//
+        intent.putExtra("sellerPersonBussinessType"
+                ,PaymeConstants.SELLER_PERSON_BUSINESS_TYPE);//READY//
         intent.putExtra("sellerInc", PaymeConstants.SELLER_INC);//READY// ----//Int//----
 
-        intent.putExtra("sellerAddressCity", cSplasherSignUpCity.getSelectedItem().toString());//READY//
-        intent.putExtra("sellerAddressStreet", cSplasherSignUpAddress.getText().toString());//READY//
-        intent.putExtra("sellerAddressStreetNumber", Integer.parseInt(cSplasherSignUpAddressNum.getText().toString()));//READY// ----//Int//----
+        intent.putExtra("sellerAddressCity", cSplasherSignUpCity.getSelectedItem()
+                .toString());//READY//
+        intent.putExtra("sellerAddressStreet", cSplasherSignUpAddress.getText()
+                .toString());//READY//
+        intent.putExtra("sellerAddressStreetNumber", Integer
+                .parseInt(cSplasherSignUpAddressNum.getText().toString()));//READY// ----//Int//----
         intent.putExtra("sellerAddressCountry", PaymeConstants.SELLER_COUNTRY);//READY//
 
-        intent.putExtra("sellerMarketFee", PaymeConstants.MARKET_FEE);//READY// ----//Double//----
+        intent.putExtra("sellerMarketFee", PaymeConstants.MARKET_FEE);//READY//----//Double//-
 
         //--PARAMETER RELEVANT TO APP IN PRODUCTION ONLY--//
         intent.putExtra("sellerPlan", PaymeConstants.MONTHLY_CREDIT_TRACK);
@@ -595,16 +613,17 @@ public class SplasherApplicationActivity extends AppCompatActivity {
     public void cWrongUserTypeDialog(){
         ParseUser.logOut();
         AlertDialog.Builder wrongUserTypeDialog = new AlertDialog
-                .Builder(SplasherApplicationActivity.this);
-        wrongUserTypeDialog.setTitle(getResources().getString(R.string.becomeSplasher_act_java_wrongUserType));
+                .Builder(ctx);
+        wrongUserTypeDialog.setTitle(getResources().getString(R.string
+                .becomeSplasher_act_java_wrongUserType));
         wrongUserTypeDialog.setIcon(android.R.drawable.ic_dialog_alert);
         wrongUserTypeDialog.setMessage(getResources()
                 .getString(R.string.becomeSplasher_act_java_pleaseLoginThroughRespec));
-        wrongUserTypeDialog.setPositiveButton(getResources().getString(R.string.becomeSplasher_act_java_ok), new DialogInterface.OnClickListener() {
+        wrongUserTypeDialog.setPositiveButton(getResources().getString(R.string
+                .becomeSplasher_act_java_ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(SplasherApplicationActivity.this
-                        , SignUpLogInActivity.class);
+                Intent intent = new Intent(ctx, SignUpLogInActivity.class);
                 startActivity(intent);
             }
         });
@@ -612,48 +631,29 @@ public class SplasherApplicationActivity extends AppCompatActivity {
     }
 
     public void spinnerCities(){
-
         cSplasherSignUpCity = findViewById(R.id.splasherSignUpCity);
-
         List<String> cityList = new ArrayList<>();
-
         cityList.add(getResources().getString(R.string.becomeSplasher_act_java_telAviv));
-
         cityList.add(getResources().getString(R.string.becomeSplasher_act_java_herzliya));
-
         cityList.add(getResources().getString(R.string.becomeSplasher_act_java_ramatGan));
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cityList);
-
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(ctx, android.R.layout
+                .simple_spinner_item, cityList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         cSplasherSignUpCity.setAdapter(dataAdapter);
-
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-
-            startActivity(new Intent(SplasherApplicationActivity.this, SignUpLogInActivity.class));
-
+            startActivity(new Intent(ctx, SignUpLogInActivity.class));
         }
-
-        /*
-        if (keyCode == KeyEvent.KEYCODE_HOME) {
-
-            //Do nothing for now
-
-        }
-        */
         return false;
     }
 
     //Proof File upload from GALLERY
     public void docsFromGallery(View view){
-        isStoragePermissionGranted();
-        if(isStoragePermissionGranted()) {
+        StoragePermission.isStoragePermissionGranted(ctx,SplasherApplicationActivity.this);
+        if(StoragePermission.isStoragePermissionGranted(ctx,SplasherApplicationActivity.this)){
             switch(view.getId()) {
                 case socialIDProofFileUpload:
                      Intent intent = new Intent(Intent.ACTION_PICK,
@@ -676,14 +676,16 @@ public class SplasherApplicationActivity extends AppCompatActivity {
 
     //Proof File upload from CAMERA
     public void docsFromCamera(View view){
-        isStoragePermissionGranted();
-        if(isStoragePermissionGranted()){
+        StoragePermission.isWrittingToStoragePermissionGranted
+                (ctx,SplasherApplicationActivity.this);
+        if(StoragePermission.isWrittingToStoragePermissionGranted
+                (ctx,SplasherApplicationActivity.this)){
             try{
                 switch (view.getId()){
                     case socialIDProofCameraUpload:
                         String socialIdCamPic = "socialID_";
-                        File socialIDFile = createImageFile(socialIdCamPic);
-                        targetUriIDString = contentCamFile(socialIDFile);
+                        File socialIDFile = ImageFileStorage.createImageFile(socialIdCamPic);
+                        targetUriIDString = ImageFileStorage.contentCamFile(ctx,socialIDFile);
                         rawImageString1 = socialIDFile.getAbsolutePath();
                         Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -692,8 +694,8 @@ public class SplasherApplicationActivity extends AppCompatActivity {
                         break;
                     case bankAccProofCameraUpload:
                         String bankAccCamPic = "bankAcc_";
-                        File bankAccFile = createImageFile(bankAccCamPic);
-                        targetUriBankString = contentCamFile(bankAccFile);
+                        File bankAccFile = ImageFileStorage.createImageFile(bankAccCamPic);
+                        targetUriBankString = ImageFileStorage.contentCamFile(ctx,bankAccFile);
                         rawImageString2 = bankAccFile.getAbsolutePath();
                         Intent ii = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -702,8 +704,8 @@ public class SplasherApplicationActivity extends AppCompatActivity {
                         break;
                     case incDocProofCameraUpload:
                         String incDocCamPic = "incDoc_";
-                        File incFile = createImageFile(incDocCamPic);
-                        targetUriIncString = contentCamFile(incFile);
+                        File incFile = ImageFileStorage.createImageFile(incDocCamPic);
+                        targetUriIncString = ImageFileStorage.contentCamFile(ctx,incFile);
                         rawImageString3 = incFile.getAbsolutePath();
                         Intent iii = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -733,43 +735,6 @@ public class SplasherApplicationActivity extends AppCompatActivity {
         }
     }
 
-    private void createImageGallery(){
-        File storageDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        //path = Environment.getExternalStorageDirectory() + "/" + "Splash/";
-        String GALLERY_LOCATION = "Splasher";
-        mGalleryFolder = new File(storageDirectory, GALLERY_LOCATION);
-        if(!mGalleryFolder.exists()){
-            //noinspection ResultOfMethodCallIgnored
-            mGalleryFolder.mkdirs();
-        }
-        Log.i("AND", mGalleryFolder.toString());
-    }
-
-    public File createImageFile(String prefix) throws IOException{
-        String timeStamp = DateFormat.getDateTimeInstance().format(new Date());
-        String imageFileName = prefix + timeStamp + "_";
-        //For imageFileName2:------------
-        Random rand = new Random();
-        int min = 1, max = 10000;
-        int randomNumForFile = rand.nextInt((max - min) + 1) + min;
-        String imageFileName2 = prefix + randomNumForFile + "_";
-        //-------------------------------
-        File savedImage;
-        if(Build.VERSION.SDK_INT > 19){
-            savedImage = File.createTempFile(imageFileName, ".jpg", mGalleryFolder);
-            Log.i("AND3", savedImage.toString());
-        }else {
-            savedImage = File.createTempFile(imageFileName2, ".jpg", mGalleryFolder);
-            Log.i("AND2", savedImage.toString());
-        }
-        return savedImage;
-    }
-
-    public Uri contentCamFile(File Image1){
-        String authorities = getApplicationContext().getPackageName() + ".fileProvider";
-        return FileProvider.getUriForFile(this, authorities, Image1);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -780,10 +745,13 @@ public class SplasherApplicationActivity extends AppCompatActivity {
                     fromCam = false;
                     Uri targetUriID = data.getData();
                     if (targetUriID != null) {
-                        String onlyFileNameID = targetUriID.toString().substring(targetUriID.getPath().lastIndexOf(File.separator) + 1);
-                        String onlyFileNameID2 = onlyFileNameID.substring(onlyFileNameID.lastIndexOf("/") + 1);
+                        String onlyFileNameID = targetUriID.toString().substring(targetUriID
+                                .getPath().lastIndexOf(File.separator) + 1);
+                        String onlyFileNameID2 = onlyFileNameID.substring(onlyFileNameID
+                                .lastIndexOf("/") + 1);
                         try {
-                            socialBitmapGal = MediaStore.Images.Media.getBitmap(this.getContentResolver(), targetUriID);
+                            socialBitmapGal = MediaStore.Images.Media
+                                    .getBitmap(this.getContentResolver(), targetUriID);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -800,10 +768,13 @@ public class SplasherApplicationActivity extends AppCompatActivity {
                     fromCam = false;
                     Uri targetUriBank = data.getData();
                     if (targetUriBank != null) {
-                        String onlyFileNameBank = targetUriBank.toString().substring(targetUriBank.getPath().lastIndexOf(File.separator) + 1);
-                        String onlyFileNameBank2 = onlyFileNameBank.substring(onlyFileNameBank.lastIndexOf("/") + 1);
+                        String onlyFileNameBank = targetUriBank.toString()
+                                .substring(targetUriBank.getPath().lastIndexOf(File.separator) + 1);
+                        String onlyFileNameBank2 = onlyFileNameBank
+                                .substring(onlyFileNameBank.lastIndexOf("/") + 1);
                         try {
-                            bankBitmapGal = MediaStore.Images.Media.getBitmap(this.getContentResolver(), targetUriBank);
+                            bankBitmapGal = MediaStore.Images.Media
+                                    .getBitmap(this.getContentResolver(), targetUriBank);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -820,10 +791,13 @@ public class SplasherApplicationActivity extends AppCompatActivity {
                     fromCam = false;
                     Uri targetUriInc = data.getData();
                     if (targetUriInc != null) {
-                        String onlyFileNameInc = targetUriInc.toString().substring(targetUriInc.getPath().lastIndexOf(File.separator) + 1);
-                        String onlyFileNameInc2 = onlyFileNameInc.substring(onlyFileNameInc.lastIndexOf("/") + 1);
+                        String onlyFileNameInc = targetUriInc.toString()
+                                .substring(targetUriInc.getPath().lastIndexOf(File.separator) + 1);
+                        String onlyFileNameInc2 = onlyFileNameInc
+                                .substring(onlyFileNameInc.lastIndexOf("/") + 1);
                         try {
-                            incDocBitmapGal = MediaStore.Images.Media.getBitmap(this.getContentResolver(), targetUriInc);
+                            incDocBitmapGal = MediaStore.Images.Media
+                                    .getBitmap(this.getContentResolver(), targetUriInc);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -902,26 +876,5 @@ public class SplasherApplicationActivity extends AppCompatActivity {
             gender = 1;
         }
         return gender;
-    }
-
-    public  boolean isStoragePermissionGranted() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(android.Manifest.permission. READ_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED) {
-                Log.i("permission","Permission is granted, press again");
-                return true;
-            } else {
-
-                Log.i("permission","Permission is revoked");
-                ActivityCompat.requestPermissions(this,
-                        new String[]{android.Manifest.permission. READ_EXTERNAL_STORAGE},
-                        1);
-                return false;
-            }
-        }
-        else { //permission is automatically granted on sdk<23 upon installation
-            Log.i("permission","Permission is granted, press again");
-            return true;
-        }
     }
 }

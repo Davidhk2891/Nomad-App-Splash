@@ -194,21 +194,15 @@ public class SplasherListFragment extends Fragment {
         fetchedCModel = washReqParamsActivity.getCarModelToUpload();
         fetchedCColor = washReqParamsActivity.getCarColorToUpload();
         fetchedCPlate = washReqParamsActivity.getCarPlateToUpload();
-        fetchedDollar = washReqParamsActivity.getDollarSetPrice();
+        fetchedDollar = splasherPrice;
         fetchedNumericalBadge = washReqParamsActivity.getNumericalBadge();
         isTemporalKeyActive = washReqParamsActivity.isTemporalKeyActive();
-        Log.i("f1",fetchedAddress);
-        Log.i("f2",fetchedAddressDesc);
-        Log.i("f3",fetchedCoords.toString());
-        Log.i("f4",fetchedFullDate);
-        Log.i("f5",fetchedSelectedTime);
-        Log.i("f6",fetchedServiceType);
-        Log.i("f7",fetchedCBrand);
-        Log.i("f8",fetchedCModel);
-        Log.i("f9",fetchedCColor);
-        Log.i("f10",fetchedCPlate);
-        Log.i("f11",fetchedDollar);
-        Log.i("f12",String.valueOf(fetchedNumericalBadge));
+        Log.i("f1",fetchedAddress);Log.i("f2",fetchedAddressDesc);
+        Log.i("f3",fetchedCoords.toString());Log.i("f4",fetchedFullDate);
+        Log.i("f5",fetchedSelectedTime);Log.i("f6",fetchedServiceType);
+        Log.i("f7",fetchedCBrand);Log.i("f8",fetchedCModel);
+        Log.i("f9",fetchedCColor);Log.i("f10",fetchedCPlate);
+        Log.i("f11",fetchedDollar);Log.i("f12",String.valueOf(fetchedNumericalBadge));
         Log.i("f13",String.valueOf(isTemporalKeyActive));
         //--------------------------//
     }
@@ -420,7 +414,8 @@ public class SplasherListFragment extends Fragment {
                         for (ParseObject splasherObj : objects){
                             splasherName = splasherObj.getString("username");//<<<<<<<<<<<<<<<<<
 
-                            ParseFile localProfPic = splasherObj.getParseFile("splasherProfPic");
+                            ParseFile localProfPic = splasherObj
+                                    .getParseFile("splasherProfPic");
                             splasherProfPic = String.valueOf(localProfPic.getUrl());//<<<<<<<<<<<<<<
 
                             if (Integer.parseInt(splasherObj
@@ -434,7 +429,8 @@ public class SplasherListFragment extends Fragment {
                             splasherNumWash = splasherObj.getString("washes");//<<<<<<<<<<<<<<<<
 
                             //Apply Data to MySplasher object//
-                            //left here. need to add arraylist in which to deposit the indivudual data in strings. nums etc
+                            //left here. need to add arraylist in which to deposit the
+                            // indivudual data in strings. nums etc
                             MySplasher splasher = new MySplasher();
                             splasher.setSplasherUsername(splasherName);
                             splasher.setSplasherProfPic(splasherProfPic);

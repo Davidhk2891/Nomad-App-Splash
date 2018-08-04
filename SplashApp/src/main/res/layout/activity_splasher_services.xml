@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.splasherside.SplasherServicesActivity">
+
+    <TextView
+        android:id="@+id/servicePriceTitle"
+        android:text="@string/act_my_services_servicePriceTitle"
+        android:textSize="24sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:textColor="#03a9f4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/sepaInServices"
+        android:layout_width="350dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="2dp"
+        android:layout_below="@+id/servicePriceTitle"
+        android:layout_marginTop="18dp"
+        android:background="@color/colorfirst"/>
+
+    <RelativeLayout
+        android:id="@+id/externalRelative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sepaInServices"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/externalTitle"
+            android:text="@string/act_my_services_external"
+            android:textSize="16sp"
+            android:layout_marginStart="25dp"
+            android:layout_alignBaseline="@+id/externalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/externalPrice"
+            android:ems="2"
+            android:textAlignment="center"
+            android:selectAllOnFocus="true"
+            android:textSize="25sp"
+            android:maxLines="1"
+            android:maxLength="3"
+            android:hint="@string/act_my_services_defaultPrice"
+            android:inputType="number"
+            android:textColor="#9E9E9E"
+            android:layout_marginEnd="4dp"
+            android:layout_toStartOf="@+id/shekel1"
+            android:imeOptions="actionNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/shekel1"
+            android:text="@string/shekel"
+            android:textSize="25sp"
+            android:textColor="#9E9E9E"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBaseline="@+id/externalPrice"
+            android:layout_marginEnd="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/sepaInServices2"
+        android:layout_width="350dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="2dp"
+        android:layout_below="@+id/externalRelative"
+        android:background="#BDBDBD"/>
+
+    <RelativeLayout
+        android:id="@+id/externalInternalRelative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/sepaInServices2"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/extIntTitle"
+            android:text="@string/act_my_services_extInt"
+            android:textSize="16sp"
+            android:layout_marginStart="25dp"
+            android:layout_alignBaseline="@+id/externalInternalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/externalInternalPrice"
+            android:textSize="25sp"
+            android:ems="2"
+            android:maxLines="1"
+            android:maxLength="3"
+            android:textAlignment="center"
+            android:selectAllOnFocus="true"
+            android:textColor="#9E9E9E"
+            android:hint="@string/act_my_services_defaultPrice"
+            android:inputType="number"
+            android:layout_toStartOf="@+id/shekel2"
+            android:layout_marginEnd="4dp"
+            android:imeOptions="actionNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/shekel2"
+            android:text="@string/shekel"
+            android:textSize="25sp"
+            android:textColor="#9E9E9E"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBaseline="@+id/externalInternalPrice"
+            android:layout_marginEnd="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/sepaInServices3"
+        android:layout_width="350dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="2dp"
+        android:layout_below="@+id/externalInternalRelative"
+        android:background="#BDBDBD"/>
+
+    <RelativeLayout
+        android:id="@+id/motorcycleRelative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/sepaInServices3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/motorcycleTitle"
+            android:text="@string/act_my_services_motorcycle"
+            android:textSize="16sp"
+            android:layout_marginStart="25dp"
+            android:layout_alignBaseline="@+id/motorcyclePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/motorcyclePrice"
+            android:textSize="25sp"
+            android:ems="2"
+            android:maxLines="1"
+            android:maxLength="3"
+            android:textAlignment="center"
+            android:selectAllOnFocus="true"
+            android:textColor="#9E9E9E"
+            android:inputType="number"
+            android:hint="@string/act_my_services_defaultPrice"
+            android:imeOptions="actionDone"
+            android:layout_toStartOf="@+id/shekel3"
+            android:layout_marginEnd="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/shekel3"
+            android:text="@string/shekel"
+            android:textSize="25sp"
+            android:textColor="#9E9E9E"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="40dp"
+            android:layout_alignBaseline="@+id/motorcyclePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/sepaInServices4"
+        android:layout_width="350dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="2dp"
+        android:layout_below="@+id/motorcycleRelative"
+        android:background="#BDBDBD"/>
+
+    <Button
+        android:id="@+id/saveServices"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:background="@drawable/btn_shape"
+        android:text="@string/act_account_save"
+        android:onClick="updatePrices"
+        android:textColor="#ffffff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="AddCar_act_java_missingFields">שדות חסרים</string>
+    <string name="AddCar_act_java_ok">מאושר</string>
+    <string name="AddCar_act_java_pleaseFillAllFields">מלא את כל השדות כדי לשמור את הרכב שלך</string>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"נווט לדף הבית"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"נווט למעלה"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"עוד אפשרויות"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"בוצע"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"ראה הכל"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"בחר אפליקציה"</string>
+    <string msgid="121134116657445385" name="abc_capital_off">"כבוי"</string>
+    <string msgid="3405795526292276155" name="abc_capital_on">"פועל"</string>
+    <string msgid="7723749260725869598" name="abc_search_hint">"חיפוש…"</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"מחק שאילתה"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"שאילתת חיפוש"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"חיפוש"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"שלח שאילתה"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"חיפוש קולי"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"שתף עם"</string>
+    <string msgid="3300176832234831527" name="abc_shareactionprovider_share_with_application">"שתף עם <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"כווץ"</string>
+    <string name="about_act_java_comingSoon">בקרוב</string>
+    <string name="act_about_about">אודות</string>
+    <string name="act_about_contactUs">צור קשר</string>
+    <string name="act_about_privacyPolicy">מדיניות פרטיות</string>
+    <string name="act_about_termsOfUse">תנאי שימוש</string>
+    <string name="act_account_accInfoUpdated">פרטי החשבון עודכנו</string>
+    <string name="act_account_add">להוסיף</string>
+    <string name="act_account_edit">לערוך</string>
+    <string name="act_account_editCancel">לבטל</string>
+    <string name="act_account_editMessage">ערוך את פרטי החשבון שלך?</string>
+    <string name="act_account_editOk">מאושר</string>
+    <string name="act_account_editTitle">ערוך פרטי חשבון</string>
+    <string name="act_account_email">דוא"ל:</string>
+    <string name="act_account_failedToUpdateInfo">עדכון פרטי החשבון נכשל. נסה שוב</string>
+    <string name="act_account_fromGallery">בחר מתוך גלריה</string>
+    <string name="act_account_lastName">משפחה:</string>
+    <string name="act_account_phone">טלפון:</string>
+    <string name="act_account_save">לשמור</string>
+    <string name="act_account_takePhoto">לצלם</string>
+    <string name="act_account_username">שם פרטי:</string>
+    <string name="act_addAddresses_done">בוצע</string>
+    <string name="act_addAddresses_home">בית</string>
+    <string name="act_addAddresses_myAddresses">כתובת מותאמת אישית</string>
+    <string name="act_addAddresses_other">אחר</string>
+    <string name="act_addAddresses_work">עבודה</string>
+    <string name="act_addCar_add">להוסיף</string>
+    <string name="act_addCar_addCar">הוסף רכב</string>
+    <string name="act_addCar_brand">מותג</string>
+    <string name="act_addCar_color">צבע</string>
+    <string name="act_addCar_model">דגם</string>
+    <string name="act_addCar_plateNum">מספר רכב</string>
+    <string name="act_addCar_year">שנה</string>
+    <string name="act_alerts_alerts">התראות</string>
+    <string name="act_alerts_reminders">תזכורות (בקרוב)</string>
+    <string name="act_alerts_requestStatus">סטטוס הבקשה</string>
+    <string name="act_become_splash_signUp_city">עיר</string>
+    <string name="act_become_splash_signUp_email">דואר אלקטרוני</string>
+    <string name="act_become_splash_signUp_first">שם פרטי</string>
+    <string name="act_become_splash_signUp_last">שם משפחה</string>
+    <string name="act_become_splash_signUp_login">התחברות</string>
+    <string name="act_become_splash_signUp_orLogin">או הירשם</string>
+    <string name="act_become_splash_signUp_password">סיסמה</string>
+    <string name="act_become_splash_signUp_phone">טלפון</string>
+    <string name="act_become_splash_signUp_repeatPass">חזור על הסיסמה</string>
+    <string name="act_become_splash_signUp_signUp">להגיש מועמדות</string>
+    <string name="act_become_splash_signUp_street">רחוב</string>
+    <string name="act_become_splash_signUp_streetNum">No.</string>
+    <string name="act_become_splash_signUp_userName">שם משתמש</string>
+    <string name="act_become_splasher_signUp_bankAccNum">מספר חשבון בנק</string>
+    <string name="act_become_splasher_signUp_bankBranch">סניף בנק #</string>
+    <string name="act_become_splasher_signUp_bankCode">קוד בנק</string>
+    <string name="act_become_splasher_signUp_countryID">תעודת זהות</string>
+    <string name="act_become_splasher_signUp_countryIdIssued">תאריך הנפקה של תעודת זהות</string>
+    <string name="act_become_splasher_signUp_dateOfBirth">תאריך לידה</string>
+    <string name="act_become_splasher_signUp_genderFemale">נקבה</string>
+    <string name="act_become_splasher_signUp_genderMale">זכר</string>
+    <string name="act_camera_intent_LeftSide">צד שמאל</string>
+    <string name="act_camera_intent_RearSide">צד אחורי</string>
+    <string name="act_camera_intent_RightSide">צד ימין</string>
+    <string name="act_camera_intent_done">בוצע</string>
+    <string name="act_camera_intent_dryMethod">שיטה יבשה</string>
+    <string name="act_camera_intent_equipment">צִיוּד</string>
+    <string name="act_camera_intent_frontNBack">צד קדמי ואחורי</string>
+    <string name="act_camera_intent_frontSide">צד קדמי</string>
+    <string name="act_camera_intent_leftNRight_sides">צד שמאל וימין</string>
+    <string name="act_camera_intent_letsWash">התחל שטיפה</string>
+    <string name="act_camera_intent_send">לשלוח</string>
+    <string name="act_camera_intent_sendNFinish">לשלוח &amp; סיום</string>
+    <string name="act_camera_intent_sendingPictures">שלח תמונות</string>
+    <string name="act_camera_intent_steps">צעדים</string>
+    <string name="act_camera_intent_underScore1">_</string>
+    <string name="act_car_being_washed_allDone">הרכב מוכן</string>
+    <string name="act_car_being_washed_beforeCarPics">תמונות של המכונית שלך לפני השטיפה</string>
+    <string name="act_car_being_washed_front">צד קדמי</string>
+    <string name="act_car_being_washed_goCheckout">עבור לקופה</string>
+    <string name="act_car_being_washed_left">צד שמאל</string>
+    <string name="act_car_being_washed_picsCar">תמונות של המכונית שלך לפני ואחרי שטיפה</string>
+    <string name="act_car_being_washed_rateSplasher">דרג את השטיפה</string>
+    <string name="act_car_being_washed_rear">צד אחורי</string>
+    <string name="act_car_being_washed_right">צד ימין</string>
+    <string name="act_car_being_washed_strdTime">(זמן שטיפת רכב רגיל עשוי להימשך עד פחות או יותר 30 דקות)</string>
+    <string name="act_car_being_washed_tip">טיפ</string>
+    <string name="act_car_being_washed_waitingFoBefoPics">ממתין לתמונות של מצב המכונית הנוכחי</string>
+    <string name="act_car_being_washed_washing">בשטיפה</string>
+    <string name="act_car_owner_accuracy">דיוק: 0</string>
+    <string name="act_car_owner_availableTitle"> זמין עד</string>
+    <string name="act_car_owner_availableValue">00:00</string>
+    <string name="act_car_owner_cancel">לבטל</string>
+    <string name="act_car_owner_cancelWash">ביטול שטיפה</string>
+    <string name="act_car_owner_carOwnerDets">פרטי בעל הרכב</string>
+    <string name="act_car_owner_comingsoon">בקרוב</string>
+    <string name="act_car_owner_contentDesc">תג שוטף</string>
+    <string name="act_car_owner_decline">לא עכשיו</string>
+    <string name="act_car_owner_distanceTitle"> מרחק</string>
+    <string name="act_car_owner_distanceValue">XXXm</string>
+    <string name="act_car_owner_fairness">הֲגִינוּת: 0</string>
+    <string name="act_car_owner_generosity">נדיבות: 0</string>
+    <string name="act_car_owner_go">ללכת</string>
+    <string name="act_car_owner_isAsking">אנשים מבקשים את השירותים שלך.
+        בדוק את הבקשות?</string>
+    <string name="act_car_owner_letWashCar">לשטוף רכב</string>
+    <string name="act_car_owner_levelWanted"> רמה מבוקשת</string>
+    <string name="act_car_owner_location_5lines">-----</string>
+    <string name="act_car_owner_location_CarAddress">כתובת המכונית</string>
+    <string name="act_car_owner_location_acceptRequest">קבל בקשה</string>
+    <string name="act_car_owner_location_cancelRequest">בטל בקשה</string>
+    <string name="act_car_owner_location_car">רכב</string>
+    <string name="act_car_owner_location_carAddressDescTitle">פרטי הכתובת של המכונית</string>
+    <string name="act_car_owner_location_carUntilTimeTitle">עד שעה</string>
+    <string name="act_car_owner_location_clientTitle">לקוח: </string>
+    <string name="act_car_owner_location_color">צבע</string>
+    <string name="act_car_owner_location_foundCarText1">XX Km</string>
+    <string name="act_car_owner_location_foundCarText2">  מצאתי את המכונית </string>
+    <string name="act_car_owner_location_getDirections">לקבל הוראות‫‬</string>
+    <string name="act_car_owner_location_gettingYourLocation">מקבל את המיקום שלך…</string>
+    <string name="act_car_owner_location_plate">מספר לוחית</string>
+    <string name="act_car_owner_location_profPicBadge">profPicBadge</string>
+    <string name="act_car_owner_location_serviceTtypeTitle">סוג שירות</string>
+    <string name="act_car_owner_location_username">שם משתמש</string>
+    <string name="act_car_owner_location_vertSepa">  | </string>
+    <string name="act_car_owner_profPicWindow">תמונת פרופיל</string>
+    <string name="act_car_owner_request_Under">_</string>
+    <string name="act_car_owner_request_gettingNearRequests">חיפוש בקשות סמוכות…</string>
+    <string name="act_car_owner_request_sendingPics">שליחת תמונות</string>
+    <string name="act_car_owner_responsibility">אחריות: 0</string>
+    <string name="act_car_owner_splasherStatus">סטטוס</string>
+    <string name="act_car_owner_version">V.1.0.1</string>
+    <string name="act_car_owner_washMyCar">שטוף עכשיו</string>
+    <string name="act_car_owner_yes">כן</string>
+    <string name="act_car_owner_youGetTitle"> סכום</string>
+    <string name="act_car_owner_youGetValue">$XXX</string>
+    <string name="act_car_owner_youHaveNewOrders">יש לך הזמנות חדשות!</string>
+    <string name="act_contactUs_howCanWe">איך נוכל לעזור לך?</string>
+    <string name="act_contactUs_messageNotSend">ההודעה לא נשלחה. נסה שוב</string>
+    <string name="act_contactUs_messageSend">הודעה נשלחה</string>
+    <string name="act_contactUs_pleaseWriteAMsg">אנא כתוב הודעה</string>
+    <string name="act_contactUs_send">לשלוח</string>
+    <string name="act_contactUs_uploadFileOptional">העלה קובץ (אופציונלי)</string>
+    <string name="act_detailed_comparison_after">לאחר</string>
+    <string name="act_detailed_comparison_before">לפני</string>
+    <string name="act_feedback_loading">…טוען</string>
+    <string name="act_main_becomeASplasher"> הפוךn לשוטף\n מכוניות</string>
+    <string name="act_main_cancel">בטל</string>
+    <string name="act_main_email">מייל</string>
+    <string name="act_main_enterYourAccountInfo">הזן את פרטי החשבון שלך</string>
+    <string name="act_main_forgotPassword">שכחת את\n הסיסמא</string>
+    <string name="act_main_iAgreeWith">אני מסכים ל</string>
+    <string name="act_main_login">התחברות</string>
+    <string name="act_main_loginWithFacebook">התחבר עם פייסבוק</string>
+    <string name="act_main_or">או</string>
+    <string name="act_main_passMustContain">הסיסמה חייבת להכיל לפחות 8 תווים, 1 אות הון וספרה אחת</string>
+    <string name="act_main_password">סיסמה</string>
+    <string name="act_main_passwordRecovery">שחזור סיסמא</string>
+    <string name="act_main_repeatPassword">חזור על הסיסמה</string>
+    <string name="act_main_send">שלח</string>
+    <string name="act_main_signUp">הירשם</string>
+    <string name="act_main_termsOfUse"><u>תנאי השימוש</u></string>
+    <string name="act_main_username">שם משתמש</string>
+    <string name="act_main_welcomeBack">ברוך הבא</string>
+    <string name="act_my_services_defaultPrice">…</string>
+    <string name="act_my_services_extInt">חיצוני + פנימי:</string>
+    <string name="act_my_services_external">חיצוני:</string>
+    <string name="act_my_services_motorcycle">אופנוע:</string>
+    <string name="act_my_services_save">שומר</string>
+    <string name="act_my_services_servicePriceTitle">מחיר שירות</string>
+    <string name="act_my_wallet_balanceNum">₪ 00.00</string>
+    <string name="act_my_wallet_balanceTitle">יתרת חשבון</string>
+    <string name="act_my_wallet_bankAccProof">הוכחת חשבון בנק</string>
+    <string name="act_my_wallet_bankDetailsTitle">פרטי בנק</string>
+    <string name="act_my_wallet_paymentDeposits">הפקדות תשלום יתרחשו ב- 15 בחודש</string>
+    <string name="act_my_wallet_update">עדכון</string>
+    <string name="act_payment_settings_PaymentDetails">פרטי תשלום</string>
+    <string name="act_payment_settings_addCreditCard">הוסף כרטיס אשראי</string>
+    <string name="act_payment_settings_cardNumber"> מספר כרטיס</string>
+    <string name="act_payment_settings_cvv">CVV </string>
+    <string name="act_payment_settings_done">בוצע</string>
+    <string name="act_payment_settings_expiryDate"> תאריך תפוגה</string>
+    <string name="act_payment_settings_idNumber">מספר תעודת זהות</string>
+    <string name="act_payment_settings_nameOnCard">שם על הכרטיס</string>
+    <string name="act_payment_settings_phoneNumber">מספר טלפון </string>
+    <string name="act_payment_settings_saveCcNumber">שמור פרטיים עבור עסקאות עתידיות.</string>
+    <string name="act_quick_tour_back">חזור</string>
+    <string name="act_quick_tour_finish">סיום</string>
+    <string name="act_quick_tour_next">הבא</string>
+    <string name="act_termsOfUse_loading">…טוען</string>
+    <string name="act_wash_car_pressPlusToAdd">לחץ על + כדי להוסיף רכב</string>
+    <string name="act_wash_my_car_1of2">1 מ 2</string>
+    <string name="act_wash_my_car_2of2">2 מ 2</string>
+    <string name="act_wash_my_car_active">פעיל</string>
+    <string name="act_wash_my_car_autoSelect">בחירה אוטומטית</string>
+    <string name="act_wash_my_car_cancel">בטל</string>
+    <string name="act_wash_my_car_carDetails">פרטי רכב</string>
+    <string name="act_wash_my_car_ccNotSaved">כרטיס אשראי (לא נשמר)</string>
+    <string name="act_wash_my_car_chooseACar">בחר רכב</string>
+    <string name="act_wash_my_car_comingSoon">בקרוב</string>
+    <string name="act_wash_my_car_couponCode">קוד קופון</string>
+    <string name="act_wash_my_car_dollar">$</string>
+    <string name="act_wash_my_car_enterAddress">הכנס כתובת</string>
+    <string name="act_wash_my_car_extAndIntWash">שטיפה חיצוני ופנימי</string>
+    <string name="act_wash_my_car_externalWash">שטיפה חיצוני</string>
+    <string name="act_wash_my_car_fivePointZero">  5.0</string>
+    <string name="act_wash_my_car_inputLocationDetails">פרטי מיקום (אופציונאלי)</string>
+    <string name="act_wash_my_car_maximumPrice">₪70</string>
+    <string name="act_wash_my_car_minimumPrice">₪10</string>
+    <string name="act_wash_my_car_motorcycle">אופנוע</string>
+    <string name="act_wash_my_car_next">הבא</string>
+    <string name="act_wash_my_car_ofTomorrow">(של מחר)</string>
+    <string name="act_wash_my_car_order">להזמין</string>
+    <string name="act_wash_my_car_paymentMethod">אמצעי תשלום</string>
+    <string name="act_wash_my_car_pleaseChoosePaymentM">בחר אמצעי תשלום</string>
+    <string name="act_wash_my_car_plus">+</string>
+    <string name="act_wash_my_car_price">מחיר</string>
+    <string name="act_wash_my_car_ratingAndPayment">דירוג ותשלום</string>
+    <string name="act_wash_my_car_requestAWashFrom">בקשה לשטיפה מ</string>
+    <string name="act_wash_my_car_requestOrder">בקש הזמנה</string>
+    <string name="act_wash_my_car_requestSent">בקשה נשלחה</string>
+    <string name="act_wash_my_car_selectPrice">בחר מחיר:</string>
+    <string name="act_wash_my_car_selectService">בחר שירות:</string>
+    <string name="act_wash_my_car_selectSplasher">בחר שוטף</string>
+    <string name="act_wash_my_car_services">שירותים</string>
+    <string name="act_wash_my_car_set">להגדיר</string>
+    <string name="act_wash_my_car_today">היום</string>
+    <string name="act_wash_my_car_tomorrow">מחר</string>
+    <string name="act_wash_my_car_untilWhatTime">עד איזה שעה</string>
+    <string name="act_wash_my_car_wash">שטיפה</string>
+    <string name="act_wash_my_car_washes">שטיפות</string>
+    <string name="act_wash_my_car_youWillBeCharged">*החיוב תתבצע רק אחרי קבלת האישור
+        בסיום העבודה.  אם 12 שעות לאחר סיום עבודה
+        לא מקבלים תגובה החיוב תתבצע באופן אוטומטי.</string>
+    <string name="action_settings">הגדרות</string>
+    <string name="addAddress_act_java_tryAgain">נסה שוב</string>
+    <string name="afterWash">AFTER wash: \nקחו 4 תמונות של המכונית</string>
+    <string name="app_name">Splash</string>
+    <string name="becomeSplasher_act_java_bothPasswords">הסיסמאות חייבות להיות תואמות. נסה שוב</string>
+    <string name="becomeSplasher_act_java_herzliya">הרצליה</string>
+    <string name="becomeSplasher_act_java_login">התחברות</string>
+    <string name="becomeSplasher_act_java_loginFailed">ההתחברות נכשלה. בבקשה נסה שוב</string>
+    <string name="becomeSplasher_act_java_ok">מאושר</string>
+    <string name="becomeSplasher_act_java_photoOfBankAcc">הוכחת חשבון הבנק</string>
+    <string name="becomeSplasher_act_java_photoOfId">תעודת זהות</string>
+    <string name="becomeSplasher_act_java_photoOfincDoc">הוכחה עוסק מורשה</string>
+    <string name="becomeSplasher_act_java_pleaseEnterValidEmail">הזן כתובת דוא"ל חוקית</string>
+    <string name="becomeSplasher_act_java_pleaseFillAll">מלא את כל השדות כדי להירשם</string>
+    <string name="becomeSplasher_act_java_pleaseLoginThroughRespec">היכנס באמצעות סוג החשבון המתאים: בעל רכב</string>
+    <string name="becomeSplasher_act_java_ramatGan">רמת גן</string>
+    <string name="becomeSplasher_act_java_signup">הירשם</string>
+    <string name="becomeSplasher_act_java_telAviv">תל אביב</string>
+    <string name="becomeSplasher_act_java_userNameAndPass">יש להזין שם משתמש וסיסמה</string>
+    <string name="becomeSplasher_act_java_welcomeBack">ברוך שובך</string>
+    <string name="becomeSplasher_act_java_wrongUserType">סוג משתמש שגוי</string>
+    <string name="beforeWash">לשטוף לפני: \nקחו 4 תמונות של המכונית</string>
+    <string name="boxedLoadingDialog_act_java_pleasewait">…אנא המתן</string>
+    <string name="cameraIntent_act_java_areYouDoneWashing">האם סיימתה לשטוף?</string>
+    <string name="cameraIntent_act_java_byPressingImDone">על ידי לחיצה על סיימתי, אתה מסכים ששטפתה לגמרי את המכונית הזאת ועשוי לקבל כל דירוג ניקוד שניתנו על ידי בעל הרכב הזה. אם אינך בטוח, לחץ על ביטול.</string>
+    <string name="cameraIntent_act_java_cancel">לבטל</string>
+    <string name="cameraIntent_act_java_externalStoragePermissionReq"> נדרש שטח אחסון חיצוני כדי לשמור תמונות ב Splash</string>
+    <string name="cameraIntent_act_java_imDone">סיימתי</string>
+    <string name="cameraIntent_act_java_permissionGranted">ההרשאה ניתנה. לחץ שוב</string>
+    <string name="cameraIntent_act_java_permissionToWrite">הרשאה לאחסון חיצוני לא ניתנה, לא ניתן לשמור תמונות שצולמו.</string>
+    <string name="cameraIntent_act_java_pic1Sent">תמונה 1 נשלח</string>
+    <string name="cameraIntent_act_java_pic2Sent">תמונה 2 נשלחה</string>
+    <string name="cameraIntent_act_java_pic3Sent">תמונה 3 נשלחה</string>
+    <string name="cameraIntent_act_java_pic4sent">תמונה 4 נשלחה</string>
+    <string name="cameraIntent_act_java_take4Pics">צלם 4 תמונות של הרכב לפני שתמשיך</string>
+    <string name="cameraIntent_act_java_takePicFront">צלם תמונה של חזית המכונית</string>
+    <string name="cameraIntent_act_java_takePicLeft">צלם תמונה של המכונית בצד שמאל</string>
+    <string name="cameraIntent_act_java_takePicRear">צלם תמונה של הצד האחורי של המכונית</string>
+    <string name="cameraIntent_act_java_takePicRight">צלם תמונה של הצד ימין של המכונית</string>
+    <string name="carBeingWashed_act_java_checkedOut">סיימתי</string>
+    <string name="carBeingWashed_act_java_picDisplayFailed">תצוגת התמונות נכשלה. חיבור אינטרנט איטי. טוען את הקובץ שוב</string>
+    <string name="carBeingWashed_act_java_pleaseRateSplasher">דרג את השוטף. מינימום כוכב 1.</string>
+    <string name="carBeingWashed_act_java_retrying">מנסה שוב</string>
+    <string name="carBeingWashed_act_java_slowConnectionPlease">חיבור איטי. בבקשה נסה שוב.</string>
+    <string name="carBeingWashed_act_java_status">סטטוס</string>
+    <string name="carBeingWashed_act_java_view">ראה</string>
+    <string name="carBeingWashed_act_java_youCarHasBeenWashed">המכונית שלך נשטפה!</string>
+    <string name="carOWnerRequest_act_java_ofTomorrow">של מחר</string>
+    <string name="carOWnerRequest_act_java_private">פרטי</string>
+    <string name="carOWnerRequest_act_java_public">פומבי</string>
+    <string name="carOWnerRequest_act_java_yourRatingIsntHigh">הדירוג שלך אינו גבוה מספיק כדי לקבל את הבקשה</string>
+    <string name="carOwnerLocation_act_java_acceptingRequests">קבלת בקשות</string>
+    <string name="carOwnerLocation_act_java_areYouSure">האם אתה בטוח?</string>
+    <string name="carOwnerLocation_act_java_cancelingRequestsWill">ביטול הבקשות ישפיע על הדירוג שלך ישירות. להשיך?</string>
+    <string name="carOwnerLocation_act_java_carOwnerCanceled">בעל הרכב ביטל</string>
+    <string name="carOwnerLocation_act_java_connected">מחובר</string>
+    <string name="carOwnerLocation_act_java_connectionLost">אין חיבור</string>
+    <string name="carOwnerLocation_act_java_connectionLostMakeSure">החיבור אבד. ודא שאתה מחובר.</string>
+    <string name="carOwnerLocation_act_java_no">לא</string>
+    <string name="carOwnerLocation_act_java_ok">מאושר</string>
+    <string name="carOwnerLocation_act_java_thisCarWashRequestWasCanceled">הבקשה בוטלה על ידי המשתמש. תמשיך לחפש עוד בקשות</string>
+    <string name="carOwnerLocation_act_java_yes">כן</string>
+    <string name="carOwnerLocation_act_java_youAreAgreeingToWash">אתה מסכים לקחת את הבקשה הזאת ולשטוף את המכונית. מבטל בקשות בתוך תהליך ישפיע על הדירוג שלך ישירות. להמשיך?</string>
+    <string name="carOwnerLocation_act_java_youAreWithinA100">אתה במרחק של 100 מטר מהרכב. פתח את חלון כדי לראות את פרטי המכונית</string>
+    <string name="carOwnerLocation_act_java_youHaveAnActiveRequest">יש בקשה פעילה. אם תצא, הבקשה תבוטל ותשפיע על הדירוג שלך ישירות. להמשיך?</string>
+    <string name="carOwnerLocation_act_java_youNeedToBe100m">אתה צריך להיות לפחות 100 מטר מהמכונית</string>
+    <string name="carOwnerLocation_act_java_yourClient">הלקוח שלך</string>
+    <string name="carOwner_Act_java_cancel">לבטל</string>
+    <string name="carOwner_Act_java_logOutForErrMsg">היתה בעיה עם האינטרנט שלך. המערכת תוציא אותך. אנא התחבר שוב ואם הבעיה נמשכת, פנה אלינו.</string>
+    <string name="carOwner_Act_java_logOutForErrTitle">תקלה קיימת :(</string>
+    <string name="carOwner_act_java_aSplasherIsOnTheWay">השוטף כבר בדרך לרכב שלך. ביטול כעת ישפיע על המוניטין שלך ישירות. להמשיך?</string>
+    <string name="carOwner_act_java_areYouSureCancel">האם אתה בטוח שברצונך לבטל?</string>
+    <string name="carOwner_act_java_balance">₪ 00.00</string>
+    <string name="carOwner_act_java_cancel">לבטל</string>
+    <string name="carOwner_act_java_cancelRequest">לבטל בקשה?</string>
+    <string name="carOwner_act_java_carOwner">בעל הרכב</string>
+    <string name="carOwner_act_java_carWashReqActive">בקשה לשטיפת רכב פעילה</string>
+    <string name="carOwner_act_java_go">אישור</string>
+    <string name="carOwner_act_java_hasArrived">הגיע למכונית שלך</string>
+    <string name="carOwner_act_java_internetAndGPSDont">שירותי ה- GPS והאינטרנט שלך אינם פועלים</string>
+    <string name="carOwner_act_java_is">הוא</string>
+    <string name="carOwner_act_java_kmAwayFromCar">ק"מ מהרכב שלך</string>
+    <string name="carOwner_act_java_logoutAnyway">יציאה בכל מקרה</string>
+    <string name="carOwner_act_java_no">לא</string>
+    <string name="carOwner_act_java_noSplasherPickedUp"> לא קבלו את בקשתך. נסה שוב מאוחר יותר</string>
+    <string name="carOwner_act_java_notLoggedIn">לא מחובר</string>
+    <string name="carOwner_act_java_ofTomorrow">של מחר</string>
+    <string name="carOwner_act_java_ok">מאושר</string>
+    <string name="carOwner_act_java_pendingReqBody">יש לך בקשה פתוחה לדיגור ותשלום</string>
+    <string name="carOwner_act_java_pendingReqTitle">בקשה בהמתנה</string>
+    <string name="carOwner_act_java_pressAgain">לחץ שוב</string>
+    <string name="carOwner_act_java_profPicDidNotSend">התמונת פרופיל לא התקבלה. נסה שוב או תמונה אחרת</string>
+    <string name="carOwner_act_java_profPicSent"> התמונת פרופיל שנשלח ונשמר</string>
+    <string name="carOwner_act_java_requestDeleted">הבקשה נמחקה</string>
+    <string name="carOwner_act_java_requestNotDeletedTry">הבקשה לא נמחקה. נסה שוב</string>
+    <string name="carOwner_act_java_serverCarOwner">carOwner</string>
+    <string name="carOwner_act_java_serverSplasher">splasher</string>
+    <string name="carOwner_act_java_sizeTooBig">גודל מדי. בחר תמונה אחרת</string>
+    <string name="carOwner_act_java_splasher">שוטף</string>
+    <string name="carOwner_act_java_splasherCanceled"> שוטף מבוטל</string>
+    <string name="carOwner_act_java_splasherCanceledYourRequest">השוטף שלך ביטל את בקשתך. נמשיך לחפש לך אחר</string>
+    <string name="carOwner_act_java_status">סטטוס</string>
+    <string name="carOwner_act_java_view">ראה</string>
+    <string name="carOwner_act_java_yes">כן</string>
+    <string name="carOwner_act_java_youCarHasBeenWashed">הרכב שלך נקי!</string>
+    <string name="carOwner_act_java_youHaeToSignLogAddress">אתה צריך להתחבר כדי להוסיף או לשנות את הכתובות שלך</string>
+    <string name="carOwner_act_java_youHaveSentACarWash">שלחת בקשה לשטיפת רכב - יציאה לא מבטל את הבקשה. אם
+אתה רוצה לבטל בבקשה לעשות זאת לפני היציאה           </string>
+    <string name="carOwner_act_java_youHaveToSignLogAlerts">אתה צריך להתחבר כדי לשנות הגדרות</string>
+    <string name="carOwner_act_java_youHaveToSignLogFeedback">אתה צריך להתחבר כדי לשלוח משוב</string>
+    <string name="carOwner_act_java_youHaveToSignLogPayment">אתה צריך להתחבר כדי לשנות הגדרות התשלום שלך</string>
+    <string name="carOwner_act_java_youHaveToSignLogRequest">אתה צריך להתחבר כדי לבקש שטיפה</string>
+    <string name="carOwner_act_java_youHaveToSignOrLog">אתה צריך להתחבר</string>
+    <string name="carOwner_act_java_youNeedToLogInBfProfPic">עליך להתחבר לפני שתשתנה את הגדרות החשבון שלך</string>
+    <string name="carOwner_act_java_yourBike">האופנוע שלך</string>
+    <string name="carOwner_act_java_yourCar">הרכב שלך</string>
+    <string name="carOwner_act_java_yourRatingNotHigh">הדירוג שלך אינו גבוה מספיק כדי לקחת את הבקשה</string>
+    <string name="carOwner_act_java_yourRequestHasBeenTaken">הבקשה שלך נלקח</string>
+    <string name="carOwner_act_java_yourSplasher">שוטף שלך</string>
+    <string name="carOwner_act_java_yourTimesUp">נגמר לך הזמן</string>
+    <string name="car_owner_row_availableUntil">זמין עד</string>
+    <string name="car_owner_row_badge">תג</string>
+    <string name="car_owner_row_distance">מרחק</string>
+    <string name="car_owner_row_profilePic">תמונת פרופיל</string>
+    <string name="car_owner_row_xxx">XXX</string>
+    <string name="car_owner_row_youGet">סכום</string>
+    <string name="car_row_carBrand">סוג רכב</string>
+    <string name="car_row_carColor">צבע רכב</string>
+    <string name="car_row_carModel">דגם רכב</string>
+    <string name="car_row_carPlateNum">מספר לוח רכב</string>
+    <string name="car_row_carYear">שנת רכב</string>
+    <string name="close">לסגור</string>
+    <string gender="unknown" name="com_facebook_device_auth_instructions">יש לבקר בכתובת facebook.com/device&lt;/b&amp;gt ולהזין את הקוד המוצג למעלה</string>
+    <string gender="unknown" name="com_facebook_image_download_unknown_error">שגיאה לא צפויה במהלך הורדת תמונה.</string>
+    <string gender="unknown" name="com_facebook_internet_permission_error_message">התחברות WebView דורשת הרשאת אינטרנט</string>
+    <string gender="unknown" name="com_facebook_internet_permission_error_title">שגיאת AndroidManifest</string>
+    <string gender="unknown" name="com_facebook_like_button_liked">סימנת בלייק</string>
+    <string gender="unknown" name="com_facebook_like_button_not_liked">לייק</string>
+    <string gender="unknown" name="com_facebook_loading">טוען...</string>
+    <string gender="unknown" name="com_facebook_loginview_cancel_action">ביטול</string>
+    <string gender="unknown" name="com_facebook_loginview_log_in_button">התחבר</string>
+    <string gender="unknown" name="com_facebook_loginview_log_in_button_continue">המשך/המשיכי עם פייסבוק</string>
+    <string gender="unknown" name="com_facebook_loginview_log_in_button_long">התחברות באמצעות פייסבוק</string>
+    <string gender="unknown" name="com_facebook_loginview_log_out_action">התנתק/י</string>
+    <string gender="unknown" name="com_facebook_loginview_log_out_button">התנתק/י</string>
+    <string gender="unknown" name="com_facebook_loginview_logged_in_as">מחובר/ת בתור: %1$s</string>
+    <string gender="unknown" name="com_facebook_loginview_logged_in_using_facebook">מחובר/ת כמשתמש בפייסבוק</string>
+    <string gender="unknown" name="com_facebook_send_button_text">שלח/י</string>
+    <string gender="unknown" name="com_facebook_share_button_text">שתף/שתפי</string>
+    <string gender="unknown" name="com_facebook_smart_device_instructions">כדי לחבר את חשבונך, יש לפתוח את אפליקציית פייסבוק במכשיר הנייד ולבדוק אם יש התראות.</string>
+    <string gender="unknown" name="com_facebook_smart_device_instructions_or">- או -</string>
+    <string gender="unknown" name="com_facebook_smart_login_confirmation_cancel">לא את/ה?</string>
+    <string gender="unknown" name="com_facebook_smart_login_confirmation_continue_as">המשך/המשיכי בתור %1$s</string>
+    <string gender="unknown" name="com_facebook_smart_login_confirmation_title">אשר/י את ההתחברות</string>
+    <string gender="unknown" name="com_facebook_tooltip_default">את/ה בשליטה - בחר/י אילו פרטים ברצונך לשתף עם אפליקציות.</string>
+    <string msgid="8585111718777012708" name="common_google_play_services_enable_button">"הפעל"</string>
+    <string msgid="7045129128108380659" name="common_google_play_services_enable_text">"‏האפליקציה <ns1:g id="APP_NAME">%1$s</ns1:g> לא תפעל אם לא תפעיל את שירותי Google Play."</string>
+    <string msgid="3147157405986503375" name="common_google_play_services_enable_title">"‏הפעל את שירותי Google Play"</string>
+    <string msgid="9115728400623041681" name="common_google_play_services_install_button">"התקן"</string>
+    <string msgid="8179894293032530091" name="common_google_play_services_install_text">"‏האפליקציה <ns1:g id="APP_NAME">%1$s</ns1:g> לא תפעל ללא שירותי Google Play, שאינם מותקנים במכשיר."</string>
+    <string msgid="7442193194585196676" name="common_google_play_services_install_title">"‏קבל את שירותי Google Play"</string>
+    <string msgid="4293541511340436975" name="common_google_play_services_notification_channel_name">"‏זמינות של שירותי Google Play"</string>
+    <string msgid="180394615667698242" name="common_google_play_services_notification_ticker">"‏שגיאה בשירותי Google Play"</string>
+    <string msgid="2518680582564677258" name="common_google_play_services_unknown_issue">"‏<ns1:g id="APP_NAME">%1$s</ns1:g> נתקלה בבעיה בשירותי Google Play. נסה שוב."</string>
+    <string msgid="5501187292256987189" name="common_google_play_services_unsupported_text">"‏<ns1:g id="APP_NAME">%1$s</ns1:g> לא תפעל ללא שירותי Google Play, שאינם נתמכים במכשיר שלך."</string>
+    <string msgid="8172070149091615356" name="common_google_play_services_update_button">"עדכן"</string>
+    <string msgid="7773943415006962566" name="common_google_play_services_update_text">"‏<ns1:g id="APP_NAME">%1$s</ns1:g> לא יפעל אם לא תעדכן את שירותי Google Play."</string>
+    <string msgid="8706675115216073244" name="common_google_play_services_update_title">"‏עדכון שירותי Google Play"</string>
+    <string msgid="7894275749778928941" name="common_google_play_services_updating_text">"‏האפליקציה <ns1:g id="APP_NAME">%1$s</ns1:g> לא תפעל ללא שירותי Google Play, שמתעדכנים כרגע."</string>
+    <string msgid="2804989272736383918" name="common_google_play_services_wear_update_text">"‏דרושה גרסה חדשה של שירותי Google Play. הגרסה תתעדכן בעצמה תוך זמן קצר."</string>
+    <string msgid="5201977337835724196" name="common_open_on_phone">"פתח בטלפון"</string>
+    <string msgid="3441753203274453993" name="common_signin_button_text">"כניסה"</string>
+    <string msgid="669893613918351210" name="common_signin_button_text_long">"‏היכנס באמצעות Google"</string>
+    <string name="connectionLost_java_checkYourInternet">בדוק את החיבור לאינטרנט ונסה שוב</string>
+    <string name="connectionLost_java_connectionLost">אין חיבור</string>
+    <string name="contactAgreement">אני מסכים שיצרו איתי קשר בדוא"ל או בטלפון(כולל באמצעים אוטומטיים) בכתובת הדוא”ל או מספר שאני מספק, כולל למטרות שיווק. קראתי והסקמתי להצהרת הפרטיות</string>
+    <string name="equipment">    חומר שטיפת ללא מים \nמגבת מיקרופיבר</string>
+    <string name="facebook_app_id">399400473846538</string>
+    <string msgid="4133737464567140336" name="fcm_fallback_notification_channel_label">"שונות"</string>
+    <string name="forced_Alert_missing_tou_ok">מאושר</string>
+    <string name="forced_Alert_somethingWrongFb_msg">לא ניתן להתחבר באמצעות Facebook. בבקשה נסה שוב</string>
+    <string name="forced_Alert_somethingWrongFb_ok">מאושר</string>
+    <string name="forced_Alert_somethingWrongFb_title">הכניסה עם Facebook נכשלה</string>
+    <string name="forced_Alert_somethingWrong_msg">משהו השתבש במהלך ההתחברות. מתנתק. בבקשה נסה שוב</string>
+    <string name="forced_Alert_somethingWrong_ok">מאושר</string>
+    <string name="forced_Alert_somethingWrong_title">משהו השתבש</string>
+    <string name="forced_alert_dialog_go">מאושר</string>
+    <string name="forced_alert_dialog_msg">יש לך בקשה לא גמורה</string>
+    <string name="forced_alert_dialog_title">בקשה בהמתנה</string>
+    <string name="forced_alert_missing_tou_msg">עליך להסכים לתנאי השימוש</string>
+    <string name="forced_alert_missing_tou_title">תנאי שימוש</string>
+    <string name="header_hiPleaseLogIn">היי אנא התחבר</string>
+    <string name="header_profPic">תמונת פרופיל</string>
+    <string name="header_ratingBadge">דירוג תג</string>
+    <string name="header_username">שם משתמש</string>
+    <string name="header_usertype">סוג משתמש</string>
+    <string name="logout_message_Logout">להתנתק</string>
+    <string name="logout_message_areYouSureLogout">בטוח רוצה להתנתק?</string>
+    <string name="logout_message_no">לא</string>
+    <string name="logout_message_yes">כן</string>
+    <string name="main_act_java_bothPassMustMatch">הסיסמאות חייבות להיות תואמות. נסה שוב</string>
+    <string name="main_act_java_emailSent">"נשלחה אליך מייל עם הוראות לאיפוס הסיסמה"</string>
+    <string name="main_act_java_enterValidEmail">הזן כתובת דוא"ל חוקית</string>
+    <string name="main_act_java_letsGetStarted">בואו נתחיל</string>
+    <string name="main_act_java_login">התחברות</string>
+    <string name="main_act_java_nameEmailRequired">נדרש כתובת מייל וסיסמה</string>
+    <string name="main_act_java_ok">מאושר</string>
+    <string name="main_act_java_pleaseLogThrough">התחבר באמצעות חשבון המשתמש המתאים שלך: Splasher</string>
+    <string name="main_act_java_signup">הירשם</string>
+    <string name="main_act_java_userPassEmailReq">נדרש שם משתמש, סיסמה ודוא"ל</string>
+    <string name="main_act_java_userPassReq">יש להזין שם משתמש וסיסמה</string>
+    <string name="main_act_java_userType">בעל הרכב</string>
+    <string name="main_act_java_welcome">ברוך הבא!</string>
+    <string name="main_act_java_wrongUserType">סוג משתמש שגוי</string>
+    <string msgid="3698378085901466129" name="mr_button_content_description">"‏לחצן הפעלת Cast"</string>
+    <string msgid="5088427771788648085" name="mr_cast_button_connected">"‏לחצן הפעלת Cast. מחובר"</string>
+    <string msgid="2187642765091873834" name="mr_cast_button_connecting">"‏לחצן הפעלת Cast. מתחבר"</string>
+    <string msgid="816305490427819240" name="mr_cast_button_disconnected">"‏לחצן הפעלת Cast. מנותק"</string>
+    <string msgid="6349900579507521956" name="mr_chooser_searching">"מחפש מכשירים"</string>
+    <string msgid="414301941546135990" name="mr_chooser_title">"העברה אל"</string>
+    <string msgid="6422801843540543585" name="mr_controller_album_art">"עטיפת אלבום"</string>
+    <string msgid="4868457957151124867" name="mr_controller_casting_screen">"העברת מסך מתבצעת"</string>
+    <string msgid="7333862312480583260" name="mr_controller_close_description">"סגור"</string>
+    <string msgid="7924809056904240926" name="mr_controller_collapse_group">"כווץ"</string>
+    <string msgid="1227264889412989580" name="mr_controller_disconnect">"נתק"</string>
+    <string msgid="8062427022744266907" name="mr_controller_expand_group">"הרחב"</string>
+    <string msgid="5585418471741142924" name="mr_controller_no_info_available">"אין מידע זמין"</string>
+    <string msgid="6547130360349182381" name="mr_controller_no_media_selected">"לא נבחרה מדיה"</string>
+    <string msgid="5451884435510905406" name="mr_controller_pause">"השהה"</string>
+    <string msgid="683634565969987458" name="mr_controller_play">"הפעל"</string>
+    <string msgid="735874641921425123" name="mr_controller_stop">"הפסק"</string>
+    <string msgid="8857886794086583226" name="mr_controller_stop_casting">"הפסק את ההעברה"</string>
+    <string msgid="2361785992211841709" name="mr_controller_volume_slider">"מחוון עוצמה"</string>
+    <string msgid="5441529851481176817" name="mr_system_route_name">"מערכת"</string>
+    <string msgid="7498112907524977311" name="mr_user_route_category_name">"מכשירים"</string>
+    <string name="nav_menu_about">אודות</string>
+    <string name="nav_menu_addAddress">הוסף כתובת</string>
+    <string name="nav_menu_alerts">התראות</string>
+    <string name="nav_menu_faq">שאלות נפוצות</string>
+    <string name="nav_menu_feedback">משוב</string>
+    <string name="nav_menu_login">התחברות</string>
+    <string name="nav_menu_logout">להתנתק</string>
+    <string name="nav_menu_myServices">השירותים שלי</string>
+    <string name="nav_menu_myWallet">הארנק שלי</string>
+    <string name="nav_menu_payment">תשלום</string>
+    <string name="nav_menu_quickTour">סיור מהיר</string>
+    <string name="noRequests">אין לך בקשות בקרבת מקום :(</string>
+    <string name="open">לפתוח</string>
+    <string name="parse_app_id">YOUR_APPLICATION_ID</string>
+    <string name="parse_client_key">YOUR_CLIENT_KEY</string>
+    <string name="paymentSettings_act_java_byClickingDone">בלחיצה על "אישור" הנך מאשר לקבל חשבוניות במייל ומסכים להיות כפוף לתנאי שימוש</string>
+    <string name="paymentSettings_act_java_cantTakeScreen">לא ניתן לצלם מסך עקב מדיניות אבטחה</string>
+    <string name="paymentSettings_act_java_emailIsIncorrect">הדוא"ל שלך שגוי</string>
+    <string name="paymentSettings_act_java_missingFields">שדות חסרים</string>
+    <string name="paymentSettings_act_java_pleaseFillAll">מלא את כל השדות</string>
+    <string name="paymentSettings_act_java_protectedPayment">תשלום באמצעות כרטיס אשראי מוגן. קל, יעיל ובטוח</string>
+    <string name="paymentSettings_act_java_termsOfUse"><u>תנאי השימוש</u></string>
+    <string name="paymentSettings_act_java_thereWasAProblem">.היתה בעיה בקבלת הדואר האלקטרוני שלך. בבקשה נסה שוב</string>
+    <string name="paymentSettings_act_java_wrongEmail">דוא"ל שגוי</string>
+    <string name="payment_bill_bill">חשבון</string>
+    <string name="payment_bill_carWash">- שטיפת מכונית:</string>
+    <string name="payment_bill_creditCardFee">- עמלת כרטיס אשראי:</string>
+    <string name="payment_bill_description">תיאור</string>
+    <string name="payment_bill_pay">לשלם</string>
+    <string name="payment_bill_price">מחיר</string>
+    <string name="payment_bill_splasherFee">- עמלת Splash:</string>
+    <string name="payment_bill_thankYouForChoosing">תודה שבחרת על Splash</string>
+    <string name="payment_bill_tip">- טיפ:</string>
+    <string name="payment_bill_total">- סה"כ:</string>
+    <string name="payment_menu_deleteCCDetails">למחוק כרטיס אשראי זה?</string>
+    <string name="payment_menu_editCreditCard">ערוך כרטיס אשראי</string>
+    <string name="payment_menu_editCreditCardDets">לערוך את פרטי כרטיס האשראי?</string>
+    <string name="payment_menu_trash">למחוק פרטים</string>
+    <string name="payment_menu_youHaveNotSaved">לא שמרת כרטיס אשראי</string>
+    <string msgid="1303870564366209730" name="place_autocomplete_clear_button">"נקה את החיפוש"</string>
+    <string msgid="2809095107724486040" name="place_autocomplete_search_hint">"חיפוש"</string>
+    <string name="please_wait">אנא המתן…</string>
+    <string msgid="146198913615257606" name="search_menu_title">"חיפוש"</string>
+    <string name="serviceShow_menu_reportUser">דווח על משתמש</string>
+    <string name="shekel">₪</string>
+    <string name="spalsher_row_splasherPriceTitle">מחיר</string>
+    <string name="splashPartnersProgramsTitle">תצטרף אלינו בתוכנית השותפים</string>
+    <string name="splasher_row_splasherName">שם השוטף</string>
+    <string name="splasher_row_splasherPrice">xx</string>
+    <string name="splasher_row_splasherWashes">(מס שטיפות)</string>
+    <string name="splasher_services_cantUpdateSamePrice">לא ניתן לעדכן לאותם מחירים. הגדר מחירים חדשים לפני העדכון</string>
+    <string name="splasher_services_dialogMsg">לשנות את מחירי השירות?</string>
+    <string name="splasher_services_dialogNo">לבטל</string>
+    <string name="splasher_services_dialogTitle">מחירי השירות</string>
+    <string name="splasher_services_dialogYes">כן</string>
+    <string name="splasher_services_pleaseSetAll">הגדר את כל מחירי השירות שלך לפני העדכון</string>
+    <string name="splasher_services_pricesCantBeZero">המחירים אינם יכולים להיות 0. אנא קבע מחיר אחר ונסה שוב</string>
+    <string name="splasher_services_pricesUpdated">המחירים עודכנו</string>
+    <string name="splasher_services_thereWasAProblem">אירעה בעיה במהלך העדכון. בבקשה נסה שוב</string>
+    <string name="splasher_wallet_java_cantUpdate">לא ניתן לעדכן לאותם פרטים. בבקשה נסה שוב</string>
+    <string name="splasher_wallet_java_customerSupport">שלח הודעה. שירות הלקוחות יפנה אליך בקרוב</string>
+    <string name="splasher_wallet_java_dialogMsg">ערוך את פרטי חשבון הבנק שלך?</string>
+    <string name="splasher_wallet_java_dialogNo">לבטל</string>
+    <string name="splasher_wallet_java_dialogTitle">פרטי בנק</string>
+    <string name="splasher_wallet_java_dialogYes">כן</string>
+    <string name="splasher_wallet_java_pleaseFillAll">מלא את כל השדות לפני העדכון</string>
+    <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"‎999+‎"</string>
+    <string name="steps">    לרסס את החומר ולנגב לפני שמתייבש \nלנגב במעגלים \n-עבודה על קטעים קטנים כל פעם</string>
+    <string name="threeDots">…</string>
+    <string name="title_activity_car_owner">Splash</string>
+    <string name="title_activity_car_owner_location">Map</string>
+    <string name="title_activity_driver_location">Splash</string>
+    <string name="title_activity_rider">Splash</string>
+    <string name="washMyCar_act_java_StandardWash">שטיפה רגילה</string>
+    <string name="washMyCar_act_java_StandardWashPlus">שטיפה רגילה + בוץ</string>
+    <string name="washMyCar_act_java_cancel">לבטל</string>
+    <string name="washMyCar_act_java_chooseACar">בחר מכונית</string>
+    <string name="washMyCar_act_java_deleteCar">למחוק את המכונית?</string>
+    <string name="washMyCar_act_java_inputLocation">הזן מיקום</string>
+    <string name="washMyCar_act_java_inputLocationDetails">הזן תאור מיקום</string>
+    <string name="washMyCar_act_java_minimumDuration">משך מינימום של בקשה לשטיפת רכב חייב להיות לפחות 2 שעות</string>
+    <string name="washMyCar_act_java_missingFields">שדות חסרים</string>
+    <string name="washMyCar_act_java_motorcycle">אופנוע</string>
+    <string name="washMyCar_act_java_ok">מאושר</string>
+    <string name="washMyCar_act_java_pleaseFillAll">מלא את כל השדות</string>
+    <string name="washMyCar_act_java_selectTime">בחר זמן</string>
+    <string name="washMyCar_act_java_washRequestSent">בקשת השטיפה נשלחה בהצלחה</string>
+    <string name="washMyCar_act_java_washTimeLimit">מגבלת זמן לשטוף</string>
+    <string name="washMyCar_act_java_yes">כן</string>
+    <string name="washMyCar_act_java_yourWashLimitShort">מגבלת הזמן לשטיפה קצרה מדי. שנה אותו</string>
+    <string name="washMyCar_act_java_yourWashTimeLimit">מגבלת הזמן לשטיפה מוגדרת לפני הזמן המקומי. שנה אותו</string>
+    <string name="x">X</string>
+</resources>

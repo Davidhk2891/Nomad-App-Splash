@@ -11,10 +11,10 @@ INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:181:9-189:20
 	android:name
 		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:182:13-67
 manifest
-ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-197:12
-INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-197:12
-INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-197:12
-INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-197:12
+ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-205:12
+INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-205:12
+INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-205:12
+INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-205:12
 MERGED from [com.android.support:multidex:1.0.3] C:\Users\David\.gradle\caches\transforms-1\files-1.1\multidex-1.0.3.aar\6032d0f324a3b6ebf1558b93008369a3\AndroidManifest.xml:17:1-22:12
 MERGED from [com.github.bumptech.glide:glide:4.7.1] C:\Users\David\.gradle\caches\transforms-1\files-1.1\glide-4.7.1.aar\ae46d347c1d0574d6e23704a3c85c673\AndroidManifest.xml:2:1-13:12
 MERGED from [com.android.support:design:27.1.1] C:\Users\David\.gradle\caches\transforms-1\files-1.1\design-27.1.1.aar\ccffb121fc26788f9a63d27e5e90adb4\AndroidManifest.xml:17:1-22:12
@@ -77,20 +77,20 @@ MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\David\.gradle\
 MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\David\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\c7c6c49602c4e0844963d81a3da8d603\AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.core:runtime:1.1.0] C:\Users\David\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\a0bdae209698082343fa38c2562e12a5\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.android.gms:play-services-measurement-base:15.0.2] C:\Users\David\.gradle\caches\transforms-1\files-1.1\play-services-measurement-base-15.0.2.aar\6dfca9bbe47e8e16ea29dc3499639ff8\AndroidManifest.xml:17:1-24:12
-INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-197:12
-INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-197:12
-INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-197:12
+INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-205:12
+INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-205:12
+INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-205:12
 	package
 		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:10:5-34
 		INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml
 		INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml
-		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-197:12
+		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-205:12
 		INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml
-		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-197:12
+		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:1-205:12
 		INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:9:11-69
@@ -175,7 +175,7 @@ MERGED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\David\.gradle\cac
 	android:name
 		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:26:22-79
 application
-ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:29:5-195:19
+ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:29:5-203:19
 MERGED from [com.github.bumptech.glide:glide:4.7.1] C:\Users\David\.gradle\caches\transforms-1\files-1.1\glide-4.7.1.aar\ae46d347c1d0574d6e23704a3c85c673\AndroidManifest.xml:11:5-20
 MERGED from [com.github.bumptech.glide:glide:4.7.1] C:\Users\David\.gradle\caches\transforms-1\files-1.1\glide-4.7.1.aar\ae46d347c1d0574d6e23704a3c85c673\AndroidManifest.xml:11:5-20
 MERGED from [com.facebook.android:facebook-android-sdk:4.29.0] C:\Users\David\.gradle\caches\transforms-1\files-1.1\facebook-android-sdk-4.29.0.aar\d80f582c2e844b8c59fc0c606d7b0c01\AndroidManifest.xml:28:5-29:19
@@ -441,15 +441,15 @@ ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:144:17-80
 	android:name
 		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:144:25-77
 service#com.parse.fcm.ParseFirebaseMessagingService
-ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:147:9-152:19
+ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:147:9-151:19
 	android:name
-		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:148:13-71
+		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:147:18-76
 intent-filter#action:name:com.google.firebase.MESSAGING_EVENT
-ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:149:13-151:29
+ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:148:13-150:29
 action#com.google.firebase.MESSAGING_EVENT
-ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:150:17-77
+ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:149:17-78
 	android:name
-		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:150:25-75
+		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:149:25-75
 receiver#com.parse.ParsePushBroadcastReceiver
 ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:153:9-161:20
 	android:exported
@@ -497,13 +497,29 @@ ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:173:9-176:52
 	android:name
 		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:174:13-67
 activity#com.nomadapp.splash.ui.activity.carownerside.QuickTourActivity
-ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:191:9-194:51
+ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:191:9-194:52
 	android:screenOrientation
 		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:194:13-49
 	android:label
 		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:193:13-39
 	android:name
 		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:192:13-71
+activity#com.nomadapp.splash.ui.activity.splasherside.SplasherWalletActivity
+ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:195:9-198:52
+	android:screenOrientation
+		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:198:13-49
+	android:label
+		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:197:13-38
+	android:name
+		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:196:13-76
+activity#com.nomadapp.splash.ui.activity.splasherside.SplasherServicesActivity
+ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:199:9-202:51
+	android:screenOrientation
+		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:202:13-49
+	android:label
+		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:201:13-40
+	android:name
+		ADDED from C:\Splash\SplashApp\src\main\AndroidManifest.xml:200:13-78
 uses-sdk
 INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Splash\SplashApp\src\main\AndroidManifest.xml

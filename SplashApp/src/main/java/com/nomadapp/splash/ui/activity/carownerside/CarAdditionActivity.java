@@ -1,6 +1,7 @@
 package com.nomadapp.splash.ui.activity.carownerside;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,8 +17,12 @@ import java.util.Locale;
 
 import com.nomadapp.splash.model.localdatastorage.CarLocalDatabaseHandler;
 import com.nomadapp.splash.model.objects.MyCar;
+import com.nomadapp.splash.model.server.parseserver.queries.MetricsClassQuery;
+import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 
 public class CarAdditionActivity extends AppCompatActivity {
+
+    private Context ctx = CarAdditionActivity.this;
 
     //CarOwner's car details
     private CarLocalDatabaseHandler dbh;
@@ -28,6 +33,9 @@ public class CarAdditionActivity extends AppCompatActivity {
     private String carModelEdit;
     private String carColorEdit;
     private String carPlateEdit;
+
+    private MetricsClassQuery metricsClassQuery;
+    private UserClassQuery ucq = new UserClassQuery(ctx);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +52,13 @@ public class CarAdditionActivity extends AppCompatActivity {
         }
         //---------------------------------
 
+        metricsClassQuery = new MetricsClassQuery(ctx);
+        metricsClassQuery.queryMetricsToUpdate("addNewCar");
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         //CarOwner's car details
-        dbh = new CarLocalDatabaseHandler(CarAdditionActivity. this);
+        dbh = new CarLocalDatabaseHandler(ctx);
         cCarBrandEdit = findViewById(R.id.carBrandEdit);
         cCarModelEdit = findViewById(R.id.carModelEdit);
         cCarColorEdit = findViewById(R.id.carColorEdit);
@@ -97,9 +108,7 @@ public class CarAdditionActivity extends AppCompatActivity {
             cCarPlateNEdit.setGravity(Gravity.START);
             cCarPlateNEdit.setGravity(Gravity.LEFT);
             cCarPlateNEdit.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
-
         }
-
     }
 
     @Override
@@ -118,18 +127,13 @@ public class CarAdditionActivity extends AppCompatActivity {
         AlertDialog.Builder missingCarDataDialog;
 
         carBrandEdit = cCarBrandEdit.getText().toString();
-
         carModelEdit = cCarModelEdit.getText().toString();
-
         carColorEdit = cCarColorEdit.getText().toString();
-
         carPlateEdit = cCarPlateNEdit.getText().toString();
-
         if(carBrandEdit.isEmpty() || carModelEdit.isEmpty() || carColorEdit.isEmpty()
                 || carPlateEdit.isEmpty()){
-
             //In case no value is placed, handle error with alert dialog
-            missingCarDataDialog = new AlertDialog.Builder(CarAdditionActivity. this);
+            missingCarDataDialog = new AlertDialog.Builder(ctx);
             //set Title
             missingCarDataDialog.setTitle(getResources()
                     .getString(R.string.AddCar_act_java_missingFields));
@@ -141,26 +145,22 @@ public class CarAdditionActivity extends AppCompatActivity {
             //set cancelable
             missingCarDataDialog.setPositiveButton(getResources()
                     .getString(R.string.AddCar_act_java_ok), null);
-
             //Create Dialog
             AlertDialog alertD = missingCarDataDialog.create();
-
             //Show Dialog
             alertD.show();
-
         } else {
-
-            saveToDB();  //<-------------
-
+            saveToDB();
         }
-
     }
 
     //CarOwner's car details 2
     private void saveToDB(){
-
         //ArrayList<MyCar> addData = new ArrayList<>();
-        //final WashReqParamsActivity.CarAdapter addCarRow = new CarAdditionActivity().CarAdapter(this, R.layout.activity_wash_req_params, addData);
+        //final WashReqParamsActivity.CarAdapter addCarRow = new CarAdditionActivity()
+        // .CarAdapter(this, R.layout.activity_wash_req_params, addData);
+        saveCarToServer();
+        metricsClassQuery.queryMetricsToUpdate("carAdded");
 
         MyCar thisCar = new MyCar();
         //wish.setTitle(title.getText().toString().trim());
@@ -180,15 +180,18 @@ public class CarAdditionActivity extends AppCompatActivity {
         cCarYearEdit.setText("");
         cCarPlateNEdit.setText("");
 
-        Intent intent = new Intent(CarAdditionActivity. this, WashReqParamsActivity. class);
-
+        Intent intent = new Intent(ctx,WashReqParamsActivity. class);
         intent.putExtra("listStatus", "keepOpen");
         intent.putExtra("carBrand", carBrandEdit);
         intent.putExtra("carModel", carModelEdit);
         intent.putExtra("carColor", carColorEdit);
         intent.putExtra("carPlate", carPlateEdit);
-
         startActivity(intent);
+    }
 
+    public void saveCarToServer(){
+        String wholeCar = carBrandEdit + " " + carModelEdit;
+        ucq.currentUserObject().put("car", wholeCar);
+        ucq.currentUserObject().saveInBackground();
     }
 }

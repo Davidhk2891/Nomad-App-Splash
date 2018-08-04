@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
+import com.nomadapp.splash.model.server.parseserver.queries.MetricsClassQuery;
 import com.nomadapp.splash.ui.activity.carownerside.WashReqParamsActivity;
 import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
@@ -32,13 +33,14 @@ public class SplashCaptureBuyer {
     private Button b;
 
     private ToastMessages toastMessages = new ToastMessages();
+    private MetricsClassQuery metricsClassQuery;
 
     public SplashCaptureBuyer(CaptureBuyerRequest request, Context context, Activity activity,
                               String cleanStringNameCC, String cleanStringPhoneN,
                               String cleanStringCCNumber, String cleanStringExpiryDate,
-                              String cleanStringCVV,String cleanIdNumber, String userEmailHolder, EditText et1,
-                              EditText et2, EditText et3, EditText et4, EditText et5, EditText et6, CheckBox cb,
-                              Button b) {
+                              String cleanStringCVV,String cleanIdNumber, String userEmailHolder,
+                              EditText et1, EditText et2, EditText et3, EditText et4, EditText et5,
+                              EditText et6, CheckBox cb, Button b) {
 
         this.activity = activity;
         this.et1 = et1;
@@ -59,6 +61,8 @@ public class SplashCaptureBuyer {
         this.cleanStringCVV = cleanStringCVV;
         this.userEmailHolder = userEmailHolder;
         this.cleanIdNumber = cleanIdNumber;
+
+        metricsClassQuery = new MetricsClassQuery(context);
     }
 
     //TODO:Payme code 1: Register Car Owner purchase details to Capture_buyer API
@@ -169,6 +173,7 @@ public class SplashCaptureBuyer {
     }
 
     private void MoveDataOnFinish(String ccMask){
+        metricsClassQuery.queryMetricsToUpdate("CCAdded");
         Intent previousScreen = new Intent(context, WashReqParamsActivity.class);
         previousScreen.putExtra("paymeCCMask", ccMask);
         activity.setResult(Activity.RESULT_OK, previousScreen);

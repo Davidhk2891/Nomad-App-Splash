@@ -447,6 +447,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
+                <!--Both solorOrSelectRelative and
+                    splasher_fragment_container switch visibility to
+                    :gone when deploying to production-->
                 <RelativeLayout
                     android:id="@+id/soloOrSelectRelative"
                     android:layout_centerHorizontal="true"
@@ -470,6 +473,7 @@
                         android:id="@+id/splasher_fragment_container"
                         android:background="#ffffff"
                         android:padding="4dp"
+                        android:visibility="gone"
                         android:layout_below="@+id/soloOrSelectTitle"
                         android:layout_width="match_parent"
                         android:layout_height="400dp"

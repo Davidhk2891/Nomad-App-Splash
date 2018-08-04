@@ -144,12 +144,12 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name="com.parse.fcm.ParseFirebaseMessagingService">
+        <service android:name="com.parse.fcm.ParseFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <receiver
             android:name="com.parse.ParsePushBroadcastReceiver"
             android:exported="false">
@@ -191,6 +191,14 @@
         <activity
             android:name=".ui.activity.carownerside.QuickTourActivity"
             android:label="Quick Tour"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.splasherside.SplasherWalletActivity"
+            android:label="My wallet"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.splasherside.SplasherServicesActivity"
+            android:label="My services"
             android:screenOrientation="portrait"/>
     </application>
 

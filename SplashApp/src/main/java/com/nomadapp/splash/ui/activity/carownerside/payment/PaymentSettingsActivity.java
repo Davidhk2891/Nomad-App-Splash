@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.payment.paymeapis.buyer.SplashCaptureBuyer;
+import com.nomadapp.splash.model.server.parseserver.queries.MetricsClassQuery;
 import com.nomadapp.splash.ui.activity.carownerside.WashReqParamsActivity;
 import com.nomadapp.splash.ui.activity.standard.web.WebActivity;
 import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
@@ -60,18 +61,24 @@ public class PaymentSettingsActivity extends AppCompatActivity implements View.O
     private boolean ccMaskEmpty = false;
     private boolean fieldsOnEdit = false;
 
+    private MetricsClassQuery metricsClassQuery = new MetricsClassQuery
+            (PaymentSettingsActivity.this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //PREVENT SCREEN SHOTS IN THIS SCREEN//
-        //Android HONEYCOMB (API 11-13) can get seriously fucked with below snippet. Not that it matters
-        //since my minimum is API 19
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        //Android HONEYCOMB (API 11-13) can get seriously fucked with below snippet.
+        //Not that it matters since my minimum is API 19
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager
+                .LayoutParams.FLAG_SECURE);
         //-----------------------------------//
         setContentView(R.layout.activity_payment_settings);
 
         //Hide soft input keyboard during onCreate run-time
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        metricsClassQuery.queryMetricsToUpdate("addCC");
 
         cCcAdded = findViewById(R.id.ccAdded);
 
@@ -82,6 +89,8 @@ public class PaymentSettingsActivity extends AppCompatActivity implements View.O
         cCvvNumber = findViewById(R.id.cvvNumber);
         cSaveCardNumber = findViewById(R.id.saveCardNumber);
         cIdNumber = findViewById(R.id.idNumberInput);
+
+        cCardHolderInput.requestFocus();
 
         //THIS MUST REMAIN TRUE ALWAYS!//
         cSaveCardNumber.setChecked(true);
@@ -167,13 +176,17 @@ public class PaymentSettingsActivity extends AppCompatActivity implements View.O
             public void onClick(View v) {
                 //Start adding Payme SDK code
                 //finish();
-                if((!cCardHolderInput.getText().toString().isEmpty()) && (!cPhoneNumberCCInput.getText().toString().isEmpty())
-                    && (!cCCNumber.getText().toString().isEmpty()) && (!cExpiryDateNumber.getText().toString().isEmpty())
+                if((!cCardHolderInput.getText().toString().isEmpty()) && (!cPhoneNumberCCInput
+                        .getText().toString().isEmpty())
+                    && (!cCCNumber.getText().toString().isEmpty()) && (!cExpiryDateNumber
+                        .getText().toString().isEmpty())
                     && (!cCvvNumber.getText().toString().isEmpty())){
                     cleanStringNameCC = cCardHolderInput.getText().toString();//<<<<<<<<<<<<<<<<<<<<<<FINAL
                     cleanStringPhoneN = cPhoneNumberCCInput.getText().toString();//<<<<<<<<<<<<<<<<<<<FINAL
-                    cleanStringCCNumber = cCCNumber.getText().toString().replace("-","");//<<<<FINAL
-                    cleanStringExpiryDate = cExpiryDateNumber.getText().toString().replace("/","");//<<<<FINAL
+                    cleanStringCCNumber = cCCNumber.getText().toString()
+                            .replace("-","");//<<<<FINAL
+                    cleanStringExpiryDate = cExpiryDateNumber.getText().toString()
+                            .replace("/","");//<<<<FINAL
                     cleanStringCVV = cCvvNumber.getText().toString();//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<FINAL
                     cleanIdNumber = cIdNumber.getText().toString();//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<FINAL
                     //userEmailHolder//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<FINAL
@@ -227,7 +240,8 @@ public class PaymentSettingsActivity extends AppCompatActivity implements View.O
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View textView) {
-                Intent paymeTouIntent = new Intent(PaymentSettingsActivity.this,WebActivity.class);
+                Intent paymeTouIntent = new Intent(PaymentSettingsActivity.this
+                        ,WebActivity.class);
                 paymeTouIntent.putExtra("webKey","paymeTermsOfUse");
                 startActivity(paymeTouIntent);
             }
@@ -428,7 +442,8 @@ public class PaymentSettingsActivity extends AppCompatActivity implements View.O
     }
 
     public void MoveDataOnFinish(String ccMask){
-        Intent previousScreen = new Intent(PaymentSettingsActivity.this, WashReqParamsActivity.class);
+        Intent previousScreen = new Intent(PaymentSettingsActivity.this
+                , WashReqParamsActivity.class);
         previousScreen.putExtra("paymeCCMask", ccMask);
         setResult(Activity.RESULT_OK, previousScreen);
         finish();

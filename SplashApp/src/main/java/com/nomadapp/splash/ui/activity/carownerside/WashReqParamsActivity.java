@@ -51,6 +51,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.nomadapp.splash.model.constants.PaymeConstants;
 import com.nomadapp.splash.model.server.parseserver.queries.MetricsClassQuery;
 import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
+import com.nomadapp.splash.model.server.parseserver.send.RequestClassSend;
 import com.nomadapp.splash.ui.activity.carownerside.payment.PaymentSettingsActivity;
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
@@ -67,7 +68,6 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
-import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.text.SimpleDateFormat;
@@ -155,6 +155,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     //others
     private RelativeLayout cFirstRelative;
     private RelativeLayout cElPropioRelative;
+    private RelativeLayout mSplasher_fragment_container;
 
     private ToastMessages toastMessages = new ToastMessages();
     private ConnectionLost clm = new ConnectionLost(WashReqParamsActivity.this);
@@ -162,6 +163,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
             new BoxedLoadingDialog(WashReqParamsActivity.this);
     private MetricsClassQuery metricsClassQuery =
             new MetricsClassQuery(WashReqParamsActivity.this);
+    private UserClassQuery userClassQuery = new UserClassQuery(WashReqParamsActivity.this);
 
     //Getters//
     //TRY THIS METHOD
@@ -237,7 +239,8 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                 cRatingAndPricingRelative.setVisibility(View.GONE);
                 cRatingAndPricingRelative.animate().translationXBy(1000f).setDuration(500);
             }else{
-                startActivity(new Intent(WashReqParamsActivity.this, HomeActivity.class));
+                startActivity(new Intent(WashReqParamsActivity.this
+                        , HomeActivity.class));
             }
         }
         return super.onOptionsItemSelected(item);
@@ -285,6 +288,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         cSaveRequest = findViewById(R.id.saveCarOwner);
         cFirstRelative = findViewById(R.id.firstRelative);
         cElPropioRelative = findViewById(R.id.elPropioRelative);
+        mSplasher_fragment_container = findViewById(R.id.splasher_fragment_container);
 
         //car Owner car address Details hide keyboard onPress outside
         cFirstRelative.setOnClickListener(new View.OnClickListener(){
@@ -474,10 +478,15 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                             cRatingAndPricingRelative.animate().translationXBy(-1000f)
                                     .setDuration(500);
                             cSaveRequest.setVisibility(View.GONE);
-                            new CountDownTimer(600, 600) {
+                            new CountDownTimer(400, 400) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {
-                                    cFinallyOrder.setVisibility(View.VISIBLE);
+                                    Log.i("fragVisible",String.valueOf(isFragmentVisible()));
+                                    if (isFragmentVisible()){
+                                        cFinallyOrder.setVisibility(View.GONE);
+                                    }else {
+                                        cFinallyOrder.setVisibility(View.VISIBLE);
+                                    }
                                 }
 
                                 @Override
@@ -503,10 +512,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                     }
                 }catch(NullPointerException n1){
                     n1.printStackTrace();
-                    warningDialog(getResources().getString
-                                    (R.string.washMyCar_act_java_missingFields)
-                            , getResources()
-                                    .getString(R.string.washMyCar_act_java_pleaseFillAll));
                 }
             }
 
@@ -528,7 +533,13 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                     String splasherUsername = "clear";
                     String requestType = "public";
                     boxedLoadingDialog.showLoadingDialog();
-                    loadRequest(splasherUsername,requestType);
+                    RequestClassSend requestClassSend = new RequestClassSend
+                            (WashReqParamsActivity.this);
+                    loadDataToFile();
+                    requestClassSend.loadRequest(address,carCoordinates,carAddressDescription
+                    ,fullDate,selectedTime,getServiceType,carBrandToUpload
+                    ,carModelToUpload,carColorToUpload,carPlateToUpload,dollarSetPrice
+                    ,numericalBadge,temporalKeyActive,splasherUsername,requestType);
                     //Metrics class attached to the button finallyOrder. inside LOADREQUEST method
                 }
             }
@@ -935,6 +946,10 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         //switch is on(today):
         //move nothing:
 
+        //If the app just downloaded, the user is new, then run below//
+        fullDate = String.valueOf(dateOfRequest) + "-" + String.valueOf(monthOfRequest + 1)
+                + "-" + String.valueOf(yearOfRequest);
+        //else, run below//
         if (!writeReadDataInFile.readFromFile("todayTomorrow").isEmpty()) {//TEST//
             if (writeReadDataInFile.readFromFile("todayTomorrow").equals("true")) {
                 fullDate = String.valueOf(dateOfRequest + 1) + "-" + String.valueOf(monthOfRequest
@@ -944,6 +959,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                         + "-" + String.valueOf(yearOfRequest);
             }
         }
+        //If todayTomorrow switch touched, run below//
         cUntilTimeSwitchTodayTomorrow.setOnCheckedChangeListener(new CompoundButton
                 .OnCheckedChangeListener() {
             @Override
@@ -1114,7 +1130,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     }
 
     public void splasherListFragmentInit(){
-        RelativeLayout mSplasher_fragment_container = findViewById(R.id.splasher_fragment_container);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         SplasherListFragment splasherListFragment = new SplasherListFragment();
@@ -1122,9 +1137,13 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
-        if (mSplasher_fragment_container.getVisibility() == View.VISIBLE){
+        if (isFragmentVisible()){
             cFinallyOrder.setVisibility(View.GONE);
         }
+    }
+
+    public boolean isFragmentVisible(){
+        return mSplasher_fragment_container.getVisibility() == View.VISIBLE;
     }
 
     @Override
@@ -1390,27 +1409,15 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     }
 
     public void fetchDataFromFile(){
-        /*
-            writeReadDataInFile.writeToFile(cCrLocationEdit.getText().toString(), "location");
-            writeReadDataInFile.writeToFile(sC1lat, "lat");
-            writeReadDataInFile.writeToFile(sC1lon, "lon");
-            writeReadDataInFile.writeToFile(cCrLocationDescriptionEdit.getText().toString(), "locationDesc");
-            writeReadDataInFile.writeToFile(cCrUntilEdit.getText().toString(), "untilTime");
-            writeReadDataInFile.writeToFile(cCarSelected.getText().toString(), "carSelected");
-            writeReadDataInFile.writeToFile(setRating, "setRating");
-            writeReadDataInFile.writeToFile(setPrice, "setPrice");
-         */
-        /*
-        **THE BUG WITH THE STRING-TO-FLOAT NUMBER IS THAT IT SEEMS TO BE GRABBING THE SHEKEL SYMBOL WHICH OBVS
-            CAN NOT PARSE TO A FLOAT DIGIT. FIX THIS<<TEST TOMORROW>>
-        ** HERE IN ISRAEL, I HAVE TO HAVE THE SHEKEL SYSTEM ALSO FOR PPL WITH THEIR PHONE IN ENGLISH LANGUAGE. DON'T FORGET
-         */
-        if(!writeReadDataInFile.readFromFile("location").isEmpty() && !writeReadDataInFile.readFromFile("lat").isEmpty()
+        if(!writeReadDataInFile.readFromFile("location").isEmpty() && !writeReadDataInFile
+                .readFromFile("lat").isEmpty()
                 && !writeReadDataInFile.readFromFile("lon").isEmpty()){
             cCrLocationEdit.setText(writeReadDataInFile.readFromFile("location"));
             address = cCrLocationEdit.getText().toString();
-            Double getSavedLat = Double.parseDouble(writeReadDataInFile.readFromFile("lat"));
-            Double getSavedLon = Double.parseDouble(writeReadDataInFile.readFromFile("lon"));
+            Double getSavedLat = Double.parseDouble(writeReadDataInFile
+                    .readFromFile("lat"));
+            Double getSavedLon = Double.parseDouble(writeReadDataInFile
+                    .readFromFile("lon"));
             Log.i("new carcoords", getSavedLat.toString());
             Log.i("new carcoords2", getSavedLon.toString());
             carCoordinates = new LatLng(getSavedLat, getSavedLon);
@@ -1581,154 +1588,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         cSplasherPriceSet.setText(defaultPrice);
     }
 
-    //Load Request to Parse Server 2
-    public void loadRequest(String splasherUsername, String requestType) {
-
-        try {
-
-            if (!cCrLocationDescriptionEdit.getText().toString().isEmpty())
-                carAddressDescription = cCrLocationDescriptionEdit.getText().toString();////<--FINAL
-            else
-                carAddressDescription = "empty";
-
-            if (!(ParseUser.getCurrentUser().getString("fbProfilePic") == null)) {
-                profilePicToUpload = ParseUser.getCurrentUser().getString("fbProfilePic");
-                if (!profilePicToUpload.contains("https")) {
-                    ParseFile profPicNoFbFile = ParseUser.getCurrentUser()
-                            .getParseFile("localProfilePic");
-                    profPicNoFbString = profPicNoFbFile.getUrl();
-                } else if (profilePicToUpload.contains("https")) {
-                    profPicNoFbString = "none";
-                }
-            } else {
-                profilePicToUpload = "none";
-                profPicNoFbString = "none";
-            }
-
-            //write to file
-            loadDataToFile();
-
-            //set location description to nothing
-            if (!cCrLocationDescriptionEdit.getText().toString().isEmpty())
-            writeLocationDescToFile("");
-
-            Log.i("address", address); //Address
-            Log.i("latlng", carCoordinates.toString()); //Coordinates
-            Log.i("carAddressDescription", carAddressDescription); // Address description
-            Log.i("Until Time Selected", fullDate + " " + selectedTime); //Until Time
-            Log.i("Car Wash Service Type", getServiceType); //Service Type
-            Log.i("Selected Car: ", carBrandToUpload + " " + carModelToUpload + " "
-                    + carColorToUpload
-                    + " " + " " + carPlateToUpload); //Selected Car
-            Log.i("Final Price", dollarSetPrice); // set Price
-            Log.i("Profile Pic", profilePicToUpload); //Profile Pic
-            Log.i("numerical badge", String.valueOf(numericalBadge));
-            if (!profilePicToUpload.contains("https")) {
-                Log.i("Profile Pic NoFb", profPicNoFbString); //Profile Pic Not Facebook
-            }
-
-            //TODO: Payme Code: Sending Car owner's buyer_key to Request Log
-            //!writeReadDataInFile.readFromFile("buyer_key_permanent").equals("")
-            if(writeReadDataInFile.readFromFile("buyer_key_permanent").equals("") &&
-                    !writeReadDataInFile.readFromFile("buyer_key_temporal").equals("")){
-                //Temporal buyer_key
-                Log.i("disposableBuyerKey", writeReadDataInFile
-                        .readFromFile("buyer_key_temporal"));
-            }else if(writeReadDataInFile.readFromFile("buyer_key_temporal").equals("") &&
-                    !writeReadDataInFile.readFromFile("buyer_key_permanent").equals("")){
-                //Permanent buyer_key
-                Log.i("permanentBuyerKey", writeReadDataInFile
-                        .readFromFile("buyer_key_permanent"));
-            }
-
-            //------------------------------------------------------------------------------------//
-            ParseObject request = new ParseObject("Request");
-            request.put("username", ParseUser.getCurrentUser().getUsername());
-            request.put("carAddress", address); //1
-            ParseGeoPoint carGeoPoint = new ParseGeoPoint(carCoordinates.latitude,
-                    carCoordinates.longitude);
-            request.put("carCoordinates", carGeoPoint); //2
-            request.put("carAddressDesc", carAddressDescription); //3
-            request.put("untilTime", fullDate + " " + selectedTime); //4
-            request.put("serviceType", getServiceType); //5
-            request.put("carBrand", carBrandToUpload); //6
-            request.put("carModel", carModelToUpload); //7
-            request.put("carColor", carColorToUpload); //8
-            request.put("carplateNumber", carPlateToUpload); //10
-            String shekels = "₪";
-            String shekelsSetPriceFinal = dollarSetPrice + " " + shekels;
-            request.put("priceWanted", shekelsSetPriceFinal);
-            request.put("fbProfilePic", profilePicToUpload); //13
-            if (!profilePicToUpload.contains("https")) {
-                request.put("ProfPicNoFb", profPicNoFbString); //14
-            }
-            //Temporary until we implement back the badge system://
-            numericalBadge = 2;
-            request.put("badgeWanted", String.valueOf(numericalBadge)); //15
-            request.put("taken", "no"); //16
-            request.put("splasherUsername", splasherUsername); //17
-            request.put("picturesInbound", "false"); //18
-            request.put("washFinished", "no");//19
-            request.put("paid", "no");//20
-            request.put("requestType", requestType);//21
-            //TODO: Payme Code: Sending Car owner's buyer_key to Request PUT
-            //!writeReadDataInFile.readFromFile("buyer_key_permanent").equals("")
-            if(writeReadDataInFile.readFromFile("buyer_key_permanent").equals("") &&
-                    !writeReadDataInFile.readFromFile("buyer_key_temporal").equals("")){
-                //Temporal buyer_key
-                request.put("buyerKey", writeReadDataInFile.readFromFile
-                        ("buyer_key_temporal"));//22
-                //Activate boolean value that marks it is a temporal buyer_key
-                temporalKeyActive = true;
-            }else if(writeReadDataInFile.readFromFile("buyer_key_temporal").equals("") &&
-                    !writeReadDataInFile.readFromFile("buyer_key_permanent").equals("")){
-                //Permanent buyer_key
-                request.put("buyerKey", writeReadDataInFile.readFromFile
-                        ("buyer_key_permanent"));//22
-            }
-            //-----------------------------------------------
-            request.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-
-                    if (e == null) {
-                        updateOrderWashCounter();
-                        //Works. Now work on this boolean below: findCarWasherRequestActive
-                        //findCarWasherRequestActive = true;
-                        toastMessages.debugMesssage(getApplicationContext()
-                        ,getResources().getString(R.string.washMyCar_act_java_washRequestSent),1);
-                        Double carCoordinatesLatitude = carCoordinates.latitude;
-                        Double carCoordinatesLongitude = carCoordinates.longitude;
-                        Intent intent = new Intent(WashReqParamsActivity.this,
-                                HomeActivity.class);
-                        intent.putExtra("requestActive", "active");
-                        intent.putExtra("carLat", carCoordinatesLatitude);
-                        intent.putExtra("carLon", carCoordinatesLongitude);
-                        intent.putExtra("selectedTime", fullDate + " " + selectedTime);
-                        if(getServiceType.equals("Motorcycle") || getServiceType.equals("אופנוע")){
-                            writeReadDataInFile.writeToFile("bike", "bikeOrNot");
-                        }else{
-                            writeReadDataInFile.writeToFile("noBike", "bikeOrNot");
-                        }
-                        if (temporalKeyActive){
-                            writeReadDataInFile.writeToFile("",
-                                    "buyer_key_temporal");
-                            toastMessages.debugMesssage(getApplicationContext()
-                            ,"temporal key sent to request class on server and destroyed" +
-                                            " from local .txt file right after",1);
-                            toastMessages.productionMessage(WashReqParamsActivity.this,
-                                    getResources().getString(R.string.act_wash_my_car_requestSent)
-                                    ,1);
-                        }
-                        startActivity(intent);
-                    }
-                }
-            });
-        }catch(NullPointerException e){
-            e.printStackTrace();
-        }
-    }
-
     private void refreshData(){
 
         dbCars.clear();
@@ -1752,7 +1611,8 @@ public class WashReqParamsActivity extends AppCompatActivity implements
 
         dbh.close();
 
-        CarAdapter myCarAdapter = new CarAdapter(WashReqParamsActivity.this, R.layout.car_row, dbCars);
+        CarAdapter myCarAdapter = new CarAdapter(WashReqParamsActivity.this,
+                R.layout.car_row, dbCars);
 
         cCarList.setAdapter(myCarAdapter);
 
@@ -1780,20 +1640,15 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     }
 
     public void hideKeyboardTwo(){
-
         try {
-
-            InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getApplicationContext()
+                    .getSystemService(INPUT_METHOD_SERVICE);
             if (imm != null && getCurrentFocus() != null) {
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
             }
-
         }catch(Exception e){
-
             e.printStackTrace();
-
         }
-
     }
 
     public class CarAdapter extends ArrayAdapter<MyCar>{
@@ -1860,13 +1715,9 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                 row = theInflator.inflate(layoutResource, null);
 
                 holder = new ViewHolder();
-
                 holder.mBrand = row.findViewById(R.id.carBrandRow);
-
                 holder.mModel = row.findViewById(R.id.carModelRow);
-
                 holder.mColor = row.findViewById(R.id.carColorRow);
-
                 holder.mPlate = row.findViewById(R.id.carPlateRow);
 
                 row.setTag(holder);
@@ -1972,15 +1823,11 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                     return false;
                 }
             });
-
             return row;
-
         }
-
     }
 
     class ViewHolder{
-
         MyCar holderCar;
 
         TextView mBrand;
@@ -2024,13 +1871,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                         , HomeActivity.class));
             }
         }
-        /*
-        if (keyCode == KeyEvent.KEYCODE_HOME) {
-
-            //Do nothing for now
-
-        }
-        */
         return false;
     }
 }

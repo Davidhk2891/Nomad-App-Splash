@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
+import android.view.WindowManager;
 
 import com.nomadapp.splash.R;
 
@@ -56,22 +57,26 @@ public class BoxedLoadingDialog {
     }
 
     private void messageForError(Context context){
-        AlertDialog.Builder timesUpDialog = new AlertDialog.Builder(context);
-        timesUpDialog.setTitle(context.getResources().getString(R.string
-                .boxedLoadingDialog_act_java_errTitle));
-        timesUpDialog.setIcon(android.R.drawable.ic_dialog_alert);
-        timesUpDialog.setMessage(context.getResources().getString(R.string
-                .boxedLoadingDialog_act_java_errMessage));
-        timesUpDialog.setPositiveButton(context.getResources().getString(R.string
-                        .boxedLoadingDialog_act_java_errOk)
-                , new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                hideLoadingDialog();
-            }
-        });
-        timesUpDialog.setCancelable(false);
-        timesUpDialog.show();
+        try{
+            AlertDialog.Builder timesUpDialog = new AlertDialog.Builder(context);
+            timesUpDialog.setTitle(context.getResources().getString(R.string
+                    .boxedLoadingDialog_act_java_errTitle));
+            timesUpDialog.setIcon(android.R.drawable.ic_dialog_alert);
+            timesUpDialog.setMessage(context.getResources().getString(R.string
+                    .boxedLoadingDialog_act_java_errMessage));
+            timesUpDialog.setPositiveButton(context.getResources().getString(R.string
+                            .boxedLoadingDialog_act_java_errOk)
+                    , new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            hideLoadingDialog();
+                        }
+                    });
+            timesUpDialog.setCancelable(false);
+            timesUpDialog.show();
+        }catch(WindowManager.BadTokenException wbt){
+            wbt.printStackTrace();
+        }
     }
 
 }

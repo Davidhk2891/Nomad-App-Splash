@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 
 import com.nomadapp.splash.R;
+import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.ui.activity.standard.SignUpLogInActivity;
 
 import com.parse.ParseUser;
@@ -17,8 +18,11 @@ public class LogoutMessage {
 
     private Context context;
 
+    private UserClassQuery userClassQuery;
+
     public LogoutMessage(Context ctx){
         this.context = ctx;
+        userClassQuery = new UserClassQuery(context);
     }
     public void logoutMessage(){
         AlertDialog.Builder pendingPaymentDialog = new AlertDialog.Builder(context);
@@ -31,10 +35,7 @@ public class LogoutMessage {
                 .getString(R.string.logout_message_yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent toSignorLogScreen = new Intent(context, SignUpLogInActivity.class);
-                toSignorLogScreen.putExtra("fbLogout", "noRunFbParse");
-                context.startActivity(toSignorLogScreen);
-                ParseUser.logOut();
+                userClassQuery.logOutUser(SignUpLogInActivity.class);
             }
         });
         pendingPaymentDialog.setNegativeButton(context.getResources().getString(R.string

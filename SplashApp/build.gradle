@@ -8,8 +8,8 @@ android {
         applicationId "com.nomadapp.splash"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 23
-        versionName "1.4.3"
+        versionCode 28
+        versionName "1.4.8"
         multiDexEnabled true
     }
     dexOptions {
@@ -46,10 +46,10 @@ dependencies {
     implementation 'com.android.support:mediarouter-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.parse.bolts:bolts-tasks:1.4.0'
-    implementation ('com.parse:parse-android:1.17.3'){
+    implementation('com.parse:parse-android:1.17.3') {
         exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
-    implementation ('com.parse:parse-fcm-android:1.17.3'){
+    implementation('com.parse:parse-fcm-android:1.17.3') {
         exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
     implementation 'com.facebook.android:facebook-android-sdk:4.29.0'

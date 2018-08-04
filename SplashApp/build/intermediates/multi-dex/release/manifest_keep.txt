@@ -1,0 +1,3 @@
+# Referenced at C:\Splash\SplashApp\build\intermediates\manifests\full\release\AndroidManifest.xml:40
+-keep class com.nomadapp.splash.model.server.StarterApplication { <init>(...); }
+

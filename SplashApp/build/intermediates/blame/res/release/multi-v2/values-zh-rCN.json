@@ -1,0 +1,145 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Splash\\SplashApp\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-zh-rCN\\values-zh-rCN.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-15.0.1.aar\\fa82a74c4dbfb051ea78187f662b9742\\res\\values-zh-rCN\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "251",
+                        "endColumns": "157",
+                        "endOffsets": "408"
+                    },
+                    "to": {
+                        "startLines": "50",
+                        "startColumns": "4",
+                        "startOffsets": "4928",
+                        "endColumns": "157",
+                        "endOffsets": "5081"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-places-15.0.1.aar\\e9c638284ab719065bd99a17637b8f4f\\res\\values-zh-rCN\\values.xml",
+                    "from": {
+                        "startLines": "4,5",
+                        "startColumns": "0,0",
+                        "startOffsets": "197,290",
+                        "endColumns": "92,87",
+                        "endOffsets": "289,377"
+                    },
+                    "to": {
+                        "startLines": "82,83",
+                        "startColumns": "4,4",
+                        "startOffsets": "8179,8276",
+                        "endColumns": "96,91",
+                        "endOffsets": "8271,8363"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7c377afd7ce981c1a0a4ce87d156cb10\\res\\values-zh-rCN\\values-zh-rCN.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,201,296,396,478,575,681,757,833,911,1007,1103,1198,1295,1390,1488,1637,1731",
+                        "endColumns": "95,94,99,81,96,105,75,75,77,95,95,94,96,94,97,148,93,77",
+                        "endOffsets": "196,291,391,473,570,676,752,828,906,1002,1098,1193,1290,1385,1483,1632,1726,1804"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,84",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,201,296,396,478,575,681,757,833,911,1007,1103,1198,1295,1390,1488,1637,8368",
+                        "endColumns": "95,94,99,81,96,105,75,75,77,95,95,94,96,94,97,148,93,77",
+                        "endOffsets": "196,291,391,473,570,676,752,828,906,1002,1098,1193,1290,1385,1483,1632,1726,8441"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-login-4.29.0.aar\\acf3a524e751029a18fa9a9381ea1b14\\res\\values-zh-rCN\\values-zh-rCN.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,183,283,392,501,580,662,736,821,906,1009,1111,1197,1283,1374,1483,1561,1640,1758,1851,1946,2052,2146",
+                        "endColumns": "127,99,108,108,78,81,73,84,84,102,101,85,85,90,108,77,78,117,92,94,105,93,85",
+                        "endOffsets": "178,278,387,496,575,657,731,816,901,1004,1106,1192,1278,1369,1478,1556,1635,1753,1846,1941,2047,2141,2227"
+                    },
+                    "to": {
+                        "startLines": "19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "1731,1859,1959,2068,2177,2256,2338,2412,2497,2582,2685,2787,2873,2959,3050,3159,3237,3316,3434,3527,3622,3728,3822",
+                        "endColumns": "127,99,108,108,78,81,73,84,84,102,101,85,85,90,108,77,78,117,92,94,105,93,85",
+                        "endOffsets": "1854,1954,2063,2172,2251,2333,2407,2492,2577,2680,2782,2868,2954,3045,3154,3232,3311,3429,3522,3617,3723,3817,3903"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\3540efecc89b71a4bac115e420786c34\\res\\values-zh-rCN\\values-zh-rCN.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "85",
+                        "startColumns": "4",
+                        "startOffsets": "8446",
+                        "endColumns": "100",
+                        "endOffsets": "8542"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-15.0.1.aar\\b1307e1a31e7dba454f21a54b56dbffa\\res\\values-zh-rCN\\values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+                        "startOffsets": "249,348,509,622,722,886,1000,1128,1245,1412,1511,1672,1785,1948,2082,2164,2247",
+                        "endColumns": "98,160,112,99,163,113,127,116,166,98,160,112,162,133,81,82,98",
+                        "endOffsets": "347,508,621,721,885,999,1127,1244,1411,1510,1671,1784,1947,2081,2163,2246,2345"
+                    },
+                    "to": {
+                        "startLines": "42,43,44,45,46,47,48,49,51,52,53,54,55,56,57,58,59",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "3908,4011,4172,4289,4393,4557,4675,4807,5086,5253,5356,5517,5634,5797,5935,6021,6108",
+                        "endColumns": "102,160,116,103,163,117,131,120,166,102,160,116,162,137,85,86,102",
+                        "endOffsets": "4006,4167,4284,4388,4552,4670,4802,4923,5248,5351,5512,5629,5792,5930,6016,6103,6206"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\mediarouter-v7-27.1.1.aar\\a54e30a2e5fb2a489cf0ab27b5b9a974\\res\\values-zh-rCN\\values-zh-rCN.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,148,240,334,430,516,594,681,775,868,958,1046,1134,1233,1331,1412,1491,1570,1660,1751,1833",
+                        "endColumns": "92,91,93,95,85,77,86,93,92,89,87,87,98,97,80,78,78,89,90,81,88",
+                        "endOffsets": "143,235,329,425,511,589,676,770,863,953,1041,1129,1228,1326,1407,1486,1565,1655,1746,1828,1917"
+                    },
+                    "to": {
+                        "startLines": "61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "6312,6405,6497,6591,6687,6773,6851,6938,7032,7125,7215,7303,7391,7490,7588,7669,7748,7827,7917,8008,8090",
+                        "endColumns": "92,91,93,95,85,77,86,93,92,89,87,87,98,97,80,78,78,89,90,81,88",
+                        "endOffsets": "6400,6492,6586,6682,6768,6846,6933,7027,7120,7210,7298,7386,7485,7583,7664,7743,7822,7912,8003,8085,8174"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-messaging-15.0.2.aar\\a01f59bfb448723c5f143bd67c1e4ac2\\res\\values-zh-rCN\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "209",
+                        "endColumns": "96",
+                        "endOffsets": "305"
+                    },
+                    "to": {
+                        "startLines": "60",
+                        "startColumns": "4",
+                        "startOffsets": "6211",
+                        "endColumns": "100",
+                        "endOffsets": "6307"
+                    }
+                }
+            ]
+        }
+    ]
+}

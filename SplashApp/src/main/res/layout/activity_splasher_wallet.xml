@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.splasherside.SplasherWalletActivity">
+
+    <ScrollView
+        android:id="@+id/scrollViewWallet"
+        android:scrollbars="none"
+        android:layout_above="@+id/updateFilesWallet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/relativeWallet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/balanceTitle"
+                android:text="@string/act_my_wallet_balanceTitle"
+                android:textSize="24sp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="14dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/balanceNum"
+                android:layout_below="@+id/balanceTitle"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/bg_blueborder_stroke_andcolor_curved"
+                android:padding="20dp"
+                android:layout_marginTop="14dp"
+                android:textSize="60sp"
+                android:text="@string/act_my_wallet_balanceNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/depositMessage"
+                android:layout_below="@+id/balanceNum"
+                android:layout_marginTop="8dp"
+                android:layout_alignStart="@+id/balanceNum"
+                android:layout_alignEnd="@+id/balanceNum"
+                android:layout_marginStart="10dp"
+                android:textSize="14sp"
+                android:text="@string/act_my_wallet_paymentDeposits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:id="@+id/sepaCarDetails"
+                android:layout_width="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_height="2dp"
+                android:layout_below="@+id/depositMessage"
+                android:layout_marginTop="8dp"
+                android:background="#c0c0c0"/>
+
+            <TextView
+                android:id="@+id/bankDetsTitle"
+                android:text="@string/act_my_wallet_bankDetailsTitle"
+                android:textSize="24sp"
+                android:layout_below="@+id/sepaCarDetails"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="14dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/bankDetailsEdit"
+                android:layout_toEndOf="@+id/bankDetsTitle"
+                android:layout_marginStart="20dp"
+                android:layout_alignTop="@+id/bankDetsTitle"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="editBankDets"
+                android:src="@android:drawable/ic_menu_edit"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                tools:ignore="ContentDescription" />
+
+            <RelativeLayout
+                android:id="@+id/bankDetsRelative"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/bankDetsTitle"
+                android:padding="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/bankDetailsLinear2"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_alignStart="@+id/splasherSignUpBankAccNum2"
+                    android:layout_alignEnd="@+id/splasherSignUpBankAccNum2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/SplasherSignUpBankCodeNum2"
+                        android:ems="7"
+                        android:maxLines="1"
+                        android:textAllCaps="false"
+                        android:inputType="number"
+                        android:hint="@string/act_become_splasher_signUp_bankCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:id="@+id/SplasherSignUpBankBranchNum2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:ems="7"
+                        android:hint="@string/act_become_splasher_signUp_bankBranch"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:textAllCaps="false" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/splasherSignUpBankAccNum2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/bankDetailsLinear2"
+                    android:layout_marginTop="6dp"
+                    android:ems="15"
+                    android:textAllCaps="false"
+                    android:inputType="number"
+                    android:hint="@string/act_become_splasher_signUp_bankAccNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/bankAccProofLinear2"
+                android:layout_below="@+id/bankDetsRelative"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:layout_alignStart="@+id/balanceNum"
+                android:layout_alignEnd="@id/balanceNum"
+                android:background="@drawable/bg_blueborder_stroke_andcolor"
+                android:layout_marginTop="6dp"
+                android:padding="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/bankAccProofTextView2"
+                    android:hint="@string/act_my_wallet_bankAccProof"
+                    android:layout_marginTop="5dp"
+                    android:maxLength="14"
+                    android:maxLines="1"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:ignore="RelativeOverlap" />
+
+                <ImageView
+                    android:id="@+id/bankAccProofCameraUpload2"
+                    android:layout_toStartOf="@+id/bankAccProofFileUpload2"
+                    android:layout_marginEnd="15dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_photo_camera_black_24dp"
+                    android:onClick="goToCamera"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/bankAccProofFileUpload2"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="goToGallery"
+                    android:src="@drawable/ic_file_upload_black_24dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    tools:ignore="ContentDescription" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/updateFilesWallet"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="@string/act_my_wallet_update"
+        android:onClick="updateBankDetails"
+        android:textColor="#ffffff"
+        android:background="@drawable/btn_shape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

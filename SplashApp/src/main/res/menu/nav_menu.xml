@@ -21,6 +21,14 @@
     -->
 
     <item
+        android:id="@+id/twoAndAHalfNav"
+        android:title="@string/nav_menu_myServices"
+        android:icon="@drawable/servicetypeiconblue"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <item
         android:id="@+id/twoNav"
         android:title="@string/nav_menu_alerts"
         android:icon="@drawable/ic_alert"

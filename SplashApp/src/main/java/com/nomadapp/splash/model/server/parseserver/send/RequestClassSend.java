@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.google.android.gms.maps.model.LatLng;
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
+import com.nomadapp.splash.model.server.parseserver.queries.MetricsClassQuery;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.ParseException;
@@ -22,9 +23,11 @@ public class RequestClassSend {
 
     private Context context;
     private ToastMessages toastMessages = new ToastMessages();
+    private MetricsClassQuery metricsClassQuery;
 
     public RequestClassSend(Context ctx){
         this.context = ctx;
+        metricsClassQuery = new MetricsClassQuery(context);
     }
 
     //Load Request to Parse Server 2
@@ -63,7 +66,7 @@ public class RequestClassSend {
         request.put("carModel", carModelToUpload); //7
         request.put("carColor", carColorToUpload); //8
         request.put("carplateNumber", carPlateToUpload); //10
-        String shekels = "₪";
+        String shekels = context.getResources().getString(R.string.shekel);
         String shekelsSetPriceFinal = dollarSetPrice + " " + shekels;
         request.put("priceWanted", shekelsSetPriceFinal);
         request.put("fbProfilePic", profilePicToUpload); //13
@@ -101,10 +104,12 @@ public class RequestClassSend {
             public void done(ParseException e) {
 
                 if (e == null) {
+                    metricsClassQuery.queryMetricsToUpdate("orderWash");
                     //Works. Now work on this boolean below: findCarWasherRequestActive
                     //findCarWasherRequestActive = true;
                     toastMessages.debugMesssage(context.getApplicationContext()
-                            ,context.getResources().getString(R.string.washMyCar_act_java_washRequestSent),1);
+                            ,context.getResources().getString(R.string
+                                    .washMyCar_act_java_washRequestSent),1);
                     Double carCoordinatesLatitude = carCoor.latitude;
                     Double carCoordinatesLongitude = carCoor.longitude;
                     Intent intent = new Intent(context,

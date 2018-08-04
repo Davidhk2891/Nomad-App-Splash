@@ -1,6 +1,6 @@
 package com.nomadapp.splash.ui.activity.standard;
 
-import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +24,9 @@ import android.widget.ImageView;
 
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.imagehandler.GlideImagePlacement;
+import com.nomadapp.splash.model.localdatastorage.StoragePermission;
+import com.nomadapp.splash.model.server.parseserver.UserClassInterface;
+import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.FindCallback;
@@ -32,7 +34,6 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
@@ -47,10 +48,12 @@ import com.nomadapp.splash.model.imagehandler.ImageRotation;
 
 public class AccountActivity extends AppCompatActivity {
 
-    EditText cUsernameEdit, cLastNameEdit, cEmailEdit, cPhoneEdit;
-    ImageView cAccountPicHolder;
+    private Context ctx = AccountActivity.this;
 
-    private File mGalleryFolder;
+    private static File mGalleryFolder;
+    private EditText cUsernameEdit, cLastNameEdit, cEmailEdit, cPhoneEdit;
+    private ImageView cAccountPicHolder;
+
     private Uri imageFileLocation;
     private String choosenGalFileLocation;
     private static final int REQUEST_EXTERNAL_STORAGE_RESULT = 70;
@@ -62,9 +65,11 @@ public class AccountActivity extends AppCompatActivity {
     private ParseFile profileFile;
     private String localPictureString;
 
-    private ParseUser currentUser = ParseUser.getCurrentUser();
-    private GlideImagePlacement glideImagePlacement = new GlideImagePlacement(AccountActivity.this);
-    private BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog(AccountActivity.this);
+    private UserClassQuery userClassQuery = new UserClassQuery(ctx);
+    private GlideImagePlacement glideImagePlacement = new GlideImagePlacement
+            (AccountActivity.this);
+    private BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog
+            (AccountActivity.this);
     private ToastMessages toastMessages = new ToastMessages();
 
     @Override
@@ -94,10 +99,10 @@ public class AccountActivity extends AppCompatActivity {
             String phoneNumber = null;
             String userName = null;
             String userLast = null;
-            if (currentUser != null){
-                phoneNumber = currentUser.getString("phonenumber");
-                userName = currentUser.getString("name");
-                userLast = currentUser.getString("lastname");
+            if (userClassQuery.userExists()){
+                phoneNumber = userClassQuery.currentUserObject().getString("phonenumber");
+                userName = userClassQuery.currentUserObject().getString("name");
+                userLast = userClassQuery.currentUserObject().getString("lastname");
             }
             Log.i("stuff", "is" + email);
             if (email != null){
@@ -146,7 +151,7 @@ public class AccountActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void saveAccountChanges(){
-        if (currentUser != null){
+        if (userClassQuery.userExists()){
             if (cUsernameEdit.getText().toString().isEmpty() && cEmailEdit.getText().toString()
                     .isEmpty()
                     && cPhoneEdit.getText().toString().isEmpty() && !picChosen) {
@@ -156,44 +161,47 @@ public class AccountActivity extends AppCompatActivity {
                 boxedLoadingDialog.showLoadingDialog();
                 if (!cUsernameEdit.getText().toString().isEmpty()){
                     String updatedUsername = cUsernameEdit.getText().toString();
-                    currentUser.put("name",updatedUsername);
+                    userClassQuery.currentUserObject().put("name",updatedUsername);
                 }
                 if (!cLastNameEdit.getText().toString().isEmpty()){
                     String updatedLastName = cLastNameEdit.getText().toString();
-                    currentUser.put("lastname",updatedLastName);
+                    userClassQuery.currentUserObject().put("lastname",updatedLastName);
                 }
                 if (!cEmailEdit.getText().toString().isEmpty()){
-                    String updateduserEmail = cEmailEdit.getText().toString();
-                    currentUser.setEmail(updateduserEmail);
+                    String updatedUserEmail = cEmailEdit.getText().toString();
+                    userClassQuery.currentUserObject().put("emailUpdated",updatedUserEmail);
                 }
                 if (!cPhoneEdit.getText().toString().isEmpty()){
                     String updatedPhonenumber = cPhoneEdit.getText().toString();
-                    currentUser.put("phonenumber", updatedPhonenumber);
+                    userClassQuery.currentUserObject().put("phonenumber", updatedPhonenumber);
                 }
                 if (picChosen){
                     processPicture();
-                    currentUser.put("fbProfilePic", localPictureString);
-                    currentUser.put("localProfilePic", profileFile);
+                    userClassQuery.currentUserObject().put("fbProfilePic", localPictureString);
+                    userClassQuery.currentUserObject().put("localProfilePic", profileFile);
                 }
-                currentUser.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e == null){
-                            if (!picChosen) {
-                                finishAll();
-                            }else if (picChosen){
-                                if (currentUser.getString("CarOwnerOrSplasher")
-                                        .equals("splasher")){
-                                    setProfPicForSplasher();
-                                }else{
+                if (userClassQuery.userExists()){
+                    userClassQuery.updateUser(new UserClassInterface.updateUserRow() {
+                        @Override
+                        public void updateUser(ParseException e) {
+                            if (e == null){
+                                if (!picChosen) {
                                     finishAll();
+                                }else if (picChosen){
+                                    if (userClassQuery.currentUserObject()
+                                            .getString("CarOwnerOrSplasher")
+                                            .equals("splasher")){
+                                        setProfPicForSplasher();
+                                    }else{
+                                        finishAll();
+                                    }
                                 }
+                            }else{
+                                uploadFailedMsg();
                             }
-                        }else{
-                            uploadFailedMsg();
                         }
-                    }
-                });
+                    });
+                }
             }
         }
     }
@@ -211,7 +219,7 @@ public class AccountActivity extends AppCompatActivity {
     }
     public void setProfPicForSplasher(){
         ParseQuery<ParseObject> profileQuery = ParseQuery.getQuery("Profile");
-        profileQuery.whereEqualTo("username", currentUser.getUsername());
+        profileQuery.whereEqualTo("username", userClassQuery.userName());
         profileQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
@@ -281,7 +289,8 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
     public void getProfilePicture(){
-        ParseFile profPicFromFile = currentUser.getParseFile("localProfilePic");
+        ParseFile profPicFromFile = userClassQuery.currentUserObject()
+                .getParseFile("localProfilePic");
         if(profPicFromFile != null) {
             String profPicFromFileString = profPicFromFile.getUrl();
             Log.i("profPicLocalURI", "is " + profPicFromFileString);
@@ -296,7 +305,8 @@ public class AccountActivity extends AppCompatActivity {
             editStuff3Dialog.setTitle(getResources().getString(R.string.act_account_editTitle));
             editStuff3Dialog.setIcon(android.R.drawable.ic_dialog_alert);
             editStuff3Dialog.setMessage(getResources().getString(R.string.act_account_editMessage));
-            editStuff3Dialog.setNegativeButton(getResources().getString(R.string.act_account_editCancel),
+            editStuff3Dialog.setNegativeButton(getResources().getString(R.string
+                            .act_account_editCancel),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -317,52 +327,14 @@ public class AccountActivity extends AppCompatActivity {
     }
     //Choose from gallery//
     public void accChooseFromGallery(View v){
-        isStoragePermissionGranted();
-        if (isStoragePermissionGranted()) {
+        StoragePermission.isStoragePermissionGranted(ctx,AccountActivity.this);
+        if (StoragePermission.isStoragePermissionGranted(ctx,AccountActivity.this)) {
             Intent intent = new Intent(Intent.ACTION_PICK,
                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, 90);
         }else{
             toastMessages.productionMessage(getApplicationContext()
             ,getResources().getString(R.string.carOwner_act_java_pressAgain),1);
-        }
-    }
-    public  boolean isStoragePermissionGranted() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(android.Manifest.permission. READ_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED) {
-                Log.i("permission","Permission is granted");
-                return true;
-            } else {
-
-                Log.i("permission","Permission is revoked");
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission. READ_EXTERNAL_STORAGE}, 1);
-                return false;
-            }
-        }
-        else { //permission is automatically granted on sdk<23 upon installation
-            Log.i("permission","Permission is granted");
-            return true;
-        }
-    }
-    public  boolean isWrittingToStoragePermissionGranted() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(android.Manifest.permission. WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED) {
-                Log.i("permission","Permission is granted");
-                return true;
-            } else {
-
-                Log.i("permission","Permission is revoked");
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission. WRITE_EXTERNAL_STORAGE}, 2);
-                return false;
-            }
-        }
-        else { //permission is automatically granted on sdk<23 upon installation
-            Log.i("permission","Permission is granted");
-            return true;
         }
     }
     //-------------------//
@@ -388,8 +360,8 @@ public class AccountActivity extends AppCompatActivity {
     }
     //Take a picture//
     public void accTakePhoto(View v) {
-        isWrittingToStoragePermissionGranted();
-        if(isWrittingToStoragePermissionGranted()) {
+        StoragePermission.isWrittingToStoragePermissionGranted(ctx,AccountActivity.this);
+        if(StoragePermission.isWrittingToStoragePermissionGranted(ctx,AccountActivity.this)) {
             imageFileLocation = createImageUri("_profile_pic");
             Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -399,6 +371,17 @@ public class AccountActivity extends AppCompatActivity {
             toastMessages.productionMessage(getApplicationContext()
             ,getResources().getString(R.string.carOwner_act_java_pressAgain),1);
         }
+    }
+    public void createImageGallery(){
+        File storageDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        //path = Environment.getExternalStorageDirectory() + "/" + "Splash/";
+        String GALLERY_LOCATION = "Splasher";
+        mGalleryFolder = new File(storageDirectory, GALLERY_LOCATION);
+        if(!mGalleryFolder.exists()){
+            //noinspection ResultOfMethodCallIgnored
+            mGalleryFolder.mkdirs();
+        }
+        Log.i("AND", mGalleryFolder.toString());
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
@@ -414,19 +397,6 @@ public class AccountActivity extends AppCompatActivity {
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-    }
-    private void createImageGallery(){
-        File storageDirectory = Environment.getExternalStoragePublicDirectory(Environment
-                .DIRECTORY_PICTURES);
-        //path = Environment.getExternalStorageDirectory() + "/" + "Splash/";
-        String GALLERY_LOCATION = "Splash";
-        mGalleryFolder = new File(storageDirectory, GALLERY_LOCATION);
-        if(!mGalleryFolder.exists()){
-            //This below is a command. not a variable assignment. This is why it throws
-            // the warning.(warning disabled)
-            mGalleryFolder.mkdirs();
-        }
-        Log.i("AND", mGalleryFolder.toString());
     }
     public Uri createImageUri(String prefix) {
         String timeStamp = DateFormat.getDateTimeInstance().format(new Date());

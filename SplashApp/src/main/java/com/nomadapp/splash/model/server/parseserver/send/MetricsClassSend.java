@@ -23,9 +23,15 @@ public class MetricsClassSend {
         ParseObject metricsObject = new ParseObject("Metrics");
         metricsObject.put("username", parseUserName);
         metricsObject.put("userType", parseUserType);
+        metricsObject.put("openedApp", "0");
         metricsObject.put("washMyCar", "0");
         metricsObject.put("orderWash", "0");
+        metricsObject.put("canceledWash", "0");
         metricsObject.put("internalWash", "0");
+        metricsObject.put("addNewCar", "0");
+        metricsObject.put("carAdded", "0");
+        metricsObject.put("addCC", "0");
+        metricsObject.put("CCAdded", "0");
         metricsObject.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
