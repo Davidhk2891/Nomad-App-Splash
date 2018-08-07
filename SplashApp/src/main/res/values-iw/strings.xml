@@ -289,8 +289,8 @@
     <string name="act_wash_my_car_order">להזמין</string>
     <string name="act_wash_my_car_2of2">2 מ 2</string>
     <string name="act_wash_my_car_services">שירותים</string>
-    <string name="act_wash_my_car_selectService">בחר שירות:</string>
-    <string name="act_wash_my_car_selectPrice">בחר מחיר:</string>
+    <string name="act_wash_my_car_selectService">בחר שירות</string>
+    <string name="act_wash_my_car_selectPrice">בחר מחיר</string>
     <string name="act_wash_my_car_comingSoon">בקרוב</string>
     <string name="act_wash_car_pressPlusToAdd">לחץ על + כדי להוסיף רכב</string>
     <!--בחר מחיר-->
@@ -299,8 +299,8 @@
         בסיום העבודה.  אם 12 שעות לאחר סיום עבודה
         לא מקבלים תגובה החיוב תתבצע באופן אוטומטי.</string>
     <string name="act_wash_my_car_externalWash">שטיפה חיצוני</string>
-    <string name="act_wash_my_car_extAndIntWash">שטיפה חיצוני ופנימי</string>
-    <string name="act_wash_my_car_motorcycle">אופנוע</string>
+    <string name="act_wash_my_car_extAndIntWash">חיצוני ופנימי</string>
+    <string name="act_wash_my_car_motorcycle">שתיפה לאופנוע</string>
     <string name="act_wash_my_car_selectSplasher">בחר שוטף</string>
     <string name="act_wash_my_car_autoSelect">בחירה אוטומטית</string>
     <string name="act_wash_my_car_requestSent">בקשה נשלחה</string>
@@ -310,6 +310,7 @@
     <string name="act_wash_my_car_active">פעיל</string>
     <string name="act_wash_my_car_price">מחיר</string>
     <string name="act_wash_my_car_requestOrder">בקש הזמנה</string>
+    <string name="act_wash_my_car_loading">&#8230;טוען</string>
     <!--///////////////-->
 
     <!--splasher_row-->
@@ -378,7 +379,7 @@
     <string name="payment_bill_splasherFee">- עמלת Splash:</string>
     <string name="payment_bill_creditCardFee">- עמלת כרטיס אשראי:</string>
     <string name="payment_bill_tip">- טיפ:</string>
-    <string name="payment_bill_total">- סה&#34;כ:</string>
+    <string name="payment_bill_total">סה\"כ</string>
     <string name="payment_bill_pay">לשלם</string>
     <string name="payment_bill_thankYouForChoosing">תודה שבחרת על Splash</string>
     <!--////////////-->

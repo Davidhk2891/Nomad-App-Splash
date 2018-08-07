@@ -34,14 +34,14 @@ public final class R {
         public static final int powered_by_google_light = 0x7f0801b9;
     }
     public static final class id {
-        public static final int place_autocomplete_clear_button = 0x7f0901f3;
-        public static final int place_autocomplete_powered_by_google = 0x7f0901f4;
-        public static final int place_autocomplete_prediction_primary_text = 0x7f0901f5;
-        public static final int place_autocomplete_prediction_secondary_text = 0x7f0901f6;
-        public static final int place_autocomplete_progress = 0x7f0901f7;
-        public static final int place_autocomplete_search_button = 0x7f0901f8;
-        public static final int place_autocomplete_search_input = 0x7f0901f9;
-        public static final int place_autocomplete_separator = 0x7f0901fa;
+        public static final int place_autocomplete_clear_button = 0x7f0901f6;
+        public static final int place_autocomplete_powered_by_google = 0x7f0901f7;
+        public static final int place_autocomplete_prediction_primary_text = 0x7f0901f8;
+        public static final int place_autocomplete_prediction_secondary_text = 0x7f0901f9;
+        public static final int place_autocomplete_progress = 0x7f0901fa;
+        public static final int place_autocomplete_search_button = 0x7f0901fb;
+        public static final int place_autocomplete_search_input = 0x7f0901fc;
+        public static final int place_autocomplete_separator = 0x7f0901fd;
     }
     public static final class layout {
         public static final int place_autocomplete_fragment = 0x7f0c0065;
@@ -50,7 +50,7 @@ public final class R {
         public static final int place_autocomplete_progress = 0x7f0c0068;
     }
     public static final class string {
-        public static final int place_autocomplete_clear_button = 0x7f10022e;
-        public static final int place_autocomplete_search_hint = 0x7f10022f;
+        public static final int place_autocomplete_clear_button = 0x7f10022f;
+        public static final int place_autocomplete_search_hint = 0x7f100230;
     }
 }

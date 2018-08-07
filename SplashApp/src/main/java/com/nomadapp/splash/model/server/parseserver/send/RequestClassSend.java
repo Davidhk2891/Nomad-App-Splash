@@ -118,7 +118,8 @@ public class RequestClassSend {
                     intent.putExtra("carLat", carCoordinatesLatitude);
                     intent.putExtra("carLon", carCoordinatesLongitude);
                     intent.putExtra("selectedTime", fullDate + " " + selectedTime);
-                    if(getServiceType.equals("Motorcycle") || getServiceType.equals("אופנוע")){
+                    if(getServiceType.equals(context.getResources().getString(R.string
+                    .act_wash_my_car_motorcycle))){
                         writeReadDataInFile.writeToFile("bike", "bikeOrNot");
                     }else{
                         writeReadDataInFile.writeToFile("noBike", "bikeOrNot");
@@ -127,8 +128,8 @@ public class RequestClassSend {
                         writeReadDataInFile.writeToFile("",
                                 "buyer_key_temporal");
                         toastMessages.debugMesssage(context.getApplicationContext()
-                                ,"temporal key sent to request class on server and destroyed" +
-                                        " from local .txt file right after",1);
+                                ,"temporal key sent to request class on server and " +
+                                        "destroyed from local .txt file right after",1);
                         toastMessages.productionMessage(context, context.getResources()
                                         .getString(R.string.act_wash_my_car_requestSent)
                                 ,1);

@@ -1656,13 +1656,14 @@
     <string name="act_wash_my_car_couponCode">Coupon Code</string>
     <string name="act_wash_my_car_dollar">$</string>
     <string name="act_wash_my_car_enterAddress">Enter Address</string>
-    <string name="act_wash_my_car_extAndIntWash">External &amp; Internal</string>
-    <string name="act_wash_my_car_externalWash">External wash</string>
+    <string name="act_wash_my_car_extAndIntWash">External &amp;\n Internal</string>
+    <string name="act_wash_my_car_externalWash">External \nwash</string>
     <string name="act_wash_my_car_fivePointZero">  5.0</string>
     <string name="act_wash_my_car_inputLocationDetails">Location Details (Optional)</string>
+    <string name="act_wash_my_car_loading">Loading…</string>
     <string name="act_wash_my_car_maximumPrice">₪70</string>
     <string name="act_wash_my_car_minimumPrice">₪10</string>
-    <string name="act_wash_my_car_motorcycle">Motorcycle</string>
+    <string name="act_wash_my_car_motorcycle">Motorcycle \nwash</string>
     <string name="act_wash_my_car_next">Next</string>
     <string name="act_wash_my_car_ofTomorrow">(of tomorrow)</string>
     <string name="act_wash_my_car_order">Order</string>

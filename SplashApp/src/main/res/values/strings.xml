@@ -292,9 +292,9 @@
     <!--Fixed price-->
     <string name="act_wash_my_car_youWillBeCharged">*You will be charged upon reviewing and
         tiping your washer   or 12 hours after the time limit you set</string>
-    <string name="act_wash_my_car_externalWash">External wash</string>
-    <string name="act_wash_my_car_extAndIntWash">External &amp; Internal</string>
-    <string name="act_wash_my_car_motorcycle">Motorcycle</string>
+    <string name="act_wash_my_car_externalWash">External \nwash</string>
+    <string name="act_wash_my_car_extAndIntWash">External &amp;\n Internal</string>
+    <string name="act_wash_my_car_motorcycle">Motorcycle \nwash</string>
     <string name="act_wash_my_car_selectSplasher">Select splasher:</string>
     <string name="act_wash_my_car_autoSelect">Auto Select:</string>
     <string name="act_wash_my_car_requestSent">Request sent</string>
@@ -304,6 +304,7 @@
     <string name="act_wash_my_car_active">active</string>
     <string name="act_wash_my_car_price">price</string>
     <string name="act_wash_my_car_requestOrder">Request order</string>
+    <string name="act_wash_my_car_loading">Loading&#8230;</string>
     <!--///////////////-->
 
     <!--splasher_row-->

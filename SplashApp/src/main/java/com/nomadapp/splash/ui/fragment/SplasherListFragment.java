@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -74,6 +75,7 @@ public class SplasherListFragment extends Fragment {
     private ImageView mSlProfilePic;
     private MaterialRatingBar mSlRatingBar;
     private Button mSlFinallyOrder;
+    private LinearLayout mSplasherGridFetchLinear;
     private boolean bottomSheetUp = false;
     //---------------------------------------------//
 
@@ -88,6 +90,7 @@ public class SplasherListFragment extends Fragment {
     private boolean isTemporalKeyActive;
     private String wash;
     private String washes;
+    private String rawPrice;
     //------------------------------//
 
     // TODO: Rename parameter arguments, choose names that match
@@ -161,24 +164,30 @@ public class SplasherListFragment extends Fragment {
         mSlNumWashes = v.findViewById(R.id.slNumWashes);
         mSlStatus = v.findViewById(R.id.slStatus);
         mSlPriceData = v.findViewById(R.id.slPriceData);
+        mSplasherGridFetchLinear = v.findViewById(R.id.splasherGridFetchLinear);
+
+        fetchedServiceType = washReqParamsActivity.getGetServiceType();
 
         if (getActivity() != null) {
+            mBottomSheetBehavior = BottomSheetBehavior.from(mBottomSheetSplasherList);
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
             splasherListAdapter = new SplasherListAdapter(getActivity(), R.layout.splasher_row
                     , splasherList);
             splasherList.clear();
             gridView.setAdapter(splasherListAdapter);
-
-            queryActiveSplashers();
+            queryActiveSplashers(fetchedServiceType);
             onCardViewClick();
-
-            mBottomSheetBehavior = BottomSheetBehavior.from(mBottomSheetSplasherList);
-            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
             collapseBtmSheetFromX();
             btmSheetStateControl();
             sendReqOrderToSl();
         }
         return v;
+    }
+
+    private void splasherGridRefresh(int visibility){
+        mSplasherGridFetchLinear.bringToFront();
+        mSplasherGridFetchLinear.setVisibility(visibility);
     }
 
     public void fetchRequestDataToOrder(){
@@ -194,7 +203,7 @@ public class SplasherListFragment extends Fragment {
         fetchedCModel = washReqParamsActivity.getCarModelToUpload();
         fetchedCColor = washReqParamsActivity.getCarColorToUpload();
         fetchedCPlate = washReqParamsActivity.getCarPlateToUpload();
-        fetchedDollar = splasherPrice;
+        fetchedDollar = rawPrice;
         fetchedNumericalBadge = washReqParamsActivity.getNumericalBadge();
         isTemporalKeyActive = washReqParamsActivity.isTemporalKeyActive();
         Log.i("f1",fetchedAddress);Log.i("f2",fetchedAddressDesc);
@@ -384,17 +393,26 @@ public class SplasherListFragment extends Fragment {
         if (!splasherUserPrice.get(position).contains(".")) {
             //a.k.a the number is whole...then
             fullUserPrice = "₪" + " " + splasherUserPrice.get(position) + ".00";
+            rawPrice = splasherUserPrice.get(position);
             mSlPriceData.setText(fullUserPrice);
         } else {
             fullUserPrice = "₪" + " " + splasherUserPrice.get(position);
+            rawPrice = splasherUserPrice.get(position);
             mSlPriceData.setText(fullUserPrice);
         }
-
+        Log.i("finalPrice", rawPrice);
         GlideImagePlacement gip = new GlideImagePlacement(getActivity().getApplicationContext());
         gip.roundImagePlacementFromString(splasherUserProfPic.get(position), mSlProfilePic);
     }
 
-    public void queryActiveSplashers(){
+    public void queryActiveSplashers(final String filterServiceType){
+        splasherGridRefresh(View.VISIBLE);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+        final String external = getResources().getString(R.string.act_wash_my_car_externalWash);
+        final String extInt = getResources().getString(R.string.act_wash_my_car_extAndIntWash);
+        final String moto = getResources().getString(R.string.act_wash_my_car_motorcycle);
+
         ParseQuery<ParseObject> profileQuery = ParseQuery.getQuery("Profile");
         profileQuery.whereEqualTo("CarOwnerOrSplasher", "splasher");
         profileQuery.whereEqualTo("status", "active");
@@ -425,7 +443,14 @@ public class SplasherListFragment extends Fragment {
                             }else{
                                 splasherAvgRating = 5;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
                             }
-                            splasherPrice = splasherObj.getString("setPrice");//<<<<<<<<<<<<<<<<
+                            if (filterServiceType.equals(external)){
+                                splasherPrice = splasherObj.getString("setPrice");//<<<<<<<<<<<<
+                            }else if(filterServiceType.equals(extInt)){
+                                splasherPrice = splasherObj.getString("setPriceEInt");//<<<<<<<<
+                            }else if(filterServiceType.equals(moto)){
+                                splasherPrice = splasherObj.getString("setPriceMoto");//<<<<<<<<
+                            }
+                            Log.i("splasherPrice", splasherPrice);
                             splasherNumWash = splasherObj.getString("washes");//<<<<<<<<<<<<<<<<
 
                             //Apply Data to MySplasher object//
@@ -461,8 +486,13 @@ public class SplasherListFragment extends Fragment {
                             splasherUserProfPic.add(splasherProfPic);
                             splasherUserAvgRat.add(String.valueOf(splasherAvgRating));
                             //-------------------------------------------------------------------//
+                            splasherListAdapter.notifyDataSetChanged();
+                            splasherGridRefresh(View.GONE);
                         }
                     }
+                }else{
+                    //do nothing for now
+                    splasherGridRefresh(View.GONE);
                 }
             }
         });

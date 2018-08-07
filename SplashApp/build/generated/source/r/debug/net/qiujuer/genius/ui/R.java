@@ -150,18 +150,18 @@ public final class R {
         public static final int circle = 0x7f0900ae;
         public static final int click = 0x7f0900b0;
         public static final int ease = 0x7f0900ff;
-        public static final int left = 0x7f09016d;
-        public static final int line = 0x7f090172;
-        public static final int longClick = 0x7f09017b;
-        public static final int none = 0x7f0901b6;
-        public static final int press = 0x7f0901fb;
-        public static final int right = 0x7f09021e;
-        public static final int ripple = 0x7f090221;
-        public static final int slide = 0x7f09027c;
-        public static final int top = 0x7f0902e3;
+        public static final int left = 0x7f09016f;
+        public static final int line = 0x7f090174;
+        public static final int longClick = 0x7f09017d;
+        public static final int none = 0x7f0901b9;
+        public static final int press = 0x7f0901fe;
+        public static final int right = 0x7f090221;
+        public static final int ripple = 0x7f090224;
+        public static final int slide = 0x7f090280;
+        public static final int top = 0x7f0902ea;
     }
     public static final class string {
-        public static final int g_font_file = 0x7f1001cc;
+        public static final int g_font_file = 0x7f1001cd;
     }
     public static final class style {
         public static final int Genius_Widget_BalloonMarker = 0x7f1100a9;

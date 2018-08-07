@@ -218,13 +218,14 @@
     <string name="act_wash_my_car_couponCode">קוד קופון</string>
     <string name="act_wash_my_car_dollar">$</string>
     <string name="act_wash_my_car_enterAddress">הכנס כתובת</string>
-    <string name="act_wash_my_car_extAndIntWash">שטיפה חיצוני ופנימי</string>
+    <string name="act_wash_my_car_extAndIntWash">חיצוני ופנימי</string>
     <string name="act_wash_my_car_externalWash">שטיפה חיצוני</string>
     <string name="act_wash_my_car_fivePointZero">  5.0</string>
     <string name="act_wash_my_car_inputLocationDetails">פרטי מיקום (אופציונאלי)</string>
+    <string name="act_wash_my_car_loading">…טוען</string>
     <string name="act_wash_my_car_maximumPrice">₪70</string>
     <string name="act_wash_my_car_minimumPrice">₪10</string>
-    <string name="act_wash_my_car_motorcycle">אופנוע</string>
+    <string name="act_wash_my_car_motorcycle">שתיפה לאופנוע</string>
     <string name="act_wash_my_car_next">הבא</string>
     <string name="act_wash_my_car_ofTomorrow">(של מחר)</string>
     <string name="act_wash_my_car_order">להזמין</string>
@@ -236,8 +237,8 @@
     <string name="act_wash_my_car_requestAWashFrom">בקשה לשטיפה מ</string>
     <string name="act_wash_my_car_requestOrder">בקש הזמנה</string>
     <string name="act_wash_my_car_requestSent">בקשה נשלחה</string>
-    <string name="act_wash_my_car_selectPrice">בחר מחיר:</string>
-    <string name="act_wash_my_car_selectService">בחר שירות:</string>
+    <string name="act_wash_my_car_selectPrice">בחר מחיר</string>
+    <string name="act_wash_my_car_selectService">בחר שירות</string>
     <string name="act_wash_my_car_selectSplasher">בחר שוטף</string>
     <string name="act_wash_my_car_services">שירותים</string>
     <string name="act_wash_my_car_set">להגדיר</string>
@@ -517,7 +518,7 @@
     <string name="payment_bill_splasherFee">- עמלת Splash:</string>
     <string name="payment_bill_thankYouForChoosing">תודה שבחרת על Splash</string>
     <string name="payment_bill_tip">- טיפ:</string>
-    <string name="payment_bill_total">- סה"כ:</string>
+    <string name="payment_bill_total">סה\"כ</string>
     <string name="payment_menu_deleteCCDetails">למחוק כרטיס אשראי זה?</string>
     <string name="payment_menu_editCreditCard">ערוך כרטיס אשראי</string>
     <string name="payment_menu_editCreditCardDets">לערוך את פרטי כרטיס האשראי?</string>

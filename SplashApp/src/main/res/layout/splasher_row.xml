@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:focusable="false"
         android:elevation="3dp"
-        android:layout_margin="5dp"
+        android:layout_margin="8dp"
         app:cardCornerRadius="2dp"
         tools:ignore="UnusedAttribute">
 
@@ -42,7 +42,7 @@
             <TextView
                 android:id="@+id/rowSPriceTitle"
                 android:text="@string/spalsher_row_splasherPriceTitle"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="6dp"
                 android:textColor="#4990E2"
                 android:layout_below="@+id/rowSRatingBar"
                 android:layout_alignStart="@+id/rowSName"
@@ -80,7 +80,6 @@
                 android:layout_marginStart="5dp"
                 android:layout_below="@+id/rowSName"
                 android:numStars="5"
-                android:layout_marginTop="2dp"
                 android:layout_width="110dp"
                 android:layout_height="25dp"
                 style="@style/Widget.MaterialRatingBar.RatingBar"/>

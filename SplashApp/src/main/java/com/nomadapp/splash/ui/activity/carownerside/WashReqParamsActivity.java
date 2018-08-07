@@ -32,12 +32,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -64,12 +64,6 @@ import com.nomadapp.splash.model.objects.MyCar;
 import com.nomadapp.splash.model.imagehandler.GlideApp;
 import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
 
-import com.parse.ParseException;
-import com.parse.ParseFile;
-import com.parse.ParseGeoPoint;
-import com.parse.ParseObject;
-import com.parse.SaveCallback;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -81,16 +75,19 @@ public class WashReqParamsActivity extends AppCompatActivity implements
 
     private static final int REQUEST_CC_FROM_CCDETS = 50;
 
-    //Location and Time
+    //Location, Time, Services
     private EditText cCrLocationDescriptionEdit;
     private TextView cCrLocationEdit, cCrUntilEdit;
-    private Spinner cCrServicesEdit;
-    private ArrayAdapter<String> spinnerAdapter;
+    private GridLayout mCrServicesGridLayout;
+    private Button mExternalButton, mExtIntButton, mMotoButton;
     private TimePicker cTimePick;
     private Button cSetTimeNow, cCancelTimeNow;
     private boolean todaySwitchedToTomorrow = false;
     private TextView cOfTomorrow;
     private Switch cUntilTimeSwitchTodayTomorrow;
+    private String externalWash;
+    private String intExtWash;
+    private String motorcycle;
 
     //CarOwner's Car
     private TextView cCarSelected;
@@ -164,6 +161,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     private MetricsClassQuery metricsClassQuery =
             new MetricsClassQuery(WashReqParamsActivity.this);
     private UserClassQuery userClassQuery = new UserClassQuery(WashReqParamsActivity.this);
+    private SplasherListFragment splasherListFragment = new SplasherListFragment();
 
     //Getters//
     //TRY THIS METHOD
@@ -231,8 +229,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                 cCrLocationEdit.setVisibility(View.VISIBLE);
                 cCrUntilEdit.setVisibility(View.VISIBLE);
                 cCarSelected.setVisibility(View.VISIBLE);
-                //cCrServicesEdit.setVisibility(View.VISIBLE);
-                cCrServicesEdit.setVisibility(View.GONE);
                 cCarList.setVisibility(View.GONE);
                 cSpinnerArrow.setVisibility(View.VISIBLE);
                 cSaveRequest.setVisibility(View.VISIBLE);
@@ -262,14 +258,17 @@ public class WashReqParamsActivity extends AppCompatActivity implements
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        //Location and Time
+        //Location, Time, Services
         cCrLocationEdit = findViewById(R.id.crLocationEdit);
         cCrLocationDescriptionEdit = findViewById(R.id.crlocationDescriptionEdit);
         cCrUntilEdit = findViewById(R.id.crUntilEdit);
-        cCrServicesEdit = findViewById(R.id.crServicesEdit);
         cTimePick = findViewById(R.id.timePick);
         cSetTimeNow = findViewById(R.id.setTimeNow);
         cCancelTimeNow = findViewById(R.id.cancelTimeNow);
+        mCrServicesGridLayout = findViewById(R.id.crServicesGridLayout);
+        mExternalButton = findViewById(R.id.externalButton);
+        mExtIntButton = findViewById(R.id.extIntButton);
+        mMotoButton = findViewById(R.id.motoButton);
         LinearLayout cSetTimeCancelTTLinear = findViewById(R.id.setTimeCancelTTLinear);
         cUntilTimeSwitchTodayTomorrow = findViewById(R.id.untilTimeSwitchTodayTomorrow);
         cOfTomorrow = findViewById(R.id.ofTomorrow);
@@ -326,6 +325,10 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         carAddressDescription = "";
         selectedTime = String.valueOf(getResources()
                 .getString(R.string.washMyCar_act_java_selectTime));
+
+        externalWash = getResources().getString(R.string.act_wash_my_car_externalWash);
+        intExtWash = getResources().getString(R.string.act_wash_my_car_extAndIntWash);
+        motorcycle = getResources().getString(R.string.act_wash_my_car_motorcycle);
 
         cAddcar.setVisibility(View.GONE);
         cTimePick.setVisibility(View.GONE);
@@ -474,7 +477,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
 
                         } else {
                             cRatingAndPricingRelative.setVisibility(View.VISIBLE);
-                            cCrServicesEdit.setVisibility(View.VISIBLE);
                             cRatingAndPricingRelative.animate().translationXBy(-1000f)
                                     .setDuration(500);
                             cSaveRequest.setVisibility(View.GONE);
@@ -788,9 +790,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                 cCarSelected.setEnabled(false);
                 cCarSelected.setClickable(false);
 
-                cCrServicesEdit.setEnabled(false);
-                cCrServicesEdit.setClickable(false);
-
                 cSpinnerArrow.setEnabled(false);
                 cSpinnerArrow.setClickable(false);
 
@@ -981,50 +980,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                 }
             }
         });
-
-        //Payme - Isaac. tell what happened
-        //bug - if switch untouched but switchedToTomorrow=true, ad +1 to day
-        //Idea - badge + price deduction
-
-        //Car Services 1
-        String externalWash = getResources().getString(R.string.act_wash_my_car_externalWash);
-        String intExtWash = getResources().getString(R.string.act_wash_my_car_extAndIntWash);
-        String motorcycle = getResources().getString(R.string.act_wash_my_car_motorcycle);
-        items = new String[]{externalWash, intExtWash, motorcycle};
-        spinnerAdapter = new ArrayAdapter<>(this
-                , android.R.layout.simple_spinner_dropdown_item, items);
-        cCrServicesEdit.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                hideKeyboardTwo();
-                if (position == 1){
-                    //HERE IS THE PROBLEM//
-                    mSplasherPriceSetComingSoon.setVisibility(View.VISIBLE);
-                    cSplasherPriceSet.setVisibility(View.INVISIBLE);
-                    finallyOrderBtnInactiveBg();
-                    cFinallyOrder.setEnabled(false);
-                    cFinallyOrder.setClickable(false);
-                    if (!internalWashedPicked) {
-                        updateInternalWashCounter();
-                        internalWashedPicked = true;
-                    }
-                }else{
-                    mSplasherPriceSetComingSoon.setVisibility(View.INVISIBLE);
-                    cSplasherPriceSet.setVisibility(View.VISIBLE);
-                    finallyOrderBtnActiveBg();
-                    cFinallyOrder.setEnabled(true);
-                    cFinallyOrder.setClickable(true);
-                }
-                getServiceType = cCrServicesEdit.getSelectedItem().toString();//<--FINAL1
-                toastMessages.debugMesssage(getApplicationContext(),"here",1);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                hideKeyboardTwo();
-            }
-        });
-        cCrServicesEdit.setAdapter(spinnerAdapter);
-
         //add Car 1
         cAddcar.setOnClickListener(new View.OnClickListener(){
 
@@ -1119,20 +1074,97 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         //cAddcar.setVisibility(View.GONE);
         onStartSubmitButtonState();
         splasherListFragmentInit();
+        serviceGridOperations();
+    }
+
+    private void gridLayoutState(boolean state){
+        mCrServicesGridLayout.setClickable(state);
+        mCrServicesGridLayout.setEnabled(state);
+    }
+
+    public void serviceGridOperations(){
+        final int splashDarkBlue = getResources().getColor(R.color.ColorPrimaryDark);
+        final int white = getResources().getColor(R.color.colorRatingBarSplasher);
+        flipBgServiceBtn(mExternalButton,splashDarkBlue,white);
+        getServiceType = externalWash;
+        mExternalButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                mSplasherPriceSetComingSoon.setVisibility(View.INVISIBLE);
+                cSplasherPriceSet.setVisibility(View.VISIBLE);
+                finallyOrderBtnActiveBg();
+                cFinallyOrder.setEnabled(true);
+                cFinallyOrder.setClickable(true);
+
+                gridLayoutState(false);
+                flipBgServiceBtn(mExternalButton,splashDarkBlue,white);
+                setWhiteBgBlueStroke(mExtIntButton,splashDarkBlue);
+                setWhiteBgBlueStroke(mMotoButton,splashDarkBlue);
+                getServiceType = externalWash;
+                splasherListFragment.queryActiveSplashers(getServiceType);
+                gridLayoutState(true);
+            }
+        });
+        mExtIntButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                hideKeyboardTwo();
+                mSplasherPriceSetComingSoon.setVisibility(View.VISIBLE);
+                cSplasherPriceSet.setVisibility(View.INVISIBLE);
+                finallyOrderBtnInactiveBg();
+                cFinallyOrder.setEnabled(false);
+                cFinallyOrder.setClickable(false);
+                if (!internalWashedPicked) {
+                    updateInternalWashCounter();
+                    internalWashedPicked = true;
+                }
+
+                gridLayoutState(false);
+                setWhiteBgBlueStroke(mExternalButton,splashDarkBlue);
+                flipBgServiceBtn(mExtIntButton,splashDarkBlue,white);
+                setWhiteBgBlueStroke(mMotoButton,splashDarkBlue);
+                getServiceType = intExtWash;
+                splasherListFragment.queryActiveSplashers(getServiceType);
+                gridLayoutState(true);
+            }
+        });
+        mMotoButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                mSplasherPriceSetComingSoon.setVisibility(View.INVISIBLE);
+                cSplasherPriceSet.setVisibility(View.VISIBLE);
+                finallyOrderBtnActiveBg();
+                cFinallyOrder.setEnabled(true);
+                cFinallyOrder.setClickable(true);
+
+                gridLayoutState(false);
+                setWhiteBgBlueStroke(mExternalButton,splashDarkBlue);
+                setWhiteBgBlueStroke(mExtIntButton,splashDarkBlue);
+                flipBgServiceBtn(mMotoButton,splashDarkBlue,white);
+                getServiceType = motorcycle;
+                splasherListFragment.queryActiveSplashers(getServiceType);
+                gridLayoutState(true);
+            }
+        });
+    }
+
+    private void flipBgServiceBtn(Button button, int bgWhiteBlueStroke, int textColor){
+        button.setBackgroundColor(bgWhiteBlueStroke);
+        button.setTextColor(textColor);
+    }
+
+    private void setWhiteBgBlueStroke(Button button, int textColor){
+        button.setBackgroundResource(R.drawable.selective_bg_filled_stroked);
+        button.setTextColor(textColor);
     }
 
     public void updateInternalWashCounter(){
         metricsClassQuery.queryMetricsToUpdate("internalWash");
     }
 
-    public void updateOrderWashCounter(){
-        metricsClassQuery.queryMetricsToUpdate("orderWash");
-    }
-
     public void splasherListFragmentInit(){
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        SplasherListFragment splasherListFragment = new SplasherListFragment();
         fragmentTransaction.add(R.id.splasher_fragment_container, splasherListFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -1232,9 +1264,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         cCarSelected.setEnabled(clockState);
         cCarSelected.setClickable(clockState);
 
-        cCrServicesEdit.setEnabled(clockState);
-        cCrServicesEdit.setClickable(clockState);
-
         cSpinnerArrow.setEnabled(clockState);
         cSpinnerArrow.setClickable(clockState);
 
@@ -1263,8 +1292,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         cCrLocationDescriptionEdit.setClickable(true);
         cCarSelected.setEnabled(true);
         cCarSelected.setClickable(true);
-        cCrServicesEdit.setEnabled(true);
-        cCrServicesEdit.setClickable(true);
         cSpinnerArrow.setEnabled(true);
         cSpinnerArrow.setClickable(true);
         writeReadDataInFile.writeToFile(cCrUntilEdit.getText().toString(), "untilTime");
@@ -1858,7 +1885,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                 cCrUntilEdit.setVisibility(View.VISIBLE);
                 cCarSelected.setVisibility(View.VISIBLE);
                 //cCrServicesEdit.setVisibility(View.VISIBLE);
-                cCrServicesEdit.setVisibility(View.GONE);
                 cCarList.setVisibility(View.GONE);
                 cSpinnerArrow.setVisibility(View.VISIBLE);
                 cSaveRequest.setVisibility(View.VISIBLE);
