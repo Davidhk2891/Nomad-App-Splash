@@ -44,8 +44,10 @@ public class RequestClassQuery {
                     //there should be 1 and only 1 object in the arrayList.
                     // the Sole request of the current user
                     if (objects.size() > 0) {
-                        requestClassInterface.requestClassMethod();
-                        Log.i("interfaceSuccess", "ran and all good");
+                        for (ParseObject reqObj : objects) {
+                            requestClassInterface.requestClassMethod(reqObj);
+                            Log.i("interfaceSuccess", "ran and all good");
+                        }
                     } else {
                         requestClassInterface.setCarWasherFinderToFalse();
                         Log.i("interfaceFailure", "just ran which is ok");

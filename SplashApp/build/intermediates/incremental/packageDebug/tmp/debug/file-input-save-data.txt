@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Tue Aug 07 17:54:16 IDT 2018
+#Wed Aug 22 10:16:10 IDT 2018
 1.base=C\:\\Splash\\SplashApp\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 0.baseType=DIRECTORY
 1.baseType=DIRECTORY

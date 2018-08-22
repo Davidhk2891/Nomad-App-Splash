@@ -1543,12 +1543,16 @@
     <string name="act_car_owner_availableValue">00:00</string>
     <string name="act_car_owner_cancel">Cancel</string>
     <string name="act_car_owner_cancelWash">Cancel wash</string>
+    <string name="act_car_owner_car">car</string>
     <string name="act_car_owner_carOwnerDets">Car-Owner Details</string>
     <string name="act_car_owner_comingsoon">Coming soon</string>
     <string name="act_car_owner_contentDesc">Splasher Badge</string>
     <string name="act_car_owner_decline">not now</string>
+    <string name="act_car_owner_distance">Distance</string>
     <string name="act_car_owner_distanceTitle">- Distance:</string>
     <string name="act_car_owner_distanceValue">XXXm</string>
+    <string name="act_car_owner_extAndIntWash">Ext + Int</string>
+    <string name="act_car_owner_externalWash">External</string>
     <string name="act_car_owner_fairness">Fairness: 0</string>
     <string name="act_car_owner_generosity">Generosity: 0</string>
     <string name="act_car_owner_go">Go</string>
@@ -1557,35 +1561,43 @@
     <string name="act_car_owner_letWashCar">Let\'s wash a car</string>
     <string name="act_car_owner_levelWanted">Splasher Level Wanted</string>
     <string name="act_car_owner_location_5lines">-----</string>
-    <string name="act_car_owner_location_CarAddress">Car Address: </string>
+    <string name="act_car_owner_location_CarAddress">Car Address</string>
     <string name="act_car_owner_location_acceptRequest">Accept Request</string>
     <string name="act_car_owner_location_cancelRequest">Cancel Request</string>
-    <string name="act_car_owner_location_car">Car: </string>
-    <string name="act_car_owner_location_carAddressDescTitle">Car Address Details: </string>
-    <string name="act_car_owner_location_carUntilTimeTitle">Until Time: </string>
-    <string name="act_car_owner_location_clientTitle">Client: </string>
-    <string name="act_car_owner_location_color">Color: </string>
+    <string name="act_car_owner_location_car">Car</string>
+    <string name="act_car_owner_location_carAddressDescTitle">Car Address Details</string>
+    <string name="act_car_owner_location_carUntilTimeTitle">Until Time</string>
+    <string name="act_car_owner_location_clientTitle">Client</string>
+    <string name="act_car_owner_location_color">Color</string>
     <string name="act_car_owner_location_foundCarText1">XX Km</string>
     <string name="act_car_owner_location_foundCarText2">  Found the car </string>
     <string name="act_car_owner_location_getDirections">get Directions ?</string>
     <string name="act_car_owner_location_gettingYourLocation">Getting your location…</string>
-    <string name="act_car_owner_location_plate">plate: </string>
+    <string name="act_car_owner_location_plate">plate</string>
     <string name="act_car_owner_location_profPicBadge">profPicBadge</string>
-    <string name="act_car_owner_location_serviceTtypeTitle">Service Type: </string>
+    <string name="act_car_owner_location_serviceTtypeTitle">Service Type</string>
     <string name="act_car_owner_location_username">Username</string>
     <string name="act_car_owner_location_vertSepa">  | </string>
+    <string name="act_car_owner_motorcycle">Motorcycle</string>
+    <string name="act_car_owner_notSpecified">Not specified</string>
     <string name="act_car_owner_profPicWindow">Profile pic</string>
     <string name="act_car_owner_request_Under">_</string>
     <string name="act_car_owner_request_gettingNearRequests">Getting nearby requests…</string>
     <string name="act_car_owner_request_sendingPics">Sending Pictures: </string>
     <string name="act_car_owner_responsibility">Responsibility: 0</string>
+    <string name="act_car_owner_searchingForAvailSp">Looking for Splashers - You will be notified
+        when your request is taken</string>
     <string name="act_car_owner_splasherStatus">Splasher status</string>
     <string name="act_car_owner_version">V.1.0.1</string>
+    <string name="act_car_owner_waitingForAResponse">Waiting for a response from the splasher
+        you ordered…</string>
     <string name="act_car_owner_washMyCar">Wash my car</string>
+    <string name="act_car_owner_washes">Washes</string>
     <string name="act_car_owner_yes">yes</string>
     <string name="act_car_owner_youGetTitle">- You Get:</string>
     <string name="act_car_owner_youGetValue">$XXX</string>
     <string name="act_car_owner_youHaveNewOrders">You have new orders!</string>
+    <string name="act_car_owner_yourSplasher">Your splasher</string>
     <string name="act_contactUs_howCanWe">How can we help you?</string>
     <string name="act_contactUs_messageNotSend">Message not send. Please try again</string>
     <string name="act_contactUs_messageSend">Message send</string>
@@ -1894,7 +1906,8 @@
         or number I provide, including for marketing purposes. I have read and understand
         the Splasher Privacy Statement.</string>
     <string name="default_web_client_id" translatable="false">381056848565-37rd4por3mgrpqp2j90qiil3hhdej03q.apps.googleusercontent.com</string>
-    <string name="equipment">    -100 ml Waterless Car-wash formula spray. \n-2 Microfiber towels (5 reuses).</string>
+    <string name="equipment">    -100 ml Waterless Car-wash formula spray.
+        \n-2 Microfiber towels (5 reuses).</string>
     <string name="facebook_app_id">399400473846538</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb399400473846538</string>
     <string name="fcm_fallback_notification_channel_label">Miscellaneous</string>
@@ -1903,8 +1916,8 @@
     <string name="forced_Alert_somethingWrongFb_msg">Couldn\'t login with facebook. Please try again</string>
     <string name="forced_Alert_somethingWrongFb_ok">OK</string>
     <string name="forced_Alert_somethingWrongFb_title">Facebook login failed</string>
-    <string name="forced_Alert_somethingWrong_msg">Something went wrong while loggin you in. we
-     are loggin you out. Please try again</string>
+    <string name="forced_Alert_somethingWrong_msg">Something went wrong while login you in. we
+     are login you out. Please try again</string>
     <string name="forced_Alert_somethingWrong_ok">OK</string>
     <string name="forced_Alert_somethingWrong_title">Something went wrong</string>
     <string name="forced_alert_dialog_go">Go</string>
@@ -2044,7 +2057,8 @@
     <string name="splasher_wallet_java_dialogYes">yes</string>
     <string name="splasher_wallet_java_pleaseFillAll">Please fill all of the fields before updating</string>
     <string name="status_bar_notification_info_overflow">999+</string>
-    <string name="steps">    -Spray the formula and wipe before it gets dry. \n-Wipe in circles. \n-Work on small sections at a time.</string>
+    <string name="steps">    -Spray the formula and wipe before it gets dry.
+        \n-Wipe in circles. \n-Work on small sections at a time.</string>
     <string name="threeDots">…</string>
     <string name="title_activity_car_owner">Splash</string>
     <string name="title_activity_car_owner_location">Map</string>
@@ -2080,7 +2094,11 @@
         <item name="android:windowExitAnimation">@anim/design_bottom_sheet_slide_out</item>
     </style>
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/ColorPrimary</item>
+        <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
+        <item name="colorAccent">@color/ColorAccent</item>
+    </style>
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/ColorPrimary</item>
         <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
         <item name="colorAccent">@color/ColorAccent</item>

@@ -185,6 +185,16 @@
         בדוק את הבקשות?</string>
     <string name="act_car_owner_yes">כן</string>
     <string name="act_car_owner_decline">לא עכשיו</string>
+    <string name="act_car_owner_waitingForAResponse">ממתין לתשובה מהשוטף שהזמנתה&#8230;</string>
+    <string name="act_car_owner_searchingForAvailSp">מחפשים שוטף זמין - אנו נודיע לך שהבקשה התקבלה</string>
+    <string name="act_car_owner_car">מכונית</string>
+    <string name="act_car_owner_notSpecified">לא מוגדר</string>
+    <string name="act_car_owner_yourSplasher">השוטף שלך</string>
+    <string name="act_car_owner_distance">מרחק</string>
+    <string name="act_car_owner_washes">שטיפות</string>
+    <string name="act_car_owner_externalWash">שטיפה חיצוני</string>
+    <string name="act_car_owner_extAndIntWash">חיצוני ופנימי</string>
+    <string name="act_car_owner_motorcycle">שתיפה לאופנוע</string>
     <!--//////////////////-->
 
     <!--activity_splasher_client_route-->

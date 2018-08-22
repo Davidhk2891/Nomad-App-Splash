@@ -39,8 +39,10 @@
         the Splasher Privacy Statement.</string>
     <string name="title_activity_car_owner_location">Map</string>
 
-    <string name="equipment">    -100 ml Waterless Car-wash formula spray. \n-2 Microfiber towels (5 reuses).</string>
-    <string name="steps">    -Spray the formula and wipe before it gets dry. \n-Wipe in circles. \n-Work on small sections at a time.</string>
+    <string name="equipment">    -100 ml Waterless Car-wash formula spray.
+        \n-2 Microfiber towels (5 reuses).</string>
+    <string name="steps">    -Spray the formula and wipe before it gets dry.
+        \n-Wipe in circles. \n-Work on small sections at a time.</string>
     <string name="beforeWash">BEFORE wash: \nTake 4 pictures of the car</string>
     <string name="afterWash">AFTER wash: \nTake 4 pictures of the car</string>
 
@@ -178,20 +180,32 @@
         Check out these requests?</string>
     <string name="act_car_owner_yes">yes</string>
     <string name="act_car_owner_decline">not now</string>
+    <string name="act_car_owner_waitingForAResponse">Waiting for a response from the splasher
+        you ordered&#8230;</string>
+    <string name="act_car_owner_searchingForAvailSp">Looking for Splashers - You will be notified
+        when your request is taken</string>
+    <string name="act_car_owner_car">car</string>
+    <string name="act_car_owner_notSpecified">Not specified</string>
+    <string name="act_car_owner_yourSplasher">Your splasher</string>
+    <string name="act_car_owner_distance">Distance</string>
+    <string name="act_car_owner_washes">Washes</string>
+    <string name="act_car_owner_externalWash">External</string>
+    <string name="act_car_owner_extAndIntWash">Ext + Int</string>
+    <string name="act_car_owner_motorcycle">Motorcycle</string>
     <!--//////////////////-->
 
     <!--activity_splasher_client_route-->
     <string name="act_car_owner_location_profPicBadge">profPicBadge</string>
-    <string name="act_car_owner_location_clientTitle">Client: </string>
+    <string name="act_car_owner_location_clientTitle">Client</string>
     <string name="act_car_owner_location_username">Username</string>
-    <string name="act_car_owner_location_CarAddress">Car Address: </string>
+    <string name="act_car_owner_location_CarAddress">Car Address</string>
     <string name="act_car_owner_location_5lines">-----</string>
-    <string name="act_car_owner_location_carAddressDescTitle">Car Address Details: </string>
-    <string name="act_car_owner_location_carUntilTimeTitle">Until Time: </string>
-    <string name="act_car_owner_location_serviceTtypeTitle">Service Type: </string>
-    <string name="act_car_owner_location_car">Car: </string>
-    <string name="act_car_owner_location_color">Color: </string>
-    <string name="act_car_owner_location_plate">plate: </string>
+    <string name="act_car_owner_location_carAddressDescTitle">Car Address Details</string>
+    <string name="act_car_owner_location_carUntilTimeTitle">Until Time</string>
+    <string name="act_car_owner_location_serviceTtypeTitle">Service Type</string>
+    <string name="act_car_owner_location_car">Car</string>
+    <string name="act_car_owner_location_color">Color</string>
+    <string name="act_car_owner_location_plate">plate</string>
     <string name="act_car_owner_location_getDirections">get Directions ?</string>
     <string name="act_car_owner_location_foundCarText1">XX Km</string>
     <string name="act_car_owner_location_foundCarText2">  Found the car </string>
@@ -676,8 +690,8 @@
     <string name="forced_alert_missing_tou_msg">You must agree to the Terms of Use</string>
     <string name="forced_Alert_missing_tou_ok">OK</string>
     <string name="forced_Alert_somethingWrong_title">Something went wrong</string>
-    <string name="forced_Alert_somethingWrong_msg">Something went wrong while loggin you in. we
-     are loggin you out. Please try again</string>
+    <string name="forced_Alert_somethingWrong_msg">Something went wrong while login you in. we
+     are login you out. Please try again</string>
     <string name="forced_Alert_somethingWrong_ok">OK</string>
     <string name="forced_Alert_somethingWrongFb_title">Facebook login failed</string>
     <string name="forced_Alert_somethingWrongFb_msg">Couldn\'t login with facebook. Please try again</string>

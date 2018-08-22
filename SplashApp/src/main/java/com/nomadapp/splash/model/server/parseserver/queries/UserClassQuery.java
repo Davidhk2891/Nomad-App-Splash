@@ -43,7 +43,7 @@ public class UserClassQuery {
         if (userExists()){
             userObj = ParseUser.getCurrentUser();
         }
-        return  userObj;
+        return userObj;
     }
     public String userName(){
         String username = "";
@@ -58,6 +58,13 @@ public class UserClassQuery {
             email = ParseUser.getCurrentUser().getEmail();
         }
         return email;
+    }
+    public String phone(){
+        String phoneNum = "";
+        if (userExists()){
+            phoneNum = ParseUser.getCurrentUser().getString("phonenumber");
+        }
+        return phoneNum;
     }
     public String getUserStringAttribute(String attr){
         return ParseUser.getCurrentUser().getString(attr);

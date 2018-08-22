@@ -19,6 +19,7 @@ import com.nomadapp.splash.model.localdatastorage.CarLocalDatabaseHandler;
 import com.nomadapp.splash.model.objects.MyCar;
 import com.nomadapp.splash.model.server.parseserver.queries.MetricsClassQuery;
 import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
+import com.nomadapp.splash.model.server.parseserver.send.CarsClassSend;
 
 public class CarAdditionActivity extends AppCompatActivity {
 
@@ -132,22 +133,15 @@ public class CarAdditionActivity extends AppCompatActivity {
         carPlateEdit = cCarPlateNEdit.getText().toString();
         if(carBrandEdit.isEmpty() || carModelEdit.isEmpty() || carColorEdit.isEmpty()
                 || carPlateEdit.isEmpty()){
-            //In case no value is placed, handle error with alert dialog
             missingCarDataDialog = new AlertDialog.Builder(ctx);
-            //set Title
             missingCarDataDialog.setTitle(getResources()
                     .getString(R.string.AddCar_act_java_missingFields));
-            //set Icon
             missingCarDataDialog.setIcon(android.R.drawable.ic_dialog_alert);
-            //set message
             missingCarDataDialog.setMessage(getResources()
                     .getString(R.string.AddCar_act_java_pleaseFillAllFields));
-            //set cancelable
             missingCarDataDialog.setPositiveButton(getResources()
                     .getString(R.string.AddCar_act_java_ok), null);
-            //Create Dialog
             AlertDialog alertD = missingCarDataDialog.create();
-            //Show Dialog
             alertD.show();
         } else {
             saveToDB();
@@ -190,8 +184,7 @@ public class CarAdditionActivity extends AppCompatActivity {
     }
 
     public void saveCarToServer(){
-        String wholeCar = carBrandEdit + " " + carModelEdit;
-        ucq.currentUserObject().put("car", wholeCar);
-        ucq.currentUserObject().saveInBackground();
+        CarsClassSend carsClassSend = new CarsClassSend(ctx);
+        carsClassSend.sendSavedClassToServer(carBrandEdit,carModelEdit,carPlateEdit);
     }
 }

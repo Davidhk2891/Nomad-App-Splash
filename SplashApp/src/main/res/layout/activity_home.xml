@@ -30,7 +30,7 @@
             android:textColor="#ffffff"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="130dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -44,13 +44,135 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
+        <FrameLayout
+            android:id="@+id/tool_bar_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                layout="@layout/custom_nav_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/splasher_info_toco_back_space"
+        android:layout_below="@+id/tool_bar_holder"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#CCffffff"
+        android:layout_height="90dp">
+
+        <ImageView
+            android:id="@+id/splasherPicInStatusWindow"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/theemptyface"
+            android:contentDescription="@string/act_car_owner_profPicWindow" />
+
+        <LinearLayout
+            android:id="@+id/spalsher_stats_co_linear"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/splasher_stats_co_splasherTitle"
+                android:text="@string/act_car_owner_yourSplasher"
+                android:textColor="@color/ColorPrimaryDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/splasher_stats_co_splasherName"
+                android:text="@string/threeDots"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                android:id="@+id/splasher_status_co_ratingBar"
+                android:layout_width="85dp"
+                android:layout_height="18dp"
+                style="@style/Widget.MaterialRatingBar.RatingBar"
+                android:numStars="5"/>
+
+            <TextView
+                android:id="@+id/splasher_stats_co_numWashes"
+                android:text="@string/threeDots"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/splasher_stats_co_vertiSepa1"
+            android:text="@string/act_car_owner_location_vertSepa"
+            android:textSize="50sp"
+            android:layout_marginTop="-6dp"
+            android:layout_marginStart="-10dp"
+            android:textColor="#9E9E9E"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/splasher_stats_co_distance_linear"
+            android:orientation="vertical"
+            android:layout_marginTop="-9dp"
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/splasher_status_co_distance_title"
+                android:text="@string/act_car_owner_distance"
+                android:textColor="@color/ColorPrimaryDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/splasher_status_co_distance_text"
+                android:text="@string/threeDots"
+                android:layout_marginTop="4dp"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/splasher_stats_co_vertiSepa2"
+            android:text="@string/act_car_owner_location_vertSepa"
+            android:textSize="50sp"
+            android:layout_marginTop="-6dp"
+            android:layout_marginStart="-14dp"
+            android:textColor="#9E9E9E"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/splasher_stats_co_call"
+            android:src="@drawable/ic_call_black_24dp"
+            android:layout_marginStart="-6dp"
+            android:onClick="callSplasher"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
+
         <!--Splasher's e-wallet UI-->
         <RelativeLayout
             android:id="@+id/splashWalletRelative"
-            android:layout_toEndOf="@+id/drawerCheese"
-            android:layout_marginStart="20dp"
-            android:layout_alignBaseline="@+id/drawerCheese"
+            android:layout_below="@+id/tool_bar_holder"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:visibility="gone"
             android:padding="8dp"
             android:onClick="goToMyWallet"
             android:background="@drawable/transparent_black_curved"
@@ -76,51 +198,20 @@
         </RelativeLayout>
         <!--//////////////////////-->
 
-        <ImageView
-            android:id="@+id/drawerCheese"
-            android:src="@drawable/hammenu"
-            android:background="@drawable/bg_blue"
-            android:padding="5dp"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="13dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            tools:ignore="ContentDescription" />
-
-        <RelativeLayout
-            android:id="@+id/splasherStatusDetails"
-            android:background="@drawable/bg_blue_whiteborder_curved_stroke"
+        <net.qiujuer.genius.ui.widget.SeekBar
+            android:id="@+id/updatedSeekBarOne"
+            android:layout_width="wrap_content"
+            android:padding="6dp"
+            android:background="#CCffffff"
+            android:layout_above="@+id/majorButtonsBackSpace"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="16dp"
-            android:onClick="requestRequestSplasherStats"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="96dp"
-            android:layout_width="55dp"
-            android:layout_height="55dp">
-
-            <TextView
-                android:id="@+id/showAndHideDots"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="-20dp"
-                android:textColor="#ffffff"
-                android:text="@string/threeDots"
-                android:textSize="45sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/showAndHideX"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:textColor="#ffffff"
-                android:text="@string/x"
-                android:textSize="20sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-
-        </RelativeLayout>
-        <!--ADD BUTTON RIPPLE EFFECT IN ALL THE BUTTONS-->
+            app:gMax="3"
+            app:gMin="0"
+            app:gValue="0"
+            app:gIndicator="none"
+            app:gTickSize="4dp"/>
 
         <RelativeLayout
             android:id="@+id/majorButtonsBackSpace"
@@ -129,10 +220,152 @@
             android:background="#CCffffff"
             android:layout_height="90dp">
 
+            <RelativeLayout
+                android:id="@+id/request_window_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="UselessParent">
+
+                <TextView
+                    android:id="@+id/carAddressTitle"
+                    android:text="@string/act_car_owner_location_CarAddress"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:textSize="12sp"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/ColorPrimaryDark"
+                    android:layout_marginTop="1dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/carAddressInfoText"
+                    android:layout_below="@+id/carAddressTitle"
+                    android:text="@string/threeDots"
+                    android:layout_alignParentStart="true"
+                    android:textSize="12sp"
+                    android:layout_marginStart="7dp"
+                    android:layout_width="170dp"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:id="@+id/verticalSepa"
+                    android:text="@string/act_car_owner_location_vertSepa"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="38sp"
+                    android:layout_marginTop="-6dp"
+                    android:textColor="#9E9E9E"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:id="@+id/horizontalSepa"
+                    android:layout_width="300dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/carAddressInfoText"
+                    android:layout_height="2dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="#9E9E9E"/>
+
+                <TextView
+                    android:id="@+id/verticalSepa2"
+                    android:text="@string/act_car_owner_location_vertSepa"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/horizontalSepa"
+                    android:textSize="38sp"
+                    android:layout_marginTop="-6dp"
+                    android:textColor="#9E9E9E"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/carWindowTitle"
+                    android:text="@string/act_car_owner_car"
+                    android:layout_alignParentStart="true"
+                    android:textSize="12sp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="1dp"
+                    android:textColor="@color/ColorPrimaryDark"
+                    android:layout_below="@+id/horizontalSepa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/carInfoText"
+                    android:layout_below="@+id/carWindowTitle"
+                    android:text="@string/threeDots"
+                    android:layout_alignParentStart="true"
+                    android:textSize="12sp"
+                    android:layout_marginStart="7dp"
+                    android:layout_width="170dp"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:id="@+id/carAddDescTitle"
+                    android:text="@string/act_car_owner_location_carAddressDescTitle"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/verticalSepa"
+                    android:textSize="12sp"
+                    android:textColor="@color/ColorPrimaryDark"
+                    android:layout_marginStart="-6dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_below="@+id/horizontalSepa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/carAddDescText"
+                    android:layout_below="@+id/carAddDescTitle"
+                    android:text="@string/threeDots"
+                    android:layout_alignStart="@+id/carAddDescTitle"
+                    android:textSize="12sp"
+                    android:layout_marginStart="2dp"
+                    android:layout_width="160dp"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:id="@+id/carServiceTitle"
+                    android:text="@string/act_car_owner_location_serviceTtypeTitle"
+                    android:layout_toEndOf="@+id/verticalSepa"
+                    android:textSize="12sp"
+                    android:textColor="@color/ColorPrimaryDark"
+                    android:layout_marginStart="-6dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_below="@+id/horizontalSepa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/carServiceText"
+                    android:layout_below="@+id/carServiceTitle"
+                    android:text="@string/threeDots"
+                    android:layout_alignStart="@+id/carAddDescTitle"
+                    android:textSize="12sp"
+                    android:layout_marginStart="2dp"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:id="@+id/windowPrice"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="30dp"
+                    android:layout_below="@+id/horizontalSepa"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/threeDots"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
         </RelativeLayout>
 
         <Button
             android:id="@+id/findMeAWash"
+            android:visibility="visible"
             android:background="@drawable/btn_shape"
             android:foreground="?android:attr/selectableItemBackground"
             android:layout_alignParentStart="true"
@@ -140,23 +373,6 @@
             android:text="@string/act_car_owner_washMyCar"
             android:textColor="#fff"
             android:textSize="15sp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_alignParentBottom="true"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp" />
-
-        <Button
-            android:id="@+id/cancelMyWash"
-            android:background="@drawable/btn_shape"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:text="@string/act_car_owner_cancelWash"
-            android:textColor="#fff"
-            android:textSize="15sp"
-            android:visibility="gone"
             android:layout_marginBottom="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
@@ -182,66 +398,6 @@
             android:layout_width="wrap_content"
             android:layout_height="70dp" />
 
-<!--
-        <View
-            android:id="@+id/sepa"
-            android:layout_width="300dp"
-            android:layout_centerHorizontal="true"
-            android:layout_height="2dp"
-            android:layout_below="@+id/requestListTitle"
-            android:layout_marginTop="15dp"
-            android:background="#c0c0c0"/>
-
-        -->
-        <!--Dont forget to set this RelativeLayout back to visible-->
-        <!--////Car Owner Related pop up view////-->
-        <RelativeLayout
-            android:id="@+id/splasherUpdatedStatusRelative"
-            android:background="@drawable/bg_blueborder_stroke_andcolor_curved"
-            android:layout_width="320dp"
-            android:layout_height="268dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true">
-
-            <net.qiujuer.genius.ui.widget.SeekBar
-                android:id="@+id/updatedSeekBarOne"
-                android:layout_marginTop="25dp"
-                android:layout_width="290dp"
-                android:padding="6dp"
-                android:background="@drawable/selective_bg_stroked"
-                android:layout_centerHorizontal="true"
-                android:layout_height="wrap_content"
-                app:gMax="3"
-                app:gMin="0"
-                app:gValue="0"
-                app:gIndicator="none"
-                app:gTickSize="4dp"/>
-
-            <ImageView
-                android:id="@+id/splasherPicInStatusWindow"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/updatedSeekBarOne"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/theemptyface"
-                android:contentDescription="@string/act_car_owner_profPicWindow" />
-
-            <TextView
-                android:id="@+id/splasherStatus"
-                android:text="@string/act_car_owner_splasherStatus"
-                android:textAlignment="center"
-                android:layout_below="@+id/splasherPicInStatusWindow"
-                android:padding="12dp"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:textSize="20sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </RelativeLayout>
-        <!--////////////////////////////////////////-->
-
         <!--Do not forget to set this RelativeLayout back visible-->
         <!--////Splasher Related pop up view////-->
         <RelativeLayout
@@ -249,6 +405,7 @@
             android:background="@drawable/bg_blueborder_stroke_andcolor_curved"
             android:layout_width="320dp"
             android:layout_height="350dp"
+            android:visibility="gone"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true">
 
@@ -294,11 +451,10 @@
             <LinearLayout
                 android:id="@+id/detsPicsAndStatsLinearHor"
                 android:layout_below="@+id/sepaCarOwnerDetails"
-                android:layout_marginTop="15dp"
                 android:layout_centerHorizontal="true"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
@@ -311,48 +467,11 @@
                     android:contentDescription="@string/act_car_owner_profPicWindow" />
 
                 <LinearLayout
-                    android:id="@+id/statsLinearVertical"
-                    android:layout_marginStart="15dp"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/responsaTitle"
-                        android:text="@string/act_car_owner_responsibility"
-                        android:textAlignment="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/generoTitle"
-                        android:text="@string/act_car_owner_generosity"
-                        android:layout_marginTop="8dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/accuracyTitle"
-                        android:text="@string/act_car_owner_accuracy"
-                        android:layout_marginTop="8dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/fairnessTitle"
-                        android:text="@string/act_car_owner_fairness"
-                        android:layout_marginTop="8dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/splashWantedLinear"
                     android:orientation="vertical"
                     android:gravity="center"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:ignore="UseCompoundDrawables">
@@ -494,8 +613,22 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:visibility="gone"
-            android:layout_width="260dp"
-            android:layout_height="260dp" />
+            android:layout_width="270dp"
+            android:layout_height="270dp" />
+
+        <!--@string/splasherStatus,
+            visibility="gone"-->
+        <TextView
+            android:id="@+id/splasherStatus"
+            android:text="@string/act_car_owner_splasherStatus"
+            android:textAlignment="center"
+            android:layout_below="@+id/tool_bar_holder"
+            android:padding="1dp"
+            android:visibility="gone"
+            android:textSize="14sp"
+            android:background="#CCffffff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <ImageView
             android:id="@+id/markerView"
@@ -503,7 +636,7 @@
             android:src="@drawable/bigcarpinforrequest"
             android:layout_alignTop="@id/radarView"
             android:visibility="gone"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="35dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
             tools:ignore="ContentDescription" />
@@ -514,7 +647,7 @@
             android:src="@drawable/bigbikepinforrequest"
             android:layout_alignTop="@id/radarView"
             android:visibility="gone"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="35dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
             tools:ignore="ContentDescription" />

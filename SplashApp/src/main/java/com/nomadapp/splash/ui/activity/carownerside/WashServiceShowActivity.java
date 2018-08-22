@@ -253,7 +253,8 @@ public class WashServiceShowActivity extends AppCompatActivity {
                                     }
                                 }
                                 if (weAreInAfter2) {
-                                    final ParseFile afFrontFile = object.getParseFile("afterFront");
+                                    final ParseFile afFrontFile = object.getParseFile
+                                            ("afterFront");
                                     if (afFrontFile != null) {
                                         if (!picAFFetchedCheck1) {
                                             afImageUrl = afFrontFile.getUrl();//live url
@@ -271,64 +272,74 @@ public class WashServiceShowActivity extends AppCompatActivity {
                                 if (bfRearFile != null) {
                                     if (!picFetchedCheck2) {
                                         imageUrl2 = bfRearFile.getUrl();//live url
-                                        glideImagePlacement.squaredImagePlacementFromString(imageUrl2
-                                                , cBfRearFetched, R.drawable.servicetypeiconblue);
+                                        glideImagePlacement.squaredImagePlacementFromString
+                                                (imageUrl2, cBfRearFetched, R.drawable
+                                                        .servicetypeiconblue);
                                         picFetchedCheck2 = true;
                                     }
                                 }
                                 if (weAreInAfter2) {
-                                    final ParseFile afRearFile = object.getParseFile("afterRear");
+                                    final ParseFile afRearFile = object.getParseFile
+                                            ("afterRear");
                                     if (afRearFile != null) {
                                         if (!picAFFetchedCheck2) {
                                             afImageUrl2 = afRearFile.getUrl();//live url
-                                            glideImagePlacement.squaredImagePlacementFromString(afImageUrl2
-                                                    , cAfFinalRearFetched, R.drawable.servicetypeiconblue);
+                                            glideImagePlacement.squaredImagePlacementFromString
+                                                    (afImageUrl2, cAfFinalRearFetched, R.drawable
+                                                            .servicetypeiconblue);
                                             picAFFetchedCheck2 = true;
                                         }
                                     }
                                 }
-                                ////////////////////////////////////////////////////////////////////////
+                                ////////////////////////////////////////////////////////////////////
 
-                                //LEFT SIDE--BEFORE AND AFTER///////////////////////////////////////////
+                                //LEFT SIDE--BEFORE AND AFTER///////////////////////////////////////
                                 final ParseFile bfLeftFile = object.getParseFile("beforeLeft");
                                 if (bfLeftFile != null) {
                                     if (!picFetchedCheck3) {
                                         imageUrl3 = bfLeftFile.getUrl();//live url
-                                        glideImagePlacement.squaredImagePlacementFromString(imageUrl3
-                                                , cBfLeftFetched, R.drawable.servicetypeiconblue);
+                                        glideImagePlacement.squaredImagePlacementFromString
+                                                (imageUrl3, cBfLeftFetched, R.drawable
+                                                        .servicetypeiconblue);
                                         picFetchedCheck3 = true;
                                     }
                                 }
                                 if (weAreInAfter2) {
-                                    final ParseFile afLeftFile = object.getParseFile("afterLeft");
+                                    final ParseFile afLeftFile = object.getParseFile
+                                            ("afterLeft");
                                     if (afLeftFile != null) {
                                         if (!picAFFetchedCheck3) {
                                             afImageUrl3 = afLeftFile.getUrl();//live url
-                                            glideImagePlacement.squaredImagePlacementFromString(afImageUrl3
-                                                    , cAfFinalLeftFetched, R.drawable.servicetypeiconblue);
+                                            glideImagePlacement.squaredImagePlacementFromString
+                                                    (afImageUrl3, cAfFinalLeftFetched, R.drawable
+                                                            .servicetypeiconblue);
                                             picAFFetchedCheck3 = true;
                                         }
                                     }
                                 }
-                                ////////////////////////////////////////////////////////////////////////
+                                ////////////////////////////////////////////////////////////////////
 
-                                //RIGHT SIDE--BEFORE AND AFTER//////////////////////////////////////////
-                                final ParseFile bfRightFile = object.getParseFile("beforeRight");
+                                //RIGHT SIDE--BEFORE AND AFTER//////////////////////////////////////
+                                final ParseFile bfRightFile = object.getParseFile
+                                        ("beforeRight");
                                 if (bfRightFile != null) {
                                     if (!picFetchedCheck4) {
                                         imageUrl4 = bfRightFile.getUrl();//live url
-                                        glideImagePlacement.squaredImagePlacementFromString(imageUrl4
-                                                , cBfRightFetched, R.drawable.servicetypeiconblue);
+                                        glideImagePlacement.squaredImagePlacementFromString
+                                                (imageUrl4, cBfRightFetched, R.drawable
+                                                        .servicetypeiconblue);
                                         picFetchedCheck4 = true;
                                     }
                                 }
                                 if (weAreInAfter2) {
-                                    final ParseFile afRightFile = object.getParseFile("afterRight");
+                                    final ParseFile afRightFile = object.getParseFile
+                                            ("afterRight");
                                     if (afRightFile != null) {
                                         if (!picAFFetchedCheck4) {
                                             afImageUrl4 = afRightFile.getUrl();//live url
-                                            glideImagePlacement.squaredImagePlacementFromString(afImageUrl4
-                                                    , cAfFinalRightFetched, R.drawable.servicetypeiconblue);
+                                            glideImagePlacement.squaredImagePlacementFromString
+                                                    (afImageUrl4, cAfFinalRightFetched, R.drawable
+                                                            .servicetypeiconblue);
                                             picAFFetchedCheck4 = true;
                                         }
                                     }
@@ -362,7 +373,8 @@ public class WashServiceShowActivity extends AppCompatActivity {
                 }
             }
 
-            if (picAFFetchedCheck1 && picAFFetchedCheck2 && picAFFetchedCheck3 && picAFFetchedCheck4) {
+            if (picAFFetchedCheck1 && picAFFetchedCheck2 && picAFFetchedCheck3
+                    && picAFFetchedCheck4) {
 
                 if (weAreInAfter2) {
 
@@ -385,15 +397,23 @@ public class WashServiceShowActivity extends AppCompatActivity {
 
                         //TODO: Car washed notification here:
                         //Notification here: Your Car has been washed//
-                        String requestTakenTitle3 = getResources().getString(R.string.carBeingWashed_act_java_status);
-                        String requestTakenContent3 = getResources().getString(R.string.carBeingWashed_act_java_youCarHasBeenWashed);
+                        String requestTakenTitle3 = getResources()
+                                .getString(R.string.carBeingWashed_act_java_status);
+                        String requestTakenContent3 = getResources()
+                                .getString(R.string.carBeingWashed_act_java_youCarHasBeenWashed);
                         int Id3 = 23426;
-                        if (writeReadDataInFile.readFromFile("notificationStatus") != null) {
-                            if (writeReadDataInFile.readFromFile("notificationStatus").equals("1")) {
-                                newNotificationsFunction(requestTakenTitle3, requestTakenContent3, Id3);
-                            } else if (writeReadDataInFile.readFromFile("notificationStatus").equals("")) {
-                                //If the code lands here, it means the settings were untouched, hence true
-                                newNotificationsFunction(requestTakenTitle3, requestTakenContent3, Id3);
+                        if (writeReadDataInFile.readFromFile("notificationStatus")
+                                != null) {
+                            if (writeReadDataInFile.readFromFile("notificationStatus")
+                                    .equals("1")) {
+                                newNotificationsFunction(requestTakenTitle3, requestTakenContent3
+                                        , Id3);
+                            } else if (writeReadDataInFile.readFromFile
+                                    ("notificationStatus").equals("")) {
+                                //If the code lands here, it means the settings were untouched
+                                // , hence true
+                                newNotificationsFunction(requestTakenTitle3, requestTakenContent3
+                                        , Id3);
                             }
                         } else {
                             //if its null, it means the switch was never touched, hence it's ON
@@ -401,9 +421,10 @@ public class WashServiceShowActivity extends AppCompatActivity {
                         }
                         //-------------------------------------------//
 
-                        //There are no Bundle objects being used. So use bundles for turning off blackish
-                        //screen, which you'll turn on on this activity onCreate, with its loading text in white,
-                        //will be turned off when it reaches this point in code.(SIMPLY USE BUNDLE FOR THIS FEATURE)
+                        //There are no Bundle objects being used. So use bundles for turning
+                        //off blackish screen, which you'll turn on on this activity onCreate
+                        //, with its loading text in white, will be turned off when it reaches
+                        //this point in code.(SIMPLY USE BUNDLE FOR THIS FEATURE)
 
                         cfetchedBfPicsHorizontalScroll.setVisibility(View.GONE);
                         cScrollViewGrandPa.setVisibility(View.VISIBLE);
@@ -442,25 +463,29 @@ public class WashServiceShowActivity extends AppCompatActivity {
         switch(view.getId()){
 
             case R.id.comparison1:
-                Intent i = new Intent(WashServiceShowActivity. this, DetailedImageComparisonActivity. class);
+                Intent i = new Intent(WashServiceShowActivity. this
+                        , DetailedImageComparisonActivity. class);
                 i.putExtra("comparisonBefore", imageUrl);
                 i.putExtra("comparisonAfter", afImageUrl);
                 startActivity(i);
                 break;
             case R.id.comparison2:
-                Intent i2 = new Intent(WashServiceShowActivity. this, DetailedImageComparisonActivity. class);
+                Intent i2 = new Intent(WashServiceShowActivity. this
+                        , DetailedImageComparisonActivity. class);
                 i2.putExtra("comparisonBefore", imageUrl2);
                 i2.putExtra("comparisonAfter", afImageUrl2);
                 startActivity(i2);
                 break;
             case R.id.comparison3:
-                Intent i3 = new Intent(WashServiceShowActivity. this, DetailedImageComparisonActivity. class);
+                Intent i3 = new Intent(WashServiceShowActivity. this
+                        , DetailedImageComparisonActivity. class);
                 i3.putExtra("comparisonBefore", imageUrl3);
                 i3.putExtra("comparisonAfter", afImageUrl3);
                 startActivity(i3);
                 break;
             case R.id.comparison4:
-                Intent i4 = new Intent(WashServiceShowActivity. this, DetailedImageComparisonActivity. class);
+                Intent i4 = new Intent(WashServiceShowActivity. this
+                        , DetailedImageComparisonActivity. class);
                 i4.putExtra("comparisonBefore", imageUrl4);
                 i4.putExtra("comparisonAfter", afImageUrl4);
                 startActivity(i4);
@@ -500,7 +525,8 @@ public class WashServiceShowActivity extends AppCompatActivity {
 
                                 aboutToBeRatedSplasher = object.getString("splasherUsername");
 
-                                Log.i("00ToBeRatedSplash", aboutToBeRatedSplasher + " is in da house"); //test with this
+                                Log.i("00ToBeRatedSplash", aboutToBeRatedSplasher
+                                        + " is in da house"); //test with this
 
                                 //Add tip:
                                 object.put("tip", tipToSend);

@@ -2,10 +2,12 @@ package com.nomadapp.splash.model.server.parseserver.send;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
+import com.nomadapp.splash.model.server.CloudTriggers;
 import com.nomadapp.splash.model.server.parseserver.queries.MetricsClassQuery;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
@@ -24,6 +26,7 @@ public class RequestClassSend {
     private Context context;
     private ToastMessages toastMessages = new ToastMessages();
     private MetricsClassQuery metricsClassQuery;
+    private boolean serverNotiToSplashersSent = false;
 
     public RequestClassSend(Context ctx){
         this.context = ctx;
@@ -133,6 +136,11 @@ public class RequestClassSend {
                         toastMessages.productionMessage(context, context.getResources()
                                         .getString(R.string.act_wash_my_car_requestSent)
                                 ,1);
+                    }
+                    if (!serverNotiToSplashersSent) {
+                        CloudTriggers.triggerCloudFuncNoti();
+                        Log.i("HowManyRuns", "run 1");
+                        serverNotiToSplashersSent = true;
                     }
                     context.startActivity(intent);
                 }

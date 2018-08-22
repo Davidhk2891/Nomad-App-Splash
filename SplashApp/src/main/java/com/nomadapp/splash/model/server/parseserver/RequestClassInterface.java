@@ -7,7 +7,7 @@ import com.parse.ParseObject;
  */
 public interface RequestClassInterface {
 
-    void requestClassMethod();
+    void requestClassMethod(ParseObject object);
 
     void setCarWasherFinderToFalse();
 

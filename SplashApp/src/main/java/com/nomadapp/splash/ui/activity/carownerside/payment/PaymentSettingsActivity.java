@@ -78,6 +78,13 @@ public class PaymentSettingsActivity extends AppCompatActivity implements View.O
         //Hide soft input keyboard during onCreate run-time
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
+        //Navigate back to parent activity
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+        //--------------------------------
+
         metricsClassQuery.queryMetricsToUpdate("addCC");
 
         cCcAdded = findViewById(R.id.ccAdded);
@@ -102,16 +109,6 @@ public class PaymentSettingsActivity extends AppCompatActivity implements View.O
         }else{
             loadNothingDataNotSaved();
         }
-
-        //Navigate back to parent activity
-        if (getSupportActionBar() != null) {
-
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        }
-        //--------------------------------
 
         if (ParseUser.getCurrentUser() != null){
             userEmailHolder = ParseUser.getCurrentUser().getEmail();//<<<<<<<<<<<<<FINAL
@@ -447,10 +444,6 @@ public class PaymentSettingsActivity extends AppCompatActivity implements View.O
         previousScreen.putExtra("paymeCCMask", ccMask);
         setResult(Activity.RESULT_OK, previousScreen);
         finish();
-    }
-
-    public void toPaymeTOU(View view){
-        toastMessages.debugMesssage(getApplicationContext(),"Works",1);
     }
 
     @Override

@@ -147,34 +147,34 @@ public final class R {
         public static final int always = 0x7f090043;
         public static final int auto = 0x7f090049;
         public static final int bottom = 0x7f09007f;
-        public static final int circle = 0x7f0900ae;
-        public static final int click = 0x7f0900b0;
-        public static final int ease = 0x7f0900ff;
-        public static final int left = 0x7f09016f;
-        public static final int line = 0x7f090174;
-        public static final int longClick = 0x7f09017d;
-        public static final int none = 0x7f0901b9;
-        public static final int press = 0x7f0901fe;
-        public static final int right = 0x7f090221;
-        public static final int ripple = 0x7f090224;
-        public static final int slide = 0x7f090280;
-        public static final int top = 0x7f0902ea;
+        public static final int circle = 0x7f0900b5;
+        public static final int click = 0x7f0900b7;
+        public static final int ease = 0x7f090106;
+        public static final int left = 0x7f090175;
+        public static final int line = 0x7f09017a;
+        public static final int longClick = 0x7f090183;
+        public static final int none = 0x7f0901bf;
+        public static final int press = 0x7f090204;
+        public static final int right = 0x7f090227;
+        public static final int ripple = 0x7f09022a;
+        public static final int slide = 0x7f090284;
+        public static final int top = 0x7f0902f8;
     }
     public static final class string {
-        public static final int g_font_file = 0x7f1001cd;
+        public static final int g_font_file = 0x7f1001d7;
     }
     public static final class style {
-        public static final int Genius_Widget_BalloonMarker = 0x7f1100a9;
-        public static final int Genius_Widget_BalloonMarker_TextAppearance = 0x7f1100aa;
-        public static final int Genius_Widget_Button = 0x7f1100ab;
-        public static final int Genius_Widget_Button_Base = 0x7f1100ac;
-        public static final int Genius_Widget_CompoundButton_CheckBox = 0x7f1100ad;
-        public static final int Genius_Widget_EditText = 0x7f1100ae;
-        public static final int Genius_Widget_FloatActionButton = 0x7f1100af;
-        public static final int Genius_Widget_ImageView = 0x7f1100b0;
-        public static final int Genius_Widget_Loading = 0x7f1100b1;
-        public static final int Genius_Widget_SeekBar = 0x7f1100b2;
-        public static final int Genius_Widget_TextView = 0x7f1100b3;
+        public static final int Genius_Widget_BalloonMarker = 0x7f1100aa;
+        public static final int Genius_Widget_BalloonMarker_TextAppearance = 0x7f1100ab;
+        public static final int Genius_Widget_Button = 0x7f1100ac;
+        public static final int Genius_Widget_Button_Base = 0x7f1100ad;
+        public static final int Genius_Widget_CompoundButton_CheckBox = 0x7f1100ae;
+        public static final int Genius_Widget_EditText = 0x7f1100af;
+        public static final int Genius_Widget_FloatActionButton = 0x7f1100b0;
+        public static final int Genius_Widget_ImageView = 0x7f1100b1;
+        public static final int Genius_Widget_Loading = 0x7f1100b2;
+        public static final int Genius_Widget_SeekBar = 0x7f1100b3;
+        public static final int Genius_Widget_TextView = 0x7f1100b4;
     }
     public static final class styleable {
         public static final int[] AbsSeekBar = { 0x7f0400c7, 0x7f0400d8, 0x7f0400e2, 0x7f0400e3, 0x7f0400e4, 0x7f0400e5, 0x7f0400e6, 0x7f0400e7, 0x7f0400f4, 0x7f0400f5, 0x7f0400f6, 0x7f0400f9, 0x7f0400fa, 0x7f0400fb, 0x7f0400fe, 0x7f0400ff, 0x7f040100, 0x7f040109, 0x7f04010a, 0x7f04010b, 0x7f04010c };

@@ -10,11 +10,19 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/ColorPrimary</item>
         <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
         <item name="colorAccent">@color/ColorAccent</item>
     </style>
+    <!--/////////////////////////-->
+
+    <!--theme exclusively for HomeActivity.java-->
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/ColorPrimary</item>
+        <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
+        <item name="colorAccent">@color/ColorAccent</item>
+    </style>
+    <!--/////////////////////////-->
 
     <style name="RatingBarz" parent="Theme.AppCompat">
         <item name="colorControlNormal">@color/colorRatingBarSplasher</item>

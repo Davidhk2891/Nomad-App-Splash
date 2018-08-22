@@ -24,15 +24,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.BoringLayout;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -51,6 +53,7 @@ import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.imagehandler.GlideImagePlacement;
 import com.nomadapp.splash.model.payment.paymeapis.seller.SplashCreateSeller;
 import com.nomadapp.splash.model.payment.paymeapis.ssale.SplashGenerateSaleAutomatic;
+import com.nomadapp.splash.model.server.Installation;
 import com.nomadapp.splash.model.server.parseserver.DocumentsClassInterface;
 import com.nomadapp.splash.model.server.parseserver.HistoryClassInterface;
 import com.nomadapp.splash.model.server.parseserver.RequestClassInterface;
@@ -73,6 +76,7 @@ import com.nomadapp.splash.ui.activity.carownerside.WashReqParamsActivity;
 import com.nomadapp.splash.ui.activity.carownerside.WashServiceShowActivity;
 import com.nomadapp.splash.ui.activity.splasherside.SplasherClientRouteActivity;
 import com.nomadapp.splash.ui.activity.standard.web.WebActivity;
+import com.nomadapp.splash.utils.phonedialer.DialCall;
 import com.nomadapp.splash.utils.radar.RadarView;
 import com.nomadapp.splash.utils.sysmsgs.DialogAcceptInterface;
 import com.nomadapp.splash.utils.sysmsgs.connectionlost.ConnectionLost;
@@ -85,7 +89,6 @@ import com.nomadapp.splash.utils.sysmsgs.questiondialogs.LogoutMessage;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
-import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -103,20 +106,18 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
+
 public class HomeActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private GoogleMap mMap;
     private LocationManager locationManager;
     private LocationListener locationListener;
-    private RelativeLayout cSplasherStatusDetails;
-    private TextView cShowAndHideDots, cShowAndHideX;
     private Button cFindMeAWash;
-    private Button cCancelMyWash;
     private SeekBar cUpdatedSeekbar;
 
     //Checkers//
     private boolean findCarWasherRequestActive = false;
-    private boolean splasherWindowOpen = false;
     private boolean alreadyExecuted = false;
     private boolean alreadyExecuted2 = false;
     private boolean alreadyExecuted3 = false;
@@ -150,12 +151,23 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ParseUser currentUser = ParseUser.getCurrentUser();
 
     //splasher Status//
-    private RelativeLayout cSplasherUpdatedStatusRelative;
+    private LinearLayout mSplasher_info_toco_back_space;
     private ImageView mSplasherPicInStatusWindows;
     private TextView cSplasherStatus;
     private LatLng userLocation;
     private String isThereASplasher;
+    private TextView mSplasher_stats_co_splasherName;
+    private TextView mSplasher_stats_co_numWashes;
+    private TextView mSplasher_status_co_distance_text;
+    private MaterialRatingBar mSplasher_status_co_ratingBar;
+    private String splasherPhoneNumber;
     //---------------//
+
+    //Request Info Window//
+    private RelativeLayout mRequest_info_window;
+    private TextView mCarAddressInfoText, mCarInfoText, mCarAddDescText, mCarServiceText
+            , mWindowPrice;
+    //-------------------//
 
     //Car Owner Data for Splasher 1//
     private RelativeLayout cCarOwnerPrevDetailsRelative;
@@ -176,12 +188,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final int WAITING_CONSTANT_CAR_OWNER = 30000;
     private static final int WAITING_CONSTANT_SPLASHER = 5000;
 
-    //drawer menu 1//
-    private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private ImageView cRatingBadge;
     private int splasherNumericalBadge;
     private int requestNumercialBadge;
+    private MenuItem cancelItem;
     //-------------//
 
     private String currentSavedSelectedHour;
@@ -270,9 +281,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final int REQUEST_EXTERNAL_STORAGE_RESULT = 2;
 
     //Splasher wallet//
-    //Sound//
-    //private MediaPlayer mediaPlayer;
-    //-----//
     private String salesWithTip;
     //private ArrayList<String> salesWithTipList = new ArrayList<>();
     //private int amountOfSales;
@@ -281,7 +289,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String stringFinalShekel = "₪ 00.00";
     private TextView cSplashWalletTextView;
     private DecimalFormat df = new DecimalFormat("#.##");
-    private int oldTag = 0;
     private int newTag = 0;
     //---------------//
 
@@ -316,12 +323,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        if(getSupportActionBar() != null)
-        getSupportActionBar().hide();
 
         Log.i("requestActive?", String.valueOf(findCarWasherRequestActive));
 
-        ParseInstallation.getCurrentInstallation().saveInBackground();
+        //ParseInstallation.getCurrentInstallation().saveInBackground();
         //TODO:Payme code 4: Setup SELLER_KEY and APP_STAGE for Payme API
         PayMe.initialize(new Settings(PaymeConstants.SPLASH_SELLER_KEY, PRODUCTION));
 
@@ -357,13 +362,18 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             e.printStackTrace();
         }
         */
-        //drawer menu 2
-        ImageView cDrawerCheese = findViewById(R.id.drawerCheese);
-        mDrawerLayout = findViewById(R.id.home);
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+        //drawer menu 2---//
+        Toolbar mCustomToolBar = findViewById(R.id.custom_tool_bar);
+        setSupportActionBar(mCustomToolBar);
+        DrawerLayout mDrawerLayout = findViewById(R.id.home);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open
+                , R.string.close);
         NavigationView navigationView = findViewById(R.id.navView);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         View navHeader = navigationView.getHeaderView(0);
         RelativeLayout cHeaderRelative = navHeader.findViewById(R.id.headerRelative);
         TextView cUserProfileUsername = navHeader.findViewById(R.id.userProfileUsername);
@@ -372,7 +382,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         ImageView cUserProfilePics = navHeader.findViewById(R.id.userProfilePics);
         cRatingBadge = navHeader.findViewById(R.id.ratingBadge);
         TextView cUserLessMsg = navHeader.findViewById(R.id.userlessMsg);
-        //-----------
+        //--------------//
 
         //Car Owner Data for Splasher 2
         cCarOwnerPrevDetailsRelative = findViewById(R.id.carOwnerPrevDetailsRelative);
@@ -385,12 +395,16 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         cGettingLocationRelativeHome = findViewById(R.id.gettinLocaionRelativeHome);
         //-----------------------------
 
-        cSplasherStatusDetails = findViewById(R.id.splasherStatusDetails);
-        cShowAndHideDots = findViewById(R.id.showAndHideDots);
-        cShowAndHideX = findViewById(R.id.showAndHideX);
-
         cFindMeAWash = findViewById(R.id.findMeAWash);
-        cCancelMyWash = findViewById(R.id.cancelMyWash);
+
+        //Request info window//
+        mRequest_info_window = findViewById(R.id.request_window_info);
+        mCarAddressInfoText = findViewById(R.id.carAddressInfoText);
+        mCarInfoText = findViewById(R.id.carInfoText);
+        mCarAddDescText = findViewById(R.id.carAddDescText);
+        mCarServiceText = findViewById(R.id.carServiceText);
+        mWindowPrice = findViewById(R.id.windowPrice);
+        //-------------------//
 
         //splash wallet//
         RelativeLayout cSplashWalletRelative = findViewById(R.id.splashWalletRelative);
@@ -402,24 +416,32 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         cMarkerView = findViewById(R.id.markerView);
         cMarkerView2 = findViewById(R.id.markerView2);
         //splasher status
-        cSplasherUpdatedStatusRelative = findViewById(R.id.splasherUpdatedStatusRelative);
         mSplasherPicInStatusWindows = findViewById(R.id.splasherPicInStatusWindow);
+        mSplasher_info_toco_back_space = findViewById(R.id.splasher_info_toco_back_space);
+        ImageView mSplasher_stats_co_call = findViewById(R.id.splasher_stats_co_call);
+        mSplasher_stats_co_splasherName = findViewById(R.id.splasher_stats_co_splasherName);
+        mSplasher_stats_co_numWashes = findViewById(R.id.splasher_stats_co_numWashes);
+        mSplasher_status_co_distance_text = findViewById(R.id.splasher_status_co_distance_text);
+        mSplasher_status_co_ratingBar = findViewById(R.id.splasher_status_co_ratingBar);
+
         cSplasherStatus = findViewById(R.id.splasherStatus);
-        cSplasherStatusDetails.setVisibility(View.GONE);
-        cSplasherUpdatedStatusRelative.setVisibility(View.GONE);
         cCarOwnerPrevDetailsRelative.setVisibility(View.GONE);
         cRatingBadge.setVisibility(View.GONE);
         cSplashWalletRelative.setVisibility(View.GONE);
         cSplashWalletTextView.setVisibility(View.GONE);
         cGettingLocationRelativeHome.setVisibility(View.VISIBLE);
         cUpdatedSeekbar = findViewById(R.id.updatedSeekBarOne);
-
-        cDrawerCheese.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDrawerLayout.openDrawer(Gravity.START);
-            }
-        });
+        cUpdatedSeekbar.setVisibility(View.GONE);
+        mRequest_info_window.setVisibility(View.GONE);
+        mSplasher_info_toco_back_space.setVisibility(View.GONE);
+        mSplasher_status_co_ratingBar.setEnabled(false);
+        mSplasher_status_co_ratingBar.setClickable(false);
+        if (!Locale.getDefault().getDisplayLanguage().equals("עברית")){
+            mSplasher_stats_co_call.setScaleX(-1f);
+        }
+        if (cancelItem != null) {
+            cancelItem.setVisible(false);
+        }
         cFindMeAWash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -436,26 +458,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         });
-        cCancelMyWash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cRadarView.getVisibility() == View.VISIBLE) {
-                    String cancelTitle1 = getResources().getString
-                            (R.string.carOwner_act_java_cancelRequest);
-                    String noSplasherCancel = getResources().getString
-                            (R.string.carOwner_act_java_areYouSureCancel);
-                    metricsClassQuery.queryMetricsToUpdate("canceledWash");
-                    cancelRequestDialog(cancelTitle1, noSplasherCancel);
-                } else {
-                    String cancelTitle2 = getResources().getString
-                            (R.string.carOwner_act_java_cancelRequest);
-                    String yesSplasherCancel = getResources().getString
-                            (R.string.carOwner_act_java_aSplasherIsOnTheWay);
-                    cancelRequestDialog(cancelTitle2, yesSplasherCancel);
-                }
-            }
-        });
-
         if (userClassQuery.userExists()) {
             Log.i("currentUser?", "is: " + currentUser.toString());
             String userNameForHeader = ParseUser.getCurrentUser().getUsername();
@@ -464,7 +466,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             cUserProfileEmail.setText(userEmailForHeader);
 
             Log.i("data payme preprepre","we in onCreate");
-
             //->THIS CONTROLS THE APPLICATION FLOW. DEPENDING ON USER TYPE: CAROWNER OR SPLASHER<-//
             try {
                 if (userClassQuery.userIsCarOwnerOrSplasher(splasher)){
@@ -492,6 +493,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     splasherNumericalBadge = profileClassQuery.getMyRatingBadge(cRatingBadge);
 
+                    Installation.parseInstallationProcess("splashers");
+
                 } else if (userClassQuery.userIsCarOwnerOrSplasher(carOwner)) {
 
                     //R.string.carOwner_act_java_carOwner
@@ -505,10 +508,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     cRatingBadge.setVisibility(View.GONE);
                     cCarOwnerPrevDetailsRelative.setVisibility(View.GONE);
 
+                    Installation.parseInstallationProcess("carowners");
+
                     requestClassQuery.fetchCurrentRequestOne(new RequestClassInterface() {
                         @Override
-                        public void requestClassMethod() {
-                            fetchCurrentRequestIfExists();
+                        public void requestClassMethod(ParseObject object) {
+                            fetchCurrentRequestIfExists(object);
                         }
                         @Override
                         public void setCarWasherFinderToFalse() {
@@ -757,8 +762,15 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         //---------------------//
 
         if (userClassQuery.userExists()){
-            if (userClassQuery.userIsCarOwnerOrSplasher(carOwner)){
-                metricsClassQuery.queryMetricsToUpdate("openedApp");
+            try {
+                if (userClassQuery.userIsCarOwnerOrSplasher(carOwner)) {
+                    metricsClassQuery.queryMetricsToUpdate("openedApp");
+                }
+            }catch(NullPointerException e){
+                e.printStackTrace();
+                toastMessages.productionMessage(HomeActivity.this
+                        ,getResources().getString(R.string.forced_Alert_somethingWrong_msg),1);
+                userClassQuery.logOutUser(SignUpLogInActivity.class);
             }
         }
 
@@ -772,7 +784,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         metricsClassQuery.queryMetricsToUpdate("washMyCar");
     }
 
-    public void fetchCurrentRequestIfExists(){
+    public void fetchCurrentRequestIfExists(ParseObject object){
         toastMessages.debugMesssage(getApplicationContext()
                 , "I have and active request", 1);
         //this way, the user can close and even shutdown the app, as long as his request
@@ -783,10 +795,37 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         findCarWasherRequestActive = true;
         //Here, if there is a request, focus on request's marker and not on self location
 
+        //Populate infoWindow for CarOwner with data about his request: address, car, service, etc//
+        mCarAddressInfoText.setText(object.getString("carAddress"));
+        String carBrief = object.getString("carBrand") + " "
+                + object.getString("carModel") + " "
+                + object.getString("carplateNumber");
+        mCarInfoText.setText(carBrief);
+        String addressDesc = object.getString("carAddressDesc");
+        if (addressDesc.equals("") || addressDesc.isEmpty()){
+            mCarAddDescText.setText(getResources().getString(R.string.act_car_owner_notSpecified));
+        }else {
+            mCarAddDescText.setText(object.getString("carAddressDesc"));
+        }
+        String service = object.getString("serviceType");
+        serviceTextAdjustment(mCarServiceText,service);
+        String roundedFixPrice = getResources().getString(R.string.shekel) + " " + "15";
+        String priceFromServer = object.getString("priceWanted");
+        Log.i("priceFromServer", "is: " + priceFromServer);
+        if (priceFromServer.contains("12.217")){
+            mWindowPrice.setText(roundedFixPrice);
+        }
+        //----------------------------------------------------------------------------------------//
+
         cRadarView.setVisibility(View.VISIBLE); //--> Should set the Cancel button visible
         cFindMeAWash.setVisibility(View.GONE);
-        cCancelMyWash.setVisibility(View.VISIBLE);
+        mRequest_info_window.setVisibility(View.VISIBLE);
         cRadarView.startAnimation();
+        cUpdatedSeekbar.setVisibility(View.VISIBLE);
+        if (cancelItem != null) {
+            cancelItem.setVisible(true);
+        }
+        cUpdatedSeekbar.setProgress(0);
         mMap.getUiSettings().setScrollGesturesEnabled(false);
         mMap.getUiSettings().setZoomControlsEnabled(false);
         mMap.getUiSettings().setZoomGesturesEnabled(false);
@@ -823,6 +862,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 weHaveMotorcycle = false;
             }
         }
+        //getResources().getString(R.string.act_car_owner_waitingForAResponse)
+        //getResources().getString(R.string.act_car_owner_)
+        cSplasherStatus.setVisibility(View.VISIBLE);
+        cSplasherStatus.setText(getResources().getString(R.string
+                .act_car_owner_searchingForAvailSp));
+
         Log.i("vehicle type", ": " + weHaveMotorcycle);
         try {
             untilTimeReachedAutoCancel();
@@ -833,11 +878,39 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         requestUpdateChecker.run();
     }
 
+    private void serviceTextAdjustment(TextView txtView, String service){
+        Log.i("servicioType", service + " ran");
+        if ((service.contains("External") && service.contains("wash"))
+                || (service.contains("שטיפה")) && service.contains("חיצוני")){
+            Log.i("servicioType2", service);
+            txtView.setText(getResources().getString(R.string.act_car_owner_externalWash));
+        }else if(service.contains("Internal") || service.contains("ופנימי")){
+            Log.i("servicioType2", service);
+            txtView.setText(getResources().getString(R.string.act_car_owner_extAndIntWash));
+        }else if(service.contains("motorcycle") || service.contains("לאופנוע")){
+            Log.i("servicioType2", service);
+            txtView.setText(getResources().getString(R.string.act_car_owner_motorcycle));
+        }
+    }
+
     public void fetchCurrentSplasherIfExists(final ParseObject object){
         splasherActive = true; //-->if so, updateMap() = inactive (false).
         isThereASplasher = object.getString("splasherUsername");
+        final String splasherWashNum = object.getString("splasherWashesNum")
+                + " " + getResources().getString(R.string.act_car_owner_washes);
+        String splasherRatingNum = object.getString("splasherRatingNum");
+        int intSplasherRating = 3;
+        if (splasherRatingNum != null) {
+            if (Integer.parseInt(splasherRatingNum) <= 5) {
+                intSplasherRating = Integer.parseInt(splasherRatingNum);
+            } else {
+                intSplasherRating = 5;
+            }
+        }
+
         currentSavedSelectedHour = object.getString("untilTime");
         String currentWashState = object.getString("washFinished");
+        splasherPhoneNumber = object.getString("splasherPhoneNum");
         washFinished = currentWashState.equals("yes");
         final String clear = "clear";
         final String canceled = "canceled";
@@ -847,7 +920,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             Log.i("Current Splasher is", "Your Splasher is "
                     + isThereASplasher);
             cRadarView.setVisibility(View.GONE);
-
+            cSplasherStatus.setVisibility(View.GONE);
+            cUpdatedSeekbar.setVisibility(View.VISIBLE);
+            mSplasher_info_toco_back_space.setVisibility(View.VISIBLE);
+            cUpdatedSeekbar.setProgress(1);
+            final int finalIntSplasherRating = intSplasherRating;
             userClassQuery.getCurrentUserDocument(isThereASplasher, new UserClassInterface() {
                 @Override
                 public void getCurrentUserRow() {
@@ -905,7 +982,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     final Double distanceOneDP = (double) Math.round(distanceInKm * 10) / 10;
                     cRadarView.stopAnimation();
                     cRadarView.setVisibility(View.GONE);
-                    cSplasherUpdatedStatusRelative.setVisibility(View.VISIBLE);
+                    mSplasher_stats_co_splasherName.setText(isThereASplasher);
+                    mSplasher_stats_co_numWashes.setText(splasherWashNum);
+                    int fixedRating = finalIntSplasherRating * 2;
+                    mSplasher_status_co_ratingBar.setProgress(fixedRating);
                     Bitmap defaultPic = BitmapFactory.decodeResource(getResources()
                             , R.drawable.theemptyface);
                     mSplasherPicInStatusWindows.setImageBitmap(defaultPic);
@@ -918,14 +998,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                     object.getString("splasherProfilePic");
                     if (!alreadyExecuted4) {
-                        String splasherUpdate = getResources()
-                                .getString(R.string.carOwner_act_java_yourSplasher) + " " +
-                                isThereASplasher + " " + getResources()
-                                .getString(R.string.carOwner_act_java_is) + " " +
-                                distanceOneDP.toString() + " " +
-                                getResources().getString
-                                        (R.string.carOwner_act_java_kmAwayFromCar);
-                        cSplasherStatus.setText(splasherUpdate);
+                        String splasherUpdate = distanceOneDP.toString() + " Km";
+                        mSplasher_status_co_distance_text.setText(splasherUpdate);
                     }
                     //splasher location on car owner screen set up------------------------------
 
@@ -988,9 +1062,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     //--------------------------------------------------------------------------
 
                     if (!alreadyExecuted) {
-                        cSplasherStatusDetails.setVisibility(View.VISIBLE);
-                        cShowAndHideDots.animate().alpha(0f).setDuration(1);
-                        splasherWindowOpen = true;
                         alreadyExecuted = true;
                     }
                     //TODO: Second Notification: Car washed. Triggers if car owner never
@@ -1036,12 +1107,17 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                             if (!washFinished) {
                                 if (!alreadyExecuted4) {
                                     Log.i("washFinished","inactive");
+                                    cSplasherStatus.setVisibility(View.VISIBLE);
+                                    viewFliper();
                                     String wholeSplasherStatus = getResources()
                                             .getString(R.string.carOwner_act_java_yourSplasher)
                                             + " " + isThereASplasher + " " + getResources()
                                             .getString(R.string.carOwner_act_java_hasArrived);
                                     cSplasherStatus.setText(wholeSplasherStatus);
-                                    cUpdatedSeekbar.setProgress(1);
+                                    cUpdatedSeekbar.setProgress(2);
+                                    if(cancelItem != null) {
+                                        cancelItem.setVisible(false);
+                                    }
                                     new CountDownTimer(7000, 1000) {
                                         @Override
                                         public void onTick(long millisUntilFinished) {
@@ -1077,6 +1153,16 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             object.saveInBackground();
             Log.i("Current Splasher", isThereASplasher);
         }
+    }
+
+    private void viewFliper(){
+        RelativeLayout.LayoutParams params= new RelativeLayout
+                .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
+                ,ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        params.addRule(RelativeLayout.ABOVE, R.id.updatedSeekBarOne);
+        params.setMargins(0,0,0,40);
+        cSplasherStatus.setLayoutParams(params);
     }
 
     public void runAutoQuickTourOnce(){
@@ -1154,54 +1240,38 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     };
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return mToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_tool_bar_menu, menu);
+        cancelItem = menu.findItem(R.id.action_cancel_wash);
+        if (findCarWasherRequestActive){
+            cancelItem.setVisible(true);
+        }else{
+            cancelItem.setVisible(false);
+        }
+        return true;
     }
 
-    //Method to hide and show the splasher status windows
-    public void requestRequestSplasherStats(View view) {
-
-        if (splasherWindowOpen) {
-
-            //cRequestDetailsInFull.animate().translationXBy(-1200f).setDuration(800);
-            cSplasherUpdatedStatusRelative.animate().translationXBy(1200f).setDuration(800);
-            //cArrow.animate().rotation(-180f).setDuration(600);
-            cShowAndHideDots.animate().alpha(1f).setDuration(600);
-            cShowAndHideX.animate().alpha(0f).setDuration(600);
-            splasherWindowOpen = false;
-            new CountDownTimer(1800, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    cSplasherStatusDetails.setClickable(false);
-                }
-
-                @Override
-                public void onFinish() {
-                    cSplasherStatusDetails.setClickable(true);
-                }
-            }.start();
-
-
-        } else {
-
-            cSplasherUpdatedStatusRelative.animate().translationXBy(-1200f).setDuration(800);
-            splasherWindowOpen = true;
-            cShowAndHideDots.animate().alpha(0f).setDuration(600);
-            cShowAndHideX.animate().alpha(1f).setDuration(600);
-            new CountDownTimer(1800, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    cSplasherStatusDetails.setClickable(false);
-                }
-
-                @Override
-                public void onFinish() {
-                    cSplasherStatusDetails.setClickable(true);
-                }
-            }.start();
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mToggle.onOptionsItemSelected(item)){
+            return true;
+        }else if (item.getItemId() == R.id.action_cancel_wash){
+            if (cRadarView.getVisibility() == View.VISIBLE) {
+                String cancelTitle1 = getResources().getString
+                        (R.string.carOwner_act_java_cancelRequest);
+                String noSplasherCancel = getResources().getString
+                        (R.string.carOwner_act_java_areYouSureCancel);
+                metricsClassQuery.queryMetricsToUpdate("canceledWash");
+                cancelRequestDialog(cancelTitle1, noSplasherCancel);
+            } else {
+                String cancelTitle2 = getResources().getString
+                        (R.string.carOwner_act_java_cancelRequest);
+                String yesSplasherCancel = getResources().getString
+                        (R.string.carOwner_act_java_aSplasherIsOnTheWay);
+                cancelRequestDialog(cancelTitle2, yesSplasherCancel);
+            }
         }
-
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -1461,7 +1531,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void locationManagement() {
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -1559,15 +1628,21 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 if (userClassQuery.userExists()) {
                     if (currentUser.getString("CarOwnerOrSplasher").equals(carOwner)) {
-                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, WAITING_CONSTANT_CAR_OWNER, 0, locationListener);
-                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, WAITING_CONSTANT_CAR_OWNER, 0, locationListener);
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER
+                                , WAITING_CONSTANT_CAR_OWNER, 0, locationListener);
+                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER
+                                , WAITING_CONSTANT_CAR_OWNER, 0, locationListener);
                     }else{
-                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, WAITING_CONSTANT_SPLASHER, 0, locationListener);
-                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, WAITING_CONSTANT_SPLASHER, 0, locationListener);
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER
+                                , WAITING_CONSTANT_SPLASHER, 0, locationListener);
+                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER
+                                , WAITING_CONSTANT_SPLASHER, 0, locationListener);
                     }
                 } else {
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, WAITING_CONSTANT_SPLASHER, 0, locationListener);
-                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, WAITING_CONSTANT_SPLASHER, 0, locationListener);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER
+                            , WAITING_CONSTANT_SPLASHER, 0, locationListener);
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER
+                            , WAITING_CONSTANT_SPLASHER, 0, locationListener);
                 }
 
                 Location lastKnownLocation = null;
@@ -1575,37 +1650,28 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Location lastKnownLocation2 = null;
                 LatLng lastLatLong2 = null;
                 try {
-                    lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-                    lastLatLong = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-
-                    lastKnownLocation2 = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-                    lastLatLong2 = new LatLng(lastKnownLocation2.getLatitude(), lastKnownLocation2.getLongitude());
+                    lastKnownLocation = locationManager.getLastKnownLocation(LocationManager
+                            .GPS_PROVIDER);
+                    lastLatLong = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation
+                            .getLongitude());
+                    lastKnownLocation2 = locationManager.getLastKnownLocation(LocationManager
+                            .NETWORK_PROVIDER);
+                    lastLatLong2 = new LatLng(lastKnownLocation2.getLatitude(), lastKnownLocation2
+                            .getLongitude());
                 }catch (NullPointerException npe){
                     npe.printStackTrace();
                 }
 
                 if (lastKnownLocation == null) {
-
                     if (lastKnownLocation2 != null) {
-
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLatLong2, 13));
-
                         updateMap(lastKnownLocation2);
-
                         callDotsRequest(lastKnownLocation2);
-
                     }
-
                 } else {
-
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLatLong, 13));
-
                     updateMap(lastKnownLocation);
-
                     callDotsRequest(lastKnownLocation);
-
                 }
             }
         }
@@ -2406,41 +2472,39 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                         // button which will set the "check" to false and delete the request
                         // object from the request class.
                         if (cRadarView.getVisibility() == View.VISIBLE) {
-                            writeReadDataInFile.writeToFile("empty", "bikeOrNot");
-                            cRadarView.stopAnimation();
-                            cRadarView.setVisibility(View.GONE);
-                            cMarkerView.setVisibility(View.GONE);
-                            cMarkerView2.setVisibility(View.GONE);
-                            cFindMeAWash.setVisibility(View.VISIBLE);
-                            cCancelMyWash.setVisibility(View.GONE);
-                            cSplasherUpdatedStatusRelative.setVisibility(View.GONE);
-                            mMap.getUiSettings().setScrollGesturesEnabled(true);
-                            mMap.getUiSettings().setZoomGesturesEnabled(true);
-                            mMap.getUiSettings().setAllGesturesEnabled(true);
-                            mMap.getUiSettings().setMyLocationButtonEnabled(true);
-                            //cancel boolean
-                            findCarWasherRequestActive = false; //<-- switched to false
-                            cSplasherStatusDetails.setVisibility(View.GONE);
-                            splasherWindowOpen = false;
-                            //check to see if splasherActive switch to false
-                            splasherActive = false;
-                            handler.removeCallbacks(requestUpdateChecker);
-                            shutDownChecker = true;
-                            alreadyExecuted6 = false;
-                            //emptyCoordinatesFiles();
+                            cancelationOperations();
                         }else{ //<--If splasher is indeed active, then:
-                            writeReadDataInFile.writeToFile("empty", "bikeOrNot");
-                            handler.removeCallbacks(requestUpdateChecker);
-                            shutDownChecker = true;
-                            //emptyCoordinatesFiles();
-                            finish();
-                            startActivity(getIntent());//<-- don't need to change anything
-                            // . If this condition is true,
-                            //then all conditions and values are set back to their defaults.
-                            mMap.clear();
+                           cancelationOperations();
                         }
                     }
                 });
+    }
+
+    private void cancelationOperations(){
+        writeReadDataInFile.writeToFile("empty", "bikeOrNot");
+        cRadarView.stopAnimation();
+        cSplasherStatus.setVisibility(View.GONE);
+        cancelItem.setVisible(false);
+        mRequest_info_window.setVisibility(View.GONE);
+        mSplasher_info_toco_back_space.setVisibility(View.GONE);
+        cRadarView.setVisibility(View.GONE);
+        cMarkerView.setVisibility(View.GONE);
+        cMarkerView2.setVisibility(View.GONE);
+        cUpdatedSeekbar.setVisibility(View.GONE);
+        cFindMeAWash.setVisibility(View.VISIBLE);
+        mMap.getUiSettings().setScrollGesturesEnabled(true);
+        mMap.getUiSettings().setZoomGesturesEnabled(true);
+        mMap.getUiSettings().setAllGesturesEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        //cancel boolean
+        findCarWasherRequestActive = false; //<-- switched to false
+        //check to see if splasherActive switch to false
+        splasherActive = false;
+        handler.removeCallbacks(requestUpdateChecker);
+        shutDownChecker = true;
+        alreadyExecuted6 = false;
+        mMap.clear();
+        //emptyCoordinatesFiles();
     }
 
     public void cLogOutRequestWarning(){
@@ -2706,5 +2770,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void goToMyWallet(View v){
         startActivity(new Intent(HomeActivity.this,SplasherWalletActivity.class));
+    }
+
+    public void callSplasher(View v){
+        DialCall dialCall = new DialCall(HomeActivity.this);
+        dialCall.fetchPhoneNumToDial(splasherPhoneNumber);
     }
 }
