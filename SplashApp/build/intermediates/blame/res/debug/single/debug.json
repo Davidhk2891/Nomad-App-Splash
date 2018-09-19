@@ -240,6 +240,10 @@
         "source": "C:\\Splash\\SplashApp\\src\\main\\res\\layout\\activity_address_addition.xml"
     },
     {
+        "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_ic_navigation_black_24dp.xml.flat",
+        "source": "C:\\Splash\\SplashApp\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_navigation_black_24dp.xml"
+    },
+    {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\layout_activity_wash_req_params.xml.flat",
         "source": "C:\\Splash\\SplashApp\\src\\main\\res\\layout\\activity_wash_req_params.xml"
     },
@@ -282,6 +286,10 @@
     {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_ic_photo_camera_black_24dp.xml.flat",
         "source": "C:\\Splash\\SplashApp\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_photo_camera_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable_servicesmarker.png.flat",
+        "source": "C:\\Splash\\SplashApp\\src\\main\\res\\drawable\\servicesmarker.png"
     },
     {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\layout_design_navigation_menu_item.xml.flat",
@@ -1184,6 +1192,10 @@
         "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-common-4.29.0.aar\\a9454f129c78a633128b7a47455201e5\\res\\drawable\\com_facebook_button_background.xml"
     },
     {
+        "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\color_standard_splash_switch_color.xml.flat",
+        "source": "C:\\Splash\\SplashApp\\src\\main\\res\\color\\standard_splash_switch_color.xml"
+    },
+    {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\layout_activity_account.xml.flat",
         "source": "C:\\Splash\\SplashApp\\src\\main\\res\\layout\\activity_account.xml"
     },
@@ -1194,6 +1206,10 @@
     {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_ic_mr_button_connecting_26_dark.png.flat",
         "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\mediarouter-v7-27.1.1.aar\\a54e30a2e5fb2a489cf0ab27b5b9a974\\res\\drawable-xhdpi-v4\\ic_mr_button_connecting_26_dark.png"
+    },
+    {
+        "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_navigation_black_24dp.png.flat",
+        "source": "C:\\Splash\\SplashApp\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_navigation_black_24dp.png"
     },
     {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_text_select_handle_right_mtrl_light.png.flat",
@@ -1362,6 +1378,10 @@
     {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_ic_dialog_close_dark.png.flat",
         "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\mediarouter-v7-27.1.1.aar\\a54e30a2e5fb2a489cf0ab27b5b9a974\\res\\drawable-xhdpi-v4\\ic_dialog_close_dark.png"
+    },
+    {
+        "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_navigation_black_24dp.png.flat",
+        "source": "C:\\Splash\\SplashApp\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_navigation_black_24dp.png"
     },
     {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_file_upload_black_24dp.png.flat",
@@ -2208,6 +2228,10 @@
         "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7c377afd7ce981c1a0a4ce87d156cb10\\res\\color\\abc_tint_switch_track.xml"
     },
     {
+        "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable_cariconwhite.png.flat",
+        "source": "C:\\Splash\\SplashApp\\src\\main\\res\\drawable\\cariconwhite.png"
+    },
+    {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xxxhdpi-v17_abc_spinner_mtrl_am_alpha.9.png.flat",
         "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7c377afd7ce981c1a0a4ce87d156cb10\\res\\drawable-ldrtl-xxxhdpi-v17\\abc_spinner_mtrl_am_alpha.9.png"
     },
@@ -2218,6 +2242,10 @@
     {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_ic_group_expand_13.png.flat",
         "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\mediarouter-v7-27.1.1.aar\\a54e30a2e5fb2a489cf0ab27b5b9a974\\res\\drawable-xxxhdpi-v4\\ic_group_expand_13.png"
+    },
+    {
+        "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_navigation_black_24dp.png.flat",
+        "source": "C:\\Splash\\SplashApp\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_navigation_black_24dp.png"
     },
     {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_ic_mr_button_connected_14_light.png.flat",
@@ -2822,6 +2850,10 @@
     {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_ic_vol_type_speaker_light.png.flat",
         "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\mediarouter-v7-27.1.1.aar\\a54e30a2e5fb2a489cf0ab27b5b9a974\\res\\drawable-xhdpi-v4\\ic_vol_type_speaker_light.png"
+    },
+    {
+        "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_navigation_black_24dp.png.flat",
+        "source": "C:\\Splash\\SplashApp\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_navigation_black_24dp.png"
     },
     {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_ic_media_play_light.png.flat",
@@ -3564,6 +3596,10 @@
         "source": "C:\\Splash\\SplashApp\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_alert.png"
     },
     {
+        "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_navigation_black_24dp.png.flat",
+        "source": "C:\\Splash\\SplashApp\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_navigation_black_24dp.png"
+    },
+    {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_places_ic_search.png.flat",
         "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-places-15.0.1.aar\\e9c638284ab719065bd99a17637b8f4f\\res\\drawable-mdpi-v4\\places_ic_search.png"
     },
@@ -3616,12 +3652,12 @@
         "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\mediarouter-v7-27.1.1.aar\\a54e30a2e5fb2a489cf0ab27b5b9a974\\res\\drawable-xhdpi-v4\\ic_vol_type_tv_dark.png"
     },
     {
-        "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_textfield_default_mtrl_alpha.9.png.flat",
-        "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7c377afd7ce981c1a0a4ce87d156cb10\\res\\drawable-xhdpi-v4\\abc_textfield_default_mtrl_alpha.9.png"
-    },
-    {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_notification_bg_normal.9.png.flat",
         "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\3540efecc89b71a4bac115e420786c34\\res\\drawable-mdpi-v4\\notification_bg_normal.9.png"
+    },
+    {
+        "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_textfield_default_mtrl_alpha.9.png.flat",
+        "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7c377afd7ce981c1a0a4ce87d156cb10\\res\\drawable-xhdpi-v4\\abc_textfield_default_mtrl_alpha.9.png"
     },
     {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_ic_mr_button_disconnected_dark.png.flat",
@@ -4404,6 +4440,10 @@
         "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\mediarouter-v7-27.1.1.aar\\a54e30a2e5fb2a489cf0ab27b5b9a974\\res\\drawable-xxhdpi-v4\\ic_media_play_light.png"
     },
     {
+        "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable_walknbiciwhite.gif.flat",
+        "source": "C:\\Splash\\SplashApp\\src\\main\\res\\drawable\\walknbiciwhite.gif"
+    },
+    {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_list_pressed_holo_light.9.png.flat",
         "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7c377afd7ce981c1a0a4ce87d156cb10\\res\\drawable-xxhdpi-v4\\abc_list_pressed_holo_light.9.png"
     },
@@ -4842,6 +4882,10 @@
     {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_common_google_signin_btn_text_light_normal_background.9.png.flat",
         "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-15.0.1.aar\\b1307e1a31e7dba454f21a54b56dbffa\\res\\drawable-xhdpi-v4\\common_google_signin_btn_text_light_normal_background.9.png"
+    },
+    {
+        "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_ic_navigation_black_24dp.png.flat",
+        "source": "C:\\Splash\\SplashApp\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_navigation_black_24dp.png"
     },
     {
         "merged": "C:\\Splash\\SplashApp\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_ic_mr_button_disabled_light.png.flat",

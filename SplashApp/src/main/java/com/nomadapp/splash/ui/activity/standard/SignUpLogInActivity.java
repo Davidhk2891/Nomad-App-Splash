@@ -517,16 +517,20 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
       loginButton.setOnClickListener(new View.OnClickListener(){
           @Override
           public void onClick(View v) {
-              if (signUpActive) {
-                  if (mAgreementTOU.isChecked()) {
+              try {
+                  if (signUpActive) {
+                      if (mAgreementTOU.isChecked()) {
+                          boxedLoadingDialog.showLoadingDialog();
+                          parseFbLogin();
+                      } else {
+                          forcedAlertDialog.mustAcceptTOUFirst();
+                      }
+                  } else {
                       boxedLoadingDialog.showLoadingDialog();
                       parseFbLogin();
-                  } else {
-                      forcedAlertDialog.mustAcceptTOUFirst();
                   }
-              }else{
-                  boxedLoadingDialog.showLoadingDialog();
-                  parseFbLogin();
+              }catch(NullPointerException e){
+                  e.printStackTrace();
               }
           }
       });

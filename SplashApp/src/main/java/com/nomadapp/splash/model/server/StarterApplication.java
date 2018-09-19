@@ -8,16 +8,52 @@
  */
 package com.nomadapp.splash.model.server;
 
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDexApplication;
+import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.nomadapp.splash.utils.forcedupdate.ForceUpdateChecker;
 import com.parse.Parse;
 import com.parse.ParseACL;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class StarterApplication extends MultiDexApplication {
+
+    private static final String TAG = StarterApplication.class.getSimpleName();
 
   @Override
   public void onCreate() {
       super.onCreate();
+
+      //Firebase//
+      final FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+
+      // set in-app defaults
+      Map<String, Object> remoteConfigDefaults = new HashMap<>();
+      remoteConfigDefaults.put(ForceUpdateChecker.KEY_UPDATE_REQUIRED, false);
+      remoteConfigDefaults.put(ForceUpdateChecker.KEY_CURRENT_VERSION, "1.0.0");
+      remoteConfigDefaults.put(ForceUpdateChecker.KEY_UPDATE_URL,
+              "https://play.google.com/store/apps/details?id=com.nomadapp.splash");
+
+      firebaseRemoteConfig.setDefaults(remoteConfigDefaults);
+      firebaseRemoteConfig.fetch(60) // fetch every minutes
+              .addOnCompleteListener(new OnCompleteListener<Void>() {
+                  @Override
+                  public void onComplete(@NonNull Task<Void> task) {
+                      if (task.isSuccessful()) {
+                          Log.i("onComplete", ">>>RAN<<<");
+                          Log.d(TAG, "remote config is fetched.");
+                          firebaseRemoteConfig.activateFetched();
+                      }
+                  }
+              });
+      //--------//
+
           // Enable Local DataStore.
           // Parse.enableLocalDataStore(this);
           // Add your initialization code here
@@ -64,7 +100,6 @@ public class StarterApplication extends MultiDexApplication {
       */
 
       //ParseUser.enableAutomaticUser();
-
       ParseACL defaultACL = new ParseACL();
       defaultACL.setPublicReadAccess(true);
       defaultACL.setPublicWriteAccess(true);

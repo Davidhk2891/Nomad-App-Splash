@@ -9,8 +9,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nomadapp.splash"
-    android:versionCode="30"
-    android:versionName="1.5.0" >
+    android:versionCode="32"
+    android:versionName="1.5.2" >
 
     <uses-sdk
         android:minSdkVersion="19"
@@ -109,7 +109,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.nomadapp.splash.ui.activity.splasherside.SplasherClientRouteActivity"
-            android:label="@string/title_activity_car_owner_location"
+            android:label="Splash"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.nomadapp.splash.ui.activity.carownerside.WashReqParamsActivity"
@@ -217,6 +217,16 @@
             android:screenOrientation="portrait" />
         <activity android:name="com.facebook.CustomTabMainActivity" />
 
+        <receiver
+            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
+
+        <service
+            android:name="com.google.android.gms.measurement.AppMeasurementService"
+            android:enabled="true"
+            android:exported="false" />
         <service
             android:name="com.parse.fcm.ParseFirebaseJobService"
             android:exported="false" >
@@ -235,39 +245,13 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="com.google.firebase.components.ComponentDiscoveryService" >
-            <meta-data
-                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
-                android:value="com.google.firebase.components.ComponentRegistrar" />
+        <service
+            android:name="com.google.firebase.components.ComponentDiscoveryService"
+            android:exported="false" >
             <meta-data
                 android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
                 android:value="com.google.firebase.components.ComponentRegistrar" />
         </service>
-
-        <receiver
-            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
-            android:enabled="true"
-            android:exported="false" >
-        </receiver>
-        <receiver
-            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.INSTALL_PACKAGES" >
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name="com.google.android.gms.measurement.AppMeasurementService"
-            android:enabled="true"
-            android:exported="false" />
-        <service
-            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
-            android:enabled="true"
-            android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <receiver
             android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
@@ -275,8 +259,6 @@
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-
-                <category android:name="com.nomadapp.splash" />
             </intent-filter>
         </receiver>
         <!--

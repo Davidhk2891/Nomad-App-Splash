@@ -190,6 +190,7 @@
                     android:background="@drawable/selective_bg_curved_grey"
                     android:inputType="textPersonName"
                     android:textAllCaps="false"
+                    android:textAlignment="center"
                     android:maxLines="1"
                     android:padding="6dp"
                     android:layout_width="290dp"

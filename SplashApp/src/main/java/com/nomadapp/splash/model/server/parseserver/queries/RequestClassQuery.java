@@ -159,24 +159,4 @@ public class RequestClassQuery {
             }
         });
     }
-
-    public void fetchReqForNotiSplasher(final RequestClassInterface.TakenRequest takenRequest){
-        UserClassQuery ucq = new UserClassQuery(context);
-        String splasherUsername = ucq.userName();
-        String[] splashStatus = {"clear", "canceled", splasherUsername};
-        final ParseQuery<ParseObject> dotQuery = ParseQuery.getQuery("Request");
-        dotQuery.whereContainedIn("splasherUsername", Arrays.asList(splashStatus));
-        dotQuery.whereEqualTo("taken", "no");
-        dotQuery.setLimit(30);
-        dotQuery.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null){
-                    if (objects.size() > 0){
-                        takenRequest.fetchThisTakenRequest(null);
-                    }
-                }
-            }
-        });
-    }
 }

@@ -53,7 +53,9 @@ public class PaymeConstants {
     //********************************************************************//
 
     //*************static price***************//
-    public static final double STATIC_TEMPORAL_PRICE = 12.217;
+    //15 SHEKEL promo = 12.217 (15)//
+    //30 SHEKEL promo = 25.792 (30)//
+    public static final double STATIC_TEMPORAL_PRICE = 25.792;
     //****************************************//
 
     //*************Car Owner Splash Fee Processor*******************//

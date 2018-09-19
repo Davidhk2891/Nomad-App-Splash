@@ -199,13 +199,13 @@
 
     <!--activity_splasher_client_route-->
     <string name="act_car_owner_location_profPicBadge">profPicBadge</string>
-    <string name="act_car_owner_location_clientTitle">לקוח: </string>
+    <string name="act_car_owner_location_clientTitle">לקוח</string>
     <string name="act_car_owner_location_username">שם משתמש</string>
     <string name="act_car_owner_location_CarAddress">כתובת המכונית</string>
     <string name="act_car_owner_location_5lines">-----</string>
     <string name="act_car_owner_location_carAddressDescTitle">פרטי הכתובת של המכונית</string>
     <string name="act_car_owner_location_carUntilTimeTitle">עד שעה</string>
-    <string name="act_car_owner_location_serviceTtypeTitle">סוג שירות</string>
+    <string name="act_car_owner_location_serviceTtypeTitle">שירות</string>
     <string name="act_car_owner_location_car">רכב</string>
     <string name="act_car_owner_location_color">צבע</string>
     <string name="act_car_owner_location_plate">מספר לוחית</string>
@@ -216,6 +216,11 @@
     <string name="act_car_owner_location_gettingYourLocation">מקבל את המיקום שלך&#8230;</string>
     <string name="act_car_owner_location_acceptRequest">קבל בקשה</string>
     <string name="act_car_owner_location_cancelRequest">בטל בקשה</string>
+    <string name="act_car_owner_location_plateCarColor">מספר וצבה של הרכב</string>
+    <string name="act_car_owner_location_clientAddress">כתובת לקוח</string>
+    <string name="act_car_owner_location_noDescription">- אין תיאור</string>
+    <string name="act_car_owner_location_navigate">נווט</string>
+    <string name="act_car_owner_location_availableIfReqTaken">זמין אם הבקשה נלקחה</string>
     <!--///////////////////////////-->
 
 
@@ -447,6 +452,12 @@
     <string name="act_my_services_motorcycle">אופנוע:</string>
     <string name="act_my_services_defaultPrice">&#8230;</string>
     <string name="act_my_services_save">שומר</string>
+    <string name="act_my_services_areaEpicenter">אזור מוקד</string>
+    <string name="act_my_services_areaRange">טווח שטח</string>
+    <string name="act_my_services_centerOfYourService">מרכז אזור השירות שלך</string>
+    <string name="act_my_services_serviceAreaRange">טווח אזור השירות</string>
+    <string name="act_my_services_serviceArea">אזור שירות</string>
+    <string name="act_my_services_selectHowWide">בחר כיצד רחב אתה רוצה אזור העבודה שלך להיות</string>
     <!--///////////////-->
 
     <!--STRINGS ONLY ON JAVA FILES (.class)-->
@@ -485,8 +496,9 @@
     <string name="carOwner_act_java_ofTomorrow">של מחר</string>
     <string name="carOwner_act_java_yourCar">הרכב שלך</string>
     <string name="carOwner_act_java_yourBike">האופנוע שלך</string>
-    <string name="carOwner_act_java_splasherCanceledYourRequest">השוטף שלך ביטל את בקשתך. נמשיך לחפש לך אחר</string>
-    <string name="carOwner_act_java_splasherCanceled"> שוטף מבוטל</string>
+    <string name="carOwner_act_java_splasherCanceledYourRequest">השוטף שביקשת אינה זמין כרגע. בחר אחד אחר</string>
+    <string name="carOwner_act_java_splasherCanceledYourRequest2">השוטף זה אינו זמין כרגע. Splash ינסה למצוא לך אחד חדש</string>
+    <string name="carOwner_act_java_splasherCanceled">שוטף אינו זמין</string>
     <string name="carOwner_act_java_yourSplasher">שוטף שלך</string>
     <string name="carOwner_act_java_is">הוא</string>
     <string name="carOwner_act_java_kmAwayFromCar">ק"מ מהרכב שלך</string>
@@ -522,6 +534,11 @@
     <string name="carOwner_Act_java_cancel">לבטל</string>
     <string name="carOwner_Act_java_logOutForErrTitle">תקלה קיימת :(</string>
     <string name="carOwner_Act_java_logOutForErrMsg">היתה בעיה עם האינטרנט שלך. המערכת תוציא אותך. אנא התחבר שוב ואם הבעיה נמשכת, פנה אלינו.</string>
+    <string name="carOwner_Act_java_setRange">הגדר את הטווח</string>
+    <string name="carOwner_Act_java_forcedUpdateTitle">גרסה חדשה זמינה</string>
+    <string name="carOwner_Act_java_forcedUpdateMessage">עדכן את Splash לגרסה האחרונה כדי להמשיך להשתמש בשירותים שלנו</string>
+    <string name="carOwner_Act_java_forcedUpdateYes">עדכן</string>
+    <string name="carOwner_Act_java_forcedUpdateNo">לא תודה</string>
     <!--/////////////////////-->
 
 
@@ -617,7 +634,7 @@
     <string name="washMyCar_act_java_StandardWash">שטיפה רגילה</string>
     <string name="washMyCar_act_java_StandardWashPlus">שטיפה רגילה + בוץ</string>
     <string name="washMyCar_act_java_motorcycle">אופנוע</string>
-    <string name="washMyCar_act_java_minimumDuration">משך מינימום של בקשה לשטיפת רכב חייב להיות לפחות 2 שעות</string>
+    <string name="washMyCar_act_java_minimumDuration">משך מינימום של בקשה לשטיפת רכב חייב להיות לפחות 5 שעות</string>
     <string name="washMyCar_act_java_yourWashTimeLimit">מגבלת הזמן לשטיפה מוגדרת לפני הזמן המקומי. שנה אותו</string>
     <string name="washMyCar_act_java_yourWashLimitShort">מגבלת הזמן לשטיפה קצרה מדי. שנה אותו</string>
     <string name="washMyCar_act_java_pleaseFillAll">מלא את כל השדות</string>
@@ -638,6 +655,7 @@
     <string name="paymentSettings_act_java_protectedPayment">תשלום באמצעות כרטיס אשראי מוגן. קל, יעיל ובטוח</string>
     <string name="paymentSettings_act_java_byClickingDone">בלחיצה על "אישור" הנך מאשר לקבל חשבוניות במייל ומסכים להיות כפוף לתנאי שימוש</string>
     <string name="paymentSettings_act_java_termsOfUse"><u>תנאי השימוש</u></string>
+    <string name="paymentSettings_act_java_pleaseEnterAValidP">בבקשה הכנס מספר טלפון תקין</string>
     <!--////////////////////////////-->
 
     <!--ConnectionLost.java-->

@@ -177,25 +177,25 @@ public class PaymentSettingsActivity extends AppCompatActivity implements View.O
                         .getText().toString().isEmpty())
                     && (!cCCNumber.getText().toString().isEmpty()) && (!cExpiryDateNumber
                         .getText().toString().isEmpty())
-                    && (!cCvvNumber.getText().toString().isEmpty())){
-                    cleanStringNameCC = cCardHolderInput.getText().toString();//<<<<<<<<<<<<<<<<<<<<<<FINAL
-                    cleanStringPhoneN = cPhoneNumberCCInput.getText().toString();//<<<<<<<<<<<<<<<<<<<FINAL
+                    && (!cCvvNumber.getText().toString().isEmpty())) {
+                    cleanStringNameCC = cCardHolderInput.getText().toString();//<<<<<<<<<<<<<<<FINAL
+                    cleanStringPhoneN = cPhoneNumberCCInput.getText().toString();//<<<<<<<<<<<<FINAL
                     cleanStringCCNumber = cCCNumber.getText().toString()
-                            .replace("-","");//<<<<FINAL
+                            .replace("-", "");//<<<<FINAL
                     cleanStringExpiryDate = cExpiryDateNumber.getText().toString()
-                            .replace("/","");//<<<<FINAL
-                    cleanStringCVV = cCvvNumber.getText().toString();//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<FINAL
-                    cleanIdNumber = cIdNumber.getText().toString();//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<FINAL
-                    //userEmailHolder//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<FINAL
+                            .replace("/", "");//<<<<FINAL
+                    cleanStringCVV = cCvvNumber.getText().toString();//<<<<<<<<<<<<<<<<<<<<<<<<FINAL
+                    cleanIdNumber = cIdNumber.getText().toString();//<<<<<<<<<<<<<<<<<<<<<<<<<<FINAL
+                    //userEmailHolder//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<FINAL
 
                     //-----------------------------------------------------------//
-                    Log.i("CCcleanStringNameCC",cleanStringNameCC);
-                    Log.i("CCcleanStringPhoneN",cleanStringPhoneN);
+                    Log.i("CCcleanStringNameCC", cleanStringNameCC);
+                    Log.i("CCcleanStringPhoneN", cleanStringPhoneN);
                     Log.i("CCcleanStringCCNumber", cleanStringCCNumber);
                     Log.i("CCcleanStringExpiryDate", cleanStringExpiryDate);
-                    Log.i("CCcleanStringCVV",cleanStringCVV);
+                    Log.i("CCcleanStringCVV", cleanStringCVV);
                     Log.i("CCcleanStringIdNumber", cleanIdNumber);
-                    Log.i("CCuserEmailHolder",userEmailHolder);
+                    Log.i("CCuserEmailHolder", userEmailHolder);
                     //-----------------------------------------------------------//
                     Log.i("CC------", "------------------------");
                     Log.i("CCNumber", cCCNumber.getText().toString());
@@ -219,6 +219,11 @@ public class PaymentSettingsActivity extends AppCompatActivity implements View.O
                     //RUN THE CAPTURE_BUYER API//
                     splashCaptureBuyer.runCaptureBuyer(boxedLoadingDialog, cSaveCardNumber);
                     ///////////////TEST////////////////
+                }else if(!cleanStringPhoneN.startsWith("05") && (cleanStringPhoneN.length() != 10)){
+                    //Please enter a valid phone number
+                    toastMessages.productionMessage(PaymentSettingsActivity.this
+                            ,getResources().getString(R.string
+                                    .paymentSettings_act_java_pleaseEnterAValidP),1);
                 }else{
                     String missingFieldsTitle = getResources().getString(R.string
                             .paymentSettings_act_java_missingFields);

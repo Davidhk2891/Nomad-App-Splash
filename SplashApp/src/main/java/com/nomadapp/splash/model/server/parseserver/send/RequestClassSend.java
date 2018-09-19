@@ -100,6 +100,9 @@ public class RequestClassSend {
             request.put("buyerKey", writeReadDataInFile.readFromFile
                     ("buyer_key_permanent"));//22
         }
+        String carOwnerPhoneNum = writeReadDataInFile.readFromFile("cleanStringPhoneN");
+        Log.i("carOwnerPhoneNum", carOwnerPhoneNum);
+        request.put("carOwnerPhoneNum",carOwnerPhoneNum);
         //-----------------------------------------------
         final boolean finalTemporalKeyActive = temporalKeyActive;
         request.saveInBackground(new SaveCallback() {

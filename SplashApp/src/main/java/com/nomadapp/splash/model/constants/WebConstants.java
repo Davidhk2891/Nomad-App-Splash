@@ -19,5 +19,6 @@ public class WebConstants {
     public static final String PRIVACY_POLICY = "http://splashmycar.com/privacy-policy/";
     public static final String TERMS_OF_USE = "http://splashmycar.com/terms-of-use/";
     public static final String FAQ = "http://splashmycar.com/faq/";
+    public static final String STORE_LINK = "https://play.google.com/store/apps/details?id=com.nomadapp.splash";
 
 }

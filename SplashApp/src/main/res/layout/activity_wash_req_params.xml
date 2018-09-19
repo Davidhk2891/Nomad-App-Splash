@@ -456,7 +456,7 @@
                     android:padding="24dp"
                     android:textAlignment="center"
                     android:textSize="48sp"
-                    android:text="₪15"/>
+                    android:text="₪30"/>
 
                 <TextView
                     android:id="@+id/splasherPriceSetComingSoon"

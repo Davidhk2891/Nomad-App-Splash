@@ -6,8 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
@@ -26,10 +24,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -45,19 +47,18 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import com.nomadapp.splash.R;
-import com.nomadapp.splash.model.imagehandler.GlideImagePlacement;
+import com.nomadapp.splash.model.mapops.MarkersOps;
 import com.nomadapp.splash.model.server.parseserver.ProfileClassInterface;
 import com.nomadapp.splash.model.server.parseserver.queries.ProfileClassQuery;
 import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
+import com.nomadapp.splash.utils.phonedialer.DialCall;
 import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.FindCallback;
@@ -84,29 +85,27 @@ import java.util.List;
 import com.nomadapp.splash.utils.sysmsgs.connectionlost.ConnectionLost;
 import com.nomadapp.splash.model.mapops.ClientRouteDataParser;
 
-//---- GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener is ABSTRACT CODE-----//
+//---- GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
+// is ABSTRACT CODE-----//
 public class SplasherClientRouteActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener, com.google.android.gms.location.LocationListener {
-//----------------------------------------------------------------------------------------------------------//
+        GoogleApiClient.OnConnectionFailedListener, LocationListener, com.google.android.gms
+                .location.LocationListener {
+//------------------------------------------------------------------------------------------------//
 
     //----------------------//
     private GoogleMap mMap;
-    private RelativeLayout cGetDirectionsLayout;
-    private RelativeLayout cRequestDetails;
-    private RelativeLayout cRequestDetailsInFull;
-    private TextView cGetDirections;
-    private ImageView cArrow;
-    private Button cAcceptRequest, cCancelRequest;
+    private Button cAcceptRequest;
     private AlertDialog.Builder acceptingRequestDialog;
     private AlertDialog.Builder COCanceledRequestDialog2;
     private Polyline firstBlackLine;
     private LinearLayout cGettingLocationLinear;
-
-    //------------------
+    private LinearLayout mRouteTypeLinear;
+    private android.support.v7.widget.SwitchCompat mRouteTypeSwitch;
+    private LatLng userLocationRoute, carOwnerLocationRoute;
+    //----------------------//
 
     //Checkers-------------------------------------------//
-    private boolean requestDetailInFullOn = false;
     private boolean pressed = false;
     private boolean alreadyExecuted4 = false;
     private boolean alraedyExecuted5 = false;
@@ -117,14 +116,42 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
     private boolean alreadyExecuted11 = false;
     private boolean foundTheCarCheck = false;
     private boolean VibTime = false;
+    private boolean switchIsActive = false;
     //---------------------------------------------------//
 
     private LocationManager locationManager;
     private LocationListener locationListener;
 
-    //semi-primitive variables
+    //---Car Owner and Request variables---//
+    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    private double currentLatitude;
+    private double currentLongitude;
+    private Double carOwnerRequestLatitude;
+    private Double carOwnerRequestLongitude;
+    private String recievedCOUntilTime;
+    private String recievedCOUPrice;
+    private String recievedCOPhoneNum;
+
+    private String url;
+
+    private LinearLayout mCarInfoServiceCallLinear;
+    private RelativeLayout mSpaMajorBtnBackspace;
+    private TextView cCoCarAddressEdit;
+    private TextView cCoCarAddressDescEdit;
+    private TextView cCoCarUntilTimeEdit;
+    private TextView cCoCarServiceTypeEdit;
+    private TextView mCarClientText;
+    private TextView mCarClientColorPlateText;
     private String recievedCOUsername;
     private String recievedCOServiceType;
+    private LinearLayout mNavigateLinear;
+    private ImageView mSplasher_stats_co_call;
+    private ImageView mNavIcon;
+    private String carColorPlate;
+    private String carOwnerPhoneNumber;
+    //---///////////////////////////////---//
+
+    //object variables//
     private String recievedGoBackKey;
     private String splasherNumWashes = null;
     private String splasherNumRating = null;
@@ -134,14 +161,6 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
     LocationRequest mLocationRequest;
     private PolylineOptions finalLineOptions;
     //---------------------//
-
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-    private double currentLatitude;
-    private double currentLongitude;
-    private Double carOwnerRequestLatitude;
-    private Double carOwnerRequestLongitude;
-    private String recievedCOUntilTime;
-    private String recievedCOUPrice;
 
     //private Handler handler = new Handler();
     private Handler handler2 = new Handler();
@@ -157,6 +176,7 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
     private BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog
             (SplasherClientRouteActivity.this);
     private ConnectionLost clm = new ConnectionLost(SplasherClientRouteActivity.this);
+    private MenuItem cancelItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,43 +205,23 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1000); // 1 second, in milliseconds
 
-        String splasher = getResources()
-                .getString(R.string.carOwner_act_java_splasher);
-        String carOwner = getResources()
-                .getString(R.string.carOwner_act_java_carOwner);
-
-        String serverSplasher = getResources()
-                .getString(R.string.carOwner_act_java_serverSplasher);
-        String serverCarOwner = getResources()
-                .getString(R.string.carOwner_act_java_serverCarOwner);
-
-        if (getSupportActionBar() != null)
-        getSupportActionBar().hide();
-
-        RelativeLayout cUserBadgeTwo = findViewById(R.id.userBadge2);
-        TextView cBadgeUserNameTwo = findViewById(R.id.userBadgeName2);
-        TextView cBadgeUserTypeTwo = findViewById(R.id.userBadgeUserType2);
         cAcceptRequest = findViewById(R.id.acceptRequest);
-        cCancelRequest = findViewById(R.id.cancelRequest);
-        cGetDirectionsLayout = findViewById(R.id.getdirectionsLayout);
-        cGetDirections = findViewById(R.id.getDirections);
-        cRequestDetails = findViewById(R.id.requestDetails);
-        cArrow = findViewById(R.id.arrow);
-        cRequestDetailsInFull = findViewById(R.id.requestDetailsInFull);
-        ImageView cUserBadgePic2 = findViewById(R.id.userBadgePic2);
         cGettingLocationLinear = findViewById(R.id.gettinLocaionLinear);
 
-
         //CarOwner's Details 2
-        TextView cCoUsername = findViewById(R.id.coUsername);
-        TextView cCoCarAddressEdit = findViewById(R.id.coCarAddressEdit);
-        TextView cCoCarAddressDescEdit = findViewById(R.id.coCarAddressDescEdit);
-        TextView cCoCarUntilTimeEdit = findViewById(R.id.coCarUntilTimeEdit);
-        TextView cCoCarServiceTypeEdit = findViewById(R.id.coCarServiceTypeEdit);
-        TextView cCoCarBrand = findViewById(R.id.coCarBrand);
-        TextView cCoCarModel = findViewById(R.id.coCarModel);
-        TextView cCoCarColorEdit = findViewById(R.id.coCarColorEdit);
-        TextView cCoCarPlateEdit = findViewById(R.id.coCarPlateEdit);
+        mCarInfoServiceCallLinear = findViewById(R.id.carInfoServiceCallLinear);
+        cCoCarAddressEdit = findViewById(R.id.coCarAddressEdit);
+        cCoCarAddressDescEdit = findViewById(R.id.coCarAddressDescEdit);
+        cCoCarUntilTimeEdit = findViewById(R.id.coCarUntilTimeEdit);
+        cCoCarServiceTypeEdit = findViewById(R.id.coCarServiceTypeEdit);
+        mCarClientText = findViewById(R.id.carClientText);
+        mCarClientColorPlateText = findViewById(R.id.carClientColorPlateText);
+        mSpaMajorBtnBackspace = findViewById(R.id.spaMajorBtnBackspace);
+        mNavigateLinear = findViewById(R.id.navigateLinear);
+        mSplasher_stats_co_call = findViewById(R.id.splasher_stats_co_call);
+        mNavIcon = findViewById(R.id.navIcon);
+        mRouteTypeLinear = findViewById(R.id.routeTypeLinear);
+        mRouteTypeSwitch = findViewById(R.id.routeTypeSwitch);
         //-------------------
 
         //"Found the car" definitions
@@ -229,64 +229,58 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
         cFoundCarTextKm = findViewById(R.id.foundTheCarText);
         cFoundItText = findViewById(R.id.foundItText);
 
-        cUserBadgeTwo.setTranslationX(-1000f);
-        cBadgeUserNameTwo.setTranslationX(-1000f);
-        cBadgeUserTypeTwo.setTranslationX(-1000f);
-        cFoundTheCarRelative.setTranslationX(-1000f);
-        cGetDirections.setTranslationX(1000f);
-        cGetDirectionsLayout.setTranslationX(1000f);
-        cRequestDetails.setTranslationX(1000f);
-        cArrow.setTranslationX(1000f);
-        cRequestDetailsInFull.setTranslationX(1200f);
-        cRequestDetailsInFull.setVisibility(View.GONE);
         cAcceptRequest.setClickable(false);
         cAcceptRequest.setEnabled(false);
-
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        if (currentUser != null) {
-            String userNameForBadge = ParseUser.getCurrentUser().getUsername();
-            cBadgeUserNameTwo.setText(userNameForBadge);
-            cUserBadgeTwo.animate().translationXBy(1000f).setDuration(800);
-            badgeAnimationTwo(cBadgeUserNameTwo);
-            //-->THIS CONTROLS THE APPLICATION FLOW. DEPENDING ON USER TYPE: CAROWNER OR SPLASHER-//
-            if (currentUser.getString("CarOwnerOrSplasher").equals(serverSplasher)) {
-                cBadgeUserTypeTwo.setText(splasher);
-                badgeAnimationTwo(cBadgeUserTypeTwo);
-            } else if(currentUser.getString("CarOwnerOrSplasher").equals(serverCarOwner)) {
-                cBadgeUserTypeTwo.setText(carOwner);
-                badgeAnimationTwo(cBadgeUserTypeTwo);
-            }
-        }
+        mRouteTypeLinear.setVisibility(View.GONE);
 
         Intent intent = getIntent();
         recievedCOUsername = intent.getStringExtra("carOwnerUsername");
         String recievedCOAddress = intent.getStringExtra("carOwnerCarAddress");
         String recievedCOAddressDesc = intent.getStringExtra("carOwnerCarAddressDesc");
-        recievedCOUntilTime = intent.getStringExtra("carOwnerCarUntilTime");//get this
-        Log.i("recievedCOUUntilTime", recievedCOUntilTime);
+        recievedCOUntilTime = intent.getStringExtra("carOwnerCarUntilTime");
         recievedCOServiceType = intent.getStringExtra("carOwnerCarServiceType");
         recievedCOUPrice = intent.getStringExtra("setPrice");
-        Log.i("recievedCOUPrice", recievedCOUPrice);
-        //---------------------------------------------------------------------------------------
+        //---------------------------------------------------------------------------------------//
         String recievedCOCarBrand = intent.getStringExtra("carOwnerCarBrand");
         String recievedCOCarModel = intent.getStringExtra("carOwnerCarModel");
         String recievedCOCarColor = intent.getStringExtra("carOwnerCarColor");
         String recievedCOCarPlate = intent.getStringExtra("carOwnerCarPlate");
+        recievedCOPhoneNum = intent.getStringExtra("carOwnerPhoneNum");
         recievedGoBackKey = intent.getStringExtra("specData");
-        //---------------------------------------------------------------------------------------
+        //---------------------------------------------------------------------------------------//
 
-        //display carOwner's info in the square:
+        //---...---//
+        if (recievedCOUsername != null) {
+            if (recievedCOServiceType.contains("External") && recievedCOServiceType
+                    .contains("wash")) {
+                recievedCOServiceType = "External wash";
+            }
+            String fixedUntilTime = "";
+            if (recievedCOUntilTime.contains("PM")) {
+                Log.i("recievedCOUUntilTimePM", recievedCOUntilTime);
+                fixedUntilTime = recievedCOUntilTime.replace("PM", "");
+            } else if (recievedCOUntilTime.contains("AM")) {
+                Log.i("recievedCOUUntilTimeAM", recievedCOUntilTime);
+                fixedUntilTime = recievedCOUntilTime.replace("AM", "");
+            }
+            if (recievedCOAddressDesc.equals("") || recievedCOAddressDesc.isEmpty()) {
+                recievedCOAddressDesc = getResources().getString(R.string
+                        .act_car_owner_notSpecified);
+            }
+            String carClient = recievedCOCarBrand + " " + recievedCOCarModel;
+            carColorPlate = recievedCOCarPlate + " | " + recievedCOCarColor;
 
-        cCoUsername.setText(recievedCOUsername);
-        cCoCarAddressEdit.setText(recievedCOAddress);
-        cCoCarAddressDescEdit.setText(recievedCOAddressDesc);
-        cCoCarUntilTimeEdit.setText(recievedCOUntilTime);
-        cCoCarServiceTypeEdit.setText(recievedCOServiceType);
-        //----------------------------------------------------//
-        cCoCarBrand.setText(recievedCOCarBrand);
-        cCoCarModel.setText(recievedCOCarModel);
-        cCoCarColorEdit.setText(recievedCOCarColor);
-        cCoCarPlateEdit.setText(recievedCOCarPlate);
+            cCoCarUntilTimeEdit.setText(fixedUntilTime);
+            cCoCarServiceTypeEdit.setText(recievedCOServiceType);
+            mCarClientText.setText(carClient);
+            criticalFeaturesState(false, getResources().getString(R.string
+                    .act_car_owner_location_availableIfReqTaken)
+                    , Color.parseColor("#BDBDBD"));
+            //recievedCOUsername
+            cCoCarAddressEdit.setText(recievedCOAddress);
+            cCoCarAddressDescEdit.setText(recievedCOAddressDesc);
+        }
+        //---...---//
 
         //Here, if distance to car is less than 0.2, boolean = true, and if true --> text click
         //enabled with Intent to camera activity
@@ -332,41 +326,7 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
         });
 
         //Here. Splasher's in, set "taken" to "yes"//
-        setTakenStatus("yes");
-        //-----------------------------------------//
-
-        //------Get Profile Pic here---------------//
-        final Bitmap defaultPic = BitmapFactory.decodeResource(getResources(), R.drawable
-                .theemptyface);
-        GlideImagePlacement glideImagePlacement = new GlideImagePlacement
-                (SplasherClientRouteActivity.this);
-        try {
-            if(currentUser != null) {
-                if (currentUser.getString("fbProfilePic").contains("https")) {
-                    if (currentUser.getString("fbProfilePic") != null) {
-                        String fbPicHolder = currentUser.getString("fbProfilePic");
-                        Log.i("fetched FbPicData", "Is: " + fbPicHolder);
-                        Uri fbPicHolderUri = Uri.parse(fbPicHolder);
-                        if (fbPicHolder != null) {
-                            glideImagePlacement.roundImagePlacementFromUri(fbPicHolderUri
-                                    , cUserBadgePic2);
-                        }
-                    } else {
-                        cUserBadgePic2.setImageBitmap(defaultPic);
-                    }
-                } else if (currentUser.getString("fbProfilePic").contains("content")) {
-                    ParseFile noFbProfileFile = currentUser.getParseFile("localProfilePic");
-                    String noFbProfileString = noFbProfileFile.getUrl();
-                    if (noFbProfileString != null){
-                        glideImagePlacement.roundImagePlacementFromString(noFbProfileString
-                                , cUserBadgePic2);
-                    }
-                }
-            }
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            cUserBadgePic2.setImageBitmap(defaultPic);
-        }
+        //setTakenStatus("yes");
         //-----------------------------------------//
 
         //Run this if specific data transfered from HomeActivity(Splasher reintegrates to app)//
@@ -382,6 +342,123 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
         fetchProfileDataForRequest();
 
         clm.connectivityStatus(SplasherClientRouteActivity.this);
+        mRouteTypeSwitch.setChecked(false);
+        switchRouteType();
+        Log.i("routeModeCheck1", String.valueOf(mRouteTypeSwitch.isChecked()));
+        Log.i("weareinWHAT", String.valueOf(switchIsActive));
+    }
+
+    //TODO:0 FUCKED UP BUG. YOU HAVE TO FIX THIS
+    private void switchRouteType(){
+        mRouteTypeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!switchIsActive){
+                    //switch is on(car route)
+                    if (finalLineOptions != null) {
+                        String carMode = "";
+                        url = getUrl(userLocationRoute, carOwnerLocationRoute, carMode);
+                        FetchUrl fetchUrl = new FetchUrl();
+                        fetchUrl.execute(url);
+                        Log.i("weareinCAR",": " + url);
+                        new CountDownTimer(3000,1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                cGettingLocationLinear.setVisibility(View.VISIBLE);
+                                mRouteTypeSwitch.setEnabled(false);
+                                mRouteTypeSwitch.setClickable(false);
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                mMap.clear();
+                                alraedyExecuted5 = false;
+                                markerOpsPlacement();
+                                cGettingLocationLinear.setVisibility(View.GONE);
+                                if (finalLineOptions != null) {
+                                    mMap.addPolyline(finalLineOptions);
+                                }
+                                mRouteTypeSwitch.setEnabled(true);
+                                mRouteTypeSwitch.setClickable(true);
+                                switchIsActive = true;
+                            }
+                        }.start();
+                    }
+                }else{
+                    //switch is off(bicycle route)
+                    if (finalLineOptions != null) {
+                        String walkBiciMode = "&mode=walking";
+                        url = getUrl(userLocationRoute, carOwnerLocationRoute, walkBiciMode);
+                        FetchUrl fetchUrl = new FetchUrl();
+                        fetchUrl.execute(url);
+                        Log.i("weareinWALK/BY",": " + url);
+                        new CountDownTimer(3000,1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                cGettingLocationLinear.setVisibility(View.VISIBLE);
+                                mRouteTypeSwitch.setEnabled(false);
+                                mRouteTypeSwitch.setClickable(false);
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                mMap.clear();
+                                alraedyExecuted5 = false;
+                                markerOpsPlacement();
+                                cGettingLocationLinear.setVisibility(View.GONE);
+                                if (finalLineOptions != null) {
+                                    mMap.addPolyline(finalLineOptions);
+                                }
+                                mRouteTypeSwitch.setEnabled(true);
+                                mRouteTypeSwitch.setClickable(true);
+                                switchIsActive = false;
+                            }
+                        }.start();
+                    }
+                }
+            }
+        });
+    }
+
+//    private void routeSwitchOps(final PolylineOptions lineOptions){
+//        new CountDownTimer(2000,1000) {
+//            @Override
+//            public void onTick(long millisUntilFinished) {
+//                cGettingLocationLinear.setVisibility(View.VISIBLE);
+//                mRouteTypeSwitch.setEnabled(false);
+//                mRouteTypeSwitch.setClickable(false);
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                cGettingLocationLinear.setVisibility(View.GONE);
+//                mMap.addPolyline(lineOptions);
+//                mRouteTypeSwitch.setEnabled(true);
+//                mRouteTypeSwitch.setClickable(true);
+//            }
+//        }.start();
+//    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_tool_bar_menu, menu);
+        cancelItem = menu.findItem(R.id.action_cancel_wash);
+        if (pressed){
+            cancelItem.setVisible(true);
+        }else{
+            cancelItem.setVisible(false);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_cancel_wash){
+            String justCancelingMessage = getResources().getString(R.string
+                    .carOwnerLocation_act_java_cancelingRequestsWill);
+            cancelRequestToSetBackToClear(justCancelingMessage);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //Runnable for request canceled or taken requests
@@ -402,7 +479,7 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (cRequestDetailsInFull.getVisibility() == View.VISIBLE) {
+            if (mSpaMajorBtnBackspace.getVisibility() == View.GONE) {
                 moveTaskToBack(true);
             } else {
                 if(recievedGoBackKey.equals("CORAKey")) {
@@ -444,54 +521,34 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
         */
     }
 
-    //CANCEL REQUEST 3
-    public void cancelRequest(View view) {
-        String justCancelingMessage = getResources().getString(R.string
-                .carOwnerLocation_act_java_cancelingRequestsWill);
-
-        cancelRequestToSetBackToClear(justCancelingMessage);
-    }
-
-    public void badgeAnimationTwo(TextView badges) {
-        badges.animate().translationXBy(1000f).setDuration(800);
+    public void callCarOwner(View v){
+        //call car owner
+        DialCall dialCall = new DialCall(SplasherClientRouteActivity.this);
+        dialCall.fetchPhoneNumToDial(recievedCOPhoneNum);
     }
 
     public void currentLocationToRequest(Location location) {
-
-        currentLatitude = location.getLatitude(); //for Google getDirections----------------------//
-        currentLongitude = location.getLongitude(); //for Google getDirections--------------------//
-        LatLng userLocation = new LatLng(currentLatitude, currentLongitude);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        currentLatitude = location.getLatitude();//for Google getDirections----------------------//
+        currentLongitude = location.getLongitude();//for Google getDirections--------------------//
+        userLocationRoute = new LatLng(currentLatitude, currentLongitude);
         Intent intent = getIntent();
         carOwnerRequestLatitude = intent.getDoubleExtra("requestLatitudes", 0);//-//
         carOwnerRequestLongitude = intent.getDoubleExtra("requestLongitudes", 0);///
-        LatLng carOwnerLocation = new LatLng(carOwnerRequestLatitude, carOwnerRequestLongitude);
+        carOwnerLocationRoute = new LatLng(carOwnerRequestLatitude, carOwnerRequestLongitude);
 
         ArrayList<LatLng> latLngs = new ArrayList<>();
 
-        latLngs.add(userLocation);
+        latLngs.add(userLocationRoute);
 
-        latLngs.add(carOwnerLocation);
+        latLngs.add(carOwnerLocationRoute);
 
-        if(recievedCOServiceType.equals("motorcycle") || recievedCOServiceType.equals("אופנוע")){
-            if (!alraedyExecuted5) {
-                mMap.addMarker(new MarkerOptions().position(carOwnerLocation).title(getResources().getString(R.string.carOwnerLocation_act_java_yourClient))
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.motorbikelocationsmall)));
-                alraedyExecuted5 = true;
-            }
-        }else {
-            if (!alraedyExecuted5) {
-                mMap.addMarker(new MarkerOptions().position(carOwnerLocation).title(getResources().getString(R.string.carOwnerLocation_act_java_yourClient))
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.carlocationsmalltwo)));
-                alraedyExecuted5 = true;
-            }
-        }
+        markerOpsPlacement();
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
         for (LatLng latLng : latLngs) {
-
             builder.include(latLng);
-
         }
 
         LatLngBounds bounds = builder.build();
@@ -510,14 +567,18 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
         }
+        //TODO:1
+        //routeType
+        String walkBiciMode = "&mode=walking";
 
         // Getting URL to the Google Directions API
-        String url = getUrl(userLocation, carOwnerLocation);
+        url = getUrl(userLocationRoute, carOwnerLocationRoute, walkBiciMode);
+        Log.i("routeMode",url);
         FetchUrl fetchUrl = new FetchUrl();
+        switchIsActive = false;
 
         // Start downloading json data from Google Directions API
         fetchUrl.execute(url);
-
         //----------------------------------------------------------------------//
 
         int width = getResources().getDisplayMetrics().widthPixels;
@@ -530,9 +591,34 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
 
         if(alreadyExecuted6) {
             firstBlackLine = mMap.addPolyline(new PolylineOptions()
-                    .add(userLocation, carOwnerLocation)
+                    .add(userLocationRoute, carOwnerLocationRoute)
                     .width(8)
                     .color(Color.BLACK));
+        }
+    }
+
+    private void markerOpsPlacement(){
+        if (recievedCOUsername != null) {
+            MarkersOps markersOps = new MarkersOps(SplasherClientRouteActivity.this);
+            if (recievedCOServiceType.equals("motorcycle") || recievedCOServiceType.equals("אופנוע")) {
+                if (!alraedyExecuted5) {
+                    markersOps.customMapSmallMarkerPlacer(
+                            R.drawable.bigbikepinforrequest
+                            , getResources().getString(R.string.carOwnerLocation_act_java_yourClient)
+                            , mMap
+                            , carOwnerLocationRoute);
+                    alraedyExecuted5 = true;
+                }
+            } else {
+                if (!alraedyExecuted5) {
+                    markersOps.customMapSmallMarkerPlacer(
+                            R.drawable.bigcarpinforrequest
+                            , getResources().getString(R.string.carOwnerLocation_act_java_yourClient)
+                            , mMap
+                            , carOwnerLocationRoute);
+                    alraedyExecuted5 = true;
+                }
+            }
         }
     }
 
@@ -555,7 +641,7 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
                         alreadyExecuted10 = true;
 
                         if (alreadyExecuted11){
-                            requestAcceptedFirstOperations();//TEST//
+                            requestAcceptedFirstOperations();
                             alreadyExecuted11 = false;
                         }
                     }
@@ -600,10 +686,10 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
                     Log.i("km rounded and with 1DP", distanceInKmOneDP.toString());
 
                     if (distanceInKm < 0.1) { //100 meters to accurrate for testing.
-                        foundTheCarCheck = true;
-                        cFoundItText.setTextColor(Color.WHITE);
-                        cFoundItText.startAnimation(shake);
                         if (pressed) {
+                            foundTheCarCheck = true;
+                            cFoundItText.setTextColor(Color.GREEN);
+                            cFoundItText.startAnimation(shake);
                             if (!VibTime) {
                                 toastMessages.productionMessage(getApplicationContext()
                                 ,getResources().getString(R.string
@@ -735,51 +821,53 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
         checkForNonExistentUsername.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null && objects.size() > 0) {
-                    for(ParseObject object : objects){
-                        String splasherUser = ParseUser.getCurrentUser().getUsername();
-                        Log.i("splasher", "is: " + splasherUser);
-                        if(object.getString("splasherUsername").equals("clear") ||
-                                object.getString("splasherUsername").equals("canceled")){
-                            toastMessages.debugMesssage(getApplicationContext()
-                            ,"clear. we good",1);
+                if (e == null) {
+                    if (objects.size() > 0) {
+                        for (ParseObject object : objects) {
+                            String splasherUser = ParseUser.getCurrentUser().getUsername();
+                            Log.i("splasher", "is: " + splasherUser);
+                            if (object.getString("splasherUsername").equals("clear") ||
+                                    object.getString("splasherUsername").equals("canceled")) {
+                                toastMessages.debugMesssage(getApplicationContext()
+                                        , "clear. we good", 1);
 
-                        }else if(object.getString("splasherUsername").equals(splasherUser)){
-                            toastMessages.debugMesssage(getApplicationContext()
-                                    ,"My username. we good",1);
-                            if(alreadyExecuted8) {
-                                if (!alreadyExecuted4) {
-                                    cancelationThreeDialogTakenNo();
-                                    alreadyExecuted4 = true;
+                            } else if (object.getString("splasherUsername").equals(splasherUser)) {
+                                toastMessages.debugMesssage(getApplicationContext()
+                                        , "My username. we good", 1);
+                                if (alreadyExecuted8) {
+                                    if (!alreadyExecuted4) {
+                                        cancelationThreeDialogTakenNo();
+                                        alreadyExecuted4 = true;
+                                    }
                                 }
-                            }
-                            alreadyExecuted9 = true;
-                            //RUN AND TEST
+                                alreadyExecuted9 = true;
+                                //RUN AND TEST
 
-                        }else if(!object.getString("splasherUsername").equals(splasherUser)){
-                            toastMessages.debugMesssage(getApplicationContext(),
-                                    "Someone else. NOT good",1);
-                            if(!alreadyExecuted9) {
-                                if (!alreadyExecuted4) {
-                                    cancelationThreeDialogTakenYes();//IF THERE IS DISPUTE NO ONE GETS ANY $
-                                    alreadyExecuted4 = true;
-                                }
-                                alreadyExecuted8 = true;
+                            } else if (!object.getString("splasherUsername").equals(splasherUser)) {
+                                toastMessages.debugMesssage(getApplicationContext(),
+                                        "Someone else. NOT good", 1);
+                                if (!alreadyExecuted9) {
+                                    if (!alreadyExecuted4) {
+                                        cancelationThreeDialogTakenYes();//IF THERE IS DISPUTE NO ONE GETS ANY $
+                                        alreadyExecuted4 = true;
+                                    }
+                                    alreadyExecuted8 = true;
 
-                            }else{
-                                if(!alreadyExecuted4){
-                                    cancelationThreeDialogTakenNo();
-                                    alreadyExecuted4 = true;
+                                } else {
+                                    if (!alreadyExecuted4) {
+                                        cancelationThreeDialogTakenNo();
+                                        alreadyExecuted4 = true;
+                                    }
                                 }
                             }
                         }
-                    }
-                }else if(e == null && objects.size() == 0){
-                    toastMessages.debugMesssage(getApplicationContext()
-                    ,"request no longer extists. NOT good.",1);
-                    if(!alreadyExecuted4){
-                        cancelationTwoDialog();
-                        alreadyExecuted4 = true;
+                    }else{
+                        toastMessages.debugMesssage(getApplicationContext()
+                                ,"request no longer extists. NOT good.",1);
+                        if(!alreadyExecuted4){
+                            cancelationTwoDialog();
+                            alreadyExecuted4 = true;
+                        }
                     }
                 }
             }
@@ -788,7 +876,8 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
 
     public void cancelationTwoDialog(){
         COCanceledRequestDialog2 = new AlertDialog.Builder(SplasherClientRouteActivity.this);
-        COCanceledRequestDialog2.setTitle(getResources().getString(R.string.carOwnerLocation_act_java_carOwnerCanceled));
+        COCanceledRequestDialog2.setTitle(getResources().getString(R.string
+                .carOwnerLocation_act_java_carOwnerCanceled));
         COCanceledRequestDialog2.setIcon(android.R.drawable.ic_dialog_alert);
         COCanceledRequestDialog2.setMessage(getResources().getString(R.string
                 .carOwnerLocation_act_java_thisCarWashRequestWasCanceled));
@@ -889,49 +978,9 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
     }
     */
 
-    public void requestRequestDetails(View view){
-
-        if(!requestDetailInFullOn) {
-            //Same method specs to apply to HomeActivity.java
-            cRequestDetailsInFull.animate().translationXBy(-1200f).setDuration(800);
-            cArrow.animate().rotation(-180f).setDuration(600);
-            requestDetailInFullOn = true;
-            new CountDownTimer(2000, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    cRequestDetails.setClickable(false);
-                }
-
-                @Override
-                public void onFinish() {
-                    cRequestDetails.setClickable(true);
-                }
-            }.start();
-
-
-        } else {
-
-            cRequestDetailsInFull.animate().translationXBy(1200f).setDuration(800);
-            cArrow.animate().rotation(360f).setDuration(600);
-            requestDetailInFullOn = false;
-            new CountDownTimer(2000, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    cRequestDetails.setClickable(false);
-                }
-
-                @Override
-                public void onFinish() {
-                    cRequestDetails.setClickable(true);
-                }
-            }.start();
-
-        }
-
-    }
-
+    //TODO:2
     //-----ABSTRACT CODE TO DRAW PATH FROM LOCATION TO LOCATION-------------------------------------
-    private String getUrl(LatLng origin, LatLng dest) {
+    private String getUrl(LatLng origin, LatLng dest, String mode) {
 
         // Origin of route
         String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
@@ -939,26 +988,24 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
         // Destination of route
         String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
 
-
         // Sensor enabled
         String sensor = "sensor=false";
 
         // Building the parameters to the web service
         String parameters = str_origin + "&" + str_dest + "&" + sensor;
 
-        //TODO: Add mode=walking
-        // Mode
+        //Mode
         //String mode = "mode=walking";
         //String mode2 = "mode=bicycling";
         //All put together with modes (Example):
-        //http://maps.googleapis.com/maps/api/directions/json?origin=Toronto&destination=Montreal&sensor=false&mode=walking
+        //http://maps.googleapis.com/maps/api/directions/json?origin=Toronto&destination=
+        //Montreal&sensor=false&mode=walking
 
         // Output format
         String output = "json";
 
         // Building the url to the web service
-
-        return "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
+        return "https://maps.googleapis.com/maps/api/directions/"+output+"?"+parameters+mode;
     }
 
     /**
@@ -1184,6 +1231,7 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
                         for (ParseObject object : objects){
                             object.put("splasherUsername", ParseUser.getCurrentUser()
                                     .getUsername());
+                            object.put("taken","yes");
                             ParseFile pf1 = ParseUser.getCurrentUser()
                                     .getParseFile("localProfilePic");
                             if(pf1 != null){
@@ -1206,6 +1254,7 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
                                     if(e == null){
                                         //check 'where are you'app for when is location upadted call
                                         pressed = true;
+                                        cancelItem.setVisible(true);
                                         if (firstBlackLine.isVisible()) {
                                             firstBlackLine.remove();
                                         }
@@ -1214,8 +1263,6 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
                                                 mMap.addPolyline(finalLineOptions);
                                             }
                                         }
-                                        cAcceptRequest.setVisibility(View.GONE);
-                                        cCancelRequest.setVisibility(View.VISIBLE);
                                         if(ContextCompat.checkSelfPermission(
                                                 SplasherClientRouteActivity. this
                                                 , android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -1255,39 +1302,28 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
                                                     });
                                                 }
                                             } else {
-                                                if (lastKnownLocation != null) {
-                                                    ParseGeoPoint splasherGeoPoint
-                                                            = new ParseGeoPoint(lastKnownLocation
-                                                            .getLatitude(), lastKnownLocation
-                                                            .getLongitude());
-                                                    ParseUser.getCurrentUser().put("location"
-                                                            , splasherGeoPoint);
-                                                    ParseUser.getCurrentUser().saveInBackground
-                                                            (new SaveCallback() {
-                                                        @Override
-                                                        public void done(ParseException e) {
-                                                            if(e == null){
-                                                                Log.i("splasherLocation"
-                                                                        , "works");
-                                                            }else{
-                                                                clm.connectionLostDialog();
-                                                            }
+                                                ParseGeoPoint splasherGeoPoint
+                                                        = new ParseGeoPoint(lastKnownLocation
+                                                        .getLatitude(), lastKnownLocation
+                                                        .getLongitude());
+                                                ParseUser.getCurrentUser().put("location"
+                                                        , splasherGeoPoint);
+                                                ParseUser.getCurrentUser().saveInBackground
+                                                        (new SaveCallback() {
+                                                    @Override
+                                                    public void done(ParseException e) {
+                                                        if(e == null){
+                                                            Log.i("splasherLocation"
+                                                                    , "works");
+                                                        }else{
+                                                            clm.connectionLostDialog();
                                                         }
-                                                    });
-                                                }
+                                                    }
+                                                });
                                             }
                                         }
                                         boxedLoadingDialog.hideLoadingDialog();
-                                        cGetDirections.animate().translationXBy(-1000f)
-                                                .setDuration(800);
-                                        cGetDirectionsLayout.animate().translationXBy(-1000f)
-                                                .setDuration(800);
-                                        cRequestDetails.animate().translationXBy(-1000f)
-                                                .setDuration(800);
-                                        cArrow.animate().translationXBy(-1000f).setDuration(800);
-                                        cFoundTheCarRelative.animate().translationXBy(1000f)
-                                                .setDuration(800);
-                                        cRequestDetailsInFull.setVisibility(View.VISIBLE);
+                                        dashboardTransformOnPressed();
                                     }else{
                                         clm.connectionLostDialog();
                                     }
@@ -1298,6 +1334,31 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
                 }
             }
         });
+    }
+
+    private void dashboardTransformOnPressed(){
+        mRouteTypeLinear.setVisibility(View.VISIBLE);
+        mSpaMajorBtnBackspace.setVisibility(View.GONE);
+        RelativeLayout.LayoutParams params= new RelativeLayout
+                .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
+                ,ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        mCarInfoServiceCallLinear.setLayoutParams(params);
+        criticalFeaturesState(true,carColorPlate,Color.parseColor("#03a9f4"));
+    }
+
+    private void criticalFeaturesState(boolean state,String colorPlateText,int color){
+        mNavigateLinear.setClickable(state);
+        mNavigateLinear.setEnabled(state);
+
+        mNavIcon.setColorFilter(color);
+        mSplasher_stats_co_call.setColorFilter(color);
+
+        mSplasher_stats_co_call.setClickable(state);
+        mSplasher_stats_co_call.setEnabled(state);
+
+        mCarClientColorPlateText.setText(colorPlateText);
     }
 
     public void getDirectionsProcess(){
@@ -1483,24 +1544,40 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
                                         @Override
                                         public void done(ParseException e) {
                                             if(pressed) {
-                                                ParseQuery<ParseObject> directionQuery = ParseQuery.getQuery("Profile");
-                                                directionQuery.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
-                                                directionQuery.findInBackground(new FindCallback<ParseObject>() {
+                                                ParseQuery<ParseObject> directionQuery = ParseQuery
+                                                        .getQuery("Profile");
+                                                directionQuery.whereEqualTo("username", ParseUser
+                                                        .getCurrentUser().getUsername());
+                                                directionQuery.findInBackground(
+                                                        new FindCallback<ParseObject>() {
                                                     @Override
-                                                    public void done(List<ParseObject> objects, ParseException e) {
+                                                    public void done(List<ParseObject> objects
+                                                            , ParseException e) {
                                                         if (e == null) {
                                                             if (objects.size() > 0) {
                                                                 int totalCanceledWashes;
                                                                 int newTotalCanceledWashes;
                                                                 for (ParseObject object : objects) {
-                                                                    totalCanceledWashes = Integer.parseInt(object.getString("washesCanceled"));
-                                                                    newTotalCanceledWashes = totalCanceledWashes + 1;
-                                                                    object.put("washesCanceled", newTotalCanceledWashes);
-                                                                    object.saveInBackground(new SaveCallback() {
+                                                                    totalCanceledWashes =
+                                                                            Integer.parseInt(object
+                                                                                    .getString
+                                                                            ("washesCanceled"));
+                                                                    newTotalCanceledWashes =
+                                                                            totalCanceledWashes + 1;
+                                                                    object.put("washesCanceled",
+                                                                            newTotalCanceledWashes);
+                                                                    object.saveInBackground(new
+                                                                              SaveCallback() {
                                                                         @Override
-                                                                        public void done(ParseException e) {
-                                                                            ParseUser.getCurrentUser().saveInBackground();
-                                                                            Intent intent = new Intent(SplasherClientRouteActivity.this, HomeActivity.class);
+                                                                        public void done
+                                                                                (ParseException e) {
+                                                                            ParseUser
+                                                                                .getCurrentUser()
+                                                                                .saveInBackground();
+                                                                            Intent intent
+                                                                            = new Intent
+                                                         (SplasherClientRouteActivity
+                                                                 .this, HomeActivity.class);
                                                                             startActivity(intent);
                                                                         }
                                                                     });

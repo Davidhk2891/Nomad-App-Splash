@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
-import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +26,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -233,7 +231,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                 cSpinnerArrow.setVisibility(View.VISIBLE);
                 cSaveRequest.setVisibility(View.VISIBLE);
                 cRatingAndPricingRelative.setVisibility(View.GONE);
-                cRatingAndPricingRelative.animate().translationXBy(1000f).setDuration(500);
             }else{
                 startActivity(new Intent(WashReqParamsActivity.this
                         , HomeActivity.class));
@@ -313,7 +310,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         mSplasherPriceSetComingSoon = findViewById(R.id.splasherPriceSetComingSoon);
         cFinallyOrder = findViewById(R.id.finallyOrder);
         cRatingAndPricingRelative.setVisibility(View.GONE);
-        cRatingAndPricingRelative.setTranslationX(1000f);
         mSplasherPriceSetComingSoon.setVisibility(View.GONE);
 
         //Payments
@@ -456,7 +452,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                     } else if (cutFullTotalCurrentDateTime.equals(cutFullTotalSelectedDate)) {
 
                         warningDialog(getResources().getString
-                                (R.string.washMyCar_act_java_washTimeLimit)
+                                        (R.string.washMyCar_act_java_washTimeLimit)
                                 , getResources().getString(R.string
                                         .washMyCar_act_java_yourWashLimitShort));
 
@@ -465,8 +461,8 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                         Log.i("currentDate", currentFinalDate1.toString());
                         Log.i("savedDate", savedFinalDate2.toString());
 
-                        if (currentFinalDate1.compareTo(savedFinalDate2
-                        ) > 0 && !todaySwitchedToTomorrow) {
+                        if (currentFinalDate1.compareTo(savedFinalDate2) > 0
+                                && !todaySwitchedToTomorrow) {
 
                             Log.i("datesAgain", "are: " + currentFinalDate1
                                     + " " + savedFinalDate2);
@@ -476,36 +472,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                                     .getString(R.string.washMyCar_act_java_yourWashTimeLimit));
 
                         } else {
-                            cRatingAndPricingRelative.setVisibility(View.VISIBLE);
-                            cRatingAndPricingRelative.animate().translationXBy(-1000f)
-                                    .setDuration(500);
-                            cSaveRequest.setVisibility(View.GONE);
-                            new CountDownTimer(400, 400) {
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                    Log.i("fragVisible",String.valueOf(isFragmentVisible()));
-                                    if (isFragmentVisible()){
-                                        cFinallyOrder.setVisibility(View.GONE);
-                                    }else {
-                                        cFinallyOrder.setVisibility(View.VISIBLE);
-                                    }
-                                }
-
-                                @Override
-                                public void onFinish() {
-                                    cFirstRelative.setClickable(false);
-                                    cElPropioRelative.setClickable(false);
-                                    cCrLocationDescriptionEdit.setVisibility(View.GONE);
-                                    cCrLocationEdit.setVisibility(View.GONE);
-                                    cCrUntilEdit.setVisibility(View.GONE);
-                                    cCarSelected.setVisibility(View.GONE);
-                                    //cCrServicesEdit.setVisibility(View.GONE);
-                                    cCarList.setVisibility(View.GONE);
-                                    cSpinnerArrow.setVisibility(View.GONE);
-                                    //now set up all the views from the com.kid.splash.utils
-                                    // .rating and payment. and set up the controller for it
-                                }
-                            }.start();
+                            showSecondStageParams();
                             Log.i("p1",address + " & " + getAddress());
                             Log.i("p2",carAddressDescription);
                             Log.i("p3",fullDate);
@@ -805,7 +772,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         cTimePick.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-
                 /*
                  If hourOfDay is 12 or higher, the AM/PM indicator will be PM. Of course, this has
                  nothing to do with Android, and everything to do with knowing hour
@@ -818,20 +784,26 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                  */
                 timePickerMoved = true;
                 Calendar timeChanged = Calendar.getInstance();
+
                 int currentSoleHourToSet = timeChanged.get(Calendar.HOUR_OF_DAY);
                 if(hourOfDay >= 12 && hourOfDay < 24){
 
                     //We are in PM
                     //SET UP A SYSTEM TO TELL THE USER HE HAS TO SET UP A TIME AT LEAST 2 HOURS AHEAD
                     //OF THE ACTUAL CURRENT TIME.
-                    if(hourOfDay == currentSoleHourToSet || hourOfDay == currentSoleHourToSet + 1 ||
-                            hourOfDay == currentSoleHourToSet + 2){
+                    if(hourOfDay == currentSoleHourToSet
+                            || hourOfDay == currentSoleHourToSet + 1
+                            || hourOfDay == currentSoleHourToSet + 2
+                            || hourOfDay == currentSoleHourToSet + 3
+                            || hourOfDay == currentSoleHourToSet + 4){
                         @SuppressLint("DefaultLocale")
                         String cCrUntilTimeText = String.format("%02d:%02d", hourOfDay, minute)
                                 .toUpperCase(Locale.getDefault()) + " PM";
                         cCrUntilEdit.setText(cCrUntilTimeText);
                         untilTimeWithinRules = false;
-                    }else {//compare also for automatic set time of current time that happens as soon as timepicker opens
+                    }else {
+                        //compare also for automatic set time of current time that
+                        //happens as soon as timepicker opens
                         @SuppressLint("DefaultLocale")
                         String cCrUntilTimeText2 = String.format("%02d:%02d", hourOfDay, minute)
                                 .toUpperCase(Locale.getDefault()) + " PM";
@@ -843,8 +815,11 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                     //We are in AM
                     //SET UP A SYSTEM TO TELL THE USER HE HAS TO SET UP A TIME AT LEAST 2 HOURS AHEAD
                     //OF THE ACTUAL CURRENT TIME.
-                    if(hourOfDay == currentSoleHourToSet || hourOfDay == currentSoleHourToSet + 1 ||
-                            hourOfDay == currentSoleHourToSet + 2){
+                    if(hourOfDay == currentSoleHourToSet
+                            || hourOfDay == currentSoleHourToSet + 1
+                            || hourOfDay == currentSoleHourToSet + 2
+                            || hourOfDay == currentSoleHourToSet + 3
+                            || hourOfDay == currentSoleHourToSet + 4){
                         @SuppressLint("DefaultLocale")
                         String cCrUntilTimeText = String.format("%02d:%02d", hourOfDay, minute)
                                 .toUpperCase(Locale.getDefault()) + " AM";
@@ -1077,6 +1052,26 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         serviceGridOperations();
     }
 
+    private void showSecondStageParams(){
+        cRatingAndPricingRelative.setVisibility(View.VISIBLE);
+        cSaveRequest.setVisibility(View.GONE);
+        Log.i("fragVisible",String.valueOf(isFragmentVisible()));
+        if (isFragmentVisible()){
+            cFinallyOrder.setVisibility(View.GONE);
+        }else {
+            cFinallyOrder.setVisibility(View.VISIBLE);
+        }
+        cFirstRelative.setClickable(false);
+        cElPropioRelative.setClickable(false);
+        cCrLocationDescriptionEdit.setVisibility(View.GONE);
+        cCrLocationEdit.setVisibility(View.GONE);
+        cCrUntilEdit.setVisibility(View.GONE);
+        cCarSelected.setVisibility(View.GONE);
+        //cCrServicesEdit.setVisibility(View.GONE);
+        cCarList.setVisibility(View.GONE);
+        cSpinnerArrow.setVisibility(View.GONE);
+    }
+
     private void gridLayoutState(boolean state){
         mCrServicesGridLayout.setClickable(state);
         mCrServicesGridLayout.setEnabled(state);
@@ -1300,38 +1295,26 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     //Car Address 2: Actual Address and Coordinates(Latitude and Longitude)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (resultCode == RESULT_OK) {
-
             if (requestCode == PLACE_PICKER_REQUEST) {
-
                 Place place = PlacePicker.getPlace(this, data);
-
                 address = String.format("%s", place.getAddress());//<--FINAL
-
                 cCrLocationEdit.setText(address);
-
                 carCoordinates = place.getLatLng();//<--FINAL
-
                 Double c1lat = place.getLatLng().latitude;
                 Double c1lon = place.getLatLng().longitude;
-
                 String sC1lat = c1lat.toString();
                 String sC1lon = c1lon.toString();
-
                 writeReadDataInFile.writeToFile(sC1lat, "lat");
                 writeReadDataInFile.writeToFile(sC1lon, "lon");
-
                 carCoordinatesIn = true;
                 locationChecked = true;
                 enableBtnIfReady();
-
                 Log.i("Car Coordinates", String.valueOf(carCoordinates));
                 Log.i("car CoordLatSaved", String.valueOf(c1lat));
                 Log.i("car CoordLonSaved", String.valueOf(c1lon));
                 Log.i("car CoordLatSaved", sC1lat);
                 Log.i("car CoordLonSaved", sC1lon);
-
             } else if (requestCode == REQUEST_CC_FROM_CCDETS) {
                 String ccMask = data.getStringExtra("paymeCCMask");
             }
@@ -1418,7 +1401,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     public void loadDataToFile(){
 
         writeReadDataInFile.writeToFile(cCrLocationEdit.getText().toString(), "location"); //writtenToFile1
-        writeReadDataInFile.writeToFile(cCrUntilEdit.getText().toString(), "untilTime"); //writtenToFile 3
+        writeReadDataInFile.writeToFile("", "untilTime"); //writtenToFile 3
         //String setPrice = stringPriceSet;
         //TEMPORARY!!!//
         String setPrice = String.valueOf(PaymeConstants.STATIC_TEMPORAL_PRICE);
@@ -1452,25 +1435,14 @@ public class WashReqParamsActivity extends AppCompatActivity implements
             Log.i("final carcoords2", String.valueOf(carCoordinates.longitude));
             carCoordinatesIn = true;
         }
-        if(!writeReadDataInFile.readFromFile("untilTime").isEmpty()){
+        if(!writeReadDataInFile.readFromFile("untilTime").isEmpty()
+                || !writeReadDataInFile.readFromFile("untilTime").equals("")){
             cCrUntilEdit.setText(writeReadDataInFile.readFromFile("untilTime"));
             selectedTime = cCrUntilEdit.getText().toString();
         }
         if(!writeReadDataInFile.readFromFile("locationDesc").isEmpty()){
             cCrLocationDescriptionEdit
                     .setText(writeReadDataInFile.readFromFile("locationDesc"));
-        }
-        if (!writeReadDataInFile.readFromFile("todayTomorrow").isEmpty()){
-            //if true=tomorrow else today
-            if (writeReadDataInFile.readFromFile("todayTomorrow").equals("true")){
-                cUntilTimeSwitchTodayTomorrow.setChecked(true);
-                todaySwitchedToTomorrow = true;
-                cOfTomorrow.setVisibility(View.VISIBLE);
-            }else{
-                cUntilTimeSwitchTodayTomorrow.setChecked(false);
-                todaySwitchedToTomorrow = false;
-                cOfTomorrow.setVisibility(View.GONE);
-            }
         }
 //        switch (Locale.getDefault().getDisplayLanguage()) {
 //            case "English": {//<<<<<<<<<<<<<<<<<<<<<<<<<<

@@ -1,7 +1,9 @@
 package com.nomadapp.splash.model.server.parseserver.queries;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.nomadapp.splash.utils.datetimeops.Datetime;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -35,14 +37,28 @@ public class MetricsClassQuery {
                 if (e == null){
                     if (objects.size() > 0){
                         for (ParseObject metObject : objects){
-                            int intParseVarCounter;
-                            String finalParseVarCounter;
-                            finalParseVarCounter = metObject.getString(parseVarToUpdate);
-                            intParseVarCounter = Integer.parseInt(finalParseVarCounter);
-                            intParseVarCounter++;
-                            finalParseVarCounter = String.valueOf(intParseVarCounter);
-                            metObject.put(parseVarToUpdate,finalParseVarCounter);
-                            metObject.saveInBackground();
+                            try {
+                                int intParseVarCounter;
+                                String finalParseVarCounter;
+                                finalParseVarCounter = metObject.getString(parseVarToUpdate);
+                                if (finalParseVarCounter.contains("-")) {
+                                    String onlyCounter = finalParseVarCounter.replace
+                                            (finalParseVarCounter.substring(finalParseVarCounter
+                                                    .lastIndexOf("-")), "");
+                                    intParseVarCounter = Integer.parseInt(onlyCounter);
+                                } else {
+                                    intParseVarCounter = Integer.parseInt(finalParseVarCounter);
+                                }
+                                intParseVarCounter++;
+                                Datetime dateTime = new Datetime(context);
+                                String timeStamp = "-" + dateTime.rawCurrentTime();
+                                finalParseVarCounter = String.valueOf(intParseVarCounter)
+                                        + timeStamp;
+                                metObject.put(parseVarToUpdate, finalParseVarCounter);
+                                metObject.saveInBackground();
+                            }catch(NumberFormatException ef){
+                                ef.printStackTrace();
+                            }
                         }
                     }
                 }

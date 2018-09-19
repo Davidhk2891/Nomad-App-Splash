@@ -25,7 +25,7 @@ public class UserClassQuery {
 
     private BoxedLoadingDialog boxedLoadingDialog;
 
-    public ParseGeoPoint getUserFetchedLocation() {
+    public ParseGeoPoint getUserFetchedLocation()    {
         return userFetchedLocation;
     }
     public UserClassQuery(Context ctx){

@@ -201,8 +201,8 @@
     <string name="act_car_owner_location_CarAddress">Car Address</string>
     <string name="act_car_owner_location_5lines">-----</string>
     <string name="act_car_owner_location_carAddressDescTitle">Car Address Details</string>
-    <string name="act_car_owner_location_carUntilTimeTitle">Until Time</string>
-    <string name="act_car_owner_location_serviceTtypeTitle">Service Type</string>
+    <string name="act_car_owner_location_carUntilTimeTitle">Deadline</string>
+    <string name="act_car_owner_location_serviceTtypeTitle">Service</string>
     <string name="act_car_owner_location_car">Car</string>
     <string name="act_car_owner_location_color">Color</string>
     <string name="act_car_owner_location_plate">plate</string>
@@ -213,6 +213,11 @@
     <string name="act_car_owner_location_gettingYourLocation">Getting your location&#8230;</string>
     <string name="act_car_owner_location_acceptRequest">Accept Request</string>
     <string name="act_car_owner_location_cancelRequest">Cancel Request</string>
+    <string name="act_car_owner_location_plateCarColor">Plate | Car color</string>
+    <string name="act_car_owner_location_clientAddress">Client address</string>
+    <string name="act_car_owner_location_noDescription">- No description</string>
+    <string name="act_car_owner_location_navigate">Navigate</string>
+    <string name="act_car_owner_location_availableIfReqTaken">available if request taken</string>
     <!--///////////////////////////-->
 
     <!--activity_wash_requests-->
@@ -445,6 +450,12 @@
     <string name="act_my_services_motorcycle">Motorcycle:</string>
     <string name="act_my_services_defaultPrice">&#8230;</string>
     <string name="act_my_services_save">Save</string>
+    <string name="act_my_services_areaEpicenter">Area epicenter</string>
+    <string name="act_my_services_areaRange">Area range</string>
+    <string name="act_my_services_centerOfYourService">Center of your service area</string>
+    <string name="act_my_services_serviceAreaRange">Service area range</string>
+    <string name="act_my_services_serviceArea">Service area</string>
+    <string name="act_my_services_selectHowWide">Select how wide you want your area of work to be</string>
     <!--///////////////-->
 
     <!--STRINGS ONLY ON JAVA FILES (.class)-->
@@ -483,9 +494,11 @@
     <string name="carOwner_act_java_ofTomorrow">of tomorrow</string>
     <string name="carOwner_act_java_yourCar">your car</string>
     <string name="carOwner_act_java_yourBike">your bike</string>
-    <string name="carOwner_act_java_splasherCanceledYourRequest">Your splasher has canceled your request.
-        We will keep looking to find you another splasher</string>
-    <string name="carOwner_act_java_splasherCanceled">Splasher canceled</string>
+    <string name="carOwner_act_java_splasherCanceledYourRequest">The splasher you requested is not
+        available at the moment. Please choose a different one</string>
+    <string name="carOwner_act_java_splasherCanceledYourRequest2">This splasher is not
+        available at the moment. Splash will try to find you a new one</string>
+    <string name="carOwner_act_java_splasherCanceled">Splasher unavailable</string>
     <string name="carOwner_act_java_yourSplasher">Your splasher</string>
     <string name="carOwner_act_java_is">is</string>
     <string name="carOwner_act_java_kmAwayFromCar">km away from your car</string>
@@ -532,6 +545,12 @@
     <string name="carOwner_Act_java_logOutForErrMsg">There was a problem with your Internet
      connection. The system will log you out. Please log back in and if the problem persist,
         contact us.</string>
+    <string name="carOwner_Act_java_setRange">Set range</string>
+    <string name="carOwner_Act_java_forcedUpdateTitle">New version available</string>
+    <string name="carOwner_Act_java_forcedUpdateMessage">Please update Splash to its latest version
+     in order to continue using our services</string>
+    <string name="carOwner_Act_java_forcedUpdateYes">Update</string>
+    <string name="carOwner_Act_java_forcedUpdateNo">No, thanks</string>
     <!--/////////////////////-->
 
     <!--WashRequestsActivity.java-->
@@ -630,7 +649,7 @@
     <string name="washMyCar_act_java_StandardWash">Standard wash</string>
     <string name="washMyCar_act_java_StandardWashPlus">Standard wash + wax</string>
     <string name="washMyCar_act_java_motorcycle">Motorcycle</string>
-    <string name="washMyCar_act_java_minimumDuration">Minimum duration of a car wash request must be at least 3 hours</string>
+    <string name="washMyCar_act_java_minimumDuration">Minimum duration of a car wash request must be at least 5 hours</string>
     <string name="washMyCar_act_java_yourWashTimeLimit">Your wash time limit is set before your local time.
         Please change it</string>
     <string name="washMyCar_act_java_yourWashLimitShort">Your wash time limit is too short. Please change it</string>
@@ -652,6 +671,7 @@
     <string name="paymentSettings_act_java_protectedPayment">Protected payment by credit card. Easy, efficient and safe.</string>
     <string name="paymentSettings_act_java_byClickingDone">By pressing \"done\" I agree to receive electronic receipts via email and certify that have read the payment system\'s Terms of Use</string>
     <string name="paymentSettings_act_java_termsOfUse">&#160;<u>Terms of Use</u></string>
+    <string name="paymentSettings_act_java_pleaseEnterAValidP">Please enter a valid phone number</string>
     <!--////////////////////////////-->
 
     <!--ConnectionLost.java-->

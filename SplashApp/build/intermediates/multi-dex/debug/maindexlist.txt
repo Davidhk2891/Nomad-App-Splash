@@ -222,7 +222,7 @@ com/google/android/gms/common/util/VisibleForTesting.class
 com/google/android/gms/common/zzg.class
 com/google/android/gms/internal/location/zzaz.class
 com/google/android/gms/internal/location/zzk.class
-com/google/android/gms/internal/measurement/zzws.class
+com/google/android/gms/internal/measurement/zzwu.class
 com/google/android/gms/location/ActivityTransition$SupportedActivityTransition.class
 com/google/android/gms/location/places/GeoDataApi.class
 com/google/android/gms/location/places/GeoDataClient$BoundsMode.class
@@ -234,10 +234,17 @@ com/google/android/gms/nearby/connection/Payload$Type.class
 com/google/android/gms/nearby/connection/PayloadTransferUpdate$Status.class
 com/google/android/gms/nearby/messages/Distance$Accuracy.class
 com/google/android/gms/nearby/messages/NearbyPermissions.class
+com/google/android/gms/phenotype/PhenotypeFlag.class
 com/google/android/gms/stats/CodePackage.class
 com/google/android/gms/stats/GCoreWakefulBroadcastReceiver.class
 com/google/android/gms/stats/WakeLock.class
-com/google/firebase/iid/zzar.class
+com/google/android/gms/tasks/OnCompleteListener.class
+com/google/android/gms/tasks/Task.class
+com/google/firebase/iid/MessagingChannel.class
+com/google/firebase/iid/zzaz.class
+com/google/firebase/messaging/RemoteMessage$MessagePriority.class
+com/google/firebase/remoteconfig/FirebaseRemoteConfig.class
+com/nomadapp/splash/model/server/StarterApplication$1.class
 com/nomadapp/splash/model/server/StarterApplication.class
 com/parse/Parse$Configuration$Builder.class
 com/parse/Parse$Configuration.class

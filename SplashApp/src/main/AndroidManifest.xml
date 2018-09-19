@@ -96,7 +96,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.splasherside.SplasherClientRouteActivity"
-            android:label="@string/title_activity_car_owner_location"
+            android:label="Splash"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.carownerside.WashReqParamsActivity"

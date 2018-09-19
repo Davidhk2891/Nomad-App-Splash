@@ -73,6 +73,7 @@ public class WashRequestsActivity extends AppCompatActivity {
     private String carOwnerCarUntilTime;
     private String carOwnerCarServiceType;
     private String carOwnerReqType;
+    private String carOwnerPhoneNum;
 
     private String carOwnerCarBrand;
     private String carOwnerCarModel;
@@ -96,6 +97,7 @@ public class WashRequestsActivity extends AppCompatActivity {
     private ArrayList<String> carOwnerSetPrice = new ArrayList<>();
     private ArrayList<String> carOwnerReqTypeList = new ArrayList<>();
     private ArrayList<Integer> requestNumBadgeList = new ArrayList<>();
+    private ArrayList<String> carOwnerPhoneNumList = new ArrayList<>();
     //----------------------------------------------------------------
     private ArrayList<String> carBrandList = new ArrayList<>();
     private ArrayList<String> carModelList = new ArrayList<>();
@@ -190,6 +192,7 @@ public class WashRequestsActivity extends AppCompatActivity {
                         carServiceTypeList.clear();
                         carOwnerSetPrice.clear();
                         requestNumBadgeList.clear();
+                        carOwnerPhoneNumList.clear();
                         //--------------------------//
                         carBrandList.clear();
                         carModelList.clear();
@@ -230,6 +233,7 @@ public class WashRequestsActivity extends AppCompatActivity {
                                     noFbPic = Uri.parse(object.getString("ProfPicNoFb"));//FIX
                                 }
                                 requestNumBadge = object.getString("badgeWanted");
+                                carOwnerPhoneNum = object.getString("carOwnerPhoneNum");
                                 //--------------------------------------------------------
                                 carOwnerCarBrand = object.getString("carBrand");//7
                                 carOwnerCarModel = object.getString("carModel");//8
@@ -347,6 +351,7 @@ public class WashRequestsActivity extends AppCompatActivity {
                                         carServiceTypeList.add(carOwnerCarServiceType);
                                         carOwnerSetPrice.add(price);
                                         requestNumBadgeList.add(intNumBadgeNew);
+                                        carOwnerPhoneNumList.add(carOwnerPhoneNum);
                                         //---------------------------------------------//
                                         carBrandList.add(carOwnerCarBrand);
                                         carModelList.add(carOwnerCarModel);
@@ -397,6 +402,7 @@ public class WashRequestsActivity extends AppCompatActivity {
             intent.putExtra("carOwnerCarUntilTime", carUntilTimeList.get(position));
             intent.putExtra("carOwnerCarServiceType", carServiceTypeList.get(position));
             intent.putExtra("setPrice", carOwnerSetPrice.get(position));
+            intent.putExtra("carOwnerPhoneNum", carOwnerPhoneNumList.get(position));
             //----------------------------------------------------------------------
             intent.putExtra("carOwnerCarBrand", carBrandList.get(position));
             intent.putExtra("carOwnerCarModel", carModelList.get(position));

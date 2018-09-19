@@ -8,8 +8,8 @@ android {
         applicationId "com.nomadapp.splash"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 30
-        versionName "1.5.0"
+        versionCode 32
+        versionName "1.5.2"
         multiDexEnabled true
     }
     dexOptions {
@@ -54,6 +54,8 @@ dependencies {
     }
     implementation 'com.facebook.android:facebook-android-sdk:4.29.0'
     implementation 'com.parse:parsefacebookutils-v4-android:1.10.4@aar'
+    implementation 'com.google.firebase:firebase-config:16.0.0'
+    implementation 'com.google.firebase:firebase-messaging:17.3.1'
     implementation 'com.google.android.gms:play-services-base:15.0.1'
     implementation 'com.google.android.gms:play-services-identity:15.0.1'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
@@ -76,3 +78,4 @@ dependencies {
 //is located in *Project* folder > ParseStarterProject > libs > payme-1.1.6.aar
 //---------------------------------//
 apply plugin: 'com.google.gms.google-services'
+com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
