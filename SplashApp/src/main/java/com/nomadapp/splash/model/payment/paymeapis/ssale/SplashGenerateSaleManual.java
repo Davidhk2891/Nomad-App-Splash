@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.constants.PaymeConstants;
+import com.nomadapp.splash.model.server.parseserver.HistoryClassInterface;
+import com.nomadapp.splash.model.server.parseserver.send.HistoryClassSend;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
 import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
 import com.parse.DeleteCallback;
@@ -18,14 +20,11 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +54,7 @@ public class SplashGenerateSaleManual {
     private Activity activity;
 
     private String splasherName;
+    private String COusername;
     private String locationOfPay;
     private String locationDetsOfPay;
     private String serviceGiven;
@@ -103,6 +103,7 @@ public class SplashGenerateSaleManual {
                             String originalPriceStringFixed = originalPriceString.replace("₪", "");//
                             originalPrice = Double.parseDouble(originalPriceStringFixed);
                             splasherName = payObject.getString("splasherUsername");
+                            COusername = payObject.getString("username");
                             locationOfPay = payObject.getString("carAddress");
                             locationDetsOfPay = payObject.getString("carAddressDesc");
                             serviceGiven = payObject.getString("serviceType");
@@ -156,7 +157,8 @@ public class SplashGenerateSaleManual {
     }
 
     //SEQUENTIAL SCRIPT FOR MANUAL PAYMENT//
-    public void checkout(final String splasherRating, final String buyer_buyer_key){
+    public void checkout(final String splasherRating, final String buyer_buyer_key
+    ,final String untilTime, final String car){
         final BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog(context);
         if (secondTryDeleteReq) {
             boxedLoadingDialog.showLoadingDialog();
@@ -171,14 +173,14 @@ public class SplashGenerateSaleManual {
                     if(e == null){
                         if(objects.size() > 0){
                             for(ParseObject splasherObject : objects){
-                                seller_seller_id = splasherObject.getString("sellerId");//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<FINAL-->DATA TO PAY
+                                seller_seller_id = splasherObject.getString("sellerId");//<<<<<<<<<FINAL-->DATA TO PAY
                                 Log.i("data1", seller_seller_id);
                                 Log.i("data2", String.valueOf(orgPricePlusFeePlusCCPlusTipInFull));
                                 Log.i("data3", productName);
                                 Log.i("data4", String.valueOf(installments));
                                 sendDataAndPay(seller_seller_id, orgPricePlusFeePlusCCPlusTipInFull
                                         ,productName,installments,buyer_buyer_key,boxedLoadingDialog
-                                        ,splasherRating);
+                                        ,splasherRating,untilTime,car);
                             }
                         }
                     }else{
@@ -193,13 +195,19 @@ public class SplashGenerateSaleManual {
 
     //string double string int string
     private void sendDataAndPay(String sellerId, double orgPricePlusFeePlusTipInFull
-    , String productName, int installments, String buyerBuyerKey
-    , final BoxedLoadingDialog boxedLoadingDialog, final String splasherRating){
+    , String productName, int installments, final String buyerBuyerKey
+    , final BoxedLoadingDialog boxedLoadingDialog, final String splasherRating
+    , final String untilTime, final String car){
         if (!paymentExecuted) {
+            Log.i("reqData","is: " + sellerId + " " +
+                    String.valueOf(orgPricePlusFeePlusTipInFull) + " " + productName + " "
+                            + installments + " " + buyerBuyerKey);
+            //Payme has been updated. NEED TO ADD "Currency" to header for API call//
             final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
             Map<String, Object> params = new HashMap<>();
             params.put("seller_payme_id", sellerId);
             params.put("sale_price", orgPricePlusFeePlusTipInFull); //MAKE SURE ITS A WHOLE NUMBER (EX: 50.75 -> 5075)
+            params.put("currency", PaymeConstants.CURRENCY);
             params.put("product_name", productName);
             params.put("installments", installments);
             params.put("buyer_key", buyerBuyerKey);
@@ -223,46 +231,70 @@ public class SplashGenerateSaleManual {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    Log.e("SALE good response", "SALE good response");
+                    Log.i("SALE good response", "SALE good response");
                     paymentExecuted = true;
                     rawResponseFromPay = response.body().string();
-                    createSaleRecord(boxedLoadingDialog, splasherRating);
+                    createSaleRecord(boxedLoadingDialog, splasherRating, buyerBuyerKey
+                    ,untilTime,car);
                 }
             });
         }
     }
 
     @SuppressLint("SimpleDateFormat")
-    private void createSaleRecord(final BoxedLoadingDialog boxedLoadingDialog, String splasherRating){
+    private void createSaleRecord(final BoxedLoadingDialog boxedLoadingDialog
+            , String splasherRating, String buyerKey, String untilTime, String car){
+        final HistoryClassSend historyClassSend = new HistoryClassSend(context);
         if (!recordCreated) {
-            String manual = "manual";
-            String dateTimeOfPay = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-            Log.i("dateTimeOfPay", dateTimeOfPay);
-            ParseObject historyReq = new ParseObject("History");
-            historyReq.put("carOwnerUsername", ParseUser.getCurrentUser().getUsername());
-            historyReq.put("splasherUsername", splasherName);
-            historyReq.put("dateTimeTransaction", dateTimeOfPay);
-            historyReq.put("location", locationOfPay);
-            historyReq.put("locationDesc", locationDetsOfPay);
-            historyReq.put("serviceGiven", serviceGiven);
-            historyReq.put("price", originalPrice);
-            historyReq.put("tip", tip);
-            historyReq.put("type", manual);
-            historyReq.put("priceWithTip", originalPrice + tip);
-            historyReq.put("splasherRating", splasherRating);
-            historyReq.put("rawResponsePayme", rawResponseFromPay);
-            historyReq.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if (e == null) {
-                        deleteRequest(boxedLoadingDialog);
-                        recordCreated = true;
-                    } else {
-                        boxedLoadingDialog.hideLoadingDialog();
-                    }
-                }
-            });
+            String reqType = "manual";
+            String successfulReqStatus = "successful";
+            historyClassSend.createRequestRecord(splasherName, COusername, locationOfPay, locationDetsOfPay
+                    , serviceGiven, originalPrice, tip, splasherRating, rawResponseFromPay
+                    , successfulReqStatus, buyerKey, untilTime, car, reqType, new HistoryClassInterface
+                            .onCreateReqRecord() {
+                        @Override
+                        public void onRecordCreated() {
+                            Log.i("record", "CREATED");
+                            deleteRequest(boxedLoadingDialog);
+                            recordCreated = true;
+                        }
+
+                        @Override
+                        public void recordFailedToCreate() {
+                            Log.i("record", "FAILED");
+                            boxedLoadingDialog.hideLoadingDialog();
+                        }
+                    });
         }
+//        if (!recordCreated) {
+//            String manual = "manual";
+//            String dateTimeOfPay = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+//            Log.i("dateTimeOfPay", dateTimeOfPay);
+//            ParseObject historyReq = new ParseObject("History");
+//            historyReq.put("carOwnerUsername", ParseUser.getCurrentUser().getUsername());
+//            historyReq.put("splasherUsername", splasherName);
+//            historyReq.put("dateTimeTransaction", dateTimeOfPay);
+//            historyReq.put("location", locationOfPay);
+//            historyReq.put("locationDesc", locationDetsOfPay);
+//            historyReq.put("serviceGiven", serviceGiven);
+//            historyReq.put("price", originalPrice);
+//            historyReq.put("tip", tip);
+//            historyReq.put("type", manual);
+//            historyReq.put("priceWithTip", originalPrice + tip);
+//            historyReq.put("splasherRating", splasherRating);
+//            historyReq.put("rawResponsePayme", rawResponseFromPay);
+//            historyReq.saveInBackground(new SaveCallback() {
+//                @Override
+//                public void done(ParseException e) {
+//                    if (e == null) {
+//                        deleteRequest(boxedLoadingDialog);
+//                        recordCreated = true;
+//                    } else {
+//                        boxedLoadingDialog.hideLoadingDialog();
+//                    }
+//                }
+//            });
+//        }
     }
 
     private void deleteRequest(final BoxedLoadingDialog boxedLoadingDialog){

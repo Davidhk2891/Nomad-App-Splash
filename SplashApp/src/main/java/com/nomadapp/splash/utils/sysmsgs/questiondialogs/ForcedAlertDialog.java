@@ -163,4 +163,15 @@ public class ForcedAlertDialog {
         TOUDialog.setCancelable(false);
         TOUDialog.show();
     }
+
+    public void generalPurposeForcedDialogNoAction(String title, String message, String
+            posiActionTxt){
+        AlertDialog.Builder GPDialog = new AlertDialog.Builder(context);
+        GPDialog.setTitle(title);
+        GPDialog.setIcon(android.R.drawable.ic_dialog_alert);
+        GPDialog.setMessage(message);
+        GPDialog.setPositiveButton(posiActionTxt, null);
+        GPDialog.setCancelable(false);
+        GPDialog.show();
+    }
 }

@@ -219,11 +219,13 @@ public class PaymentSettingsActivity extends AppCompatActivity implements View.O
                     //RUN THE CAPTURE_BUYER API//
                     splashCaptureBuyer.runCaptureBuyer(boxedLoadingDialog, cSaveCardNumber);
                     ///////////////TEST////////////////
-                }else if(!cleanStringPhoneN.startsWith("05") && (cleanStringPhoneN.length() != 10)){
-                    //Please enter a valid phone number
-                    toastMessages.productionMessage(PaymentSettingsActivity.this
-                            ,getResources().getString(R.string
-                                    .paymentSettings_act_java_pleaseEnterAValidP),1);
+                }else if(cleanStringPhoneN != null){//this should fix(8 Nov 15:00 on app version 32)
+                    if((!cleanStringPhoneN.startsWith("05")) && (cleanStringPhoneN.length() != 10)){
+                        //Please enter a valid phone number
+                        toastMessages.productionMessage(PaymentSettingsActivity.this
+                                , getResources().getString(R.string
+                                        .paymentSettings_act_java_pleaseEnterAValidP), 1);
+                    }
                 }else{
                     String missingFieldsTitle = getResources().getString(R.string
                             .paymentSettings_act_java_missingFields);

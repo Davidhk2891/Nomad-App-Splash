@@ -26,6 +26,8 @@ import com.nomadapp.splash.model.imagehandler.GlideImagePlacement;
 import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
 import com.nomadapp.splash.model.objects.MySplasher;
 import com.nomadapp.splash.model.objects.adapters.SplasherListAdapter;
+import com.nomadapp.splash.model.server.parseserver.ProfileClassInterface;
+import com.nomadapp.splash.model.server.parseserver.queries.ProfileClassQuery;
 import com.nomadapp.splash.model.server.parseserver.send.RequestClassSend;
 import com.nomadapp.splash.ui.activity.carownerside.WashReqParamsActivity;
 import com.nomadapp.splash.ui.activity.carownerside.payment.PaymentSettingsActivity;
@@ -35,6 +37,7 @@ import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -108,6 +111,8 @@ public class SplasherListFragment extends Fragment {
     private GridView gridView;
     private SplasherListAdapter splasherListAdapter;
     private ArrayList<MySplasher> splasherList = new ArrayList<>();
+    private ParseGeoPoint carGeoPointLocation, splasherEC;
+    private String external, extInt, moto;
     //------------//
 
     private ToastMessages toastMessages = new ToastMessages();
@@ -115,6 +120,7 @@ public class SplasherListFragment extends Fragment {
     private WashReqParamsActivity washReqParamsActivity;
     private RequestClassSend requestClassSend;
     private WriteReadDataInFile writeReadDataInFile;
+    private ProfileClassQuery profileClassQuery;
     //-------------------------------------------------------------------------------------------//
 
     public SplasherListFragment() {
@@ -167,6 +173,8 @@ public class SplasherListFragment extends Fragment {
         mSplasherGridFetchLinear = v.findViewById(R.id.splasherGridFetchLinear);
 
         fetchedServiceType = washReqParamsActivity.getGetServiceType();
+        //HERE IS THE ERROR: fetchedServiceType returns null
+        Log.i("fetchedServiceType","is " + washReqParamsActivity.getGetServiceType());
 
         if (getActivity() != null) {
             mBottomSheetBehavior = BottomSheetBehavior.from(mBottomSheetSplasherList);
@@ -175,7 +183,7 @@ public class SplasherListFragment extends Fragment {
                     , splasherList);
             splasherList.clear();
             gridView.setAdapter(splasherListAdapter);
-            queryActiveSplashers(fetchedServiceType);
+            getSplasherList(fetchedServiceType);
             onCardViewClick();
 
             collapseBtmSheetFromX();
@@ -233,6 +241,7 @@ public class SplasherListFragment extends Fragment {
                     fetchRequestDataToOrder();
                     String splasherUsername = mSlUsername.getText().toString();
                     String requestType = "private";
+                    cleanUntilTime();
                     requestClassSend.loadRequest(fetchedAddress,fetchedCoords,fetchedAddressDesc
                             ,fetchedFullDate,fetchedSelectedTime,fetchedServiceType,fetchedCBrand
                             ,fetchedCModel,fetchedCColor,fetchedCPlate,fetchedDollar,
@@ -241,6 +250,15 @@ public class SplasherListFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void cleanUntilTime(){
+        if (fetchedSelectedTime.contains(getResources()
+                .getString(R.string.act_wash_my_car_until2))) {
+            String selectedTimePre = fetchedSelectedTime;
+            fetchedSelectedTime = selectedTimePre.replace(getResources()
+                    .getString(R.string.act_wash_my_car_until2), ""); //<--FINAL
+        }
     }
 
     public void collapseBtmSheetFromX(){
@@ -292,6 +310,12 @@ public class SplasherListFragment extends Fragment {
         washReqParamsActivity = new WashReqParamsActivity();
         writeReadDataInFile = new WriteReadDataInFile(getActivity());
         requestClassSend = new RequestClassSend(getActivity());
+        profileClassQuery = new ProfileClassQuery(getActivity());
+
+        external = getResources().getString(R.string.act_wash_my_car_externalWash);
+        extInt = getResources().getString(R.string.act_wash_my_car_extAndIntWash);
+        moto = getResources().getString(R.string.act_wash_my_car_motorcycle);
+
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -312,6 +336,12 @@ public class SplasherListFragment extends Fragment {
         washReqParamsActivity = new WashReqParamsActivity();
         writeReadDataInFile = new WriteReadDataInFile(getActivity());
         requestClassSend = new RequestClassSend(getActivity());
+        profileClassQuery = new ProfileClassQuery(getActivity());
+
+        external = getResources().getString(R.string.act_wash_my_car_externalWash);
+        extInt = getResources().getString(R.string.act_wash_my_car_extAndIntWash);
+        moto = getResources().getString(R.string.act_wash_my_car_motorcycle);
+
         if (activity instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) activity;
         } else {
@@ -405,20 +435,18 @@ public class SplasherListFragment extends Fragment {
         gip.roundImagePlacementFromString(splasherUserProfPic.get(position), mSlProfilePic);
     }
 
-    public void queryActiveSplashers(final String filterServiceType){
-        splasherGridRefresh(View.VISIBLE);
-        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+    //need to query this twice from same source to both here and after coming back from place
+    //picker to refresh splasher list
+    public void getSplasherList(final String filterServiceType){
 
-        final String external = getResources().getString(R.string.act_wash_my_car_externalWash);
-        final String extInt = getResources().getString(R.string.act_wash_my_car_extAndIntWash);
-        final String moto = getResources().getString(R.string.act_wash_my_car_motorcycle);
-
-        ParseQuery<ParseObject> profileQuery = ParseQuery.getQuery("Profile");
-        profileQuery.whereEqualTo("CarOwnerOrSplasher", "splasher");
-        profileQuery.whereEqualTo("status", "active");
-        profileQuery.findInBackground(new FindCallback<ParseObject>() {
+        profileClassQuery.getSplashersList(new ProfileClassInterface() {
             @Override
-            public void done(List<ParseObject> objects, ParseException e) {
+            public void beforeQueryFetched() {
+                splasherGridRefresh(View.VISIBLE);
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            }
+            @Override
+            public void updateChanges(List<ParseObject> objects, ParseException e) {
                 if (e == null){
                     if (objects.size() > 0){
 
@@ -430,64 +458,90 @@ public class SplasherListFragment extends Fragment {
                         splasherUserPrice.clear();
 
                         for (ParseObject splasherObj : objects){
-                            splasherName = splasherObj.getString("username");//<<<<<<<<<<<<<<<<<
 
-                            ParseFile localProfPic = splasherObj
-                                    .getParseFile("splasherProfPic");
-                            splasherProfPic = String.valueOf(localProfPic.getUrl());//<<<<<<<<<<<<<<
+                            carGeoPointLocation = new ParseGeoPoint(
+                                    washReqParamsActivity.getCarCoordinates().latitude
+                                    ,washReqParamsActivity.getCarCoordinates().longitude);
 
-                            if (Integer.parseInt(splasherObj
-                                    .getString("oldAvgRating")) <= 5) {
-                                splasherAvgRating = Integer.parseInt(splasherObj
-                                        .getString("oldAvgRating"));//<<<<<<<<<<<<<<<<<<<<<<<<<<
-                            }else{
-                                splasherAvgRating = 5;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                            splasherEC = splasherObj.getParseGeoPoint("ECCoords");
+
+                            Log.i("carCoordsFromFragment", "are " + String
+                                    .valueOf(carGeoPointLocation) + " AND " + String
+                                    .valueOf(splasherEC));
+
+                            Double disCarToSplasher = carGeoPointLocation
+                                    .distanceInKilometersTo(splasherEC);
+                            String splasherRangeRaw = splasherObj
+                                    .getString("serviceRange");
+                            String splasherRangeFixed = splasherRangeRaw
+                                    .replace("Km","");
+                            Double splasherRange = Double.parseDouble(splasherRangeFixed);
+                            Log.i("splasherRange", "is "
+                                    + String.valueOf(splasherRange));//left here
+                            Log.i("distances for filtering",String.valueOf(disCarToSplasher)
+                                    + " " + String.valueOf(splasherRange));
+
+                            //NEED TO REFRESH SPLASHER LIST WHEN COMING BACK FROM PLACEPICKER//
+                            if (disCarToSplasher <= splasherRange) {
+                                splasherName = splasherObj.getString("username");//<<<<<<<<<<<<<
+
+                                ParseFile localProfPic = splasherObj
+                                        .getParseFile("splasherProfPic");
+                                splasherProfPic = String.valueOf(localProfPic.getUrl());//<<<<<<<<<<
+
+                                if (Integer.parseInt(splasherObj
+                                        .getString("oldAvgRating")) <= 5) {
+                                    splasherAvgRating = Integer.parseInt(splasherObj
+                                            .getString("oldAvgRating"));//<<<<<<<<<<<<<<<<<<<<<<
+                                } else {
+                                    splasherAvgRating = 5;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                                }
+                                if (filterServiceType.equals(external)) {//BUG>NPE
+                                    splasherPrice = splasherObj.getString("setPrice");//<<<<<<<<
+                                } else if (filterServiceType.equals(extInt)) {
+                                    splasherPrice = splasherObj.getString("setPriceEInt");//<<<<
+                                } else if (filterServiceType.equals(moto)) {
+                                    splasherPrice = splasherObj.getString("setPriceMoto");//<<<<
+                                }
+                                Log.i("splasherPrice", splasherPrice);
+                                splasherNumWash = splasherObj.getString("washes");//<<<<<<<<<<<<
+
+                                //Apply Data to MySplasher object//
+                                //left here. need to add arraylist in which to deposit the
+                                // indivudual data in strings. nums etc
+                                MySplasher splasher = new MySplasher();
+                                splasher.setSplasherUsername(splasherName);
+                                splasher.setSplasherProfPic(splasherProfPic);
+                                String price = "₪ " + splasherPrice;
+                                splasher.setSplasherPrice(price);
+                                splasher.setSplasherAvgRating(splasherAvgRating);
+
+                                String numOfWashes;
+                                if (Integer.parseInt(splasherNumWash) > 1) {
+                                    numOfWashes = splasherNumWash + " " + washes;
+                                } else {
+                                    numOfWashes = splasherNumWash + " " + wash;
+                                }
+                                splasher.setSplasherNumOfWashes(numOfWashes);
+
+                                Log.i("splasherName", splasherName);
+                                Log.i("splasherProfPic", splasherProfPic);
+                                Log.i("splasherPrice", splasherPrice);
+                                Log.i("splasherRating", String.valueOf(splasherAvgRating));
+                                Log.i("splasherWashes", numOfWashes);
+                                splasherList.add(splasher);
+                                //-------------------------------//
+
+                                //Adding each individual splasher data to respective ArrayLists//
+                                splasherUserNames.add(splasherName);
+                                splasherUserPrice.add(splasherPrice);
+                                splasherUserNumWash.add(splasherNumWash);
+                                splasherUserProfPic.add(splasherProfPic);
+                                splasherUserAvgRat.add(String.valueOf(splasherAvgRating));
+                                //-------------------------------------------------------------//
+                                splasherListAdapter.notifyDataSetChanged();
+                                splasherGridRefresh(View.GONE);
                             }
-                            if (filterServiceType.equals(external)){
-                                splasherPrice = splasherObj.getString("setPrice");//<<<<<<<<<<<<
-                            }else if(filterServiceType.equals(extInt)){
-                                splasherPrice = splasherObj.getString("setPriceEInt");//<<<<<<<<
-                            }else if(filterServiceType.equals(moto)){
-                                splasherPrice = splasherObj.getString("setPriceMoto");//<<<<<<<<
-                            }
-                            Log.i("splasherPrice", splasherPrice);
-                            splasherNumWash = splasherObj.getString("washes");//<<<<<<<<<<<<<<<<
-
-                            //Apply Data to MySplasher object//
-                            //left here. need to add arraylist in which to deposit the
-                            // indivudual data in strings. nums etc
-                            MySplasher splasher = new MySplasher();
-                            splasher.setSplasherUsername(splasherName);
-                            splasher.setSplasherProfPic(splasherProfPic);
-                            String price = "₪ " + splasherPrice;
-                            splasher.setSplasherPrice(price);
-                            splasher.setSplasherAvgRating(splasherAvgRating);
-
-                            String numOfWashes;
-                            if (Integer.parseInt(splasherNumWash) > 1) {
-                                numOfWashes = splasherNumWash + " " + washes;
-                            }else{
-                                numOfWashes = splasherNumWash + " " + wash;
-                            }
-                            splasher.setSplasherNumOfWashes(numOfWashes);
-
-                            Log.i("splasherName", splasherName);
-                            Log.i("splasherProfPic", splasherProfPic);
-                            Log.i("splasherPrice", splasherPrice);
-                            Log.i("splasherRating", String.valueOf(splasherAvgRating));
-                            Log.i("splasherWashes", numOfWashes);
-                            splasherList.add(splasher);
-                            //-------------------------------//
-
-                            //Adding each individual splasher data to their respective ArrayLists//
-                            splasherUserNames.add(splasherName);
-                            splasherUserPrice.add(splasherPrice);
-                            splasherUserNumWash.add(splasherNumWash);
-                            splasherUserProfPic.add(splasherProfPic);
-                            splasherUserAvgRat.add(String.valueOf(splasherAvgRating));
-                            //-------------------------------------------------------------------//
-                            splasherListAdapter.notifyDataSetChanged();
-                            splasherGridRefresh(View.GONE);
                         }
                     }
                 }else{

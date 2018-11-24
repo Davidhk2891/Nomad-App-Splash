@@ -11,6 +11,11 @@ public interface RequestClassInterface {
 
     void setCarWasherFinderToFalse();
 
+    interface recCreatedBeforeDel {
+        void onRecCreatedBeforeDel();
+        void recNotCreatedErrMsg();
+    }
+
     interface TakenRequest{
         void fetchThisTakenRequest(ParseObject object);
     }

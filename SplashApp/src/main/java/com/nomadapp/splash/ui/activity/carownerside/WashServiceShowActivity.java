@@ -543,13 +543,16 @@ public class WashServiceShowActivity extends AppCompatActivity {
                                                 public void done(List<ParseObject> objects, ParseException e) {
                                                     //There should be 1, and only 1 object from this Parse class.
                                                     if(e == null) {
+                                                        Log.i("33ToBeRatedSplash", aboutToBeRatedSplasher + " in house1");
                                                         if(objects.size() > 0) {
+                                                            Log.i("33ToBeRatedSplash", aboutToBeRatedSplasher + " in house2");
                                                             for (ParseObject userObject : objects) {//Should be a single row on DB
                                                                 //Here i have to craft the avarage... (First relocate the checkout button)
                                                                 //////////////////RATING LOGIC////////////////////
                                                                 /////////////////Rating Avg vars//////////////////
                                                                 //Num of stars to set(is up) final int intRatingToSet = (int)(cRateThisSplasherAction.getRating());//<<<1
                                                                 //Rating Avg:
+                                                                Log.i("33ToBeRatedSplash", aboutToBeRatedSplasher + " in house3");
                                                                 String currentRatingAvg = userObject.getString("oldAvgRating");
                                                                 //Log.i("11ratingbeforenew", currentRatingAvg);
                                                                 int intCurrentRatingAvg = Integer.parseInt(currentRatingAvg);//<<<2
@@ -606,7 +609,8 @@ public class WashServiceShowActivity extends AppCompatActivity {
                                                             }
                                                         }
                                                     }else{
-                                                    clm.connectionLostDialog();
+                                                        Log.i("33ToBeRatedSplash",e.getMessage());
+                                                        clm.connectionLostDialog();
                                                     }
                                                 }
                                             });

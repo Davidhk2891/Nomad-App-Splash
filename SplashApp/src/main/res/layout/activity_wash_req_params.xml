@@ -131,7 +131,7 @@
                 android:ems="17"
                 android:hint="@string/act_wash_my_car_enterAddress"
                 android:textColorHint="#BDBDBD"
-                android:maxLength="30"
+                android:maxLength="38"
                 android:maxLines="2"
                 android:padding="10dp"
                 android:textSize="17sp" />
@@ -146,27 +146,6 @@
                 android:layout_marginTop="34dp"
                 android:src="@drawable/locationiconblue"
                 tools:ignore="ContentDescription" />
-
-            <ImageView
-                android:id="@+id/UntilTimeIcon"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:layout_alignEnd="@+id/crUntilEdit"
-                android:layout_alignTop="@+id/crUntilEdit"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/untiltimeiconblue"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:id="@+id/ofTomorrow"
-                android:text="@string/act_wash_my_car_ofTomorrow"
-                android:visibility="gone"
-                android:layout_toStartOf="@+id/UntilTimeIcon"
-                android:layout_alignBottom="@+id/UntilTimeIcon"
-                android:layout_marginEnd="80dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
 
             <EditText
                 android:id="@+id/crlocationDescriptionEdit"
@@ -210,19 +189,63 @@
             </LinearLayout>
             -->
 
-            <TextView
-                android:id="@+id/crUntilEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <!--android:layout_below="@+id/carList"-->
+            <RelativeLayout
+                android:id="@+id/untilTimeRelative"
+                android:orientation="horizontal"
+                android:layout_alignStart="@+id/crLocationEdit"
+                android:layout_alignEnd="@+id/crLocationEdit"
                 android:layout_below="@+id/carList"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
-                android:background="@drawable/selective_bg_stroked_thin"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:ems="17"
-                android:padding="10dp"
-                android:hint="@string/act_wash_my_car_untilWhatTime"
-                android:textSize="17sp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/crFromEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/selective_bg_stroked_thin"
+                    android:ems="8"
+                    android:padding="10dp"
+                    android:text="@string/act_wash_my_car_from"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/crUntilEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@+id/crFromEdit"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/selective_bg_stroked_thin"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:ems="8"
+                    android:padding="10dp"
+                    android:hint="@string/act_wash_my_car_until"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:id="@+id/UntilTimeIcon"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignEnd="@+id/crUntilEdit"
+                    android:src="@drawable/untiltimeiconblue"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/ofTomorrow"
+                    android:text="@string/act_wash_my_car_ofTomorrow"
+                    android:visibility="invisible"
+                    android:layout_alignEnd="@+id/crUntilEdit"
+                    android:layout_below="@+id/crUntilEdit"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/carSelected"
@@ -242,7 +265,6 @@
                 android:id="@+id/spinnerArrow"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:layout_below="@+id/crUntilEdit"
                 android:layout_alignTop="@+id/carSelected"
                 android:layout_alignEnd="@+id/carSelected"
                 android:layout_marginTop="14dp"
@@ -456,8 +478,9 @@
                     android:padding="24dp"
                     android:textAlignment="center"
                     android:textSize="48sp"
-                    android:text="₪30"/>
+                    android:text="@string/thirty"/>
 
+                <!--
                 <TextView
                     android:id="@+id/splasherPriceSetComingSoon"
                     android:layout_width="wrap_content"
@@ -473,6 +496,7 @@
                     android:textAlignment="center"
                     android:textSize="30sp"
                     android:text="@string/act_wash_my_car_comingSoon"/>
+                    -->
 
                 <TextView
                     android:id="@+id/messageBeforeOrder"

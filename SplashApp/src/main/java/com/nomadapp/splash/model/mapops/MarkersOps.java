@@ -44,4 +44,12 @@ public class MarkersOps {
                 .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
         );
     }
+
+    public Bitmap customMapSmallMarkerAdjust(int drawable){
+        int width = 180;
+        int height = 230;
+        BitmapDrawable bitmapdraw = (BitmapDrawable)context.getResources().getDrawable(drawable);
+        Bitmap b = bitmapdraw.getBitmap();
+        return createScaledBitmap(b, width, height, false);
+    }
 }

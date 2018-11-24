@@ -1207,6 +1207,10 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
                 (SplasherClientRouteActivity.this);
         profileClassQuery.getUserProfileToUpdate(new ProfileClassInterface() {
             @Override
+            public void beforeQueryFetched() {
+
+            }
+            @Override
             public void updateChanges(List<ParseObject> objects, ParseException e) {
                 if (e == null){
                     if (objects.size() > 0){

@@ -12,4 +12,9 @@ public interface HistoryClassInterface {
         void queryMoney(ParseObject moneyObj);
     }
 
+    interface onCreateReqRecord{
+        void onRecordCreated();
+        void recordFailedToCreate();
+    }
+
 }

@@ -4,7 +4,7 @@
             "outputFile": "C:\\Splash\\SplashApp\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v24\\values-v24.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\befa7bea892d179e5a443e5f5fc0227c\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\3c8b95b9a7032b54bdba5f3196931ca4\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7c377afd7ce981c1a0a4ce87d156cb10\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\f3ffb782816be7005e5f5f5cf638c40a\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

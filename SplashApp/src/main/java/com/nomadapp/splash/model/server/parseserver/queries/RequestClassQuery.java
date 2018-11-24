@@ -5,7 +5,9 @@ import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.nomadapp.splash.R;
+import com.nomadapp.splash.model.server.parseserver.HistoryClassInterface;
 import com.nomadapp.splash.model.server.parseserver.RequestClassInterface;
+import com.nomadapp.splash.model.server.parseserver.send.HistoryClassSend;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
@@ -133,17 +135,20 @@ public class RequestClassQuery {
                 if (e == null){
                     if (objects.size() > 0){
                         for (ParseObject object : objects){
-                            object.deleteInBackground(new DeleteCallback() {
+
+                            makeRecordAndDelete(object, new RequestClassInterface
+                                    .recCreatedBeforeDel() {
                                 @Override
-                                public void done(ParseException e) {
-                                    if (e == null){
-                                        requestDeletion.deleteRequest();
-                                    }else{
-                                        toastMessages.productionMessage(context
-                                        .getApplicationContext(),context
-                                                .getResources().getString(R.string
-                                                .carOwner_act_java_requestNotDeletedTry),1);
-                                    }
+                                public void onRecCreatedBeforeDel() {
+                                    requestDeletion.deleteRequest();
+                                }
+
+                                @Override
+                                public void recNotCreatedErrMsg() {
+                                    toastMessages.productionMessage(context
+                                            .getApplicationContext(),context
+                                            .getResources().getString(R.string
+                                                    .carOwner_act_java_requestNotDeletedTry),1);
                                 }
                             });
                         }
@@ -158,5 +163,57 @@ public class RequestClassQuery {
                 }
             }
         });
+    }
+
+    private void makeRecordAndDelete(final ParseObject object, final RequestClassInterface
+            .recCreatedBeforeDel recCreatedBeforeDel){
+        String splasherName = object.getString("splasherUsername");
+        String COUsername = object.getString("username");
+        String locationOfPay = object.getString("carAddress");
+        String locationDets = object.getString("carAddressDesc");
+        String serviceGiven = "Expected: " + object.getString("serviceType");
+
+        Double originalPrice = 0.0;
+
+        Double tip = 0.0;
+
+        String splasherRating = "0";
+        String rawResponseFromPayme = "payment process not executed";
+        String reqStatus = "canceled";
+        String buyerKey = object.getString("buyerKey");
+        String untilTime = object.getString("untilTime");
+
+        String color = object.getString("carColor");
+        String brand = object.getString("carBrand");
+        String model = object.getString("carModel");
+        String plate = object.getString("carplateNumber");
+        String car = color + " " + brand + " " + model + " " + plate;
+
+        String reqType = "none";
+
+        HistoryClassSend historyClassSend = new HistoryClassSend(context);
+        historyClassSend.createRequestRecord(splasherName, COUsername, locationOfPay, locationDets
+                , serviceGiven, originalPrice, tip, splasherRating, rawResponseFromPayme
+                , reqStatus, buyerKey, untilTime, car, reqType
+                , new HistoryClassInterface.onCreateReqRecord() {
+                    @Override
+                    public void onRecordCreated() {
+                        object.deleteInBackground(new DeleteCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if (e == null){
+                                    recCreatedBeforeDel.onRecCreatedBeforeDel();
+                                }else{
+                                    recCreatedBeforeDel.recNotCreatedErrMsg();
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void recordFailedToCreate() {
+
+                    }
+                });
     }
 }

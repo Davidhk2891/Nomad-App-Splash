@@ -1,11 +1,11 @@
 #Internal package file, do not edit.
-#Tue Sep 18 23:01:10 IDT 2018
-1.base=C\:\\Splash\\SplashApp\\build\\intermediates\\transforms\\dexMerger\\debug\\16
+#Sat Nov 24 16:12:22 IST 2018
+1.base=C\:\\Splash\\SplashApp\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 0.baseType=DIRECTORY
 1.baseType=DIRECTORY
 count=2
 1.set=DEX
-0.path=classes.dex
+0.path=classes2.dex
 0.set=DEX
-0.base=C\:\\Splash\\SplashApp\\build\\intermediates\\transforms\\dexMerger\\debug\\16
-1.path=classes2.dex
+0.base=C\:\\Splash\\SplashApp\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+1.path=classes.dex

@@ -300,7 +300,6 @@
 
             </LinearLayout>
 
-            <!--Change the whole thing to Relative for all 3-->
             <RelativeLayout
                 android:id="@+id/socialIDProofLinear"
                 android:layout_width="wrap_content"
@@ -494,6 +493,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/splasherSignUpButton"
                 android:layout_marginTop="12dp"
+                android:layout_marginStart="10dp"
                 android:padding="14dp"
                 android:text="@string/contactAgreement"
                 android:layout_width="wrap_content"

@@ -23,65 +23,36 @@ public class WriteReadDataInFile {
     }
 
     public void writeToFile(String myData, String titleWrite){
-
         try{
-
             OutputStreamWriter myOutputStreamWriter = new OutputStreamWriter(ctx.openFileOutput
                     (titleWrite + "text.txt", Context.MODE_PRIVATE));
-
             myOutputStreamWriter.write(myData);
-
             myOutputStreamWriter.close();
-
         }catch(IOException e){
-
             Log.v("MyActivity", e.toString());
-
         }
-
     }
 
     public String readFromFile(String titleRead){
-
         String result = "";
-
         try{
-
             InputStream myInputStream = ctx.openFileInput(titleRead + "text.txt");
-
             if (myInputStream != null){
-
                 InputStreamReader myInputStreamReader = new InputStreamReader(myInputStream);
-
                 BufferedReader myBufferedReader = new BufferedReader(myInputStreamReader);
-
                 String tempString = "";
-
                 StringBuilder myStringBuilder = new StringBuilder();
-
                 while ((tempString = myBufferedReader.readLine()) != null){
-
                     myStringBuilder.append(tempString);
-
                 }
-
                 myInputStream.close();
-
                 result = myStringBuilder.toString();
-
             }
-
         } catch (FileNotFoundException e) {
-
             e.printStackTrace();
-
         } catch (IOException e) {
-
             e.printStackTrace();
         }
-
         return result;
-
     }
-
 }

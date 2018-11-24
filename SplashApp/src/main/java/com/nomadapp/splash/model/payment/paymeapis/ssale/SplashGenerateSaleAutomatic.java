@@ -5,6 +5,9 @@ import android.content.Context;
 import android.util.Log;
 
 import com.nomadapp.splash.model.constants.PaymeConstants;
+import com.nomadapp.splash.model.server.parseserver.HistoryClassInterface;
+import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
+import com.nomadapp.splash.model.server.parseserver.send.HistoryClassSend;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
@@ -54,6 +57,7 @@ public class SplashGenerateSaleAutomatic {
     private String rawServiceGiven12;
     private String rawBuyerKey12;
     private String rawResponseFromPay12;
+    private String rawCar, color ,brand, model, plate;
     //AUTOMATIC PAYMENT REQUIRED DOUBLE VARIABLES//
     private double definitivePriceRegular;
     private double doubleProcFetchedPrice12HFull;
@@ -104,6 +108,15 @@ public class SplashGenerateSaleAutomatic {
                                                             rawLocationDets12 = unPayedObj.getString("carAddressDesc");
                                                             rawServiceGiven12 = unPayedObj.getString("serviceType");
                                                             rawBuyerKey12 = unPayedObj.getString("buyerKey");//READY//
+
+                                                            color = unPayedObj.getString("carColor");
+                                                            brand = unPayedObj.getString("carBrand");
+                                                            model = unPayedObj.getString("carModel");
+                                                            plate = unPayedObj.getString("carplateNumber");
+
+                                                            rawCar = color + " " + brand + " " + model
+                                                                    + " " + plate;
+
                                                             //Phone's Actual time and date------------------------------------//
                                                             int hourSplasherSide = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
                                                             int minuteSplasherSide = Calendar.getInstance().get(Calendar.MINUTE);
@@ -253,6 +266,7 @@ public class SplashGenerateSaleAutomatic {
         Map<String, Object> payParams = new HashMap<>();
         payParams.put("seller_payme_id", rawSellerId12);
         payParams.put("sale_price", finalPrice);//WHOLE NUMBER(EX: 50.75 -> 5075)
+        payParams.put("currency", PaymeConstants.CURRENCY);
         payParams.put("product_name", productName);
         payParams.put("installments", installments);
         payParams.put("buyer_key", buyerKey);
@@ -280,35 +294,33 @@ public class SplashGenerateSaleAutomatic {
 
     @SuppressLint("SimpleDateFormat")
     private void createSaleRecord(final String coUsername){
-        String automatic = "automatic";
-        final String rawDateTimeOfPay12 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        final HistoryClassSend historyClassSend = new HistoryClassSend(context);
+        final UserClassQuery userClassQuery = new UserClassQuery(context);
+        String reqType = "automatic";
+        String successfulReqStatus = "successful";
         final double defaultTip = 0.0;
         final String defaultRating = "3";
-        Log.i("dateTimeOfPay", rawDateTimeOfPay12);
-        ParseObject historyReq = new ParseObject("History");
-        historyReq.put("carOwnerUsername", coUsername);
-        historyReq.put("splasherUsername", ParseUser.getCurrentUser().getUsername());
-        historyReq.put("dateTimeTransaction", rawDateTimeOfPay12);
-        historyReq.put("location", rawLocation12);
-        historyReq.put("locationDesc", rawLocationDets12);
-        historyReq.put("serviceGiven", rawServiceGiven12);
-        historyReq.put("price",definitivePriceRegular);
-        historyReq.put("tip", defaultTip);
-        historyReq.put("type", automatic);
-        historyReq.put("priceWithTip", definitivePriceRegular);
-        historyReq.put("splasherRating", defaultRating);
-        historyReq.put("rawResponsePayme", rawResponseFromPay12);
-        historyReq.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if(e == null) {
-                    toastMessages.debugMesssage(context.getApplicationContext(), "record created",1);
+        historyClassSend.createRequestRecord(userClassQuery.userName(), rawCOUsername12
+                ,rawLocation12,rawLocationDets12,rawServiceGiven12,definitivePriceRegular
+                ,defaultTip,defaultRating,rawResponseFromPay12,successfulReqStatus,rawBuyerKey12
+                ,rawUntilTime12,rawCar,reqType,new HistoryClassInterface
+                        .onCreateReqRecord(){
+                @Override
+                public void onRecordCreated() {
+                    toastMessages.debugMesssage(context.getApplicationContext(),
+                            "record created",1);
+                    Log.i("record", "CREATED");
                     deleteRequest(coUsername);
-                }else{
-                    toastMessages.productionMessage(context.getApplicationContext(), e.getMessage(),1);
                 }
-            }
-        });
+                @Override
+                public void recordFailedToCreate() {
+                    toastMessages.productionMessage(context.getApplicationContext()
+                            , "record" + " failed to create",1);
+                    Log.i("record", "FAILED");
+                }
+             });
+        //FINISHED CLASSIFYING SYSTEM. TEST BOTH MANUAL AND AUTOMATIC PAYMENT!!!!
+        //IMPLEMENT RECORD CREATED FOR WHEN REQUEST IS CANCELED FOR WHATEVER REASON!!!!
     }
 
     private void deleteRequest(String coUsername){

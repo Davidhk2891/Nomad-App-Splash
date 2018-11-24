@@ -2,6 +2,7 @@ package com.nomadapp.splash.ui.activity.carownerside.payment;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -28,6 +29,8 @@ public class PaymentBillActivity extends AppCompatActivity {
 
     private String splasherRating;
     private String buyer_buyer_key;
+    private String car, color ,brand, model, plate;
+    private String untilTime;
 
     private WriteReadDataInFile writeReadDataInFile = new WriteReadDataInFile
             (PaymentBillActivity.this);
@@ -55,12 +58,14 @@ public class PaymentBillActivity extends AppCompatActivity {
         if(writeReadDataInFile.readFromFile("buyer_key_permanent").equals("") &&
                 !writeReadDataInFile.readFromFile("buyer_key_temporal").equals("")){
             //Temporal buyer_key
-            getTemporalKeyFromServer();//<<<<FINAL-->DATA TO PAY
+            //getDataFromServerToPay();//<<<<FINAL-->DATA TO PAY
+            Log.i("buyer_key_temporal","this should not trigger");
 
         }else if(writeReadDataInFile.readFromFile("buyer_key_temporal").equals("") &&
                 !writeReadDataInFile.readFromFile("buyer_key_permanent").equals("")){
 
             //Permanent buyer_key
+            getDataFromServerToPay();
             buyer_buyer_key = writeReadDataInFile
                     .readFromFile("buyer_key_permanent");//<<<<FINAL-->DATA TO PAY
         }
@@ -71,7 +76,7 @@ public class PaymentBillActivity extends AppCompatActivity {
 
     }
 
-    public void getTemporalKeyFromServer(){
+    public void getDataFromServerToPay(){
         ParseQuery<ParseObject> tempKey = ParseQuery.getQuery("Request");
         tempKey.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
         tempKey.findInBackground(new FindCallback<ParseObject>() {
@@ -81,7 +86,15 @@ public class PaymentBillActivity extends AppCompatActivity {
                 if(e == null){
                     if(objects.size() > 0){
                         for (ParseObject keyObj : objects){
-                            buyer_buyer_key = keyObj.getString("buyerKey");
+                            //buyer_buyer_key = keyObj.getString("buyerKey");
+                            color = keyObj.getString("carColor");
+                            brand = keyObj.getString("carBrand");
+                            model = keyObj.getString("carModel");
+                            plate = keyObj.getString("carplateNumber");
+
+                            untilTime = keyObj.getString("untilTime");
+                            car = color + " " + brand + " " + model + " " + plate;
+                            Log.i("carFINAL", "is " + car);
                         }
                     }
                 }
@@ -90,7 +103,10 @@ public class PaymentBillActivity extends AppCompatActivity {
     }
 
     public void checkout(View view){
-        splashGenerateSaleManual.checkout(splasherRating, buyer_buyer_key);
+        Log.i("1st payment params", "are " + splasherRating + " " + buyer_buyer_key
+        + " " + untilTime + " " + car);
+
+        splashGenerateSaleManual.checkout(splasherRating, buyer_buyer_key, untilTime, car);
     }
 
     @Override

@@ -49,13 +49,18 @@ public class PaymeConstants {
 
     //*************Sale background data for generate_sale API*************//
     public static final String PRODUCT_NAME = "External vehicle wash";
+    public static final String CURRENCY = "ILS";
     public static final int INSTALLMENTS = 1;
     //********************************************************************//
 
     //*************static price***************//
     //15 SHEKEL promo = 12.217 (15)//
     //30 SHEKEL promo = 25.792 (30)//
+    //70 SHEKEL promo =  (70)//
+    //20 SHEKEL promo =  (20)//
     public static final double STATIC_TEMPORAL_PRICE = 25.792;
+    public static final double STATIC_TEMPORAL_PRICE_INTER = 61.990;
+    public static final double STATIC_TEMPORAL_PRICE_MOTO = 16.742;
     //****************************************//
 
     //*************Car Owner Splash Fee Processor*******************//

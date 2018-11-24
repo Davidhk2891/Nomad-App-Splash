@@ -889,7 +889,12 @@
 
 <enum name="adjust_height" value="2"/>
 
-</attr><attr format="float" name="imageAspectRatio"/><attr format="boolean" name="circleCrop"/></declare-styleable>
+</attr>
+
+<attr format="float" name="imageAspectRatio"/>
+
+<attr format="boolean" name="circleCrop"/>
+</declare-styleable>
     <declare-styleable name="MapAttrs"><attr name="mapType">
 <enum name="none" value="0"/>
 
@@ -901,7 +906,52 @@
 
 <enum name="hybrid" value="4"/>
 
-</attr><attr format="float" name="cameraBearing"/><attr format="float" name="cameraTargetLat"/><attr format="float" name="cameraTargetLng"/><attr format="float" name="cameraTilt"/><attr format="float" name="cameraZoom"/><attr format="boolean" name="liteMode"/><attr format="boolean" name="uiCompass"/><attr format="boolean" name="uiRotateGestures"/><attr format="boolean" name="uiScrollGestures"/><attr format="boolean" name="uiTiltGestures"/><attr format="boolean" name="uiZoomControls"/><attr format="boolean" name="uiZoomGestures"/><attr format="boolean" name="useViewLifecycle"/><attr format="boolean" name="zOrderOnTop"/><attr format="boolean" name="uiMapToolbar"/><attr format="boolean" name="ambientEnabled"/><attr format="float" name="cameraMinZoomPreference"/><attr format="float" name="cameraMaxZoomPreference"/><attr format="float" name="latLngBoundsSouthWestLatitude"/><attr format="float" name="latLngBoundsSouthWestLongitude"/><attr format="float" name="latLngBoundsNorthEastLatitude"/><attr format="float" name="latLngBoundsNorthEastLongitude"/></declare-styleable>
+</attr>
+
+<attr format="float" name="cameraBearing"/>
+
+<attr format="float" name="cameraTargetLat"/>
+
+<attr format="float" name="cameraTargetLng"/>
+
+<attr format="float" name="cameraTilt"/>
+
+<attr format="float" name="cameraZoom"/>
+
+<attr format="boolean" name="liteMode"/>
+
+<attr format="boolean" name="uiCompass"/>
+
+<attr format="boolean" name="uiRotateGestures"/>
+
+<attr format="boolean" name="uiScrollGestures"/>
+
+<attr format="boolean" name="uiTiltGestures"/>
+
+<attr format="boolean" name="uiZoomControls"/>
+
+<attr format="boolean" name="uiZoomGestures"/>
+
+<attr format="boolean" name="useViewLifecycle"/>
+
+<attr format="boolean" name="zOrderOnTop"/>
+
+<attr format="boolean" name="uiMapToolbar"/>
+
+<attr format="boolean" name="ambientEnabled"/>
+
+<attr format="float" name="cameraMinZoomPreference"/>
+
+<attr format="float" name="cameraMaxZoomPreference"/>
+
+<attr format="float" name="latLngBoundsSouthWestLatitude"/>
+
+<attr format="float" name="latLngBoundsSouthWestLongitude"/>
+
+<attr format="float" name="latLngBoundsNorthEastLatitude"/>
+
+<attr format="float" name="latLngBoundsNorthEastLongitude"/>
+</declare-styleable>
     <declare-styleable name="MaterialRatingBar"><attr format="color|reference" name="mrb_progressTint"/><attr format="enum" name="mrb_progressTintMode">
             <enum name="src_over" value="3"/>
             <enum name="src_in" value="5"/>
@@ -988,14 +1038,18 @@
 
 <enum name="icon_only" value="2"/>
 
-</attr><attr format="reference" name="colorScheme">
+</attr>
+<attr format="reference" name="colorScheme">
 <enum name="dark" value="0"/>
 
 <enum name="light" value="1"/>
 
 <enum name="auto" value="2"/>
 
-</attr><attr format="reference|string" name="scopeUris"/></declare-styleable>
+</attr>
+
+<attr format="reference|string" name="scopeUris"/>
+</declare-styleable>
     <declare-styleable name="SnackbarLayout"><attr name="android:maxWidth"/><attr name="elevation"/><attr format="dimension" name="maxActionInlineWidth"/></declare-styleable>
     <declare-styleable name="Spinner"><attr name="android:prompt"/><attr name="popupTheme"/><attr name="android:popupBackground"/><attr name="android:dropDownWidth"/><attr name="android:entries"/></declare-styleable>
     <declare-styleable name="SwitchCompat"><attr name="android:thumb"/><attr format="color" name="thumbTint"/><attr name="thumbTintMode">
@@ -1472,6 +1526,7 @@
     <string name="act_account_fromGallery">Choose from gallery</string>
     <string name="act_account_lastName">Last name:</string>
     <string name="act_account_phone">Phone:</string>
+    <string name="act_account_save">Save</string>
     <string name="act_account_takePhoto">Take photo</string>
     <string name="act_account_username">First name:</string>
     <string name="act_addAddresses_done">Done</string>
@@ -1544,7 +1599,9 @@
     <string name="act_car_owner_cancel">Cancel</string>
     <string name="act_car_owner_cancelWash">Cancel wash</string>
     <string name="act_car_owner_car">car</string>
+    <string name="act_car_owner_carAvailableUntil">Car available until</string>
     <string name="act_car_owner_carOwnerDets">Car-Owner Details</string>
+    <string name="act_car_owner_cdcTime">00:00:00</string>
     <string name="act_car_owner_comingsoon">Coming soon</string>
     <string name="act_car_owner_contentDesc">Splasher Badge</string>
     <string name="act_car_owner_decline">not now</string>
@@ -1593,6 +1650,7 @@
     <string name="act_car_owner_searchingForAvailSp">Looking for Splashers - You will be notified
         when your request is taken</string>
     <string name="act_car_owner_splasherStatus">Splasher status</string>
+    <string name="act_car_owner_timeLeft">Time left</string>
     <string name="act_car_owner_version">V.1.0.1</string>
     <string name="act_car_owner_waitingForAResponse">Waiting for a response from the splasher
         you ordered…</string>
@@ -1631,16 +1689,15 @@
     <string name="act_main_username">Username</string>
     <string name="act_main_welcomeBack">WELCOME BACK!</string>
     <string name="act_my_services_areaEpicenter">Area epicenter</string>
-    <string name="act_my_services_areaRange">Area range</string>
+    <string name="act_my_services_areaRange">Choose your area of work</string>
     <string name="act_my_services_centerOfYourService">Center of your service area</string>
     <string name="act_my_services_defaultPrice">…</string>
     <string name="act_my_services_extInt">External + Internal</string>
     <string name="act_my_services_external">External:</string>
     <string name="act_my_services_motorcycle">Motorcycle:</string>
     <string name="act_my_services_save">Save</string>
-    <string name="act_my_services_selectHowWide">Select how wide you want your area of work to be</string>
     <string name="act_my_services_serviceArea">Service area</string>
-    <string name="act_my_services_serviceAreaRange">Service area range</string>
+    <string name="act_my_services_serviceAreaRange">Center and area of your service</string>
     <string name="act_my_services_servicePriceTitle">Service price</string>
     <string name="act_my_wallet_balanceNum">₪ 00.00</string>
     <string name="act_my_wallet_balanceTitle">Balance</string>
@@ -1682,6 +1739,7 @@
     <string name="act_wash_my_car_extAndIntWash">External &amp;\n Internal</string>
     <string name="act_wash_my_car_externalWash">External \nwash</string>
     <string name="act_wash_my_car_fivePointZero">  5.0</string>
+    <string name="act_wash_my_car_from">from - (now)</string>
     <string name="act_wash_my_car_inputLocationDetails">Location Details (Optional)</string>
     <string name="act_wash_my_car_loading">Loading…</string>
     <string name="act_wash_my_car_maximumPrice">₪70</string>
@@ -1705,6 +1763,8 @@
     <string name="act_wash_my_car_set">Set</string>
     <string name="act_wash_my_car_today">Today</string>
     <string name="act_wash_my_car_tomorrow">Tomorrow</string>
+    <string name="act_wash_my_car_until" ns2:ignore="TypographyDashes">until \u0020 ---:---</string>
+    <string name="act_wash_my_car_until2">until -</string>
     <string name="act_wash_my_car_untilWhatTime">Until what time</string>
     <string name="act_wash_my_car_wash">wash</string>
     <string name="act_wash_my_car_washes">washes</string>
@@ -1717,6 +1777,8 @@
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="becomeSplasher_act_java_bothPasswords">Both password must match. Please try again</string>
     <string name="becomeSplasher_act_java_herzliya">Herzliya</string>
+    <string name="becomeSplasher_act_java_hired">Hired</string>
+    <string name="becomeSplasher_act_java_independent">Independent</string>
     <string name="becomeSplasher_act_java_login">LogIn</string>
     <string name="becomeSplasher_act_java_loginFailed">Login failed. Please try again</string>
     <string name="becomeSplasher_act_java_ok">OK</string>
@@ -1728,6 +1790,7 @@
     <string name="becomeSplasher_act_java_pleaseLoginThroughRespec">Please log in through your respective user type account: Car Owner</string>
     <string name="becomeSplasher_act_java_ramatGan">Ramat Gan</string>
     <string name="becomeSplasher_act_java_signup">SignUp</string>
+    <string name="becomeSplasher_act_java_splasherType">Splasher type</string>
     <string name="becomeSplasher_act_java_telAviv">Tel Aviv</string>
     <string name="becomeSplasher_act_java_userNameAndPass">A username and a password are required</string>
     <string name="becomeSplasher_act_java_welcomeBack">Welcome back</string>
@@ -1855,7 +1918,7 @@
     <string name="carOwner_act_java_youHaveToSignLogRequest">You have to Signup/Login in order to
         request a car wash</string>
     <string name="carOwner_act_java_youHaveToSignOrLog">You have to SignUp/LogIn in order to access
-        your car owner's requests</string>
+        your car owner\'s requests</string>
     <string name="carOwner_act_java_youNeedToLogInBfProfPic">You need to log in before changing
         you account settings</string>
     <string name="carOwner_act_java_yourBike">your bike</string>
@@ -1957,7 +2020,6 @@
     <string name="header_ratingBadge">ratingBadge</string>
     <string name="header_username">Username</string>
     <string name="header_usertype">UserType</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logout_message_Logout">Logout</string>
     <string name="logout_message_areYouSureLogout">Are you sure you want to Logout?</string>
     <string name="logout_message_no">no</string>
@@ -2049,6 +2111,7 @@
     <string name="project_id" translatable="false">splash-production-206507</string>
     <string name="search_menu_title">Search</string>
     <string name="serviceShow_menu_reportUser">report user</string>
+    <string name="seventy">₪ 70</string>
     <string name="shekel">₪</string>
     <string name="spalsher_row_splasherPriceTitle">Price</string>
     <string name="splashPartnersProgramsTitle">Join our Splash Partners program.</string>
@@ -2057,15 +2120,24 @@
     <string name="splasher_row_splasherWashes">(xx washes)</string>
     <string name="splasher_services_cantUpdateSamePrice">You can\'t update to the same " +
                     "prices. Please set new prices before updating</string>
+    <string name="splasher_services_dialogAreaMsg">Change area settings?</string>
+    <string name="splasher_services_dialogAreaNo">Cancel</string>
+    <string name="splasher_services_dialogAreaTitle">Service Area</string>
+    <string name="splasher_services_dialogAreaYes">yes</string>
     <string name="splasher_services_dialogMsg">Change these service prices?</string>
     <string name="splasher_services_dialogNo">Cancel</string>
     <string name="splasher_services_dialogTitle">Service prices</string>
     <string name="splasher_services_dialogYes">yes</string>
+    <string name="splasher_services_pleaseChooseYourServiceArea">Please choose your service
+     area\'s epicenter first</string>
     <string name="splasher_services_pleaseSetAll">Please set all of your service prices " +
                     "before updating</string>
     <string name="splasher_services_pricesCantBeZero">Prices can\'t be 0. Please set a " +
                     "different price and try again</string>
-    <string name="splasher_services_pricesUpdated">Prices updated</string>
+    <string name="splasher_services_selectEpicenter">Select the center of your area of service</string>
+    <string name="splasher_services_selectHowWide">Select the range of your area of work</string>
+    <string name="splasher_services_servicesUpdated">Services updated</string>
+    <string name="splasher_services_setEpicenter">set epicenter</string>
     <string name="splasher_services_thereWasAProblem">There was a problem while " +
                                 "updating. Please try again</string>
     <string name="splasher_wallet_java_cantUpdate">Can\'t update to the same details. Please try again</string>
@@ -2079,16 +2151,20 @@
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="steps">    -Spray the formula and wipe before it gets dry.
         \n-Wipe in circles. \n-Work on small sections at a time.</string>
+    <string name="thirty">₪ 30</string>
     <string name="threeDots">…</string>
     <string name="title_activity_car_owner">Splash</string>
     <string name="title_activity_car_owner_location">Map</string>
     <string name="title_activity_driver_location">Splash</string>
     <string name="title_activity_rider">Splash</string>
+    <string name="twenty">₪ 20</string>
     <string name="washMyCar_act_java_StandardWash">Standard wash</string>
     <string name="washMyCar_act_java_StandardWashPlus">Standard wash + wax</string>
     <string name="washMyCar_act_java_cancel">Cancel</string>
     <string name="washMyCar_act_java_chooseACar">Choose a car</string>
+    <string name="washMyCar_act_java_cityOutOfRange">City out of range</string>
     <string name="washMyCar_act_java_deleteCar">Delete car?</string>
+    <string name="washMyCar_act_java_givataim">Giv\'atayim</string>
     <string name="washMyCar_act_java_inputLocation">Input location</string>
     <string name="washMyCar_act_java_inputLocationDetails">Input location details</string>
     <string name="washMyCar_act_java_minimumDuration">Minimum duration of a car wash request must be at least 5 hours</string>
@@ -2096,7 +2172,11 @@
     <string name="washMyCar_act_java_motorcycle">Motorcycle</string>
     <string name="washMyCar_act_java_ok">OK</string>
     <string name="washMyCar_act_java_pleaseFillAll">Please fill all of the fields before proceeding</string>
+    <string name="washMyCar_act_java_ramatGan">Ramat Gan</string>
     <string name="washMyCar_act_java_selectTime">Select time</string>
+    <string name="washMyCar_act_java_telAviv">Tel Aviv</string>
+    <string name="washMyCar_act_java_thisCityIs">This city is currently out of our range. Splash operates in
+        Tel Aviv, Giv\'ataim and Ramat Gan at the moment. Please choose one of these cities.</string>
     <string name="washMyCar_act_java_washRequestSent">Wash request sent successfully</string>
     <string name="washMyCar_act_java_washTimeLimit">Wash time limit</string>
     <string name="washMyCar_act_java_yes">Yes</string>

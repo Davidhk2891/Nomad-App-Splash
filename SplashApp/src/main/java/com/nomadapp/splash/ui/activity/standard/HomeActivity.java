@@ -2,6 +2,7 @@ package com.nomadapp.splash.ui.activity.standard;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -54,12 +55,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.constants.WebConstants;
 import com.nomadapp.splash.model.imagehandler.GlideImagePlacement;
+import com.nomadapp.splash.model.mapops.AddressCoordsLocator;
 import com.nomadapp.splash.model.mapops.MarkersOps;
+import com.nomadapp.splash.model.mapops.OnAddressFetched;
 import com.nomadapp.splash.model.payment.paymeapis.seller.SplashCreateSeller;
 import com.nomadapp.splash.model.payment.paymeapis.ssale.SplashGenerateSaleAutomatic;
 import com.nomadapp.splash.model.server.Installation;
 import com.nomadapp.splash.model.server.parseserver.DocumentsClassInterface;
 import com.nomadapp.splash.model.server.parseserver.HistoryClassInterface;
+import com.nomadapp.splash.model.server.parseserver.ProfileClassInterface;
 import com.nomadapp.splash.model.server.parseserver.RequestClassInterface;
 import com.nomadapp.splash.model.server.parseserver.UserClassInterface;
 import com.nomadapp.splash.model.server.parseserver.queries.HistoryClassQuery;
@@ -80,6 +84,7 @@ import com.nomadapp.splash.ui.activity.carownerside.WashReqParamsActivity;
 import com.nomadapp.splash.ui.activity.carownerside.WashServiceShowActivity;
 import com.nomadapp.splash.ui.activity.splasherside.SplasherClientRouteActivity;
 import com.nomadapp.splash.ui.activity.standard.web.WebActivity;
+import com.nomadapp.splash.utils.customclocksops.HourDifferentiator;
 import com.nomadapp.splash.utils.forcedupdate.ForceUpdateChecker;
 import com.nomadapp.splash.utils.phonedialer.DialCall;
 import com.nomadapp.splash.utils.radar.RadarView;
@@ -90,16 +95,19 @@ import com.nomadapp.splash.utils.sysmsgs.localnotifications.Notifications;
 import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
 import com.nomadapp.splash.utils.sysmsgs.questiondialogs.ForcedAlertDialog;
 import com.nomadapp.splash.utils.sysmsgs.questiondialogs.LogoutMessage;
-
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import com.parse.SaveCallback;
 import com.paymeservice.android.PayMe;
 import com.paymeservice.android.model.Settings;
 import static com.paymeservice.android.model.Settings.Environment.PRODUCTION;
+import static com.paymeservice.android.model.Settings.Environment.STAGING;
 
 import net.qiujuer.genius.ui.widget.SeekBar;
 
@@ -108,6 +116,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -144,6 +153,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private boolean notiForCarOwnerRan = false;
     private boolean notiForCarOwnerRan2 = false;
     private boolean sServicesInterfaceRan = false;
+    private boolean areaEpicenterReady = false;
+    private boolean presetServiceSettingsRan = false;
+    private boolean cdcUntilTimeRan = false;
     //---------//
 
     private RadarView cRadarView;
@@ -158,7 +170,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ParseUser currentUser = ParseUser.getCurrentUser();
 
     //splasher Status//
-    private LinearLayout mSplasher_info_toco_back_space;
+    private RelativeLayout mSplasher_info_toco_back_space;
     private ImageView mSplasherPicInStatusWindows;
     private TextView cSplasherStatus;
     private LatLng userLocation;
@@ -199,6 +211,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ImageView cRatingBadge;
     private int splasherNumericalBadge;
     private int requestNumercialBadge;
+    private String splasherType;
     private MenuItem cancelItem;
     //-------------//
 
@@ -257,6 +270,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String carOwnerPhoneNum, carOwnerPhoneNToTransfer;
     private String priceCo, priceToTransfer;
     private String distanceCo;
+    private String requestType;
 
     private String carOwnerCarBrandCo, carBrandToTransfer;
     private String carOwnerCarModelCo, carModelToTransfer;
@@ -317,6 +331,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private RequestClassQuery requestClassQuery = new RequestClassQuery(HomeActivity.this);
     private MetricsClassQuery metricsClassQuery = new MetricsClassQuery(HomeActivity.this);
     private MarkersOps markersOps = new MarkersOps(HomeActivity.this);
+    private AddressCoordsLocator addressCoordsLocator
+            = new AddressCoordsLocator(HomeActivity.this);
+    private HourDifferentiator hd = new HourDifferentiator(HomeActivity.this);
 
     //PAYME---------------//
     private SplashCreateSeller splashCreateSeller = new SplashCreateSeller(HomeActivity.this);
@@ -324,12 +341,21 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             SplashGenerateSaleAutomatic(HomeActivity.this);
     //--------------------//
 
-    //--Area Range from services--//
-    private String displayedRange;
-    private int distanceToSet;
+    //--Epicenter and area Range from services--//
+    private String displayedRange, justRange;
+    private int distanceToSet, rangeSBProgress;
     private SeekBar mServiceAreaSeekbar;
     private TextView mRangeText;
-    //----------------------------//
+    private LatLng areaPointerLocation;
+    private Button mSetArea;
+    private TextView mLiveFetchedAdddress;
+    //-----------------------------------------//
+
+    //--Count down clock--//
+    private RelativeLayout mCountDownClockRela;
+    private TextView mCarAvailTime;
+    private LinearLayout mSplasherInfoHolder;
+    //--------------------//
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     @SuppressLint("ClickableViewAccessibility")
@@ -386,7 +412,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         DrawerLayout mDrawerLayout = findViewById(R.id.home);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open
                 , R.string.close);
-        NavigationView navigationView = findViewById(R.id.navView);
+        final NavigationView navigationView = findViewById(R.id.navView);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
 
@@ -444,6 +470,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         //splasher status
         mSplasherPicInStatusWindows = findViewById(R.id.splasherPicInStatusWindow);
         mSplasher_info_toco_back_space = findViewById(R.id.splasher_info_toco_back_space);
+        mSplasherInfoHolder = findViewById(R.id.splasherInfoHolder);
         ImageView mSplasher_stats_co_call = findViewById(R.id.splasher_stats_co_call);
         mSplasher_stats_co_splasherName = findViewById(R.id.splasher_stats_co_splasherName);
         mSplasher_stats_co_numWashes = findViewById(R.id.splasher_stats_co_numWashes);
@@ -460,6 +487,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         cUpdatedSeekbar.setVisibility(View.GONE);
         mRequest_info_window.setVisibility(View.GONE);
         mSplasher_info_toco_back_space.setVisibility(View.GONE);
+        mSplasherInfoHolder.setVisibility(View.GONE);
         mSplasher_status_co_ratingBar.setEnabled(false);
         mSplasher_status_co_ratingBar.setClickable(false);
         if (!Locale.getDefault().getDisplayLanguage().equals("עברית")){
@@ -471,15 +499,19 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         cFindMeAWash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!userClassQuery.userExists()) {
-                    StringNotLoggedIn = getResources().getString
-                            (R.string.carOwner_act_java_youHaveToSignLogRequest);
-                    notLoggedIn(StringNotLoggedIn);
-                } else {
-                    if (cRadarView.getVisibility() == View.GONE) {
-                        updateWashMyCarBtnCount();
-                        startActivity(new Intent(HomeActivity.this
-                                ,WashReqParamsActivity.class));
+                if (alreadyExecuted8) {
+                    if (!userClassQuery.userExists()) {
+                        StringNotLoggedIn = getResources().getString
+                                (R.string.carOwner_act_java_youHaveToSignLogRequest);
+                        notLoggedIn(StringNotLoggedIn);
+                    } else {
+                        if (cRadarView.getVisibility() == View.GONE) {
+                            updateWashMyCarBtnCount();
+                            Intent intent = new Intent(HomeActivity.this,WashReqParamsActivity.class);
+                            intent.putExtra("defaultLat", userLocation.latitude);
+                            intent.putExtra("defaultLong",userLocation.longitude);
+                            startActivity(intent);//test
+                        }
                     }
                 }
             }
@@ -496,12 +528,29 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             try {
                 if (userClassQuery.userIsCarOwnerOrSplasher(splasher)){
                     handler.removeCallbacks(requestUpdateChecker);
-                    cSplashWalletRelative.setVisibility(View.VISIBLE);
-                    cSplashWalletTextView.setVisibility(View.VISIBLE);
-                    cSplashWalletTextView.setText(getResources()
-                            .getString(R.string.carOwner_act_java_balance));
-
-                    Log.i("data payme preprepre", "we in splasher");
+                    profileClassQuery.splasherType(new ProfileClassInterface.walletStatus() {
+                        @Override
+                        public void onWalletStatusAccess(String splasherType) {
+                            if(splasherType.equals("independent")) {
+                                Log.i("whichSplasher", "independent");
+                                if (sServicesInterfaceRan){
+                                    cSplashWalletRelative.setVisibility(View.GONE);
+                                    cSplashWalletTextView.setVisibility(View.GONE);
+                                }else{
+                                    cSplashWalletRelative.setVisibility(View.VISIBLE);
+                                    cSplashWalletTextView.setVisibility(View.VISIBLE);
+                                }
+                                cSplashWalletTextView.setText(getResources()
+                                        .getString(R.string.carOwner_act_java_balance));
+                            }else{
+                                Log.i("whichSplasher", "hired");
+                                cSplashWalletRelative.setVisibility(View.GONE);
+                                cSplashWalletTextView.setVisibility(View.GONE);
+                                cSplashWalletTextView.setText(getResources()
+                                        .getString(R.string.carOwner_act_java_balance));
+                            }
+                        }
+                    });
                     //create seller operations
                     dispatchDocumentsSplasherSignUp();
 
@@ -573,10 +622,22 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         }else if(userClassQuery.userExists()){
             try {
                 if (userClassQuery.userIsCarOwnerOrSplasher(splasher)) {
-
-                    navigationView.getMenu().findItem(R.id.threePointTwentyFiveNav)
-                            .setTitle(getResources().getString(R.string.nav_menu_myWallet))
-                            .setIcon(R.drawable.ic_account_balance_wallet_black_24dp);
+                    profileClassQuery.splasherType(new ProfileClassInterface.walletStatus() {
+                        @Override
+                        public void onWalletStatusAccess(String splasherType) {
+                            Log.i("splasherType", "is: " + userClassQuery.userName()
+                                    + " splasher of type " + splasherType);
+                            if (splasherType.equals("independent")) {
+                                navigationView.getMenu().findItem(R.id.threePointTwentyFiveNav)
+                                        .setTitle(getResources().getString(R.string
+                                                .nav_menu_myWallet))
+                                        .setIcon(R.drawable.ic_account_balance_wallet_black_24dp);
+                            }else{
+                                navigationView.getMenu().findItem(R.id.threePointTwentyFiveNav)
+                                        .setVisible(false);
+                            }
+                        }
+                    });
 
                 } else if (userClassQuery.userIsCarOwnerOrSplasher(carOwner)) {
 
@@ -810,6 +871,19 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         metricsClassQuery.queryMetricsToUpdate("washMyCar");
     }
 
+    private void cdcOps(int visibility1){
+        if(userClassQuery.userExists()){
+            if (userClassQuery.userIsCarOwnerOrSplasher(carOwner)){
+                mCountDownClockRela = findViewById(R.id.countDownClockRela);
+                mCarAvailTime = findViewById(R.id.carAvailTime);
+                //mCdcTime = findViewById(R.id.cdcTime); //invalidated. can't develop for now.
+                mSplasher_info_toco_back_space.setVisibility(View.VISIBLE);
+                viewFliper(RelativeLayout.BELOW, R.id.splasher_info_toco_back_space);
+                mCountDownClockRela.setVisibility(visibility1);
+            }
+        }
+    }
+
     public void fetchCurrentRequestIfExists(ParseObject object){
         toastMessages.debugMesssage(getApplicationContext()
                 , "I have and active request", 1);
@@ -833,22 +907,25 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         }else {
             mCarAddDescText.setText(object.getString("carAddressDesc"));
         }
+
         String service = object.getString("serviceType");
+        currentSavedSelectedHour = object.getString("untilTime");
         serviceTextAdjustment(mCarServiceText,service);
-        String roundedFixPrice = getResources().getString(R.string.shekel) + " " + "15";
-        String roundedFixPrice2 = getResources().getString(R.string.shekel) + " " + "30";
         String priceFromServer = object.getString("priceWanted");
-        String requestType = object.getString("requestType");
+        requestType = object.getString("requestType");
         Log.i("priceFromServer", "is: " + priceFromServer);
-        if (priceFromServer.contains("12.217")) {
-            mWindowPrice.setText(roundedFixPrice);
-        }else if(priceFromServer.contains("25.792")){
-            mWindowPrice.setText(roundedFixPrice2);
-        }else{
-            mWindowPrice.setText(priceFromServer);
+        if (priceFromServer.contains(String.valueOf(PaymeConstants.STATIC_TEMPORAL_PRICE))) {
+            mWindowPrice.setText(getResources().getString(R.string.thirty));
+        }else if(priceFromServer.contains(String.valueOf(PaymeConstants
+                .STATIC_TEMPORAL_PRICE_INTER))){
+            mWindowPrice.setText(getResources().getString(R.string.seventy));
+        }else if(priceFromServer.contains(String.valueOf(PaymeConstants
+                .STATIC_TEMPORAL_PRICE_MOTO))){
+            mWindowPrice.setText(getResources().getString(R.string.twenty));
         }
         //----------------------------------------------------------------------------------------//
 
+        cdcOps(View.VISIBLE);
         cRadarView.setVisibility(View.VISIBLE); //--> Should set the Cancel button visible
         cFindMeAWash.setVisibility(View.GONE);
         mRequest_info_window.setVisibility(View.VISIBLE);
@@ -915,21 +992,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         requestUpdateChecker.run();
     }
 
-    private void serviceTextAdjustment(TextView txtView, String service){
-        Log.i("servicioType", service + " ran");
-        if ((service.contains("External") && service.contains("wash"))
-                || (service.contains("שטיפה")) && service.contains("חיצוני")){
-            Log.i("servicioType2", service);
-            txtView.setText(getResources().getString(R.string.act_car_owner_externalWash));
-        }else if(service.contains("Internal") || service.contains("ופנימי")){
-            Log.i("servicioType2", service);
-            txtView.setText(getResources().getString(R.string.act_car_owner_extAndIntWash));
-        }else if(service.contains("motorcycle") || service.contains("לאופנוע")){
-            Log.i("servicioType2", service);
-            txtView.setText(getResources().getString(R.string.act_car_owner_motorcycle));
-        }
-    }
-
     public void fetchCurrentSplasherIfExists(final ParseObject object){
         splasherActive = true; //-->if so, updateMap() = inactive (false).
         isThereASplasher = object.getString("splasherUsername");
@@ -956,10 +1018,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .equals(canceled)) {//if a splasher actually accepted your req
             Log.i("Current Splasher is", "Your Splasher is "
                     + isThereASplasher);
+            cdcOps(View.GONE);
             cRadarView.setVisibility(View.GONE);
             cSplasherStatus.setVisibility(View.GONE);
             cUpdatedSeekbar.setVisibility(View.VISIBLE);
             mSplasher_info_toco_back_space.setVisibility(View.VISIBLE);
+            mSplasherInfoHolder.setVisibility(View.VISIBLE);
             cUpdatedSeekbar.setProgress(1);
             final int finalIntSplasherRating = intSplasherRating;
             userClassQuery.getCurrentUserDocument(isThereASplasher, new UserClassInterface() {
@@ -1057,24 +1121,26 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 .equals("bike")) {
                             cMarkerView2.setVisibility(View.GONE);
 
-                            markersOps.customMapSmallMarkerPlacer(
-                                    R.drawable.bigbikepinforrequest
-                                    ,getResources().getString(R.string.carOwner_act_java_yourBike)
-                                    ,mMap
-                                    ,savedCarLocationForUpdate
-                            );
+                            markers2.add(mMap.addMarker(new MarkerOptions()
+                                    .position(savedCarLocationForUpdate)
+                                    .title(getResources().getString
+                                            (R.string.carOwner_act_java_yourBike))
+                                    .icon(BitmapDescriptorFactory
+                                            .fromBitmap(markersOps.customMapSmallMarkerAdjust
+                                                    (R.drawable.bigbikepinforrequest)))));
 
                             //cMarkerView2.setVisibility(View.VISIBLE);
                         } else if (writeReadDataInFile.readFromFile("bikeOrNot")
                                 .equals("noBike")) {
                             cMarkerView.setVisibility(View.GONE);
 
-                            markersOps.customMapSmallMarkerPlacer(
-                                    R.drawable.bigcarpinforrequest
-                                    ,getResources().getString(R.string.carOwner_act_java_yourCar)
-                                    ,mMap
-                                    ,savedCarLocationForUpdate
-                            );
+                            markers2.add(mMap.addMarker(new MarkerOptions()
+                                    .position(savedCarLocationForUpdate)
+                                    .title(getResources().getString
+                                            (R.string.carOwner_act_java_yourCar))
+                                    .icon(BitmapDescriptorFactory
+                                            .fromBitmap(markersOps.customMapSmallMarkerAdjust
+                                                    (R.drawable.bigcarpinforrequest)))));
 
                             //cMarkerView.setVisibility(View.VISIBLE);
                         }
@@ -1149,7 +1215,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 if (!alreadyExecuted4) {
                                     Log.i("washFinished","inactive");
                                     cSplasherStatus.setVisibility(View.VISIBLE);
-                                    viewFliper();
+                                    viewFliper(RelativeLayout.ABOVE, R.id.updatedSeekBarOne);
                                     String wholeSplasherStatus = getResources()
                                             .getString(R.string.carOwner_act_java_yourSplasher)
                                             + " " + isThereASplasher + " " + getResources()
@@ -1196,12 +1262,28 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    private void viewFliper(){
+    private void serviceTextAdjustment(TextView txtView, String service){
+        Log.i("servicioType", service + " ran");
+        if ((service.contains("External") && service.contains("wash"))
+                || (service.contains("שטיפה")) && service.contains("חיצוני")){
+            Log.i("servicioType2", service);
+            txtView.setText(getResources().getString(R.string.act_car_owner_externalWash));
+        }else if(service.contains("Internal") || service.contains("ופנימי")){
+            Log.i("servicioType2", service);
+            txtView.setText(getResources().getString(R.string.act_car_owner_extAndIntWash));
+        }else if(service.contains("motorcycle") || service.contains("לאופנוע")){
+            Log.i("servicioType2", service);
+            txtView.setText(getResources().getString(R.string.act_car_owner_motorcycle));
+        }
+    }
+
+    private void viewFliper(int aboveBelow, int parentReference){
+        //RelativeLayout.ABOVE, R.id.updatedSeekBarOne
         RelativeLayout.LayoutParams params= new RelativeLayout
-                .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
+                .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
                 ,ViewGroup.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        params.addRule(RelativeLayout.ABOVE, R.id.updatedSeekBarOne);
+        params.addRule(aboveBelow, parentReference);
         params.setMargins(0,0,0,40);
         cSplasherStatus.setLayoutParams(params);
     }
@@ -1299,6 +1381,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                         (R.string.carOwner_act_java_aSplasherIsOnTheWay);
                 cancelRequestDialog(cancelTitle2, yesSplasherCancel);
             }
+        }else if(sServicesInterfaceRan){
+            Log.i("servicesBackArrow", "Ran");
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -1380,9 +1465,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @SuppressLint("DefaultLocale")
             String phoneHourWithoutSufix = fullDate + " " + String.format("%02d:%02d"
                     , currentSoleHourPlusOne, currentSoleMinute).toUpperCase(Locale.getDefault());
-            //-------------------------------------------------------------------------------------------------------//
-
-            //I think i found solution in stack overflow. left it open. check it.
+            //--------------------------------------------------------------------------//
 
             //--AM PM Format--//
             if (currentSoleHour >= 12 && currentSoleHour < 24) {
@@ -1397,10 +1480,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                         .toUpperCase(Locale.getDefault()) + " AM";
             }
 
-            Log.i("Checking and hour", "Saved hour is: " + currentSavedSelectedHour
+            Log.i("Checkingandhour", "Saved hour is: " + currentSavedSelectedHour
                     + " and current hour +1 is : " + finalPhoneHour);
 
-            Log.i("Checking cut dates", "Cut Saved Date is: "
+            Log.i("Checkingcutdates", "Cut Saved Date is: "
                     + cutPMCurrentSavedSelectedHour +
                     " and phone's Cut: " + phoneHourWithoutSufix);
 
@@ -1412,7 +1495,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             Date date1 = sdf.parse(phoneHourWithoutSufix);
             Date date2 = sdf.parse(cutPMCurrentSavedSelectedHour);
 
-            Log.i("Checking dates", "date 1 is: " + date1 +
+            Log.i("Checkingdates", "date 1 is: " + date1 +
                     " and date 2 is: " + date2);
 
             //---------------//
@@ -1447,6 +1530,13 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     timeCheckedOnce = true;
                 }
             }
+            cdcOps(View.VISIBLE);
+            if(!cdcUntilTimeRan) {
+                Log.i("ran","ran here");
+                hd.hourDiffCalculator(phoneHourWithoutSufix, cutPMCurrentSavedSelectedHour
+                        , mCarAvailTime);
+                cdcUntilTimeRan = true;
+            }
         }
     }
 
@@ -1456,16 +1546,26 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 @Override
                 public void fetchThisTakenRequest(ParseObject object) {
                     if (object.getString("requestType").equals("public")) {
+                        Log.i("here1", "here345");
                         fetchCurrentSplasherIfExists(object);
                     }else if(object.getString("requestType").equals("private")){
+                        Log.i("here1.5", "here345");
                         currentSavedSelectedHour = object.getString("untilTime");
                         if (object.getString("taken").equals("yes")){
+                            Log.i("here2", "here345");
                             fetchCurrentSplasherIfExists(object);
                         }else if(object.getString("taken").equals("no") &&
                                 object.getString("splasherUsername")
                                         .equals("canceled")){
+                            //private request and waiting//
+                            Log.i("here3", "here345");
                             splasherCanceledCheck = true;
                             splasherWasPrivate = true;
+                        }else if((object.getString("taken").equals("no")) &&
+                                !(object.getString("splasherUsername").equals("canceled")
+                                || object.getString("splasherUsername").equals("clear"))){
+                            Log.i("here4", "here345");
+                            untilTimeReachedRunner();
                         }
                     }
                 }
@@ -1479,6 +1579,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             Log.i("splasherCanceledCheck", String.valueOf(splasherCanceledCheck));
             if (splasherCanceledCheck) {
                 if (!alreadyExecuted2) {
+                    cdcOps(View.GONE);//BUG HERE. CDC WONT HIDE AFTER REQ CANCELLED BY SPLASHER
                     AlertDialog.Builder splasherCanceled = new AlertDialog
                             .Builder(HomeActivity.this);
                     splasherCanceled.setTitle(getResources().getString
@@ -1506,6 +1607,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         alreadyExecuted2 = true;
                                         cancelAndDeleteCarWashRequest();
                                     }
+                                    cdcOps(View.VISIBLE);
                                 }
                             });
                     splasherCanceled.setCancelable(false); //Check if this works
@@ -1519,16 +1621,23 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         String clear = "clear";
         String canceled = "canceled";
         if (isThereASplasher != null) {
-            if (isThereASplasher.equals(clear) || isThereASplasher.equals(canceled)) {
-                try {
-                    untilTimeReachedAutoCancel();
-                } catch (java.text.ParseException e1) {
-                    e1.printStackTrace();
+            if (requestType.equals("public")) {
+                if (isThereASplasher.equals(clear) || isThereASplasher.equals(canceled)) {
+                    untilTimeReachedRunner();
                 }
+            }else if(requestType.equals("private")){
+                untilTimeReachedRunner();
             }
         }
     }
 
+    private void untilTimeReachedRunner(){
+        try {
+            untilTimeReachedAutoCancel();
+        } catch (java.text.ParseException e1) {
+            e1.printStackTrace();
+        }
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -1872,7 +1981,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     String sServices = bundle.getString("fromServices");
                     if (sServices != null) {
                         Log.i("splasherLocCall","1");
-                        runIfComingFromSServices(bundle);
+                        runIfComingFromSServices(location);
                     }else{
                         Log.i("splasherLocCall","2");
                         upToTwentyRequestDots(location);
@@ -1882,33 +1991,62 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    private void runIfComingFromSServices(Bundle bundle){
+    private void setServiceSettingsIfEmpty(){
+        profileClassQuery.getUserProfileToUpdate(new ProfileClassInterface() {
+            @Override
+            public void beforeQueryFetched() {
+
+            }
+            @Override
+            public void updateChanges(List<ParseObject> objects, ParseException e) {
+                if (e == null){
+                    if (objects.size() > 0){
+                        for (ParseObject object : objects){
+                            String areaRange = "3.0 Km";
+                            LatLng epicenterCoords = addressCoordsLocator
+                                    .locationCoordsFetcher(mMap);
+                            Log.i("presetCoordsSpl",String.valueOf(epicenterCoords));
+                            ParseGeoPoint epicenterCoordsGeoP = new ParseGeoPoint(epicenterCoords
+                                    .latitude, epicenterCoords.longitude);
+                            final String epicenterAddress = addressCoordsLocator
+                                    .locationAddressFetcher(epicenterCoords, new OnAddressFetched(){
+                                        @Override
+                                        public void setOnAddressFetched() {
+                                            Log.i("presetCoordsAddress1", "success");
+                                        }
+                                    });
+                            Log.i("presetCoordsAddress2", epicenterAddress);
+                            object.put("serviceEC", epicenterAddress);
+                            object.put("ECCoords", epicenterCoordsGeoP);
+                            object.put("serviceRange", areaRange);
+                            object.saveInBackground();
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    private void runIfComingFromSServices(Location location){
         //focus epicenter location(use a 13 zoom)
         if (!sServicesInterfaceRan) {
             if (getSupportActionBar() != null) {
-                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                //withActionBarDrawerToggle(false);
+                //setDrawerIndicatorEnabled(false);
+                mToggle.setDrawerIndicatorEnabled(false);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 getSupportActionBar().setTitle("Set area range");
             }
 
             Button mLetsWashACar = findViewById(R.id.letsWashACar);
             mLetsWashACar.setVisibility(View.GONE);
-
-            Button mSetRange = findViewById(R.id.setRange);
-            mSetRange.setVisibility(View.VISIBLE);
-            rangeButtonState(mSetRange,false,R.drawable.btn_shape_grey);
-
+            mSetArea = findViewById(R.id.setArea);
+            mSetArea.setVisibility(View.VISIBLE);
             cGettingLocationRelativeHome.setVisibility(View.GONE);
-
             cSplashWalletRelative.setVisibility(View.GONE);
-
             cSplasherStatus.setVisibility(View.VISIBLE);
             cSplasherStatus.setText(getResources().getString(R.string
-                    .act_my_services_selectHowWide));
-
-            Double epicenterLat = Double.parseDouble(bundle.getString("serviceCenterLat"));
-            Double epicenterLon = Double.parseDouble(bundle.getString("serviceCenterLon"));
-            LatLng epicenterLocation = new LatLng(epicenterLat, epicenterLon);
-            Log.i("epicenter", String.valueOf(epicenterLocation));
+                    .splasher_services_selectEpicenter));
 
             if (mMap != null) {
                 mMap.getUiSettings().setScrollGesturesEnabled(true);
@@ -1916,42 +2054,72 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.getUiSettings().setRotateGesturesEnabled(false);
                 mMap.getUiSettings().setZoomGesturesEnabled(true);
                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(epicenterLocation, 13));
 
-                drawMarkerCircleRange(epicenterLocation, 1000);
-                mServiceAreaSeekbar.setProgress(2);
-                String defaultDT = "- 1.0 Km -";
-                mRangeText.setText(defaultDT);
+                locationGenerator(location);
 
-                //left here...need to send saved range and displayed range to server. and fetch
-                //whenever needed
-
-                setRangeAreaOnSeekbar(epicenterLocation,mSetRange);
             }
 
             sServicesInterfaceRan = true;
         }
     }
-    private void rangeButtonState(Button rangeButton, boolean state, int color){
-        rangeButton.setClickable(state);
-        rangeButton.setEnabled(state);
-        rangeButton.setBackgroundResource(color);
+    private void locationGenerator(final Location location){
+        //autoFetching the location for the center of the screen on the map//
+        ImageView mServiceMarkerView = findViewById(R.id.serviceMarkerView);
+        mLiveFetchedAdddress = findViewById(R.id.liveFetchedAddress);
+        mServiceMarkerView.setVisibility(View.VISIBLE);
+        mLiveFetchedAdddress.setVisibility(View.VISIBLE);
+        final LatLng areaLocation = new LatLng(location.getLatitude(), location
+            .getLongitude());
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(areaLocation, 14));
+
+        locationParser(mLiveFetchedAdddress);
+
+        mMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
+            @Override
+            public void onCameraMoveStarted(int i) {
+                mLiveFetchedAdddress.setText(getResources().getString(R.string.threeDots));
+                areaButtonState(mSetArea,false,R.drawable.btn_shape_grey);
+            }
+        });
+        mMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+            @Override
+            public void onCameraIdle() {
+                locationParser(mLiveFetchedAdddress);
+            }
+        });
+    }
+    private void locationParser(TextView addressText){
+        areaPointerLocation = addressCoordsLocator.locationCoordsFetcher(mMap);
+        Log.i("areaPointerLocation",String.valueOf(areaPointerLocation));
+        addressText.setText(addressCoordsLocator.locationAddressFetcher(areaPointerLocation
+                , new OnAddressFetched() {
+                    @Override
+                    public void setOnAddressFetched() {
+                        areaButtonState(mSetArea,true,R.drawable.btn_shape);
+                    }
+                }));
+    }
+    private void areaButtonState(Button areaButton, boolean state, int color){
+        areaButton.setClickable(state);
+        areaButton.setEnabled(state);
+        areaButton.setBackgroundResource(color);
     }
     private void drawMarkerCircleRange(LatLng epicenter, int radius){
         mMap.clear();
-        markersOps.customMapSmallMarkerPlacer(R.drawable.servicesmarker
-                ,"Your area epicenter"
-                ,mMap
-                ,epicenter);
         CircleOptions circleOptions = new CircleOptions()
                 .center(epicenter)
                 .radius(radius)
-                .fillColor(Color.parseColor("#9940c4ff"))
+                .fillColor(Color.parseColor("#5940c4ff"))
                 .strokeColor(getResources().getColor(R.color.ColorPrimaryDark))
                 .strokeWidth(3);
         mMap.addCircle(circleOptions);
     }
-    private void setRangeAreaOnSeekbar(final LatLng epicenter, final Button btnInState){
+    private void setRangeAreaOnSeekbar(final LatLng epicenter){
+        drawMarkerCircleRange(epicenter, 1000);
+        mServiceAreaSeekbar.setProgress(2);
+        mLiveFetchedAdddress.setVisibility(View.GONE);
+        String defaultDT = "- 1.0 Km -";
+        mRangeText.setText(defaultDT);
         mServiceAreaSeekbar.setVisibility(View.VISIBLE);
         mRangeText.setVisibility(View.VISIBLE);
         mServiceAreaSeekbar.setMin(1);
@@ -1960,6 +2128,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 double factor = (progress * 0.5);
+                Log.i("radiusTrackerProg",String.valueOf(progress));
                 Log.i("radiusTracker", String.valueOf(factor));
                 if (progress == 1){
                     distanceToSet = 500;
@@ -1968,6 +2137,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Log.i("radiusTracker2", String.valueOf(distanceToSet) + " has a " +
                             "factor of " + String.valueOf(factor));
                 }
+                rangeSBProgress = progress;
+                justRange = String.valueOf(factor) + " Km";
                 displayedRange = "- " + String.valueOf(factor) + " Km -";
                 mRangeText.setText(displayedRange);
                 drawMarkerCircleRange(epicenter, distanceToSet);
@@ -1975,20 +2146,77 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                rangeButtonState(btnInState,false,R.drawable.btn_shape_grey);
+                areaButtonState(mSetArea,false,R.drawable.btn_shape_grey);
             }
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                rangeButtonState(btnInState,false,R.drawable.btn_shape);
+                areaButtonState(mSetArea,true,R.drawable.btn_shape);
             }
         });
     }
-    public void setRange(View v){
-        writeReadDataInFile.writeToFile(displayedRange,"displayedRange");
-        writeReadDataInFile.writeToFile(String.valueOf(distanceToSet),"distanceToSetS");
-        finish();
-    }
+    public void setNewArea(View v){
+        if(!areaEpicenterReady){
+            //We are in 1st step: set Epicenter//
+            mMap.getUiSettings().setScrollGesturesEnabled(false);
+            mMap.getUiSettings().setRotateGesturesEnabled(false);
+            mMap.getUiSettings().setZoomControlsEnabled(false);
+            mMap.getUiSettings().setZoomGesturesEnabled(true);
+            cSplasherStatus.setText(R.string.splasher_services_selectHowWide);
+            setRangeAreaOnSeekbar(areaPointerLocation);
+            areaEpicenterReady = true;
+            LatLngBounds unmovableCenter =
+                    new LatLngBounds(areaPointerLocation,areaPointerLocation);
+            mMap.setLatLngBoundsForCameraTarget(unmovableCenter);
+        }else{
+            //We are in 2nd step: set area range//
+            boxedLoadingDialog.showLoadingDialog();
+            profileClassQuery.getUserProfileToUpdate(new ProfileClassInterface() {
+                @Override
+                public void beforeQueryFetched() {
 
+                }
+                @Override
+                public void updateChanges(List<ParseObject> objects, ParseException e) {
+                    if (e == null){
+                        if (objects.size() > 0){
+                            for (ParseObject profileObj : objects){
+                                if (justRange == null){
+                                    justRange = "1.0 Km";
+                                }
+                                profileObj.put("serviceRange",justRange);
+                                profileObj.put("serviceEC",mLiveFetchedAdddress
+                                        .getText().toString());
+                                ParseGeoPoint ECCoordsGeoPoint = new ParseGeoPoint(
+                                        areaPointerLocation.latitude,areaPointerLocation.longitude);
+                                profileObj.put("ECCoords",ECCoordsGeoPoint);
+                                profileObj.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null){
+                                            writeReadDataInFile.writeToFile
+                                                    (mLiveFetchedAdddress.getText()
+                                                            .toString(),"savedServiceArea");
+                                            setResult(Activity.RESULT_OK,
+                                                    new Intent().putExtra("centerAdd",
+                                                            mLiveFetchedAdddress.getText()
+                                                                    .toString())
+                                                            .putExtra("range", justRange));
+                                            finish();
+                                        }else{
+                                            toastMessages.productionMessage
+                                                    (HomeActivity.this,getResources()
+                                                            .getString(R.string
+                                                    .splasher_services_thereWasAProblem),1);
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
     public void forwardSplasherToReqState(){
         if (userClassQuery.userExists()) {
             if (userClassQuery.userIsCarOwnerOrSplasher(splasher)) {
@@ -2107,7 +2335,22 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 }
                             }
                         });
-
+                if(!writeReadDataInFile.readFromFile("savedServiceArea").isEmpty()
+                        || !writeReadDataInFile.readFromFile("savedServiceArea")
+                        .equals("")){
+                    if (!presetServiceSettingsRan) {
+                        toastMessages.debugMesssage(HomeActivity.this
+                                , "there is a set location", 1);
+                        presetServiceSettingsRan = true;
+                    }
+                }else{
+                    if (!presetServiceSettingsRan) {
+                        toastMessages.debugMesssage(HomeActivity.this
+                                ,"there ISN'T a set location. setting one now",1);
+                        setServiceSettingsIfEmpty();
+                        presetServiceSettingsRan = true;
+                    }
+                }
             }
         }
     }
@@ -2445,7 +2688,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         //Trigger some kind of (-if-)
 
         //Data to transfer to CarOwnerLocation activity2
-        if(requestNumercialBadge <= splasherNumericalBadge) {
+        if (requestNumercialBadge <= splasherNumericalBadge) {
             Intent intent = new Intent(HomeActivity.this,
                     SplasherClientRouteActivity.class);
 
@@ -2458,7 +2701,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             intent.putExtra("carOwnerCarUntilTime", carUntilTimeToTransfer);
             intent.putExtra("carOwnerCarServiceType", carServiceTypeToTransfer);
             intent.putExtra("setPrice", priceToTransfer);
-            intent.putExtra("carOwnerPhoneNum",carOwnerPhoneNToTransfer);
+            intent.putExtra("carOwnerPhoneNum", carOwnerPhoneNToTransfer);
             //intent.putExtra("carOwnerDistanceFromMap", distanceToTransfer);
 
             intent.putExtra("carOwnerCarBrand", carBrandToTransfer);
@@ -2471,13 +2714,13 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             //----------------------------------------------
 
             Log.i("transfer Lat:", "is" + getLatitudeToTransfer);
-        }else if(requestNumercialBadge > splasherNumericalBadge){
+        } else if (requestNumercialBadge > splasherNumericalBadge) {
             toastMessages.productionMessage(getApplicationContext()
-                    ,getResources().getString(R.string.carOwner_act_java_yourRatingNotHigh)
-            ,1);
+                    , getResources().getString(R.string.carOwner_act_java_yourRatingNotHigh)
+                    , 1);
         }
-        Log.i("badgeRequested",String.valueOf(requestNumercialBadge));
-        Log.i("badgeSplasher",String.valueOf(splasherNumericalBadge));
+        Log.i("badgeRequested", String.valueOf(requestNumercialBadge));
+        Log.i("badgeSplasher", String.valueOf(splasherNumericalBadge));
     }
 
     public void cancelCODets(View view) {
@@ -2610,8 +2853,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         requestDialog.show();
     }
 
-    //BUYER KEY TEMP DELETE FROM READFROMFILE IF USED
-
     public void cancelAndDeleteCarWashRequest() {
         requestClassQuery.cancelAndDeleteRequest(userClassQuery.userName()
                 , new RequestClassInterface.requestDeletion() {
@@ -2653,6 +2894,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         cancelItem.setVisible(false);
         mRequest_info_window.setVisibility(View.GONE);
         mSplasher_info_toco_back_space.setVisibility(View.GONE);
+        mSplasherInfoHolder.setVisibility(View.GONE);
         cRadarView.setVisibility(View.GONE);
         cMarkerView.setVisibility(View.GONE);
         cMarkerView2.setVisibility(View.GONE);
@@ -2669,8 +2911,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         handler.removeCallbacks(requestUpdateChecker);
         shutDownChecker = true;
         alreadyExecuted6 = false;
+        try{
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation,13));
+        }catch(NullPointerException e){
+            e.printStackTrace();
+        }
         mMap.clear();
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation,13));
         //emptyCoordinatesFiles();
     }
 

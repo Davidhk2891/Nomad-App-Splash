@@ -12,7 +12,8 @@ import com.parse.SaveCallback;
 public class MessageClassSend {
 
     public void sendMessagesToServer(String currentUsername, String currentEmail
-            , String lockedMessage, ParseFile compressedFile1, final MessageClassInterface mci){
+            , String lockedMessage, ParseFile compressedFile1
+            , final MessageClassInterface mci){
         ParseObject message = new ParseObject("Messages");
         message.put("username", currentUsername);
         message.put("userEmail", currentEmail);
@@ -24,7 +25,24 @@ public class MessageClassSend {
                 mci.afterMessageSent(e);
             }
         });
+    }
 
+    public void sendMessagesToServer2(String currentUsername, String currentEmail
+            , String lockedMessage, String fileText, ParseFile compressedFile1
+            , final MessageClassInterface mci){
+        ParseObject message = new ParseObject("Messages");
+        message.put("username", currentUsername);
+        message.put("userEmail", currentEmail);
+        message.put("message", lockedMessage);
+        if (!fileText.isEmpty() || !fileText.equals("")) {
+            message.put("file", compressedFile1);
+        }
+        message.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                mci.afterMessageSent(e);
+            }
+        });
     }
 
 }

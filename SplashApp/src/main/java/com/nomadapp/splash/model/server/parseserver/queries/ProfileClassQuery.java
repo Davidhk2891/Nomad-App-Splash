@@ -1,6 +1,7 @@
 package com.nomadapp.splash.model.server.parseserver.queries;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.nomadapp.splash.R;
@@ -88,4 +89,45 @@ public class ProfileClassQuery {
         });
     }
 
+    public void getSplashersList(final ProfileClassInterface profileClassInterface){
+        profileClassInterface.beforeQueryFetched();
+        final ParseQuery<ParseObject> splasherListQuery = ParseQuery.getQuery("Profile");
+        splasherListQuery.whereEqualTo("CarOwnerOrSplasher", "splasher");
+        splasherListQuery.whereEqualTo("status", "active");
+        splasherListQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                profileClassInterface.updateChanges(objects, e);
+            }
+        });
+    }
+
+    //relevant only for splasher//
+    public void splasherType(final ProfileClassInterface.walletStatus walletStatus){
+        final UserClassQuery userClassQuery = new UserClassQuery(context);
+        final String[] splasherType = {""};
+        if (userClassQuery.userExists()){
+            if (userClassQuery.userIsCarOwnerOrSplasher("splasher")){
+                getUserProfileToUpdate(new ProfileClassInterface() {
+                    @Override
+                    public void beforeQueryFetched() {}
+                    @Override
+                    public void updateChanges(List<ParseObject> objects, ParseException e) {
+                        if (e == null){
+                            if (objects.size() > 0){
+                                for (ParseObject object : objects){
+                                    splasherType[0] = object.getString("splasherType");
+                                    Log.i("splasherType", "is " + " "
+                                            + userClassQuery.userName() + " "
+                                            + splasherType[0]);
+                                    walletStatus.onWalletStatusAccess(splasherType[0]);
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    }
+    //--------------------------//
 }

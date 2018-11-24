@@ -6,7 +6,7 @@
   ~ LICENSE file in the root directory of this source tree. An additional grant
   ~ of patent rights can be found in the PATENTS file in the same directory.
   -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--
     *& = &amp;
     *white spacing = &#160;
@@ -56,6 +56,9 @@
 
     <!--Others-->
     <string name="shekel">₪</string>
+    <string name="thirty">₪ 30</string>
+    <string name="seventy">₪ 70</string>
+    <string name="twenty">₪ 20</string>
     <!--//////-->
 
     <!--activity_wash_requests-->
@@ -118,6 +121,9 @@
     <string name="becomeSplasher_act_java_photoOfId">תעודת זהות</string>
     <string name="becomeSplasher_act_java_photoOfBankAcc">הוכחת חשבון הבנק</string>
     <string name="becomeSplasher_act_java_photoOfincDoc">הוכחה עוסק מורשה</string>
+    <string name="becomeSplasher_act_java_splasherType">סוג שוטף</string>
+    <string name="becomeSplasher_act_java_independent">עצמאי</string>
+    <string name="becomeSplasher_act_java_hired">שכיר</string>
     <!--////////////////////////-->
 
 
@@ -195,6 +201,9 @@
     <string name="act_car_owner_externalWash">שטיפה חיצוני</string>
     <string name="act_car_owner_extAndIntWash">חיצוני ופנימי</string>
     <string name="act_car_owner_motorcycle">שתיפה לאופנוע</string>
+    <string name="act_car_owner_carAvailableUntil">רכב זמין עד</string>
+    <string name="act_car_owner_timeLeft">הזמן שנותר</string>
+    <string name="act_car_owner_cdcTime">00:00:00</string>
     <!--//////////////////-->
 
     <!--activity_splasher_client_route-->
@@ -288,6 +297,9 @@
     <string name="act_wash_my_car_enterAddress">הכנס כתובת</string>
     <string name="act_wash_my_car_inputLocationDetails">פרטי מיקום (אופציונאלי)</string>
     <string name="act_wash_my_car_untilWhatTime">עד איזה שעה</string>
+    <string name="act_wash_my_car_from">מ - (עכשיו)</string>
+    <string name="act_wash_my_car_until" tools:ignore="TypographyDashes">עד - \u0020 ---:---</string>
+    <string name="act_wash_my_car_until2">עד - \u0020</string>
     <string name="act_wash_my_car_chooseACar">בחר רכב</string>
     <string name="act_wash_my_car_couponCode">קוד קופון</string>
     <!--/////-->
@@ -453,11 +465,10 @@
     <string name="act_my_services_defaultPrice">&#8230;</string>
     <string name="act_my_services_save">שומר</string>
     <string name="act_my_services_areaEpicenter">אזור מוקד</string>
-    <string name="act_my_services_areaRange">טווח שטח</string>
+    <string name="act_my_services_areaRange">בחר את אזור העבודה שלך</string>
     <string name="act_my_services_centerOfYourService">מרכז אזור השירות שלך</string>
-    <string name="act_my_services_serviceAreaRange">טווח אזור השירות</string>
+    <string name="act_my_services_serviceAreaRange">מרכז ושטח של השירות שלך</string>
     <string name="act_my_services_serviceArea">אזור שירות</string>
-    <string name="act_my_services_selectHowWide">בחר כיצד רחב אתה רוצה אזור העבודה שלך להיות</string>
     <!--///////////////-->
 
     <!--STRINGS ONLY ON JAVA FILES (.class)-->
@@ -643,6 +654,11 @@
     <string name="washMyCar_act_java_inputLocation">הזן מיקום</string>
     <string name="washMyCar_act_java_missingFields">שדות חסרים</string>
     <string name="washMyCar_act_java_washTimeLimit">מגבלת זמן לשטוף</string>
+    <string name="washMyCar_act_java_telAviv">תל אביב</string>
+    <string name="washMyCar_act_java_ramatGan">רמת גן</string>
+    <string name="washMyCar_act_java_givataim">גבעתיים</string>
+    <string name="washMyCar_act_java_cityOutOfRange">העיר מחוץ לטווח</string>
+    <string name="washMyCar_act_java_thisCityIs">העיר הזו נמצאת כעת מחוץ לטווח שלנו. ספלאש פועלת כיום בתל אביב, בגבעתיים וברמת גן. בחר אחת מהערים האלה.</string>
     <!--//////////////////////-->
 
     <!--PaymentSettingsActivity.java-->
@@ -711,11 +727,19 @@
     <string name="splasher_services_dialogMsg">לשנות את מחירי השירות?</string>
     <string name="splasher_services_dialogYes">כן</string>
     <string name="splasher_services_dialogNo">לבטל</string>
+    <string name="splasher_services_dialogAreaTitle">אזור שירות</string>
+    <string name="splasher_services_dialogAreaMsg">לשנות את הגדרות האזור?</string>
+    <string name="splasher_services_dialogAreaYes">כן</string>
+    <string name="splasher_services_dialogAreaNo">לבטל</string>
     <string name="splasher_services_cantUpdateSamePrice">לא ניתן לעדכן לאותם מחירים. הגדר מחירים חדשים לפני העדכון</string>
     <string name="splasher_services_pricesCantBeZero">המחירים אינם יכולים להיות 0. אנא קבע מחיר אחר ונסה שוב</string>
     <string name="splasher_services_pleaseSetAll">הגדר את כל מחירי השירות שלך לפני העדכון</string>
-    <string name="splasher_services_pricesUpdated">המחירים עודכנו</string>
+    <string name="splasher_services_servicesUpdated">השירותים עודכנו</string>
     <string name="splasher_services_thereWasAProblem">אירעה בעיה במהלך העדכון. בבקשה נסה שוב</string>
+    <string name="splasher_services_pleaseChooseYourServiceArea">בחר מוקד שירות</string>
+    <string name="splasher_services_selectEpicenter">בחר את מרכז אזור השירות שלך</string>
+    <string name="splasher_services_selectHowWide">בחר את הטווח אזור העבודה שלך</string>
+    <string name="splasher_services_setEpicenter">הגדר מוקד</string>
     <!--/////////////////////////////-->
 
     <!--////////////////////////////////////-->

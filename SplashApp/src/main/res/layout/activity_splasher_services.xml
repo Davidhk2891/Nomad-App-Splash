@@ -39,37 +39,12 @@
                 android:background="@color/colorfirst"/>
 
             <TextView
-                android:id="@+id/selectEpicenterTitle"
-                android:layout_below="@+id/sepaInArea"
-                android:text="@string/act_my_services_areaEpicenter"
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"
-                android:layout_alignStart="@+id/selectEpicenterAction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/selectEpicenterAction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/selectEpicenterTitle"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="1dp"
-                android:onClick="selectCenter"
-                android:background="@drawable/selective_bg_stroked_thin"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:ems="17"
-                android:padding="10dp"
-                android:hint="@string/act_my_services_centerOfYourService"
-                android:textSize="17sp" />
-
-            <TextView
                 android:id="@+id/selectRangeTitle"
-                android:layout_below="@+id/selectEpicenterAction"
+                android:layout_below="@+id/sepaInArea"
                 android:text="@string/act_my_services_areaRange"
                 android:layout_marginTop="10dp"
                 android:textSize="15sp"
-                android:layout_alignStart="@+id/selectEpicenterAction"
+                android:layout_alignStart="@+id/selectRangeAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -79,8 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/selectRangeTitle"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="1dp"
-                android:onClick="selectRange"
+                android:layout_marginTop="2dp"
                 android:background="@drawable/selective_bg_stroked_thin"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:ems="17"
@@ -94,10 +68,32 @@
                 android:textSize="20sp"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/selectRangeAction"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="35dp"
                 android:textColor="#03a9f4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/editServiceAreaAction"
+                android:src="@android:drawable/ic_menu_edit"
+                android:layout_marginStart="10dp"
+                android:onClick="editServiceArea"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_alignTop="@+id/serviceAreaTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/editPricesAction"
+                android:src="@android:drawable/ic_menu_edit"
+                android:layout_marginStart="10dp"
+                android:onClick="editPrices"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_alignTop="@+id/servicePriceTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="ContentDescription" />
 
             <View
                 android:id="@+id/sepaInServices"
@@ -296,7 +292,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:background="@drawable/btn_shape"
         android:text="@string/act_account_save"
-        android:onClick="updatePrices"
+        android:onClick="updateChanges"
         android:textColor="#ffffff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

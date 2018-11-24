@@ -6,10 +6,10 @@
   ~ LICENSE file in the root directory of this source tree. An additional grant
   ~ of patent rights can be found in the PATENTS file in the same directory.
   -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--
     *& = &amp;
-    *white spacing = &#160;
+    *white spacing = &#160; or \u0020
     *... = &#8230;
     */ = &#189;
      -->
@@ -58,6 +58,9 @@
 
     <!--Others-->
     <string name="shekel">₪</string>
+    <string name="thirty">₪ 30</string>
+    <string name="seventy">₪ 70</string>
+    <string name="twenty">₪ 20</string>
     <!--//////-->
 
     <!--activity_wash_requests-->
@@ -116,6 +119,9 @@
     <string name="becomeSplasher_act_java_photoOfId">Photo of ID</string>
     <string name="becomeSplasher_act_java_photoOfBankAcc">Photo of bank account proof</string>
     <string name="becomeSplasher_act_java_photoOfincDoc">Photo of incorporation document</string>
+    <string name="becomeSplasher_act_java_splasherType">Splasher type</string>
+    <string name="becomeSplasher_act_java_independent">Independent</string>
+    <string name="becomeSplasher_act_java_hired">Hired</string>
     <!--////////////////////////-->
 
     <!-- activity_splasher_camera-->
@@ -192,6 +198,9 @@
     <string name="act_car_owner_externalWash">External</string>
     <string name="act_car_owner_extAndIntWash">Ext + Int</string>
     <string name="act_car_owner_motorcycle">Motorcycle</string>
+    <string name="act_car_owner_carAvailableUntil">Car available until</string>
+    <string name="act_car_owner_timeLeft">Time left</string>
+    <string name="act_car_owner_cdcTime">00:00:00</string>
     <!--//////////////////-->
 
     <!--activity_splasher_client_route-->
@@ -285,6 +294,9 @@
     <string name="act_wash_my_car_enterAddress">Enter Address</string>
     <string name="act_wash_my_car_inputLocationDetails">Location Details (Optional)</string>
     <string name="act_wash_my_car_untilWhatTime">Until what time</string>
+    <string name="act_wash_my_car_from">from - (now)</string>
+    <string name="act_wash_my_car_until" tools:ignore="TypographyDashes">until \u0020 ---:---</string>
+    <string name="act_wash_my_car_until2">until -</string>
     <string name="act_wash_my_car_chooseACar">Choose a car</string>
     <string name="act_wash_my_car_couponCode">Coupon Code</string>
     <!--/////-->
@@ -412,6 +424,7 @@
     <string name="act_account_editCancel">Cancel</string>
     <string name="act_account_accInfoUpdated">Account details updated</string>
     <string name="act_account_failedToUpdateInfo">Account details update failed. Please try again</string>
+    <string name="act_account_save">Save</string>
     <!--///////////-->
 
     <!--act_termOfUse-->
@@ -451,11 +464,10 @@
     <string name="act_my_services_defaultPrice">&#8230;</string>
     <string name="act_my_services_save">Save</string>
     <string name="act_my_services_areaEpicenter">Area epicenter</string>
-    <string name="act_my_services_areaRange">Area range</string>
+    <string name="act_my_services_areaRange">Choose your area of work</string>
     <string name="act_my_services_centerOfYourService">Center of your service area</string>
-    <string name="act_my_services_serviceAreaRange">Service area range</string>
+    <string name="act_my_services_serviceAreaRange">Center and area of your service</string>
     <string name="act_my_services_serviceArea">Service area</string>
-    <string name="act_my_services_selectHowWide">Select how wide you want your area of work to be</string>
     <!--///////////////-->
 
     <!--STRINGS ONLY ON JAVA FILES (.class)-->
@@ -489,7 +501,7 @@
     <string name="carOwner_act_java_cancel">Cancel</string>
     <string name="carOwner_act_java_notLoggedIn">Not logged in</string>
     <string name="carOwner_act_java_youHaveToSignOrLog">You have to SignUp/LogIn in order to access
-        your car owner's requests</string>
+        your car owner\'s requests</string>
     <string name="carOwner_act_java_yourRatingNotHigh">Your rating is not high enough to take this request</string>
     <string name="carOwner_act_java_ofTomorrow">of tomorrow</string>
     <string name="carOwner_act_java_yourCar">your car</string>
@@ -659,6 +671,12 @@
     <string name="washMyCar_act_java_inputLocation">Input location</string>
     <string name="washMyCar_act_java_missingFields">Missing Fields</string>
     <string name="washMyCar_act_java_washTimeLimit">Wash time limit</string>
+    <string name="washMyCar_act_java_telAviv">Tel Aviv</string>
+    <string name="washMyCar_act_java_ramatGan">Ramat Gan</string>
+    <string name="washMyCar_act_java_givataim">Giv\'atayim</string>
+    <string name="washMyCar_act_java_cityOutOfRange">City out of range</string>
+    <string name="washMyCar_act_java_thisCityIs">This city is currently out of our range. Splash operates in
+        Tel Aviv, Giv\'ataim and Ramat Gan at the moment. Please choose one of these cities.</string>
     <!--//////////////////////-->
 
     <!--PaymentSettingsActivity.java-->
@@ -733,19 +751,26 @@
     <string name="splasher_services_dialogMsg">Change these service prices?</string>
     <string name="splasher_services_dialogYes">yes</string>
     <string name="splasher_services_dialogNo">Cancel</string>
+    <string name="splasher_services_dialogAreaTitle">Service Area</string>
+    <string name="splasher_services_dialogAreaMsg">Change area settings?</string>
+    <string name="splasher_services_dialogAreaYes">yes</string>
+    <string name="splasher_services_dialogAreaNo">Cancel</string>
     <string name="splasher_services_cantUpdateSamePrice">You can\'t update to the same " +
                     "prices. Please set new prices before updating</string>
     <string name="splasher_services_pricesCantBeZero">Prices can\'t be 0. Please set a " +
                     "different price and try again</string>
     <string name="splasher_services_pleaseSetAll">Please set all of your service prices " +
                     "before updating</string>
-    <string name="splasher_services_pricesUpdated">Prices updated</string>
+    <string name="splasher_services_servicesUpdated">Services updated</string>
     <string name="splasher_services_thereWasAProblem">There was a problem while " +
                                 "updating. Please try again</string>
+    <string name="splasher_services_pleaseChooseYourServiceArea">Please choose your service
+     area\'s epicenter first</string>
+    <string name="splasher_services_selectEpicenter">Select the center of your area of service</string>
+    <string name="splasher_services_selectHowWide">Select the range of your area of work</string>
+    <string name="splasher_services_setEpicenter">set epicenter</string>
     <!--/////////////////////////////-->
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!--////////////////////////-->
     <!--////////////////////////////////////-->
 </resources>

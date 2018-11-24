@@ -8,10 +8,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -77,7 +75,8 @@ public class SplasherApplicationActivity extends AppCompatActivity {
     private TextView cCityTitle, cSplasherSignUpContractAgreement;
     private ImageView cSplasherLogoSignUp;
     private TextView cFirstText;
-    private boolean signUpCheck = false;//<--SignUp Check. Login always showing first. So SignUp always 'false' first
+    private boolean signUpCheck = false;//<--SignUp Check. Login always showing first. So SignUp
+    // always 'false' first
     ParseUser splasherUser = new ParseUser();
     //ParseUser currentUser = ParseUser.getCurrentUser();
 
@@ -100,15 +99,13 @@ public class SplasherApplicationActivity extends AppCompatActivity {
 
     //3 photos of legal files seller needs to have (URIs to be returned and String-holded)//
     private static final int REQUEST_EXTERNAL_STORAGE_RESULT = 1;
-    private File mGalleryFolder;
     private Uri targetUriIDString, targetUriBankString, targetUriIncString;
     private String rawImageString1, rawImageString2, rawImageString3;
     private Bitmap socialBitmapGal, bankBitmapGal, incDocBitmapGal;
     private boolean fromCam = false;
     private boolean fromGallery = false;
     private ParseFile socialFile, bankFile, incDocFile;
-
-    //--------------------------------------------------------------------------------------------//
+    //-----------------------------------------------------------------------------------//
 
     //Variables for everything related to the UI for the 3 files upload//
     private RelativeLayout cSocialIDProofRelative, cBankAccProofRelative, cIncProofRelative;
@@ -118,9 +115,6 @@ public class SplasherApplicationActivity extends AppCompatActivity {
     //-----------------------------------------------------------------//
 
     private BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog(ctx);
-
-    //--------------------------------------------------------------------------------------------//
-
     ToastMessages toastMessages = new ToastMessages();
     ConnectionLost clm = new ConnectionLost(ctx);
 
@@ -145,10 +139,10 @@ public class SplasherApplicationActivity extends AppCompatActivity {
         //
         cFirstText = findViewById(R.id.firstText);
         cSplasherSignUpCity = findViewById(R.id.splasherSignUpCity);
-        cSplasherSignUpName = findViewById(R.id.SplasherSignUpName);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        cSplasherSignUpLastName = findViewById(R.id.SplasherSignUpLastName);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        cSplasherSignUpEmail = findViewById(R.id.splasherSignUpEmail);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        cSplasherSignUpPhoneNumber = findViewById(R.id.splasherSignUpPhoneNumber);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        cSplasherSignUpName = findViewById(R.id.SplasherSignUpName);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        cSplasherSignUpLastName = findViewById(R.id.SplasherSignUpLastName);//<<<<<<<<<<<<<<<<<<<<<<
+        cSplasherSignUpEmail = findViewById(R.id.splasherSignUpEmail);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        cSplasherSignUpPhoneNumber = findViewById(R.id.splasherSignUpPhoneNumber);//<<<<<<<<<<<<<<<<
         cSplasherSignUpPassword2 = findViewById(R.id.splasherSignUpPassword2);
         cSplasherLogoSignUp = findViewById(R.id.splasherLogoSignUp);
         RelativeLayout cBecomeSplasherRelative = findViewById(R.id.becomeSplashRelative);
@@ -156,17 +150,17 @@ public class SplasherApplicationActivity extends AppCompatActivity {
         cSplasherSignUpContractAgreement = findViewById(R.id.splasherSignUpContactAgreement);
         //Variables for functionality and Data holding relevant to Payme's create_seller API calls//
         //Android widgets (EditText, RadioGroup, RadioButton)//
-        cSplasherSignUpCountryID = findViewById(R.id.splasherSignUpCountryID);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        cSplasherSignUpCountryIdIssued = findViewById(R.id.splasherSignUpCountryIdIssued);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        cSplasherSignUpDateOfBirth = findViewById(R.id.splasherSignUpDateOfBirth);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        cSplasherSignUpCountryID = findViewById(R.id.splasherSignUpCountryID);//<<<<<<<<<<<<<<<<<<<<
+        cSplasherSignUpCountryIdIssued = findViewById(R.id.splasherSignUpCountryIdIssued);//<<<<<<<<
+        cSplasherSignUpDateOfBirth = findViewById(R.id.splasherSignUpDateOfBirth);//<<<<<<<<<<<<<<<<
         cSplasherSignUpGender = findViewById(R.id.splasherSignUpGender);
-        cRadioM = findViewById(R.id.radioM);                                //////<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        cRadioM = findViewById(R.id.radioM);                                //////<<<<<<<<<<<<<<<<<<
         cRadioF = findViewById(R.id.radioF);
-        cSplasherSignUpBankCodeNum = findViewById(R.id.SplasherSignUpBankCodeNum);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        cSplasherSignUpBankBranchNum = findViewById(R.id.SplasherSignUpBankBranchNum);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        cSplasherSignUpBankAccNum = findViewById(R.id.splasherSignUpBankAccNum);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        cSplasherSignUpAddress = findViewById(R.id.SplasherSignUpAddress);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        cSplasherSignUpAddressNum = findViewById(R.id.SplasherSignUpAddressNum);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        cSplasherSignUpBankCodeNum = findViewById(R.id.SplasherSignUpBankCodeNum);//<<<<<<<<<<<<<<<<
+        cSplasherSignUpBankBranchNum = findViewById(R.id.SplasherSignUpBankBranchNum);//<<<<<<<<<<<<
+        cSplasherSignUpBankAccNum = findViewById(R.id.splasherSignUpBankAccNum);//<<<<<<<<<<<<<<<<<<
+        cSplasherSignUpAddress = findViewById(R.id.SplasherSignUpAddress);//<<<<<<<<<<<<<<<<<<<<<<<<
+        cSplasherSignUpAddressNum = findViewById(R.id.SplasherSignUpAddressNum);//<<<<<<<<<<<<<<<<<<
 
         cSocialIDProofRelative = findViewById(R.id.socialIDProofLinear);
         cBankAccProofRelative = findViewById(R.id.bankAccProofLinear);
@@ -174,8 +168,6 @@ public class SplasherApplicationActivity extends AppCompatActivity {
         cSocialIDProofTextView = findViewById(R.id.socialIDProofTextView);
         cBankAccProofTextView = findViewById(R.id.bankAccProofTextView);
         cIncDocProofTextView = findViewById(R.id.incDocProofTextView);
-        //---------------------------------------------------//
-        //----------------------------------------------------------------------------------------//
 
         //hide fields for signUp
         cFirstText.setText(getResources().getString(R.string.becomeSplasher_act_java_welcomeBack));
@@ -328,6 +320,7 @@ public class SplasherApplicationActivity extends AppCompatActivity {
                         ParseObject profile = new ParseObject("Profile");
                         profile.put("username", ParseUser.getCurrentUser().getUsername());
                         profile.put("CarOwnerOrSplasher", splasher);
+                        profile.put("splasherType", "independent");
 
                         profile.put("oldAvgRating", oldAvgRating);
                         profile.put("washes", washes);
@@ -337,6 +330,10 @@ public class SplasherApplicationActivity extends AppCompatActivity {
                         profile.put("setPrice", setPrice);
                         profile.put("setPriceEInt",setPriceEInt);
                         profile.put("setPriceMoto",setPriceMoto);
+
+                        profile.put("serviceRange", "not set");
+                        profile.put("serviceEC", "not set");
+                        profile.put("ECCoords", "not set");
 
                         profile.put("status", "active");
 

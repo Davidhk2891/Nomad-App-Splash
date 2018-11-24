@@ -23,8 +23,6 @@ import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseObject;
-import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -39,6 +37,8 @@ public class ContactUsActivity extends AppCompatActivity {
 
     private Bitmap socialBitmapGal;
     private TextView mPhotoUploadCUTextView;
+
+    private byte[] bytes1;
 
     private UserClassQuery userClassQuery = new UserClassQuery(ctx);
     private ToastMessages toastMessages = new ToastMessages();
@@ -80,23 +80,26 @@ public class ContactUsActivity extends AppCompatActivity {
                 boxedLoadingDialog.showLoadingDialog();
                 String lockedMessage = mMessageConEdit.getText().toString();
                 MessageClassSend mcs = new MessageClassSend();
-                mcs.sendMessagesToServer(currentUsername, currentEmail, lockedMessage
-                        , compressedMessageFile(), new MessageClassInterface() {
+                mcs.sendMessagesToServer2(currentUsername, currentEmail, lockedMessage
+                        , mPhotoUploadCUTextView.getText().toString(), compressedMessageFile()
+                        , new MessageClassInterface() {
                             @Override
                             public void afterMessageSent(ParseException e) {
-                                if (e == null){
+                                if (e == null) {
                                     toastMessages.productionMessage(getApplicationContext(),
                                             getResources().getString(R.string
-                                                    .act_contactUs_messageSend),1);
+                                                    .act_contactUs_messageSend), 1);
                                     finish();
-                                }else{
+                                } else {
+                                    Log.i("messageSendError", "is " + e.getMessage());
                                     toastMessages.productionMessage(getApplicationContext(),
                                             getResources().getString(R.string
-                                                    .act_contactUs_messageNotSend),1);
+                                                    .act_contactUs_messageNotSend), 1);
                                     boxedLoadingDialog.hideLoadingDialog();
                                 }
                             }
                         });
+
             }else{
                 toastMessages.productionMessage(getApplicationContext(),
                         getResources().getString(R.string.act_contactUs_pleaseWriteAMsg)
@@ -147,9 +150,11 @@ public class ContactUsActivity extends AppCompatActivity {
     }
 
     public ParseFile compressedMessageFile(){
-        ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
-        socialBitmapGal.compress(Bitmap.CompressFormat.JPEG, 20, stream1);
-        byte[] bytes1 = stream1.toByteArray();//READY//
+        if (socialBitmapGal != null) {
+            ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
+            socialBitmapGal.compress(Bitmap.CompressFormat.JPEG, 20, stream1);
+            bytes1 = stream1.toByteArray();
+        }
         return new ParseFile("messageFile.png", bytes1);
     }
 
