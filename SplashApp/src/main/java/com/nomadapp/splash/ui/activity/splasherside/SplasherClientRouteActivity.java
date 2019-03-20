@@ -1233,8 +1233,11 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
                 if(e == null){
                     if(objects.size() > 0){
                         for (ParseObject object : objects){
-                            object.put("splasherUsername", ParseUser.getCurrentUser()
-                                    .getUsername());
+                            String ssn = ParseUser.getCurrentUser().getString("name") + " " +
+                                    ParseUser.getCurrentUser().getString("lastname");
+
+                            object.put("splasherUsername", ParseUser.getCurrentUser().getEmail());
+                            object.put("splasherShowingName", ssn);
                             object.put("taken","yes");
                             ParseFile pf1 = ParseUser.getCurrentUser()
                                     .getParseFile("localProfilePic");

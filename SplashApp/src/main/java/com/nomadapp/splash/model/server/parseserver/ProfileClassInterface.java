@@ -13,6 +13,10 @@ public interface ProfileClassInterface {
 
     void updateChanges(List<ParseObject> objects, ParseException e);
 
+    interface verificationStatus{
+        void accVerifiedStatus(String splasherStatus);
+    }
+
     interface walletStatus{
         void onWalletStatusAccess(String splasherType);
     }

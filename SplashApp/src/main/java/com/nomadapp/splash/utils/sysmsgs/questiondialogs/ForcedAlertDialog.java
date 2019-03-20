@@ -27,7 +27,7 @@ public class ForcedAlertDialog {
         this.context = ctx;
     }
 
-    public void requestPendingForSplasherDialogCam(final ParseObject object){
+    public void requestPendingForSplasherDialogCam(final ParseObject object, final String picStatus){
         AlertDialog.Builder pendingPaymentDialog = new AlertDialog.Builder(context);
         pendingPaymentDialog.setTitle(context.getResources().getString
                 (R.string.forced_alert_dialog_title));
@@ -38,17 +38,18 @@ public class ForcedAlertDialog {
                 .getString(R.string.forced_alert_dialog_go), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                goSplashCamFromScratch(object);
+                goSplashCamFromScratch(object, picStatus);
             }
         });
         pendingPaymentDialog.setCancelable(false);
         pendingPaymentDialog.show();
     }
 
-    private void goSplashCamFromScratch(ParseObject object){
+    private void goSplashCamFromScratch(ParseObject object, String picStatus){
         Intent intent = new Intent(context, SplasherCameraActivity.class);
         intent.putExtra("fetchedUntilTime", object.getString("untilTime"));
         intent.putExtra("fetchedPrice", object.getString("priceWanted"));
+        intent.putExtra("picStatus", picStatus);
         context.startActivity(intent);
     }
 

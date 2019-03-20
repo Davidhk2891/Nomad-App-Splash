@@ -36,35 +36,35 @@ public final class R {
     public static final class drawable {
         private drawable() {}
 
-        public static final int places_ic_clear = 0x7f0801b7;
-        public static final int places_ic_search = 0x7f0801b8;
-        public static final int powered_by_google_dark = 0x7f0801ba;
-        public static final int powered_by_google_light = 0x7f0801bb;
+        public static final int places_ic_clear = 0x7f0801b8;
+        public static final int places_ic_search = 0x7f0801b9;
+        public static final int powered_by_google_dark = 0x7f0801bb;
+        public static final int powered_by_google_light = 0x7f0801bc;
     }
     public static final class id {
         private id() {}
 
-        public static final int place_autocomplete_clear_button = 0x7f090200;
-        public static final int place_autocomplete_powered_by_google = 0x7f090201;
-        public static final int place_autocomplete_prediction_primary_text = 0x7f090202;
-        public static final int place_autocomplete_prediction_secondary_text = 0x7f090203;
-        public static final int place_autocomplete_progress = 0x7f090204;
-        public static final int place_autocomplete_search_button = 0x7f090205;
-        public static final int place_autocomplete_search_input = 0x7f090206;
-        public static final int place_autocomplete_separator = 0x7f090207;
+        public static final int place_autocomplete_clear_button = 0x7f090201;
+        public static final int place_autocomplete_powered_by_google = 0x7f090202;
+        public static final int place_autocomplete_prediction_primary_text = 0x7f090203;
+        public static final int place_autocomplete_prediction_secondary_text = 0x7f090204;
+        public static final int place_autocomplete_progress = 0x7f090205;
+        public static final int place_autocomplete_search_button = 0x7f090206;
+        public static final int place_autocomplete_search_input = 0x7f090207;
+        public static final int place_autocomplete_separator = 0x7f090208;
     }
     public static final class layout {
         private layout() {}
 
-        public static final int place_autocomplete_fragment = 0x7f0c0066;
-        public static final int place_autocomplete_item_powered_by_google = 0x7f0c0067;
-        public static final int place_autocomplete_item_prediction = 0x7f0c0068;
-        public static final int place_autocomplete_progress = 0x7f0c0069;
+        public static final int place_autocomplete_fragment = 0x7f0c0067;
+        public static final int place_autocomplete_item_powered_by_google = 0x7f0c0068;
+        public static final int place_autocomplete_item_prediction = 0x7f0c0069;
+        public static final int place_autocomplete_progress = 0x7f0c006a;
     }
     public static final class string {
         private string() {}
 
-        public static final int place_autocomplete_clear_button = 0x7f100252;
-        public static final int place_autocomplete_search_hint = 0x7f100253;
+        public static final int place_autocomplete_clear_button = 0x7f0f0258;
+        public static final int place_autocomplete_search_hint = 0x7f0f0259;
     }
 }

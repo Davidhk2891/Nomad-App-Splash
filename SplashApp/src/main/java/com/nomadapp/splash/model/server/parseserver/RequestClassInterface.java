@@ -28,4 +28,9 @@ public interface RequestClassInterface {
         void deleteRequest();
         void handleRest();
     }
+
+    interface splasherBeforeOrAfterPics{
+        void beforePics();
+        void afterPics();
+    }
 }

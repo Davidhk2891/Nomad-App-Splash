@@ -52,6 +52,16 @@
         android:clickable="true"
         android:focusable="true"/>
 
+    <item
+        android:id="@+id/sixNav"
+        android:title="@string/nav_menu_store"
+        android:icon="@drawable/ic_shopping_cart_black_24dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"/>
+
+
+
     <group
         android:id="@+id/secondaries"
         android:checkableBehavior="none">

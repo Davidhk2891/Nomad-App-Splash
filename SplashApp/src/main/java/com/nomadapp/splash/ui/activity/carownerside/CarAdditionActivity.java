@@ -185,6 +185,6 @@ public class CarAdditionActivity extends AppCompatActivity {
 
     public void saveCarToServer(){
         CarsClassSend carsClassSend = new CarsClassSend(ctx);
-        carsClassSend.sendSavedClassToServer(carBrandEdit,carModelEdit,carPlateEdit);
+        carsClassSend.sendSavedClassToServer(carBrandEdit,carModelEdit,carColorEdit,carPlateEdit);
     }
 }

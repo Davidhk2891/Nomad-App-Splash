@@ -20,5 +20,5 @@ public class WebConstants {
     public static final String TERMS_OF_USE = "http://splashmycar.com/terms-of-use/";
     public static final String FAQ = "http://splashmycar.com/faq/";
     public static final String STORE_LINK = "https://play.google.com/store/apps/details?id=com.nomadapp.splash";
-
+    public static final String SPLASHER_STORE_LINK = "https://store.splashmycar.com/splasher-store";
 }

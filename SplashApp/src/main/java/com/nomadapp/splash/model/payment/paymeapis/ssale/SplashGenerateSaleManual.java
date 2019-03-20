@@ -90,7 +90,8 @@ public class SplashGenerateSaleManual {
         final BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog(context);
         boxedLoadingDialog.showLoadingDialog();
         ParseQuery<ParseObject> payData = new ParseQuery<>("Request");
-        payData.whereEqualTo("username", ParseUser.getCurrentUser().getUsername()); //sole row that contains the carOwner using this phone
+        payData.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
+        //sole row that contains the carOwner using this phone
         payData.whereExists("splasherUsername");
         payData.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -100,7 +101,7 @@ public class SplashGenerateSaleManual {
                         for(ParseObject payObject : objects){
                             boxedLoadingDialog.hideLoadingDialog();
                             String originalPriceString = payObject.getString("priceWanted");
-                            String originalPriceStringFixed = originalPriceString.replace("₪", "");//
+                            String originalPriceStringFixed = originalPriceString.replace("₪", "");
                             originalPrice = Double.parseDouble(originalPriceStringFixed);
                             splasherName = payObject.getString("splasherUsername");
                             COusername = payObject.getString("username");
@@ -223,7 +224,7 @@ public class SplashGenerateSaleManual {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     paymentExecuted = false;
-                    Toast.makeText(context.getApplicationContext(), "Paymennt error. Transaction" +
+                    Toast.makeText(context.getApplicationContext(), "Payment error. Transaction" +
                                     " did not go through. Please try again"
                             , Toast.LENGTH_LONG).show();
                     boxedLoadingDialog.hideLoadingDialog();

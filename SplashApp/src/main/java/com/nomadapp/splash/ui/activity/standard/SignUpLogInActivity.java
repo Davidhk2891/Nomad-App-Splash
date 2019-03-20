@@ -8,10 +8,8 @@
  */
 package com.nomadapp.splash.ui.activity.standard;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -32,6 +30,9 @@ import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.nomadapp.splash.R;
+import com.nomadapp.splash.model.server.parseserver.ProfileClassInterface;
+import com.nomadapp.splash.model.server.parseserver.queries.ProfileClassQuery;
+import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.ui.activity.standard.web.WebActivity;
 import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
 import com.nomadapp.splash.utils.sysmsgs.questiondialogs.ForcedAlertDialog;
@@ -88,6 +89,9 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
     private BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog(SignUpLogInActivity.this);
     private ForcedAlertDialog forcedAlertDialog = new ForcedAlertDialog(SignUpLogInActivity.this);
     private ConnectionLost clm = new ConnectionLost(SignUpLogInActivity.this);
+    ProfileClassQuery profileClassQuery = new ProfileClassQuery(SignUpLogInActivity.this);
+
+    private int secLockInt = 0;
 
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -154,63 +158,58 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
     public void logInSignUpNow(View view){
 
         if (cLogInSignUpNow.getText().equals("LogIn") || cLogInSignUpNow.getText().equals("התחברות")) {
-
-            final String splasherWrong = "splasher";
-
+            final String splasher = "splasher";
             cUserInput = findViewById(R.id.userNameInput);
-
             cPassword = findViewById(R.id.passwordInput);
-
             if (cUserInput.getText().toString().isEmpty() || cPassword.getText().toString().isEmpty()) {
-
                 toastMessages.productionMessage(getApplicationContext()
                         ,getResources().getString(R.string.main_act_java_userPassReq),1);
-
             } else {
-
                 boxedLoadingDialog.showLoadingDialog();
-
                 ParseUser.logInInBackground(cUserInput.getText().toString(), cPassword.getText().toString(),
                         new LogInCallback() {
                             @Override
                             public void done(ParseUser user, ParseException e) {
-
                                 if (user != null && e == null) {
-
-                                    if (user.getString("CarOwnerOrSplasher").equals(splasherWrong)) {
-
-                                        boxedLoadingDialog.hideLoadingDialog();
-
-                                        cWrongUserTypeDialog();
-
+                                    if (user.getString("CarOwnerOrSplasher").equals(splasher)) {
+                                        profileClassQuery.splasherAccVerification(cUserInput
+                                                .getText()
+                                                .toString(), new ProfileClassInterface
+                                                .verificationStatus() {
+                                            @Override
+                                            public void accVerifiedStatus(String splasherStatus) {
+                                                Log.i("purple", "is " + splasherStatus);
+                                                if (splasherStatus.equals("true")){
+                                                    Log.i("LogIn", "splasherAcc ver "
+                                                            + splasherStatus + " LogIn Successful");
+                                                    //TEST TEST TEST WHOLE SYSTEM. SPLASHER SIGN UP,
+                                                    //PREVENTION FROM LOGIN IN, ENABALING
+                                                    //LANDS IN lOGIN FAILED WHEN IT SHOULD LAND IN LOGIN SUCC. FIX
+                                                    navigateBackFirst();
+                                                }else{
+                                                    Log.i("LogIn", "splasherAcc ver "
+                                                            + splasherStatus + " LogIn Failed");
+                                                    boxedLoadingDialog.hideLoadingDialog();
+                                                    accNotVerifiedNoti();
+                                                    //tell user their acc is still under verification
+                                                }
+                                            }
+                                        });
                                     } else {
-
                                         Log.i("LogIn", "LogIn Successful");
-
                                         navigateBackFirst();
-
                                     }
-
                                 } else {
-
                                     boxedLoadingDialog.hideLoadingDialog();
-
                                     Log.i("LogIn", "Failed: " + e.getMessage());
-
                                     if (e.getMessage().contains("Invalid username/password.")) {
-
                                         toastMessages.productionMessage(getApplicationContext()
                                         ,e.getMessage(),1);
-
                                     }
-
                                 }
-
                             }
                         });
-
             }
-
         } else if (cLogInSignUpNow.getText().equals("SignUp") || cLogInSignUpNow.getText().equals("הירשם")) {
 
             final String carOwner = "carOwner";//<-- TYPE OF USER : carOwner
@@ -239,41 +238,25 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
             } else {
 
                 if (mAgreementTOU.isChecked()) {
-
                     boxedLoadingDialog.showLoadingDialog();
-
                     ParseUser user = new ParseUser();
-
                     user.setUsername(cUserInput.getText().toString());
-
                     user.setPassword(cPassword.getText().toString());
-
                     user.setEmail(cEmailInput.getText().toString());
-
                     user.put("CarOwnerOrSplasher", carOwner);//<-- SELECTOR OF WHAT TYPE OF USER
-
                     user.signUpInBackground(new SignUpCallback() {
                         @Override
                         public void done(ParseException e) {
-
                             if (e == null) {
-
                                 Log.i("SignUp", "SignUp Successful");
-
                                 //Toast.makeText(getApplicationContext(), "This Phone's Serial number: " +
-                                //        Build.SERIAL, Toast.LENGTH_LONG).show();
-
+                                //Build.SERIAL, Toast.LENGTH_LONG).show();
                                 navigateBackFirstOnSignUp();
-
                             } else {
-
                                 boxedLoadingDialog.hideLoadingDialog();
-
                                 Log.i("SignUp", "SignUp Failed");
-
                                 toastMessages.productionMessage(getApplicationContext()
                                         ,e.getMessage(),1);
-
                             }
                         }
                     });
@@ -284,10 +267,21 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
         }
     }
 
+    private void accNotVerifiedNoti(){
+        UserClassQuery userClassQuery = new UserClassQuery(SignUpLogInActivity.this);
+        if(userClassQuery.userExists()){
+            userClassQuery.logOutUserNoEP();
+            ForcedAlertDialog forcedAlertDialog = new ForcedAlertDialog
+                    (SignUpLogInActivity.this);
+            forcedAlertDialog.generalPurposeForcedDialogNoAction(
+                    getResources().getString(R.string.main_act_java_accountNotVerified)
+                    , getResources().getString(R.string.main_act_java_yourAccountHasntBeen)
+                    ,getResources().getString(R.string.main_act_java_ok));
+        }
+    }
+
     public void hideKeyboard(){
-
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-
         if (imm != null && getCurrentFocus() != null) {
             try {
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
@@ -295,55 +289,18 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
                 np1.printStackTrace();
             }
         }
-
     }
 
     public void navigateBackFirst(){
-
         Intent firstIntent = new Intent(SignUpLogInActivity. this, HomeActivity. class);
-
         startActivity(firstIntent);
-
     }
 
     public void navigateBackFirstOnSignUp(){
-
         Intent firstIntent = new Intent(SignUpLogInActivity. this, HomeActivity. class);
-
         firstIntent.putExtra("addressKey", "address");
-
         startActivity(firstIntent);
-
     }
-
-    public void cWrongUserTypeDialog(){
-
-        ParseUser.logOut();
-
-        AlertDialog.Builder wrongUserTypeDialog = new AlertDialog.Builder(SignUpLogInActivity.this);
-
-        wrongUserTypeDialog.setTitle(getResources().getString(R.string.main_act_java_wrongUserType));
-
-        wrongUserTypeDialog.setIcon(android.R.drawable.ic_dialog_alert);
-
-        wrongUserTypeDialog.setMessage(getResources().getString(R.string.main_act_java_pleaseLogThrough));
-
-        wrongUserTypeDialog.setPositiveButton(getResources().getString(R.string.main_act_java_ok), new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                Intent intent = new Intent(SignUpLogInActivity.this, SplasherApplicationActivity.class);
-
-                startActivity(intent);
-
-            }
-        });
-
-        wrongUserTypeDialog.show();
-
-    }
-
 
     //public void fbLogin(View view){
         //Facebook SDK// Printing unique Key Hash to Console
@@ -405,14 +362,10 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
 
       //Eventually you gonna have to find a better way to handle this//
       try {
-
           ParseFacebookUtils.initialize(SignUpLogInActivity.this);
           Log.d("fbInit","yes");
-
       }catch(IllegalStateException e){
-
           e.printStackTrace();
-
       }
       //-------------------------------------------------------------//
 
@@ -539,35 +492,39 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
       cBecomeASplash.setOnClickListener(new View.OnClickListener(){
           @Override
           public void onClick(View v) {
-                Intent intent = new Intent(SignUpLogInActivity. this, SplasherApplicationActivity. class);
+                Intent intent = new Intent(SignUpLogInActivity. this,
+                        SplasherApplicationActivity. class);
                 startActivity(intent);
           }
       });
       cBecomeASplash2.setOnClickListener(new View.OnClickListener(){
           @Override
           public void onClick(View v) {
-              Intent intent2 = new Intent(SignUpLogInActivity.this, SplasherApplicationActivity.class);
-              startActivity(intent2);
+              if (secLockInt == 0 || secLockInt == 1 || secLockInt == 2 || secLockInt == 3
+              || secLockInt == 4 || secLockInt == 5){
+                  secLockInt++;
+                  Log.i("secretLevel", " is at: " + String.valueOf(secLockInt));
+              } else if (secLockInt == 6) {
+                  toastMessages.productionMessage(SignUpLogInActivity.this
+                          , "Secret Level Unlocked", 1);
+                  Intent intent2 = new Intent(SignUpLogInActivity.this,
+                          SplasherApplicationActivity.class);
+                  startActivity(intent2);
+              }
           }
       });
 
       cBackgroundRelativelayout.setOnClickListener(new View.OnClickListener(){
-
           @Override
           public void onClick(View v) {
-
               hideKeyboard();
-
           }
       });
 
       cMainLogo2.setOnClickListener(new View.OnClickListener(){
-
           @Override
           public void onClick(View v) {
-
               hideKeyboard();
-
           }
       });
 
@@ -575,7 +532,8 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
           @Override
           public boolean onKey(View v, int keyCode, KeyEvent event) {
               if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
-                  if (cLogInSignUpNow.getText().equals("SignUp") || cLogInSignUpNow.getText().equals("הירשם")) {
+                  if (cLogInSignUpNow.getText().equals("SignUp") || cLogInSignUpNow.getText()
+                          .equals("הירשם")) {
                       cPassword.setImeOptions(EditorInfo.IME_ACTION_NEXT);
                   }else{
                       logInSignUpNow(v);
@@ -586,12 +544,10 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
       });
 
       cPassword2.setOnKeyListener(SignUpLogInActivity.this);
-
       ParseAnalytics.trackAppOpenedInBackground(getIntent());
-
       clm.connectivityStatus(SignUpLogInActivity.this);
-
       checkForQuickTourKey();
+      goToISSF();
   }
 
   public void editTextsState(boolean state){
@@ -642,15 +598,19 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
   }
 
   public void fpSend(View view2){
-      //!cEmailInput.getText().toString().contains("@") || !cEmailInput.getText().toString().contains(".com")
-      if(cForgotPassUsername.getText().toString().isEmpty() || cForgotPassEmail.getText().toString().isEmpty()){
+      //!cEmailInput.getText().toString().contains("@") || !cEmailInput.getText().toString()
+      // .contains(".com")
+      if(cForgotPassUsername.getText().toString().isEmpty() || cForgotPassEmail.getText()
+              .toString().isEmpty()){
           toastMessages.productionMessage(getApplicationContext(),getResources()
                   .getString(R.string.main_act_java_nameEmailRequired),1);
-      }else if(!cForgotPassEmail.getText().toString().contains("@") || !cForgotPassEmail.getText().toString().contains(".com")) {
+      }else if(!cForgotPassEmail.getText().toString().contains("@") || !cForgotPassEmail
+              .getText().toString().contains(".com")) {
           toastMessages.productionMessage(getApplicationContext(),getResources()
                   .getString(R.string.main_act_java_enterValidEmail),1);
       }else{
-          ParseUser.requestPasswordResetInBackground(cForgotPassEmail.getText().toString(), new RequestPasswordResetCallback(){
+          ParseUser.requestPasswordResetInBackground(cForgotPassEmail.getText().toString(),
+                  new RequestPasswordResetCallback(){
               @Override
               public void done(ParseException e) {
                   if(e == null) {
@@ -688,7 +648,8 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
 
   //Facebook SDK SignUp logic//
     public void getUserDetailFromFB(){
-        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),new GraphRequest.GraphJSONObjectCallback(){
+        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),
+                new GraphRequest.GraphJSONObjectCallback(){
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
                 if(response != null) {
@@ -817,5 +778,16 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
         Intent touIntent = new Intent(SignUpLogInActivity.this,WebActivity.class);
         touIntent.putExtra("webKey","termsOfUse");
         startActivity(touIntent);
+    }
+
+    private void goToISSF(){
+        TextView mBecome_independent_splasher = findViewById(R.id.become_independent_splasher);
+        mBecome_independent_splasher.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignUpLogInActivity.this,
+                        SplasherOnboarding.class));
+            }
+        });
     }
 }

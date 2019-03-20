@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.standard.SplasherOnboarding">
+
+    <ImageView
+        android:id="@+id/splasher_onboarding_logo"
+        android:src="@drawable/splashlogowithdropscropped"
+        android:layout_width="80dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        tools:ignore="ContentDescription" />
+
+    <ScrollView
+        android:id="@+id/splasher_onboarding_scroller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/splasher_onboarding_button"
+        android:layout_below="@+id/splasher_onboarding_logo"
+        android:layout_marginBottom="13dp"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:id="@+id/splasher_onboarding_scroller_relative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/splasher_onboarding_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/splasher_onboarding_fullname_linear"
+                android:layout_alignEnd="@+id/splasher_onboarding_fullname_linear"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:hint="@string/act_become_splash_signUp_email"
+                android:inputType="textEmailAddress"
+                android:textAllCaps="false"
+                tools:ignore="Autofill" />
+
+            <EditText
+                android:id="@+id/splasher_onboarding_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/splasher_onboarding_email"
+                android:layout_alignStart="@+id/splasher_onboarding_fullname_linear"
+                android:layout_alignEnd="@+id/splasher_onboarding_fullname_linear"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/act_become_splash_signUp_password"
+                android:inputType="textPassword"
+                android:textAllCaps="false"
+                tools:ignore="Autofill" />
+
+            <TextView
+                android:id="@+id/splasher_onboarding_password_helper"
+                android:text="@string/act_main_passMustContain"
+                android:textSize="12sp"
+                android:layout_alignStart="@+id/splasher_onboarding_email"
+                android:layout_marginStart="8dp"
+                android:layout_alignEnd="@+id/splasher_onboarding_email"
+                android:layout_below="@id/splasher_onboarding_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/splasher_onboarding_repeat_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/splasher_onboarding_password_helper"
+                android:layout_alignStart="@+id/splasher_onboarding_fullname_linear"
+                android:layout_alignEnd="@+id/splasher_onboarding_fullname_linear"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/act_become_splash_signUp_repeatPass"
+                android:inputType="textPassword"
+                android:imeOptions="actionNext"
+                android:textAllCaps="false"
+                tools:ignore="Autofill" />
+
+            <LinearLayout
+                android:id="@+id/splasher_onboarding_fullname_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/splasher_onboarding_repeat_password"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/splasher_onboarding_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:ems="7"
+                    android:hint="@string/act_become_splash_signUp_first"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:textAllCaps="false"
+                    tools:ignore="Autofill" />
+
+                <EditText
+                    android:id="@+id/splasher_onboarding_last"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:imeOptions="actionNext"
+                    android:ems="8"
+                    android:hint="@string/act_become_splash_signUp_last"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:textAllCaps="false"
+                    tools:ignore="Autofill" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/splasher_onboarding_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/splasher_onboarding_fullname_linear"
+                android:layout_alignStart="@+id/splasher_onboarding_fullname_linear"
+                android:layout_alignEnd="@+id/splasher_onboarding_fullname_linear"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:hint="@string/act_become_splash_signUp_phone"
+                android:imeOptions="actionNext"
+                android:maxLength="10"
+                android:inputType="phone"
+                android:textAllCaps="false"
+                tools:ignore="Autofill" />
+
+            <EditText
+                android:id="@+id/splasher_onboarding_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/splasher_onboarding_phone"
+                android:layout_alignStart="@+id/splasher_onboarding_fullname_linear"
+                android:layout_alignEnd="@+id/splasher_onboarding_fullname_linear"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:hint="@string/act_become_splasher_signUp_countryID"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:textAllCaps="false"
+                tools:ignore="Autofill" />
+
+            <EditText
+                android:id="@+id/splasher_onboarding_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/splasher_onboarding_id"
+                android:layout_alignStart="@+id/splasher_onboarding_fullname_linear"
+                android:layout_alignEnd="@+id/splasher_onboarding_fullname_linear"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:hint="@string/act_addAddresses_home"
+                android:inputType="text"
+                android:textAllCaps="false"
+                tools:ignore="Autofill" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/splasher_onboarding_button"
+        android:background="@drawable/btn_shape"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#ffffff"
+        android:text="@string/act_create_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

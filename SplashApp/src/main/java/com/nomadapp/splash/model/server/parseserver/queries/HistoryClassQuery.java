@@ -1,6 +1,7 @@
 package com.nomadapp.splash.model.server.parseserver.queries;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.nomadapp.splash.model.server.parseserver.HistoryClassInterface;
 import com.parse.FindCallback;

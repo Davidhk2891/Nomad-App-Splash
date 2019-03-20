@@ -529,6 +529,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                             ,PaymentSettingsActivity.class));
                 }else{
                     String splasherUsername = "clear";
+                    String splasherShowingName = "clear";
                     String requestType = "public";
                     boxedLoadingDialog.showLoadingDialog();
                     RequestClassSend requestClassSend = new RequestClassSend
@@ -537,7 +538,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                     requestClassSend.loadRequest(address,carCoordinates,carAddressDescription
                     ,fullDate,selectedTime,getServiceType,carBrandToUpload
                     ,carModelToUpload,carColorToUpload,carPlateToUpload,dollarSetPrice
-                    ,numericalBadge,temporalKeyActive,splasherUsername,requestType);
+                    ,numericalBadge,temporalKeyActive,splasherUsername, splasherShowingName,requestType);
                     //Metrics class attached to the button finallyOrder. inside LOADREQUEST method
                 }
             }

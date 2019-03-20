@@ -160,39 +160,39 @@ public final class R {
         public static final int all = 0x7f090043;
         public static final int always = 0x7f090044;
         public static final int auto = 0x7f090049;
-        public static final int bottom = 0x7f09007f;
-        public static final int circle = 0x7f0900bd;
-        public static final int click = 0x7f0900bf;
-        public static final int ease = 0x7f090105;
-        public static final int left = 0x7f090174;
-        public static final int line = 0x7f090179;
-        public static final int longClick = 0x7f090183;
-        public static final int none = 0x7f0901c3;
-        public static final int press = 0x7f090208;
-        public static final int right = 0x7f09022c;
-        public static final int ripple = 0x7f09022f;
-        public static final int slide = 0x7f090294;
-        public static final int top = 0x7f090309;
+        public static final int bottom = 0x7f090080;
+        public static final int circle = 0x7f0900be;
+        public static final int click = 0x7f0900c0;
+        public static final int ease = 0x7f090106;
+        public static final int left = 0x7f090175;
+        public static final int line = 0x7f09017a;
+        public static final int longClick = 0x7f090184;
+        public static final int none = 0x7f0901c4;
+        public static final int press = 0x7f090209;
+        public static final int right = 0x7f09022d;
+        public static final int ripple = 0x7f090230;
+        public static final int slide = 0x7f090296;
+        public static final int top = 0x7f090319;
     }
     public static final class string {
         private string() {}
 
-        public static final int g_font_file = 0x7f1001f0;
+        public static final int g_font_file = 0x7f0f01f3;
     }
     public static final class style {
         private style() {}
 
-        public static final int Genius_Widget_BalloonMarker = 0x7f1100aa;
-        public static final int Genius_Widget_BalloonMarker_TextAppearance = 0x7f1100ab;
-        public static final int Genius_Widget_Button = 0x7f1100ac;
-        public static final int Genius_Widget_Button_Base = 0x7f1100ad;
-        public static final int Genius_Widget_CompoundButton_CheckBox = 0x7f1100ae;
-        public static final int Genius_Widget_EditText = 0x7f1100af;
-        public static final int Genius_Widget_FloatActionButton = 0x7f1100b0;
-        public static final int Genius_Widget_ImageView = 0x7f1100b1;
-        public static final int Genius_Widget_Loading = 0x7f1100b2;
-        public static final int Genius_Widget_SeekBar = 0x7f1100b3;
-        public static final int Genius_Widget_TextView = 0x7f1100b4;
+        public static final int Genius_Widget_BalloonMarker = 0x7f1000aa;
+        public static final int Genius_Widget_BalloonMarker_TextAppearance = 0x7f1000ab;
+        public static final int Genius_Widget_Button = 0x7f1000ac;
+        public static final int Genius_Widget_Button_Base = 0x7f1000ad;
+        public static final int Genius_Widget_CompoundButton_CheckBox = 0x7f1000ae;
+        public static final int Genius_Widget_EditText = 0x7f1000af;
+        public static final int Genius_Widget_FloatActionButton = 0x7f1000b0;
+        public static final int Genius_Widget_ImageView = 0x7f1000b1;
+        public static final int Genius_Widget_Loading = 0x7f1000b2;
+        public static final int Genius_Widget_SeekBar = 0x7f1000b3;
+        public static final int Genius_Widget_TextView = 0x7f1000b4;
     }
     public static final class styleable {
         private styleable() {}

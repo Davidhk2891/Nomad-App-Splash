@@ -70,12 +70,13 @@
     <string name="act_about_termsOfUse">Terms Of Use</string>
     <!--///////////////////////////-->
 
-    <!--activity_add_addresses-->
+    <!--activity_add_addresses and Splasher Onboarding-->
     <string name="act_addAddresses_myAddresses">Add custom address</string>
-    <string name="act_addAddresses_home">Home</string>
+    <string name="act_addAddresses_home">Home Address</string>
     <string name="act_addAddresses_work">Work</string>
     <string name="act_addAddresses_other">Other</string>
     <string name="act_addAddresses_done">Done</string>
+    <string name="act_create_account">Create Account</string>
     <!--//////////////////////-->
 
     <!--activity_alerts-->
@@ -251,7 +252,7 @@
     <string name="act_main_login">LogIn</string>
     <string name="act_main_or">or</string>
     <string name="act_main_loginWithFacebook">Login with Facebook</string>
-    <string name="act_main_becomeASplasher">Become a \n splasher</string>
+    <string name="act_main_becomeASplasher">Ready to earn? \nBecome a Washer</string>
     <string name="act_main_forgotPassword">Forgot \nPassword</string>
     <string name="act_main_signUp">SignUp</string>
     <string name="act_main_passwordRecovery">Password Recovery</string>
@@ -383,6 +384,7 @@
     <string name="nav_menu_quickTour">Quick tour</string>
     <string name="nav_menu_myWallet">My wallet</string>
     <string name="nav_menu_myServices">My services</string>
+    <string name="nav_menu_store">Store</string>
     <!--////////-->
 
     <!--payment_menu-->
@@ -486,6 +488,9 @@
     <string name="main_act_java_signup">SignUp</string>
     <string name="main_act_java_letsGetStarted">Let\'s get started</string>
     <string name="main_act_java_welcome">WELCOME!</string>
+    <string name="main_act_java_accountNotVerified">Account Not Verified</string>
+    <string name="main_act_java_yourAccountHasntBeen">Your account hasn\'t been verified yet</string>
+
     <!--/////////////////-->
 
     <!--HomeActivity.java-->
@@ -563,6 +568,9 @@
      in order to continue using our services</string>
     <string name="carOwner_Act_java_forcedUpdateYes">Update</string>
     <string name="carOwner_Act_java_forcedUpdateNo">No, thanks</string>
+    <string name="carOwner_act_java_welcomeToSplash_title">Welcome to Splash</string>
+    <string name="carOwner_act_java_welcomeToSplash_message">"We are exited that you want to work with us!
+        To get started, please go to My Services to set up your area of work and prices."</string>
     <!--/////////////////////-->
 
     <!--WashRequestsActivity.java-->
@@ -771,6 +779,13 @@
     <string name="splasher_services_setEpicenter">set epicenter</string>
     <!--/////////////////////////////-->
 
-    <!--////////////////////////-->
+    <!--SplasherOnboardingActivity.java-->
+    <string name="splasher_onboarding_alert_accBeing_title">Account Verification</string>
+    <string name="splasher_onboarding_alert_accBeing_message">Your account is now being " +
+                                    "verified. A representative will contact you soon. " +
+                                    "Thank you.</string>
+    <string name="splasher_onboarding_alert_accBeing_ok">OK</string>
+    <!--///////////////////////////////-->
+
     <!--////////////////////////////////////-->
 </resources>

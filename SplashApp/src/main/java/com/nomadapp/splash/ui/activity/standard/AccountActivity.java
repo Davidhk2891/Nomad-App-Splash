@@ -187,7 +187,7 @@ public class AccountActivity extends AppCompatActivity {
                             if (e == null){
                                 if (!picChosen) {
                                     finishAll();
-                                }else if (picChosen){
+                                }else{
                                     if (userClassQuery.currentUserObject()
                                             .getString("CarOwnerOrSplasher")
                                             .equals("splasher")){
@@ -219,7 +219,7 @@ public class AccountActivity extends AppCompatActivity {
     }
     public void setProfPicForSplasher(){
         ParseQuery<ParseObject> profileQuery = ParseQuery.getQuery("Profile");
-        profileQuery.whereEqualTo("username", userClassQuery.userName());
+        profileQuery.whereEqualTo("email", userClassQuery.userName());
         profileQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {

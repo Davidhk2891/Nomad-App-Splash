@@ -34,12 +34,10 @@ import com.nomadapp.splash.ui.activity.carownerside.payment.PaymentSettingsActiv
 import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,11 +54,13 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
  */
 public class SplasherListFragment extends Fragment {
 
-    private String splasherName,splasherPrice,splasherNumWash,splasherProfPic;
+    private String splasherName,splasherShowingName,splasherPrice,splasherNumWash,splasherProfPic;
+    private String splasherNameToSend;
     private int splasherAvgRating;
 
     //Splasher list data fixed in arrayLists (per category)//
     private ArrayList<String> splasherUserNames = new ArrayList<>();
+    private ArrayList<String> splasherShowingNames = new ArrayList<>();
     private ArrayList<String> splasherUserProfPic = new ArrayList<>();
     private ArrayList<String> splasherUserAvgRat = new ArrayList<>();
     private ArrayList<String> splasherUserPrice = new ArrayList<>();
@@ -239,14 +239,15 @@ public class SplasherListFragment extends Fragment {
                 }else{
                     boxedLoadingDialog.showLoadingDialog();
                     fetchRequestDataToOrder();
-                    String splasherUsername = mSlUsername.getText().toString();
+                    String splasherUsername = splasherNameToSend;
+                    String splasherShowingNameSend = mSlUsername.getText().toString();
                     String requestType = "private";
                     cleanUntilTime();
                     requestClassSend.loadRequest(fetchedAddress,fetchedCoords,fetchedAddressDesc
                             ,fetchedFullDate,fetchedSelectedTime,fetchedServiceType,fetchedCBrand
                             ,fetchedCModel,fetchedCColor,fetchedCPlate,fetchedDollar,
                             fetchedNumericalBadge,isTemporalKeyActive,splasherUsername
-                            ,requestType);
+                            , splasherShowingNameSend, requestType);
                 }
             }
         });
@@ -401,12 +402,16 @@ public class SplasherListFragment extends Fragment {
     }
 
     public void allocateDataForSL(int position){
+        //This is the actual splasherUserName(Email) used for comparing in backend//
+        splasherNameToSend = splasherUserNames.get(position);
+        //------------------------------------------------------------------------//
+
         String request_wash_from = getResources().getString(R.string
                 .act_wash_my_car_requestAWashFrom);
 
-        mSlUsername.setText(splasherUserNames.get(position));
+        mSlUsername.setText(splasherShowingNames.get(position));
 
-        String fullRequestTitle = request_wash_from + " " + splasherUserNames.get(position);
+        String fullRequestTitle = request_wash_from + " " + splasherShowingNames.get(position);
         mRequestAwashTo.setText(fullRequestTitle);
 
         mSlRatingBar.setProgress(Integer.parseInt(splasherUserAvgRat.get(position)) * 2);
@@ -452,6 +457,7 @@ public class SplasherListFragment extends Fragment {
 
                         splasherList.clear();
                         splasherUserNames.clear();
+                        splasherShowingNames.clear();
                         splasherUserAvgRat.clear();
                         splasherUserProfPic.clear();
                         splasherUserNumWash.clear();
@@ -483,7 +489,9 @@ public class SplasherListFragment extends Fragment {
 
                             //NEED TO REFRESH SPLASHER LIST WHEN COMING BACK FROM PLACEPICKER//
                             if (disCarToSplasher <= splasherRange) {
-                                splasherName = splasherObj.getString("username");//<<<<<<<<<<<<<
+                                splasherName = splasherObj.getString("email");//<<<<<<<<<<<<<<<
+
+                                splasherShowingName = splasherObj.getString("username");//<<<<<
 
                                 ParseFile localProfPic = splasherObj
                                         .getParseFile("splasherProfPic");
@@ -510,7 +518,7 @@ public class SplasherListFragment extends Fragment {
                                 //left here. need to add arraylist in which to deposit the
                                 // indivudual data in strings. nums etc
                                 MySplasher splasher = new MySplasher();
-                                splasher.setSplasherUsername(splasherName);
+                                splasher.setSplasherUsername(splasherShowingName);
                                 splasher.setSplasherProfPic(splasherProfPic);
                                 String price = "₪ " + splasherPrice;
                                 splasher.setSplasherPrice(price);
@@ -525,6 +533,7 @@ public class SplasherListFragment extends Fragment {
                                 splasher.setSplasherNumOfWashes(numOfWashes);
 
                                 Log.i("splasherName", splasherName);
+                                Log.i("splasherShowingName", splasherShowingName);
                                 Log.i("splasherProfPic", splasherProfPic);
                                 Log.i("splasherPrice", splasherPrice);
                                 Log.i("splasherRating", String.valueOf(splasherAvgRating));
@@ -534,6 +543,7 @@ public class SplasherListFragment extends Fragment {
 
                                 //Adding each individual splasher data to respective ArrayLists//
                                 splasherUserNames.add(splasherName);
+                                splasherShowingNames.add(splasherShowingName);
                                 splasherUserPrice.add(splasherPrice);
                                 splasherUserNumWash.add(splasherNumWash);
                                 splasherUserProfPic.add(splasherProfPic);

@@ -33,6 +33,7 @@ import android.widget.TextView;
 import com.nomadapp.splash.model.constants.PaymeConstants;
 
 import com.nomadapp.splash.R;
+import com.nomadapp.splash.model.constants.serverconstants.ProfileConstants;
 import com.nomadapp.splash.model.imagehandler.ImageFileStorage;
 import com.nomadapp.splash.model.localdatastorage.StoragePermission;
 import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
@@ -204,7 +205,8 @@ public class SplasherApplicationActivity extends AppCompatActivity {
                     cSplasherLogInButton.setVisibility(View.INVISIBLE);
 
                     //or login
-                    cOrSplashLogin.setText(getResources().getString(R.string.becomeSplasher_act_java_login));
+                    cOrSplashLogin.setText(getResources().getString
+                            (R.string.becomeSplasher_act_java_login));
 
                     signUpCheck = true;
 
@@ -241,17 +243,14 @@ public class SplasherApplicationActivity extends AppCompatActivity {
 
     public void splasherSignUp(View view){
 
-        final String splasher = "splasher";//<-- TYPE OF USER : carOwner
-
-        final String washes = "0";
-        final String oldAvgRating = "0";
-        final String washesCanceled = "0";
-
-        final String numericalBadge = "2";
-
-        final String setPrice = "15";
-        final String setPriceEInt = "15";
-        final String setPriceMoto = "15";
+        final String splasher = ProfileConstants.CLASS_PROFILE_SPLAHER;//<-- TYPE OF USER
+        final String washes = ProfileConstants.CLASS_PROFILE_WASHES;
+        final String oldAvgRating = ProfileConstants.CLASS_PROFILE_OLD_AVG_RATING;
+        final String washesCanceled = ProfileConstants.CLASS_PROFILE_WASHES_CANCELED;
+        final String numericalBadge = ProfileConstants.CLASS_PROFILE_NUMERICAL_BADGE;
+        final String setPrice = ProfileConstants.CLASS_PROFILE_SET_PRICE;
+        final String setPriceEInt = ProfileConstants.CLASS_PROFILE_SET_PRICE_E_INT;
+        final String setPriceMoto = ProfileConstants.CLASS_PROFILE_SET_PRICE_MOTO;
 
         //If im giving 3 of Rating, then it has to be counted as 1 done wash for math porpuses.
         //When it'll come to show number of washes to the Splasher, simply substract 1 from the var.
@@ -316,7 +315,7 @@ public class SplasherApplicationActivity extends AppCompatActivity {
                 public void done(ParseException e) {
                     if (e == null){
                         Log.i("splasherSignUp", "signUp SuccessFul");
-                        //RATING///////////////////////////////
+
                         ParseObject profile = new ParseObject("Profile");
                         profile.put("username", ParseUser.getCurrentUser().getUsername());
                         profile.put("CarOwnerOrSplasher", splasher);
@@ -343,7 +342,7 @@ public class SplasherApplicationActivity extends AppCompatActivity {
                                 backToMainFromSignUp();
                             }
                         });
-                        ///////////////////////////////////////
+
                     } else {
                         Log.i("splasherSignUp", "signUp Failed");
                         toastMessages.productionMessage(getApplicationContext(), e.getMessage()

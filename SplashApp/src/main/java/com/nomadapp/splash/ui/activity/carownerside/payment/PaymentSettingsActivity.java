@@ -364,7 +364,8 @@ public class PaymentSettingsActivity extends AppCompatActivity implements View.O
     }
 
     public void deleteCCDetails(){
-        android.support.v7.app.AlertDialog.Builder missingStuff2Dialog = new android.support.v7.app.AlertDialog.Builder(PaymentSettingsActivity.this);
+        android.support.v7.app.AlertDialog.Builder missingStuff2Dialog = new android.support.v7
+                .app.AlertDialog.Builder(PaymentSettingsActivity.this);
         missingStuff2Dialog.setTitle(getResources().getString(R.string.payment_menu_trash));
         missingStuff2Dialog.setIcon(android.R.drawable.ic_dialog_alert);
         missingStuff2Dialog.setMessage(getResources().getString(R.string.payment_menu_deleteCCDetails));
@@ -399,7 +400,9 @@ public class PaymentSettingsActivity extends AppCompatActivity implements View.O
 
     public void editCCDetails(){
         if (!fieldsOnEdit) {
-            android.support.v7.app.AlertDialog.Builder editStuff2Dialog = new android.support.v7.app.AlertDialog.Builder(PaymentSettingsActivity.this);
+            android.support.v7.app.AlertDialog.Builder editStuff2Dialog =
+                    new android.support.v7.app.AlertDialog.Builder
+                            (PaymentSettingsActivity.this);
             editStuff2Dialog.setTitle(getResources().getString(R.string.payment_menu_editCreditCard));
             editStuff2Dialog.setIcon(android.R.drawable.ic_dialog_alert);
             editStuff2Dialog.setMessage(getResources().getString(R.string.payment_menu_editCreditCardDets));

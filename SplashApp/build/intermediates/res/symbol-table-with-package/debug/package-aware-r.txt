@@ -1682,6 +1682,7 @@ drawable ic_payment_black_24dp
 drawable ic_photo_camera_black_24dp
 drawable ic_place_black_24dp
 drawable ic_profile
+drawable ic_shopping_cart_black_24dp
 drawable ic_vol_type_speaker_dark
 drawable ic_vol_type_speaker_group_dark
 drawable ic_vol_type_speaker_group_light
@@ -1771,6 +1772,7 @@ drawable servicetypeiconblue
 drawable silverbadge
 drawable splasherlogoonmap
 drawable splashiconnewnoti
+drawable splashlogowithdropscropped
 drawable splashwordlogo
 drawable splashyyytranspa
 drawable termsofuse
@@ -1884,6 +1886,7 @@ id barrier
 id becomeASplash
 id becomeASplash2
 id becomeSplashRelative
+id become_independent_splasher
 id beforeAfterTitle
 id beforeWashFull
 id beginning
@@ -2436,6 +2439,7 @@ id showHome
 id showTitle
 id signUpLogInRelative
 id signUpLogInScroll
+id sixNav
 id slFinallyOrder
 id slNumWashes
 id slPriceData
@@ -2500,6 +2504,20 @@ id splasherSignUpUserName
 id splasherStatus
 id splasher_fragment_container
 id splasher_info_toco_back_space
+id splasher_onboarding_address
+id splasher_onboarding_button
+id splasher_onboarding_email
+id splasher_onboarding_fullname_linear
+id splasher_onboarding_id
+id splasher_onboarding_last
+id splasher_onboarding_logo
+id splasher_onboarding_name
+id splasher_onboarding_password
+id splasher_onboarding_password_helper
+id splasher_onboarding_phone
+id splasher_onboarding_repeat_password
+id splasher_onboarding_scroller
+id splasher_onboarding_scroller_relative
 id splasher_stats_co_call
 id splasher_stats_co_distance_linear
 id splasher_stats_co_numWashes
@@ -2683,6 +2701,7 @@ layout activity_splash_screen
 layout activity_splasher_application
 layout activity_splasher_camera
 layout activity_splasher_client_route
+layout activity_splasher_onboarding
 layout activity_splasher_services
 layout activity_splasher_wallet
 layout activity_wash_req_params
@@ -2759,7 +2778,6 @@ menu nav_menu
 menu payment_menu
 menu service_show_menu
 mipmap ic_launcher
-raw chaching
 string AddCar_act_java_missingFields
 string AddCar_act_java_ok
 string AddCar_act_java_pleaseFillAllFields
@@ -2947,6 +2965,7 @@ string act_contactUs_messageSend
 string act_contactUs_pleaseWriteAMsg
 string act_contactUs_send
 string act_contactUs_uploadFileOptional
+string act_create_account
 string act_detailed_comparison_after
 string act_detailed_comparison_before
 string act_feedback_loading
@@ -3165,6 +3184,8 @@ string carOwner_act_java_splasherCanceledYourRequest
 string carOwner_act_java_splasherCanceledYourRequest2
 string carOwner_act_java_status
 string carOwner_act_java_view
+string carOwner_act_java_welcomeToSplash_message
+string carOwner_act_java_welcomeToSplash_title
 string carOwner_act_java_yes
 string carOwner_act_java_youCarHasBeenWashed
 string carOwner_act_java_youHaeToSignLogAddress
@@ -3273,6 +3294,7 @@ string logout_message_Logout
 string logout_message_areYouSureLogout
 string logout_message_no
 string logout_message_yes
+string main_act_java_accountNotVerified
 string main_act_java_bothPassMustMatch
 string main_act_java_emailSent
 string main_act_java_enterValidEmail
@@ -3287,6 +3309,7 @@ string main_act_java_userPassReq
 string main_act_java_userType
 string main_act_java_welcome
 string main_act_java_wrongUserType
+string main_act_java_yourAccountHasntBeen
 string messenger_send_button_text
 string mr_button_content_description
 string mr_cast_button_connected
@@ -3320,6 +3343,7 @@ string nav_menu_myServices
 string nav_menu_myWallet
 string nav_menu_payment
 string nav_menu_quickTour
+string nav_menu_store
 string noRequests
 string open
 string parse_app_id
@@ -3364,6 +3388,9 @@ string seventy
 string shekel
 string spalsher_row_splasherPriceTitle
 string splashPartnersProgramsTitle
+string splasher_onboarding_alert_accBeing_message
+string splasher_onboarding_alert_accBeing_ok
+string splasher_onboarding_alert_accBeing_title
 string splasher_row_splasherName
 string splasher_row_splasherPrice
 string splasher_row_splasherWashes

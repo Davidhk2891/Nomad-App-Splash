@@ -107,7 +107,6 @@ import com.parse.SaveCallback;
 import com.paymeservice.android.PayMe;
 import com.paymeservice.android.model.Settings;
 import static com.paymeservice.android.model.Settings.Environment.PRODUCTION;
-import static com.paymeservice.android.model.Settings.Environment.STAGING;
 
 import net.qiujuer.genius.ui.widget.SeekBar;
 
@@ -174,7 +173,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ImageView mSplasherPicInStatusWindows;
     private TextView cSplasherStatus;
     private LatLng userLocation;
-    private String isThereASplasher;
+    private String isThereASplasher, splasherShowingName;
     private TextView mSplasher_stats_co_splasherName;
     private TextView mSplasher_stats_co_numWashes;
     private TextView mSplasher_status_co_distance_text;
@@ -271,6 +270,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String priceCo, priceToTransfer;
     private String distanceCo;
     private String requestType;
+    private String taken;
 
     private String carOwnerCarBrandCo, carBrandToTransfer;
     private String carOwnerCarModelCo, carModelToTransfer;
@@ -375,6 +375,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         PayMe.initialize(new Settings(PaymeConstants.SPLASH_SELLER_KEY, PRODUCTION));
         updateHelperCall();
         Log.i("Locale is", "here: " + Locale.getDefault().getDisplayLanguage());
+
         background = false;
         Bundle addressBundle = getIntent().getExtras();
         try {
@@ -477,6 +478,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         mSplasher_status_co_distance_text = findViewById(R.id.splasher_status_co_distance_text);
         mSplasher_status_co_ratingBar = findViewById(R.id.splasher_status_co_ratingBar);
 
+        mCountDownClockRela = findViewById(R.id.countDownClockRela);
+        mCarAvailTime = findViewById(R.id.carAvailTime);
+
         cSplasherStatus = findViewById(R.id.splasherStatus);
         cCarOwnerPrevDetailsRelative.setVisibility(View.GONE);
         cRatingBadge.setVisibility(View.GONE);
@@ -507,10 +511,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     } else {
                         if (cRadarView.getVisibility() == View.GONE) {
                             updateWashMyCarBtnCount();
-                            Intent intent = new Intent(HomeActivity.this,WashReqParamsActivity.class);
+                            Intent intent = new Intent(HomeActivity.this
+                                    ,WashReqParamsActivity.class);
                             intent.putExtra("defaultLat", userLocation.latitude);
                             intent.putExtra("defaultLong",userLocation.longitude);
-                            startActivity(intent);//test
+                            startActivity(intent);
                         }
                     }
                 }
@@ -554,6 +559,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     //create seller operations
                     dispatchDocumentsSplasherSignUp();
 
+                    //Send new splashers to set up their services
+                    runTakeNewSplasherToServices();
+
                     cFindMeAWash.setVisibility(View.GONE);
                     cCarOwnerPrevDetailsRelative.setVisibility(View.GONE);
                     cLetsWashACar.setVisibility(View.VISIBLE);
@@ -563,11 +571,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     //R.string.carOwner_act_java_splasher
                     String stringUserType = getResources()
                             .getString(R.string.carOwner_act_java_splasher);
-
                     cUserProfileUsertype.setText(stringUserType);
-
                     splasherNumericalBadge = profileClassQuery.getMyRatingBadge(cRatingBadge);
-
                     installation.parseInstallationProcess("splashers");
 
                 } else if (userClassQuery.userIsCarOwnerOrSplasher(carOwner)) {
@@ -605,7 +610,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //drawer menu 3-----------------------------------------------------------------------------
         if (!userClassQuery.userExists()) {
-
             navigationView.getMenu().findItem(R.id.fourNav).setTitle(getResources()
                     .getString(R.string.nav_menu_login)).setIcon(R.drawable.ic_login);
 
@@ -615,6 +619,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             cUserProfileUsertype.setVisibility(View.GONE);
             cRatingBadge.setVisibility(View.GONE);
 
+            navigationView.getMenu().findItem(R.id.twoAndAHalfNav).setVisible(false);
+            navigationView.getMenu().findItem(R.id.sixNav).setVisible(false);
+
             //QUICK TOUR SYSTEM: ONLY WORKS ONCE, WHEN FIRST TIME OPENING APP AFTER EMPTY DATA:
             //MEANING: APP JUST DOWNLOADED OR DATA WAS ERASED MANUALLY FROM PHONE
             runAutoQuickTourOnce();
@@ -622,6 +629,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         }else if(userClassQuery.userExists()){
             try {
                 if (userClassQuery.userIsCarOwnerOrSplasher(splasher)) {
+                    //Irrelevant to SplasherType, the following menu items should not be shown:
+                    navigationView.getMenu().findItem(R.id.twoNav).setVisible(false);
+                    navigationView.getMenu().findItem(R.id.threePointSeventyFiveNav).setVisible(false);
+                    navigationView.getMenu().findItem(R.id.oneNav).setVisible(false);
                     profileClassQuery.splasherType(new ProfileClassInterface.walletStatus() {
                         @Override
                         public void onWalletStatusAccess(String splasherType) {
@@ -638,11 +649,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                             }
                         }
                     });
-
                 } else if (userClassQuery.userIsCarOwnerOrSplasher(carOwner)) {
-
                     navigationView.getMenu().findItem(R.id.twoAndAHalfNav).setVisible(false);
-
+                    navigationView.getMenu().findItem(R.id.sixNav).setVisible(false);
                 }
             }catch(NullPointerException npe){
                 npe.printStackTrace();
@@ -653,7 +662,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                         new DialogAcceptInterface() {
                             @Override
                             public void onAcceptOption() {
-                                userClassQuery.logOutUser(SignUpLogInActivity.class);
+                                userClassQuery.logOutUserEP(SignUpLogInActivity.class);
                             }
                         });
             }
@@ -719,6 +728,13 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         LogoutMessage(HomeActivity.this);
                                 logoutMessage.logoutMessage();
                             }
+                            return true;
+                        case R.id.sixNav:
+                            //Only possible to access if(userExists && user="splasher")
+                            Intent storeIntent = new Intent(HomeActivity.this
+                            , WebActivity.class);
+                            storeIntent.putExtra("webKey", "store");
+                            startActivity(storeIntent);
                             return true;
                     }
                 } else if (!userClassQuery.userExists()) {
@@ -857,7 +873,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 e.printStackTrace();
                 toastMessages.productionMessage(HomeActivity.this
                         ,getResources().getString(R.string.forced_Alert_somethingWrong_msg),1);
-                userClassQuery.logOutUser(SignUpLogInActivity.class);
+                userClassQuery.logOutUserEP(SignUpLogInActivity.class);
             }
         }
 
@@ -874,8 +890,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void cdcOps(int visibility1){
         if(userClassQuery.userExists()){
             if (userClassQuery.userIsCarOwnerOrSplasher(carOwner)){
-                mCountDownClockRela = findViewById(R.id.countDownClockRela);
-                mCarAvailTime = findViewById(R.id.carAvailTime);
                 //mCdcTime = findViewById(R.id.cdcTime); //invalidated. can't develop for now.
                 mSplasher_info_toco_back_space.setVisibility(View.VISIBLE);
                 viewFliper(RelativeLayout.BELOW, R.id.splasher_info_toco_back_space);
@@ -888,10 +902,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         toastMessages.debugMesssage(getApplicationContext()
                 , "I have and active request", 1);
         //this way, the user can close and even shutdown the app, as long as his request
-        // stays "true" checked on Request class on Parse server, he will be subject to a splasher
+        //stays "true" checked on Request class on Parse server, he will be subject to a splasher
         //accepting his request. The only way to get rid of the "check" is to hit "cancel wash"
         //button which will set the "check" to false and delete the request
-        // object from the Request class.
+        //object from the Request class.
         findCarWasherRequestActive = true;
         //Here, if there is a request, focus on request's marker and not on self location
 
@@ -908,6 +922,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             mCarAddDescText.setText(object.getString("carAddressDesc"));
         }
 
+        taken = object.getString("taken");
+        String splasherUsername = object.getString("splasherUsername");
         String service = object.getString("serviceType");
         currentSavedSelectedHour = object.getString("untilTime");
         serviceTextAdjustment(mCarServiceText,service);
@@ -971,8 +987,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 weHaveMotorcycle = false;
             }
         }
-        //getResources().getString(R.string.act_car_owner_waitingForAResponse)
-        //getResources().getString(R.string.act_car_owner_)
         cSplasherStatus.setVisibility(View.VISIBLE);
         if (requestType.equals("public")) {
             cSplasherStatus.setText(getResources().getString(R.string
@@ -981,10 +995,18 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             cSplasherStatus.setText(getResources().getString(R.string
                     .act_car_owner_waitingForAResponse));
         }
-
-        Log.i("vehicle type", ": " + weHaveMotorcycle);
         try {
-            untilTimeReachedAutoCancel();
+            Log.i("grey1", "is: " + splasherUsername);
+            if (splasherUsername.equals("clear")) {
+                Log.i("grey2", "There is no splasher. autoTimesUp will run");
+                untilTimeReachedAutoCancel();
+            }else{
+                if (taken.equals("no")){
+                    Log.i("grey2.1", "There is splasher but hasn't accepted" +
+                            " the private request. autoTimesUp will run");
+                    untilTimeReachedAutoCancel();
+                }
+            }
         } catch (java.text.ParseException e1) {
             e1.printStackTrace();
         }
@@ -995,6 +1017,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void fetchCurrentSplasherIfExists(final ParseObject object){
         splasherActive = true; //-->if so, updateMap() = inactive (false).
         isThereASplasher = object.getString("splasherUsername");
+        splasherShowingName = object.getString("splasherShowingName");
         final String splasherWashNum = object.getString("splasherWashesNum")
                 + " " + getResources().getString(R.string.act_car_owner_washes);
         String splasherRatingNum = object.getString("splasherRatingNum");
@@ -1038,6 +1061,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     .getString(R.string.carOwner_act_java_yourRequestHasBeenTaken);
                             int Id = 23454;
                             if (writeReadDataInFile.readFromFile("notificationStatus")
+
                                     != null) {
                                 if (writeReadDataInFile.readFromFile("notificationStatus")
                                         .equals("1")) {
@@ -1083,7 +1107,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     final Double distanceOneDP = (double) Math.round(distanceInKm * 10) / 10;
                     cRadarView.stopAnimation();
                     cRadarView.setVisibility(View.GONE);
-                    mSplasher_stats_co_splasherName.setText(isThereASplasher);
+                    mSplasher_stats_co_splasherName.setText(splasherShowingName);//TEST WHOLE SYSTEM
                     mSplasher_stats_co_numWashes.setText(splasherWashNum);
                     int fixedRating = finalIntSplasherRating * 2;
                     mSplasher_status_co_ratingBar.setProgress(fixedRating);
@@ -1218,7 +1242,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     viewFliper(RelativeLayout.ABOVE, R.id.updatedSeekBarOne);
                                     String wholeSplasherStatus = getResources()
                                             .getString(R.string.carOwner_act_java_yourSplasher)
-                                            + " " + isThereASplasher + " " + getResources()
+                                            + " " + splasherShowingName + " " + getResources()
                                             .getString(R.string.carOwner_act_java_hasArrived);
                                     cSplasherStatus.setText(wholeSplasherStatus);
                                     cUpdatedSeekbar.setProgress(2);
@@ -1237,8 +1261,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                                     .this, WashServiceShowActivity.class));
                                         }               //CHECK RUN & CHECK
                                         //bug: the startActivity intent will call eternally
-                                        // because of the runnable. possible solutions: boolean
-                                        // or stop runnable(not so good).
+                                        //because of the runnable. possible solutions: boolean
+                                        //or stop runnable(not so good).
                                     }.start();
                                     alreadyExecuted4 = true;
                                 }
@@ -1251,6 +1275,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                             }
                         }
                     }
+                    //Can't go to checkout. find out why
+                    //Fix production bug that affected that user on the 20th of Feb
                 }
             });
 
@@ -1288,9 +1314,27 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         cSplasherStatus.setLayoutParams(params);
     }
 
-    public void runAutoQuickTourOnce(){
+    private void runAutoQuickTourOnce(){
         if(writeReadDataInFile.readFromFile("autoQuickTourRan").isEmpty()){
             startActivity(new Intent(HomeActivity.this, QuickTourActivity.class));
+        }
+    }
+
+    private void runTakeNewSplasherToServices(){//lets copy runAutoQuickTourOnce
+        Log.i("purple1", "is " + writeReadDataInFile
+                .readFromFile("firstTimeServices"));
+        if (writeReadDataInFile.readFromFile("firstTimeServices").isEmpty()){
+            alertDialog.generalPurposeQuestionDialog(HomeActivity.this
+                    ,getResources().getString(R.string.carOwner_act_java_welcomeToSplash_title)
+                    ,getResources().getString(R.string.carOwner_act_java_welcomeToSplash_message)
+                    ,getResources().getString(R.string.carOwner_act_java_go)
+                    , null, new DialogAcceptInterface() {
+                        @Override
+                        public void onAcceptOption() {
+                            startActivity(new Intent(HomeActivity.this
+                                   , SplasherServicesActivity.class));
+                        }
+                    });
         }
     }
 
@@ -1403,24 +1447,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @SuppressLint("DefaultLocale")
     public void untilTimeReachedAutoCancel() throws java.text.ParseException {
-        //Until time: Delete and cancel request 1 hour before the set time:
-        /*
-        if (!alreadyExecuted7) {
-            currentSavedSelectedHour = writeReadDataInFile.readFromFile("selectedTimeSaved");
-            Log.i("timeSaved", currentSavedSelectedHour);
-            Bundle getUntilTime = getIntent().getExtras();
-            String userSelectedTime;
-            if (getUntilTime != null) {
-                //User selected time-------//
-                userSelectedTime = getUntilTime.getString("selectedTime");
-                if(userSelectedTime != null) {
-                    writeReadDataInFile.writeToFile(userSelectedTime, "selectedTimeSaved");
-                }
-                //-------------------------//
-            }
-            alreadyExecuted7 = true;
-        }
-        */
         Log.i("untilTimeReachedAutoCa", "ran");
         //Phone's Actual time and date------//
         Calendar calendarforAutoCancel = Calendar.getInstance();
@@ -1506,7 +1532,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             // WAIT FOR CAROWNER TO AKNOWLEDGE(HIT OK) THAT HIS REQUEST TIME IS UP
             if (currentSavedSelectedHour.equals(finalPhoneHour)) {
                 //User selected time meets final hour. Time to auto delete the request
-                //Delete Request
                 //AGAIN BUG ABOUT THROWING TIMES UP WHEN DOESNT HAVE TO. FIX
                 //NOW IT IS NOT EVEN THROWING TIMES UP WHEN IT SHOULD. FIX
                 String timeUpTitle = getResources()
@@ -1530,7 +1555,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     timeCheckedOnce = true;
                 }
             }
-            cdcOps(View.VISIBLE);
+            //change splashername to showingName in lil msg that shows up when splasher has arrived
+            cdcOps(View.GONE);
             if(!cdcUntilTimeRan) {
                 Log.i("ran","ran here");
                 hd.hourDiffCalculator(phoneHourWithoutSufix, cutPMCurrentSavedSelectedHour
@@ -1620,13 +1646,20 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         Log.i("untilTimeSActive"," is " + isThereASplasher);
         String clear = "clear";
         String canceled = "canceled";
+        Log.i("yellow1", "is: " + isThereASplasher);
         if (isThereASplasher != null) {
             if (requestType.equals("public")) {
+                Log.i("yellow1.1", "ran");
                 if (isThereASplasher.equals(clear) || isThereASplasher.equals(canceled)) {
+                    Log.i("yellow1.1.1", "ran");
                     untilTimeReachedRunner();
                 }
             }else if(requestType.equals("private")){
-                untilTimeReachedRunner();
+                Log.i("yellow1.2", "ran");
+                if(taken.equals("no")) {
+                    Log.i("yellow1.2.1", "ran");
+                    untilTimeReachedRunner();
+                }
             }
         }
     }
@@ -2223,10 +2256,26 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 requestClassQuery.fetchCurrRequestForSplasher(userClassQuery.userName(),
                     new RequestClassInterface.TakenRequest() {
                         @Override
-                        public void fetchThisTakenRequest(ParseObject object) {
+                        public void fetchThisTakenRequest(final ParseObject object) {
                             if (object.getString("picturesInbound").equals("true")) {
-                                forcedAlertDialog
-                                        .requestPendingForSplasherDialogCam(object);
+                                //deduce by whether or not the first 4 pics cells have data or not.
+                                requestClassQuery.fetchedParseFile(userClassQuery.userName()
+                                        , "beforeRight", new RequestClassInterface
+                                                .splasherBeforeOrAfterPics() {
+                                            @Override
+                                            public void beforePics() {
+                                                forcedAlertDialog
+                                                        .requestPendingForSplasherDialogCam(object
+                                                                , "before");
+                                            }
+
+                                            @Override
+                                            public void afterPics() {
+                                                forcedAlertDialog
+                                                        .requestPendingForSplasherDialogCam(object
+                                                        , "after");
+                                            }
+                                        });
                             }else{
                                 forcedAlertDialog.requestPendingForSplasherDialogRoute(
                                         object,
@@ -2899,6 +2948,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         cMarkerView.setVisibility(View.GONE);
         cMarkerView2.setVisibility(View.GONE);
         cUpdatedSeekbar.setVisibility(View.GONE);
+        mCountDownClockRela.setVisibility(View.GONE);
         cFindMeAWash.setVisibility(View.VISIBLE);
         mMap.getUiSettings().setScrollGesturesEnabled(true);
         mMap.getUiSettings().setZoomGesturesEnabled(true);
@@ -2935,7 +2985,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onClick(DialogInterface dialog, int which) {
                         handler.removeCallbacks(requestUpdateChecker);
                         shutDownChecker = true;
-                        userClassQuery.logOutUser(SignUpLogInActivity.class);
+                        userClassQuery.logOutUserEP(SignUpLogInActivity.class);
 
                     }
                 });

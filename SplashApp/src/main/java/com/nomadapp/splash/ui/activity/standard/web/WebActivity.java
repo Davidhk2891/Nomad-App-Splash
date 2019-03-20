@@ -12,7 +12,6 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.nomadapp.splash.R;
 
@@ -80,7 +79,6 @@ public class WebActivity extends AppCompatActivity {
             if (webUrlHolderKey != null){
                 switch (webUrlHolderKey) {
                     case "feedBack":
-                        Toast.makeText(getApplicationContext(), "feedback", Toast.LENGTH_SHORT).show();
                         webUrlHolderString = WebConstants.FEEDBACK_URL
                                 + WebConstants.packageName(WebActivity.this);
                         feedBackOperation(webUrlHolderString);
@@ -88,24 +86,23 @@ public class WebActivity extends AppCompatActivity {
                         break;
                     case "faq":
                         setTitle("FAQ");
-                        Toast.makeText(getApplicationContext(), "faq", Toast.LENGTH_SHORT).show();
                         webUrlHolderString = WebConstants.FAQ;
                         break;
                     case "termsOfUse":
                         setTitle("Terms of use");
-                        Toast.makeText(getApplicationContext(), "termsOfUse", Toast.LENGTH_SHORT).show();
                         webUrlHolderString = WebConstants.TERMS_OF_USE;
                         break;
                     case "privacyPolicy":
                         setTitle("Privacy Policy");
-                        Toast.makeText(getApplicationContext(), "privacyPolicy", Toast.LENGTH_SHORT).show();
                         webUrlHolderString = WebConstants.PRIVACY_POLICY;
                         break;
                     case "paymeTermsOfUse":
                         setTitle("Payment TOU");
-                        Toast.makeText(getApplicationContext(), "paymeTOU", Toast.LENGTH_SHORT).show();
                         webUrlHolderString = WebConstants.PAYME_TERMS_OF_USE;
                         break;
+                    case "store":
+                        setTitle("Store");
+                        webUrlHolderString = WebConstants.SPLASHER_STORE_LINK;
                 }
             }
         }

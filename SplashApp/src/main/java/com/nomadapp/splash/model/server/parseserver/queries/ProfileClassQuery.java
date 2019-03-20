@@ -23,17 +23,18 @@ public class ProfileClassQuery {
     private Context context;
     private ToastMessages toastMessages = new ToastMessages();
     private GlideImagePlacement glideImagePlacement;
+    private  String accountVerificationStatus = "";
 
     public ProfileClassQuery(Context ctx){
         this.context = ctx;
-         glideImagePlacement = new GlideImagePlacement(context);
+        glideImagePlacement = new GlideImagePlacement(context);
     }
 
     public int getMyRatingBadge(final ImageView iv){
         final int[] splasherNumericalBadge = {2};
         UserClassQuery userClassQuery = new UserClassQuery(context);
         final ParseQuery<ParseObject> queryGetMyRating = ParseQuery.getQuery("Profile");
-        queryGetMyRating.whereEqualTo("username", userClassQuery.userName());
+        queryGetMyRating.whereEqualTo("email", userClassQuery.userName());
         queryGetMyRating.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
@@ -80,7 +81,7 @@ public class ProfileClassQuery {
     public void getUserProfileToUpdate(final ProfileClassInterface profileClassInterface){
         UserClassQuery userClassQuery = new UserClassQuery(context);
         final ParseQuery<ParseObject> profUserQuery = ParseQuery.getQuery("Profile");
-        profUserQuery.whereEqualTo("username", userClassQuery.userName());
+        profUserQuery.whereEqualTo("email", userClassQuery.userName());
         profUserQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
@@ -93,6 +94,7 @@ public class ProfileClassQuery {
         profileClassInterface.beforeQueryFetched();
         final ParseQuery<ParseObject> splasherListQuery = ParseQuery.getQuery("Profile");
         splasherListQuery.whereEqualTo("CarOwnerOrSplasher", "splasher");
+        splasherListQuery.whereEqualTo("accountverified", "true");
         splasherListQuery.whereEqualTo("status", "active");
         splasherListQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -130,4 +132,28 @@ public class ProfileClassQuery {
         }
     }
     //--------------------------//
+
+    public void splasherAccVerification(String splasherUsername, final ProfileClassInterface
+            .verificationStatus verificationStatus){
+        final ParseQuery<ParseObject> profUserQuery = ParseQuery.getQuery("Profile");
+        profUserQuery.whereEqualTo("email", splasherUsername);
+        profUserQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if(e == null){
+                    if(objects.size() > 0){
+                        for(ParseObject splasherAcc : objects){
+                           accountVerificationStatus =
+                                   splasherAcc.getString("accountverified");
+                           Log.i("purpleAccVerStatus", accountVerificationStatus);
+                           verificationStatus.accVerifiedStatus(accountVerificationStatus);
+                        }
+                    }
+                }else{
+                    toastMessages.productionMessage(context.getApplicationContext(),
+                            e.getMessage(), 1);
+                }
+            }
+        });
+    }
 }

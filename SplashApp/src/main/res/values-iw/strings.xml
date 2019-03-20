@@ -71,10 +71,11 @@
 
     <!--activity_add_addresses-->
     <string name="act_addAddresses_myAddresses">כתובת מותאמת אישית</string>
-    <string name="act_addAddresses_home">בית</string>
+    <string name="act_addAddresses_home">כתובת הבית</string>
     <string name="act_addAddresses_work">עבודה</string>
     <string name="act_addAddresses_other">אחר</string>
     <string name="act_addAddresses_done">בוצע</string>
+    <string name="act_create_account">הרשמה</string>
     <!--//////////////////////-->
 
 
@@ -257,7 +258,7 @@
     <string name="act_main_login">התחברות</string>
     <string name="act_main_or">או</string>
     <string name="act_main_loginWithFacebook">התחבר עם פייסבוק</string>
-    <string name="act_main_becomeASplasher"> הפוךn לשוטף\n מכוניות</string>
+    <string name="act_main_becomeASplasher">מוכן להרוויח?\n הפוך לשוטף מכוניות</string>
     <string name="act_main_forgotPassword">שכחת את\n הסיסמא</string>
     <string name="act_main_signUp">הירשם</string>
     <string name="act_main_passwordRecovery">שחזור סיסמא</string>
@@ -384,6 +385,7 @@
     <string name="nav_menu_quickTour">סיור מהיר</string>
     <string name="nav_menu_myWallet">הארנק שלי</string>
     <string name="nav_menu_myServices">השירותים שלי</string>
+    <string name="nav_menu_store">חנות</string>
     <!--////////-->
 
     <!--payment_menu-->
@@ -487,6 +489,8 @@
     <string name="main_act_java_signup">הירשם</string>
     <string name="main_act_java_letsGetStarted">בואו נתחיל</string>
     <string name="main_act_java_welcome">ברוך הבא!</string>
+    <string name="main_act_java_accountNotVerified">החשבון לא אומת</string>
+    <string name="main_act_java_yourAccountHasntBeen">החשבון שלך עדיין לא אומת</string>
     <!--/////////////////-->
 
 
@@ -550,6 +554,8 @@
     <string name="carOwner_Act_java_forcedUpdateMessage">עדכן את Splash לגרסה האחרונה כדי להמשיך להשתמש בשירותים שלנו</string>
     <string name="carOwner_Act_java_forcedUpdateYes">עדכן</string>
     <string name="carOwner_Act_java_forcedUpdateNo">לא תודה</string>
+    <string name="carOwner_act_java_welcomeToSplash_title">ברוכים הבאים ל Splash</string>
+    <string name="carOwner_act_java_welcomeToSplash_message">אנחנו יוצאים כי אתה רוצה לעבוד איתנו! כדי להתחיל, עבור אל \'השירותים שלי\' כדי להגדיר את שטח העבודה והמחירים שלך</string>
     <!--/////////////////////-->
 
 
@@ -741,6 +747,12 @@
     <string name="splasher_services_selectHowWide">בחר את הטווח אזור העבודה שלך</string>
     <string name="splasher_services_setEpicenter">הגדר מוקד</string>
     <!--/////////////////////////////-->
+
+    <!--SplasherOnboardingActivity.java-->
+    <string name="splasher_onboarding_alert_accBeing_title">הבקשה נרשמה</string>
+    <string name="splasher_onboarding_alert_accBeing_message">נבדוק את בקשתך ונחזור בהקדם</string>
+    <string name="splasher_onboarding_alert_accBeing_ok">מאושר</string>
+    <!--///////////////////////////////-->
 
     <!--////////////////////////////////////-->
 </resources>

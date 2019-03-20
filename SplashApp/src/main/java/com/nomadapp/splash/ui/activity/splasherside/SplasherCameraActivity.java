@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -57,18 +58,20 @@ import static com.nomadapp.splash.R.id.pictureHolder;
 import static com.nomadapp.splash.R.id.pictureHolder2;
 import static com.nomadapp.splash.R.id.pictureHolder3;
 import static com.nomadapp.splash.R.id.pictureHolder4;
+import static com.nomadapp.splash.R.id.picturesSentStatus;
 
 public class SplasherCameraActivity extends AppCompatActivity {
 
     private RelativeLayout cWashingCarRelative;
     private Button cDispatchPictures, cDispatchPictures2;
     private TextView cBeforeAfterTitle;
-    //--
+    private LinearLayout mPicturesSentStatus;
+    //--//
     private Uri imageFileLocation;
     private Uri imageFileLocation2;
     private Uri imageFileLocation3;
     private Uri imageFileLocation4;
-    //--
+    //--//
 
     private File mGalleryFolder;
     Intent i, ii, iii, iv;
@@ -100,6 +103,17 @@ public class SplasherCameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splasher_camera);
 
+        cWashingCarRelative = findViewById(R.id.washingCarRelative);
+        cDispatchPictures = findViewById(R.id.dispatchPictures);
+        cDispatchPictures2 = findViewById(R.id.dispatchPictures2);
+        cBeforeAfterTitle = findViewById(R.id.beforeAfterTitle);
+        cPictureHolder1 = findViewById(pictureHolder);
+        cPictureHolder2 = findViewById(pictureHolder2);
+        cPictureHolder3 = findViewById(pictureHolder3);
+        cPictureHolder4 = findViewById(pictureHolder4);
+        mPicturesSentStatus = findViewById(picturesSentStatus);
+        cWashingCarRelative.setVisibility(View.GONE);
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if(getSupportActionBar() != null)
         getSupportActionBar().hide();
@@ -109,19 +123,23 @@ public class SplasherCameraActivity extends AppCompatActivity {
         if(newBundle != null){
             String fetchedUntilTime2 = newBundle.getString("fetchedUntilTime");
             String fetchedPrice2 = newBundle.getString("fetchedPrice");
+            String picStatus = newBundle.getString("picStatus");
             WriteReadDataInFile writeReadDataInFile = new WriteReadDataInFile(SplasherCameraActivity.this);
             writeReadDataInFile.writeToFile(fetchedUntilTime2, "untilTime12Hours");
             writeReadDataInFile.writeToFile(fetchedPrice2, "fetchedPrice12Hours");
+            if (picStatus != null) {
+                Log.i("purple1", "ran");
+                if (picStatus.equals("after")) {
+                    Log.i("purple1.1", "ran");
+                    cWashingCarRelative.setVisibility(View.VISIBLE);
+                    mPicturesSentStatus.setVisibility(View.GONE);
+                }else{
+                    Log.i("purple1.2", "ran");
+                }
+            }else{
+                Log.i("purple2", "ran");
+            }
         }
-
-        cWashingCarRelative = findViewById(R.id.washingCarRelative);
-        cDispatchPictures = findViewById(R.id.dispatchPictures);
-        cDispatchPictures2 = findViewById(R.id.dispatchPictures2);
-        cBeforeAfterTitle = findViewById(R.id.beforeAfterTitle);
-        cPictureHolder1 = findViewById(pictureHolder);
-        cPictureHolder2 = findViewById(pictureHolder2);
-        cPictureHolder3 = findViewById(pictureHolder3);
-        cPictureHolder4 = findViewById(pictureHolder4);
 
         //Receiving images1-------------------------------------------------//
         //TextView cSendingPicsText = findViewById(R.id.sendingPicsText);
@@ -141,10 +159,8 @@ public class SplasherCameraActivity extends AppCompatActivity {
 
         cDispatchPictures.setEnabled(false);
         cDispatchPictures2.setEnabled(false);
-        cWashingCarRelative.setVisibility(View.GONE);
 
         clm.connectivityStatus(SplasherCameraActivity.this);
-
     }
 
     public void takePic(View v){
@@ -636,7 +652,7 @@ public class SplasherCameraActivity extends AppCompatActivity {
                     cDispatchPictures2.setVisibility(View.VISIBLE);
 
                     if(!weAreInAfter){
-                        Log.i("are we in after?", String.valueOf(weAreInAfter));
+                        Log.i("are we in after?", "false");
                     }
                 }
             });

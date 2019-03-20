@@ -84,9 +84,9 @@
 
         <activity
             android:name=".ui.activity.standard.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_activity_car_owner"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activity.standard.SplasherApplicationActivity"
             android:screenOrientation="portrait" />
@@ -201,7 +201,10 @@
         <activity
             android:name=".ui.activity.splasherside.SplasherServicesActivity"
             android:label="My services"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.standard.SplasherOnboarding"
+            android:label="Create Splasher Account"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

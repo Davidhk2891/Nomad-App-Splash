@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.nomadapp.splash.R;
+import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
 import com.nomadapp.splash.model.server.parseserver.ProfileClassInterface;
 import com.nomadapp.splash.model.server.parseserver.queries.ProfileClassQuery;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
@@ -67,6 +68,13 @@ public class SplasherServicesActivity extends AppCompatActivity {
 
         widgetState(false,R.drawable.btn_shape_grey);
         fetchServicesInfoFromServer();
+
+        saveServiceSettingsFirst();
+    }
+
+    private void saveServiceSettingsFirst(){
+        WriteReadDataInFile wrd = new WriteReadDataInFile(SplasherServicesActivity.this);
+        wrd.writeToFile("ran","firstTimeServices");
     }
 
     public void selectArea(){

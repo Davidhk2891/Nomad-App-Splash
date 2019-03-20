@@ -12,6 +12,7 @@ import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -33,6 +34,37 @@ public class RequestClassQuery {
 
         this.context = ctx;
 
+    }
+
+    public void fetchedParseFile(String requestSplasherName, final String parseFileName,
+                                 final RequestClassInterface.splasherBeforeOrAfterPics
+                                         splasherBeforeOrAfterPics){
+        final String[] fileURL = new String[1];
+        fileURL[0] = "empty";
+        ParseQuery<ParseObject> fileQuery = new ParseQuery<>("Request");
+        fileQuery.whereEqualTo("splasherUsername", requestSplasherName);
+        fileQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null){
+                    if (objects.size() > 0){
+                        for(ParseObject fileUrlObj : objects){
+                            ParseFile firstBeforePic = fileUrlObj.getParseFile(parseFileName);
+                            if (firstBeforePic != null) {
+                                fileURL[0] = firstBeforePic.getUrl();
+                                Log.i("purpleOrange1", "ran: " + fileURL[0]);
+                                //INSTEAD OF RETURNING, RUN AN INTERFACE THROUGH HERE
+                                //THIS WAY YOU GUARANTEE THAT YOU RUN THROUGH HERE
+                                splasherBeforeOrAfterPics.afterPics();
+                            }else{
+                                Log.i("purpleOrange2", "ran");
+                                splasherBeforeOrAfterPics.beforePics();
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
 
     public void fetchCurrentRequestOne(final RequestClassInterface requestClassInterface){
@@ -173,9 +205,9 @@ public class RequestClassQuery {
         String locationDets = object.getString("carAddressDesc");
         String serviceGiven = "Expected: " + object.getString("serviceType");
 
-        Double originalPrice = 0.0;
+        double originalPrice = 0.0;
 
-        Double tip = 0.0;
+        double tip = 0.0;
 
         String splasherRating = "0";
         String rawResponseFromPayme = "payment process not executed";

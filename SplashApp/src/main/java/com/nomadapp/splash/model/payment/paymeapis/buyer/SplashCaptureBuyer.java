@@ -135,14 +135,22 @@ public class SplashCaptureBuyer {
             public void onFailed(Exception e, PayMeError error) {
                 boxedLoadingDialog.hideLoadingDialog();
                 if (error != null) {
-                    toastMessages.productionMessage(context, "onFailed: " +
+                    toastMessages.productionMessage(context, "onFailed1: " +
                             error.getStatusErrorDetails(),1);
+                    Log.e("error is 1", " " + error.getStatusErrorDetails());
+                    Log.e("error is 1.1", " " + error.getStatusAdditionalInfo());
+                    if(e != null){
+                        toastMessages.productionMessage(context, "onFailed1.1: "
+                                + e.getMessage(),1);
+                        Log.e("error is 1.2", " " + e.getMessage());
+                    }
                 } else if (e != null) {
-                    toastMessages.productionMessage(context, "onFailed: "
+                    toastMessages.productionMessage(context, "onFailed2: "
                             + e.getMessage(),1);
-
+                    Log.e("error is 1.2", " " + e.getMessage());
                 } else {
-                    toastMessages.productionMessage(context, "Failed",1);
+                    toastMessages.productionMessage(context, "Failed3",1);
+                    Log.e("error is 3", "Failed");
                 }
             }
         });

@@ -97,11 +97,17 @@ public class UserClassQuery {
             });
         }
     }
-    public void logOutUser(Class targetClass){
+    public void logOutUserEP(Class targetClass){
         if (userExists()){
             boxedLoadingDialog.showLoadingDialog();
             ParseUser.logOut();
             context.startActivity(new Intent(context,targetClass));
+        }
+    }
+
+    public void logOutUserNoEP(){
+        if (userExists()){
+            ParseUser.logOut();
         }
     }
 }

@@ -502,19 +502,14 @@ public class WashServiceShowActivity extends AppCompatActivity {
             final int intRatingToSet = (int)(cRateThisSplasherAction.getRating());
 
             if(cTipThisSplasher.toString().isEmpty()){
-
                 cTipThisSplasher.setText("0.0");
-
             }
 
             final String tipToSend = cTipThisSplasher.getText().toString();
-
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Request");
-
-            query.whereEqualTo("username", ParseUser.getCurrentUser().getUsername()); //Specifying the sole row that contains the carOwner using this phone
-
+            query.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
+            //Specifying the sole row that contains the carOwner using this phone
             query.whereExists("splasherUsername");
-
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> objects, ParseException e) {
@@ -522,8 +517,7 @@ public class WashServiceShowActivity extends AppCompatActivity {
                         if (objects.size() > 0) {
                             for (final ParseObject object : objects) {
                                 //The sole request
-
-                                aboutToBeRatedSplasher = object.getString("splasherUsername");
+                                aboutToBeRatedSplasher = object.getString("splasherShowingName");
 
                                 Log.i("00ToBeRatedSplash", aboutToBeRatedSplasher
                                         + " is in da house"); //test with this

@@ -41,7 +41,7 @@
     <string name="act_account_takePhoto">לצלם</string>
     <string name="act_account_username">שם פרטי:</string>
     <string name="act_addAddresses_done">בוצע</string>
-    <string name="act_addAddresses_home">בית</string>
+    <string name="act_addAddresses_home">כתובת הבית</string>
     <string name="act_addAddresses_myAddresses">כתובת מותאמת אישית</string>
     <string name="act_addAddresses_other">אחר</string>
     <string name="act_addAddresses_work">עבודה</string>
@@ -176,10 +176,11 @@
     <string name="act_contactUs_pleaseWriteAMsg">אנא כתוב הודעה</string>
     <string name="act_contactUs_send">לשלוח</string>
     <string name="act_contactUs_uploadFileOptional">העלה קובץ (אופציונלי)</string>
+    <string name="act_create_account">הרשמה</string>
     <string name="act_detailed_comparison_after">לאחר</string>
     <string name="act_detailed_comparison_before">לפני</string>
     <string name="act_feedback_loading">…טוען</string>
-    <string name="act_main_becomeASplasher"> הפוךn לשוטף\n מכוניות</string>
+    <string name="act_main_becomeASplasher">מוכן להרוויח?\n הפוך לשוטף מכוניות</string>
     <string name="act_main_cancel">בטל</string>
     <string name="act_main_email">מייל</string>
     <string name="act_main_enterYourAccountInfo">הזן את פרטי החשבון שלך</string>
@@ -388,6 +389,8 @@
     <string name="carOwner_act_java_splasherCanceledYourRequest2">השוטף זה אינו זמין כרגע. Splash ינסה למצוא לך אחד חדש</string>
     <string name="carOwner_act_java_status">סטטוס</string>
     <string name="carOwner_act_java_view">ראה</string>
+    <string name="carOwner_act_java_welcomeToSplash_message">אנחנו יוצאים כי אתה רוצה לעבוד איתנו! כדי להתחיל, עבור אל \'השירותים שלי\' כדי להגדיר את שטח העבודה והמחירים שלך</string>
+    <string name="carOwner_act_java_welcomeToSplash_title">ברוכים הבאים ל Splash</string>
     <string name="carOwner_act_java_yes">כן</string>
     <string name="carOwner_act_java_youCarHasBeenWashed">הרכב שלך נקי!</string>
     <string name="carOwner_act_java_youHaeToSignLogAddress">אתה צריך להתחבר כדי להוסיף או לשנות את הכתובות שלך</string>
@@ -485,6 +488,7 @@
     <string name="logout_message_areYouSureLogout">בטוח רוצה להתנתק?</string>
     <string name="logout_message_no">לא</string>
     <string name="logout_message_yes">כן</string>
+    <string name="main_act_java_accountNotVerified">החשבון לא אומת</string>
     <string name="main_act_java_bothPassMustMatch">הסיסמאות חייבות להיות תואמות. נסה שוב</string>
     <string name="main_act_java_emailSent">"נשלחה אליך מייל עם הוראות לאיפוס הסיסמה"</string>
     <string name="main_act_java_enterValidEmail">הזן כתובת דוא"ל חוקית</string>
@@ -499,6 +503,7 @@
     <string name="main_act_java_userType">בעל הרכב</string>
     <string name="main_act_java_welcome">ברוך הבא!</string>
     <string name="main_act_java_wrongUserType">סוג משתמש שגוי</string>
+    <string name="main_act_java_yourAccountHasntBeen">החשבון שלך עדיין לא אומת</string>
     <string msgid="3698378085901466129" name="mr_button_content_description">"‏לחצן הפעלת Cast"</string>
     <string msgid="5088427771788648085" name="mr_cast_button_connected">"‏לחצן הפעלת Cast. מחובר"</string>
     <string msgid="2187642765091873834" name="mr_cast_button_connecting">"‏לחצן הפעלת Cast. מתחבר"</string>
@@ -531,6 +536,7 @@
     <string name="nav_menu_myWallet">הארנק שלי</string>
     <string name="nav_menu_payment">תשלום</string>
     <string name="nav_menu_quickTour">סיור מהיר</string>
+    <string name="nav_menu_store">חנות</string>
     <string name="noRequests">אין לך בקשות בקרבת מקום :(</string>
     <string name="open">לפתוח</string>
     <string name="parse_app_id">YOUR_APPLICATION_ID</string>
@@ -569,6 +575,9 @@
     <string name="shekel">₪</string>
     <string name="spalsher_row_splasherPriceTitle">מחיר</string>
     <string name="splashPartnersProgramsTitle">תצטרף אלינו בתוכנית השותפים</string>
+    <string name="splasher_onboarding_alert_accBeing_message">נבדוק את בקשתך ונחזור בהקדם</string>
+    <string name="splasher_onboarding_alert_accBeing_ok">מאושר</string>
+    <string name="splasher_onboarding_alert_accBeing_title">הבקשה נרשמה</string>
     <string name="splasher_row_splasherName">שם השוטף</string>
     <string name="splasher_row_splasherPrice">xx</string>
     <string name="splasher_row_splasherWashes">(מס שטיפות)</string>

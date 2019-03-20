@@ -8,8 +8,8 @@ android {
         applicationId "com.nomadapp.splash"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 33
-        versionName "1.6.0"
+        versionCode 34
+        versionName "1.7.0"
         multiDexEnabled true
     }
     dexOptions {

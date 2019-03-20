@@ -38,7 +38,8 @@ public class RequestClassSend {
             , final String fullDate, final String selectedTime, final String getServiceType
             , String carBrandToUpload, String carModelToUpload, String carColorToUpload
             , String carPlateToUpload, String dollarSetPrice, int numericalBadge
-            , boolean temporalKeyActive, String splasherUsername, String requestType) {
+            , boolean temporalKeyActive, String splasherUsername, String splasherShowingName,
+                            String requestType) {
 
         String profilePicToUpload;
         String profPicNoFbString = "none";
@@ -81,6 +82,7 @@ public class RequestClassSend {
         request.put("badgeWanted", String.valueOf(numericalBadge)); //15
         request.put("taken", "no"); //16
         request.put("splasherUsername", splasherUsername); //17
+        request.put("splasherShowingName", splasherShowingName);
         request.put("picturesInbound", "false"); //18
         request.put("washFinished", "no");//19
         request.put("paid", "no");//20

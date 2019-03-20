@@ -1,0 +1,1 @@
+[{"outputType":{"type":"BUNDLE_MANIFEST"},"apkInfo":{"type":"MAIN","splits":[],"versionCode":34,"versionName":"1.7.0","enabled":true,"outputFile":"SplashApp-debug.apk","fullName":"debug","baseName":"debug"},"path":"AndroidManifest.xml","properties":{"packageId":"com.nomadapp.splash","split":"","minSdkVersion":"19"}}]

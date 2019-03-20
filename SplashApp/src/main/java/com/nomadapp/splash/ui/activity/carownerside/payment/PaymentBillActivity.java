@@ -82,7 +82,6 @@ public class PaymentBillActivity extends AppCompatActivity {
         tempKey.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
-
                 if(e == null){
                     if(objects.size() > 0){
                         for (ParseObject keyObj : objects){
@@ -105,7 +104,6 @@ public class PaymentBillActivity extends AppCompatActivity {
     public void checkout(View view){
         Log.i("1st payment params", "are " + splasherRating + " " + buyer_buyer_key
         + " " + untilTime + " " + car);
-
         splashGenerateSaleManual.checkout(splasherRating, buyer_buyer_key, untilTime, car);
     }
 

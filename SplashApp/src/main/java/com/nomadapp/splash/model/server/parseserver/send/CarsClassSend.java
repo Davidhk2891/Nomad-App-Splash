@@ -16,11 +16,12 @@ public class CarsClassSend {
         userClassQuery = new UserClassQuery(ctx);
     }
 
-    public void sendSavedClassToServer(String brand, String model, String plateNum){
+    public void sendSavedClassToServer(String brand, String model, String color, String plateNum){
         ParseObject carObject = new ParseObject("Cars");
         carObject.put("username",userClassQuery.userName());
         carObject.put("brand", brand);
         carObject.put("model", model);
+        carObject.put("color", color);
         carObject.put("plateNum", plateNum);
         carObject.saveInBackground();
     }

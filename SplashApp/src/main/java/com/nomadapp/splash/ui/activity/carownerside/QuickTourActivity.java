@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
 import com.nomadapp.splash.model.objects.adapters.SliderAdapter;
-import com.nomadapp.splash.ui.activity.standard.HomeActivity;
 import com.nomadapp.splash.ui.activity.standard.SignUpLogInActivity;
 
 import java.util.Locale;
