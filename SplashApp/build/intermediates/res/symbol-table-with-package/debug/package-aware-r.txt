@@ -1792,6 +1792,9 @@ id CTRL
 id FUNCTION
 id META
 id PaymentPageTitle
+id Recommended_price_external
+id Recommended_price_external_internal
+id Recommended_price_motorcycle
 id SHIFT
 id SYM
 id SplasherSignUpAddress
@@ -2333,6 +2336,12 @@ id ratingAndPriceRelative
 id ratingAndPriceRelative2
 id ratingAndPriceScroll
 id ratingBadge
+id recommended_Linear_external
+id recommended_Linear_external_internal
+id recommended_Linear_motorcycle
+id recommended_title_external
+id recommended_title_external_internal
+id recommended_title_motorcycle
 id relativeTwo
 id relativeWallet
 id reqDetsSepa1
@@ -2993,6 +3002,7 @@ string act_my_services_centerOfYourService
 string act_my_services_defaultPrice
 string act_my_services_extInt
 string act_my_services_external
+string act_my_services_marketPrice
 string act_my_services_motorcycle
 string act_my_services_save
 string act_my_services_serviceArea
@@ -3260,6 +3270,7 @@ string connectionLost_java_checkYourInternet
 string connectionLost_java_connectionLost
 string contactAgreement
 string default_web_client_id
+string dollar
 string equipment
 string facebook_app_id
 string fb_login_protocol_scheme
@@ -3394,6 +3405,7 @@ string splasher_onboarding_alert_accBeing_title
 string splasher_row_splasherName
 string splasher_row_splasherPrice
 string splasher_row_splasherWashes
+string splasher_services_PricesCannotGo
 string splasher_services_cantUpdateSamePrice
 string splasher_services_dialogAreaMsg
 string splasher_services_dialogAreaNo
@@ -3403,8 +3415,10 @@ string splasher_services_dialogMsg
 string splasher_services_dialogNo
 string splasher_services_dialogTitle
 string splasher_services_dialogYes
+string splasher_services_ok
 string splasher_services_pleaseChooseYourServiceArea
 string splasher_services_pleaseSetAll
+string splasher_services_priceOver
 string splasher_services_pricesCantBeZero
 string splasher_services_selectEpicenter
 string splasher_services_selectHowWide

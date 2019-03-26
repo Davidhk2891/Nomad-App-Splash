@@ -56,6 +56,7 @@
 
     <!--Others-->
     <string name="shekel">₪</string>
+    <string name="dollar">$</string>
     <string name="thirty">₪ 30</string>
     <string name="seventy">₪ 70</string>
     <string name="twenty">₪ 20</string>
@@ -471,6 +472,7 @@
     <string name="act_my_services_centerOfYourService">מרכז אזור השירות שלך</string>
     <string name="act_my_services_serviceAreaRange">מרכז ושטח של השירות שלך</string>
     <string name="act_my_services_serviceArea">אזור שירות</string>
+    <string name="act_my_services_marketPrice">(מחיר שוק)</string>
     <!--///////////////-->
 
     <!--STRINGS ONLY ON JAVA FILES (.class)-->
@@ -746,6 +748,9 @@
     <string name="splasher_services_selectEpicenter">בחר את מרכז אזור השירות שלך</string>
     <string name="splasher_services_selectHowWide">בחר את הטווח אזור העבודה שלך</string>
     <string name="splasher_services_setEpicenter">הגדר מוקד</string>
+    <string name="splasher_services_priceOver">מחיר מעל הגבול</string>
+    <string name="splasher_services_PricesCannotGo">המחירים לא יכולים לעבור מעל 99.9. בבקשה נסה שוב.</string>
+    <string name="splasher_services_ok">מאושר</string>
     <!--/////////////////////////////-->
 
     <!--SplasherOnboardingActivity.java-->

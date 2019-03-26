@@ -129,12 +129,12 @@
                     android:selectAllOnFocus="true"
                     android:textSize="25sp"
                     android:maxLines="1"
-                    android:maxLength="3"
+                    android:maxLength="4"
                     android:hint="@string/act_my_services_defaultPrice"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:textColor="#9E9E9E"
-                    android:layout_marginEnd="4dp"
-                    android:layout_toStartOf="@+id/shekel1"
+                    android:layout_marginEnd="20dp"
+                    android:layout_toStartOf="@+id/recommended_Linear_external"
                     android:imeOptions="actionNext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -143,13 +143,42 @@
                 <TextView
                     android:id="@+id/shekel1"
                     android:text="@string/shekel"
-                    android:textSize="25sp"
+                    android:textSize="18sp"
                     android:textColor="#9E9E9E"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignBaseline="@+id/externalPrice"
-                    android:layout_marginEnd="40dp"
+                    android:layout_toStartOf="@+id/externalPrice"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/recommended_Linear_external"
+                    android:orientation="vertical"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/externalPrice"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/recommended_title_external"
+                        android:text="@string/act_my_services_marketPrice"
+                        android:textSize="10sp"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/Recommended_price_external"
+                        android:text="@string/threeDots"
+                        android:textSize="15sp"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -185,14 +214,14 @@
                     android:textSize="25sp"
                     android:ems="2"
                     android:maxLines="1"
-                    android:maxLength="3"
+                    android:maxLength="4"
                     android:textAlignment="center"
                     android:selectAllOnFocus="true"
                     android:textColor="#9E9E9E"
                     android:hint="@string/act_my_services_defaultPrice"
-                    android:inputType="number"
-                    android:layout_toStartOf="@+id/shekel2"
-                    android:layout_marginEnd="4dp"
+                    android:inputType="numberDecimal"
+                    android:layout_toStartOf="@+id/recommended_Linear_external_internal"
+                    android:layout_marginEnd="20dp"
                     android:imeOptions="actionNext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -201,13 +230,42 @@
                 <TextView
                     android:id="@+id/shekel2"
                     android:text="@string/shekel"
-                    android:textSize="25sp"
+                    android:textSize="18sp"
                     android:textColor="#9E9E9E"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignBaseline="@+id/externalInternalPrice"
-                    android:layout_marginEnd="40dp"
+                    android:layout_toStartOf="@+id/externalInternalPrice"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/recommended_Linear_external_internal"
+                    android:orientation="vertical"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/externalInternalPrice"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/recommended_title_external_internal"
+                        android:text="@string/act_my_services_marketPrice"
+                        android:textSize="10sp"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/Recommended_price_external_internal"
+                        android:text="@string/threeDots"
+                        android:textSize="15sp"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -243,15 +301,15 @@
                     android:textSize="25sp"
                     android:ems="2"
                     android:maxLines="1"
-                    android:maxLength="3"
+                    android:maxLength="4"
                     android:textAlignment="center"
                     android:selectAllOnFocus="true"
                     android:textColor="#9E9E9E"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:hint="@string/act_my_services_defaultPrice"
                     android:imeOptions="actionDone"
-                    android:layout_toStartOf="@+id/shekel3"
-                    android:layout_marginEnd="4dp"
+                    android:layout_toStartOf="@+id/recommended_Linear_motorcycle"
+                    android:layout_marginEnd="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:ignore="RelativeOverlap" />
@@ -259,13 +317,42 @@
                 <TextView
                     android:id="@+id/shekel3"
                     android:text="@string/shekel"
-                    android:textSize="25sp"
+                    android:textSize="18sp"
                     android:textColor="#9E9E9E"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="40dp"
-                    android:layout_alignBaseline="@+id/motorcyclePrice"
+                    android:layout_toStartOf="@+id/motorcyclePrice"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/recommended_Linear_motorcycle"
+                    android:orientation="vertical"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/motorcyclePrice"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/recommended_title_motorcycle"
+                        android:text="@string/act_my_services_marketPrice"
+                        android:textSize="10sp"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/Recommended_price_motorcycle"
+                        android:text="@string/threeDots"
+                        android:textSize="15sp"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
 
             </RelativeLayout>
 

@@ -104,7 +104,6 @@ public class ProfileClassQuery {
         });
     }
 
-    //relevant only for splasher//
     public void splasherType(final ProfileClassInterface.walletStatus walletStatus){
         final UserClassQuery userClassQuery = new UserClassQuery(context);
         final String[] splasherType = {""};
@@ -131,7 +130,6 @@ public class ProfileClassQuery {
             }
         }
     }
-    //--------------------------//
 
     public void splasherAccVerification(String splasherUsername, final ProfileClassInterface
             .verificationStatus verificationStatus){
@@ -152,6 +150,25 @@ public class ProfileClassQuery {
                 }else{
                     toastMessages.productionMessage(context.getApplicationContext(),
                             e.getMessage(), 1);
+                }
+            }
+        });
+    }
+
+    public void fetchAllSplashersInfo(String splasherUsername, final ProfileClassInterface
+            .allSplashersInfo allSplashersInfo){
+        ParseQuery<ParseObject> allSplashersQuery = ParseQuery.getQuery("Profile");
+        allSplashersQuery.whereNotEqualTo("email", splasherUsername);
+        allSplashersQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null){
+                    if (objects.size() > 0){
+                        for(ParseObject splasherObj : objects){
+                            allSplashersInfo.getInfo(splasherObj);
+                        }
+                        allSplashersInfo.afterLoop(objects);
+                    }
                 }
             }
         });

@@ -157,27 +157,27 @@ public final class R {
     public static final class id {
         private id() {}
 
-        public static final int all = 0x7f090043;
-        public static final int always = 0x7f090044;
-        public static final int auto = 0x7f090049;
-        public static final int bottom = 0x7f090080;
-        public static final int circle = 0x7f0900be;
-        public static final int click = 0x7f0900c0;
-        public static final int ease = 0x7f090106;
-        public static final int left = 0x7f090175;
-        public static final int line = 0x7f09017a;
-        public static final int longClick = 0x7f090184;
-        public static final int none = 0x7f0901c4;
-        public static final int press = 0x7f090209;
-        public static final int right = 0x7f09022d;
-        public static final int ripple = 0x7f090230;
-        public static final int slide = 0x7f090296;
-        public static final int top = 0x7f090319;
+        public static final int all = 0x7f090046;
+        public static final int always = 0x7f090047;
+        public static final int auto = 0x7f09004c;
+        public static final int bottom = 0x7f090083;
+        public static final int circle = 0x7f0900c1;
+        public static final int click = 0x7f0900c3;
+        public static final int ease = 0x7f090109;
+        public static final int left = 0x7f090178;
+        public static final int line = 0x7f09017d;
+        public static final int longClick = 0x7f090187;
+        public static final int none = 0x7f0901c7;
+        public static final int press = 0x7f09020c;
+        public static final int right = 0x7f090236;
+        public static final int ripple = 0x7f090239;
+        public static final int slide = 0x7f09029f;
+        public static final int top = 0x7f090322;
     }
     public static final class string {
         private string() {}
 
-        public static final int g_font_file = 0x7f0f01f3;
+        public static final int g_font_file = 0x7f0f01f5;
     }
     public static final class style {
         private style() {}

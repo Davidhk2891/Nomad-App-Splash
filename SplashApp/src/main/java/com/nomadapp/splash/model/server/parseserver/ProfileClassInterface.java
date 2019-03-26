@@ -20,4 +20,9 @@ public interface ProfileClassInterface {
     interface walletStatus{
         void onWalletStatusAccess(String splasherType);
     }
+
+    interface allSplashersInfo{
+        void getInfo(ParseObject object);
+        void afterLoop(List<ParseObject> objects);
+    }
 }

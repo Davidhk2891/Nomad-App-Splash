@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,16 +19,19 @@ import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
 import com.nomadapp.splash.model.server.parseserver.ProfileClassInterface;
 import com.nomadapp.splash.model.server.parseserver.queries.ProfileClassQuery;
+import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
 import com.nomadapp.splash.utils.sysmsgs.DialogAcceptInterface;
 import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
 import com.nomadapp.splash.utils.sysmsgs.questiondialogs.AlertDialog;
+import com.nomadapp.splash.utils.sysmsgs.questiondialogs.ForcedAlertDialog;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
 
 import java.util.List;
+import java.util.Locale;
 
 public class SplasherServicesActivity extends AppCompatActivity {
 
@@ -33,6 +39,8 @@ public class SplasherServicesActivity extends AppCompatActivity {
 
     //---service prices---//
     private EditText mExternalPrice, mExtIntPrice, mMotorcyclePrice;
+    private TextView mRecommended_price_external, mRecommended_price_external_internal
+            ,mRecommended_price_motorcycle;
     private Button mSaveServices;
     //---//////////////---//
 
@@ -40,9 +48,10 @@ public class SplasherServicesActivity extends AppCompatActivity {
     private TextView mSelectRangeAction;
     //---////////////---//
 
-    private String actualExt;
-    private String actualExtInt;
-    private String actualMoto;
+    private String actualExt, actualExtInt, actualMoto;
+
+    double extSum = 0, extIntSum = 0, motoSum = 0;
+    double extTotal = 0, extIntTotal = 0, motoTotal = 0;
 
     private ToastMessages toastMessages = new ToastMessages();
     private BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog(ctx);
@@ -65,10 +74,17 @@ public class SplasherServicesActivity extends AppCompatActivity {
         mMotorcyclePrice = findViewById(R.id.motorcyclePrice);
         mSaveServices = findViewById(R.id.saveServices);
         mSelectRangeAction = findViewById(R.id.selectRangeAction);
+        mRecommended_price_external = findViewById(R.id.Recommended_price_external);
+        mRecommended_price_external_internal = findViewById
+                (R.id.Recommended_price_external_internal);
+        mRecommended_price_motorcycle = findViewById(R.id.Recommended_price_motorcycle);
+
+        decimalConcatenator(mExternalPrice);
+        decimalConcatenator(mExtIntPrice);
+        decimalConcatenator(mMotorcyclePrice);
 
         widgetState(false,R.drawable.btn_shape_grey);
         fetchServicesInfoFromServer();
-
         saveServiceSettingsFirst();
     }
 
@@ -89,7 +105,6 @@ public class SplasherServicesActivity extends AppCompatActivity {
         //btn grey: R.drawable.btn_shape_grey
 
         mSelectRangeAction.setClickable(state);
-
         mExternalPrice.setClickable(state);
         mExternalPrice.setEnabled(state);
 
@@ -108,7 +123,7 @@ public class SplasherServicesActivity extends AppCompatActivity {
         sendUpdatedPriceToServer();
     }
 
-    public void fetchServicesInfoFromServer(){
+    private void fetchServicesInfoFromServer(){
         profileClassQuery.getUserProfileToUpdate(new ProfileClassInterface() {
             @Override
             public void beforeQueryFetched() {
@@ -133,6 +148,80 @@ public class SplasherServicesActivity extends AppCompatActivity {
                             mMotorcyclePrice.setText(actualMoto);
                         }
                     }
+                }
+            }
+        });
+        marketPriceOps();
+    }
+
+    private void marketPriceOps(){
+        UserClassQuery userClassQuery = new UserClassQuery(ctx);
+        profileClassQuery.fetchAllSplashersInfo(userClassQuery.userName(),
+                new ProfileClassInterface.allSplashersInfo() {
+                    @Override
+                    public void getInfo(ParseObject object) {
+                        //ANYTHING IN HERE, IS INSIDE THE LOOP
+                        extSum += Double.parseDouble(object.getString("setPrice"));
+                        extIntSum += Double.parseDouble(object.getString("setPriceEInt"));
+                        motoSum += Double.parseDouble(object.getString("setPriceMoto"));
+                    }
+                    @Override
+                    public void afterLoop(List<ParseObject> objects) {
+                        //ANYTHING IN HERE, IS AFTER THE LOOP
+                        extTotal = Math.round((extSum / objects.size()) * 10) / 10.0;
+                        extIntTotal  = Math.round((extIntSum / objects.size() * 10) / 10.0);
+                        motoTotal = Math.round((motoSum / objects.size() * 10) / 10.0);
+
+                        mRecommended_price_external.setText(currencyDirAllocator(String
+                                .valueOf(extTotal)));
+                        mRecommended_price_external_internal.setText(currencyDirAllocator(String
+                                .valueOf(extIntTotal)));
+                        mRecommended_price_motorcycle.setText(currencyDirAllocator(String
+                                .valueOf(motoTotal)));
+                    }
+                });
+    }
+
+    private String currencyDirAllocator(String string){
+        String shekel = getResources().getString(R.string.shekel);
+        String string_with_currency;
+        Log.i("blue3",Locale.getDefault().getDisplayLanguage());
+        switch (Locale.getDefault().getDisplayLanguage()) {
+            case "עברית":
+                string_with_currency = shekel + " " + string;
+                break;
+            case "English":
+                string_with_currency = string + " " + shekel;
+                break;
+            default:
+                string_with_currency = string + " " + shekel;
+                break;
+        }
+        return string_with_currency;
+    }
+
+    private void decimalConcatenator(final EditText editText){
+        editText.addTextChangedListener(new TextWatcher() {
+            int prevL = 0;
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                prevL = editText.getText().toString().length();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int length = s.length();
+                if ((prevL < length) && (length == 2)) {
+                    //s.append('.');
+                    String data = editText.getText().toString();
+                    String finalForm = data + ".";
+                    editText.setText(finalForm);
+                    editText.setSelection(length + 1);
                 }
             }
         });
@@ -192,10 +281,19 @@ public class SplasherServicesActivity extends AppCompatActivity {
             toastMessages.productionMessage(ctx, getResources().getString(R.string
                     .splasher_services_pricesCantBeZero), 1);
         }else if(textExt.isEmpty() || textExtI.isEmpty() || textMoto.isEmpty()
-                || rangeText.isEmpty()){
+                || rangeText.isEmpty()) {
             boxedLoadingDialog.hideLoadingDialog();
-            toastMessages.productionMessage(ctx,getResources().getString(R.string
-                    .splasher_services_pleaseSetAll),1);
+            toastMessages.productionMessage(ctx, getResources().getString(R.string
+                    .splasher_services_pleaseSetAll), 1);
+        }else if(Double.parseDouble(mExternalPrice.getText().toString()) > 99.9 ||
+                 Double.parseDouble(mExtIntPrice.getText().toString()) > 99.9 ||
+                 Double.parseDouble(mMotorcyclePrice.getText().toString()) > 99.9){
+            boxedLoadingDialog.hideLoadingDialog();
+            ForcedAlertDialog forcedAlertDialog = new ForcedAlertDialog(ctx);
+            forcedAlertDialog.generalPurposeForcedDialogNoAction(
+                    getResources().getString(R.string.splasher_services_priceOver)
+                    , getResources().getString(R.string.splasher_services_PricesCannotGo)
+                    ,getResources().getString(R.string.splasher_services_ok));
         }else{
             obj.put("setPrice",textExt);
             obj.put("setPriceEInt",textExtI);

@@ -1471,12 +1471,10 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                 && !writeReadDataInFile.readFromFile("lon").isEmpty()){
             cCrLocationEdit.setText(writeReadDataInFile.readFromFile("location"));
             address = cCrLocationEdit.getText().toString();
-            Double getSavedLat = Double.parseDouble(writeReadDataInFile
+            double getSavedLat = Double.parseDouble(writeReadDataInFile
                     .readFromFile("lat"));
-            Double getSavedLon = Double.parseDouble(writeReadDataInFile
+            double getSavedLon = Double.parseDouble(writeReadDataInFile
                     .readFromFile("lon"));
-            Log.i("new carcoords", getSavedLat.toString());
-            Log.i("new carcoords2", getSavedLon.toString());
             carCoordinates = new LatLng(getSavedLat, getSavedLon);
             Log.i("final carcoords", String.valueOf(carCoordinates.latitude));
             Log.i("final carcoords2", String.valueOf(carCoordinates.longitude));

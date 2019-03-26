@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,8 +17,8 @@ import java.util.Locale;
 import com.nomadapp.splash.model.localdatastorage.CarLocalDatabaseHandler;
 import com.nomadapp.splash.model.objects.MyCar;
 import com.nomadapp.splash.model.server.parseserver.queries.MetricsClassQuery;
-import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.model.server.parseserver.send.CarsClassSend;
+import com.nomadapp.splash.utils.rtl.LanguageDirection;
 
 public class CarAdditionActivity extends AppCompatActivity {
 
@@ -36,7 +35,7 @@ public class CarAdditionActivity extends AppCompatActivity {
     private String carPlateEdit;
 
     private MetricsClassQuery metricsClassQuery;
-    private UserClassQuery ucq = new UserClassQuery(ctx);
+    private LanguageDirection languageDirection = new LanguageDirection();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +44,8 @@ public class CarAdditionActivity extends AppCompatActivity {
 
         //Navigate back to parent activity1
         if (getSupportActionBar() != null) {
-
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         }
         //---------------------------------
 
@@ -68,47 +64,19 @@ public class CarAdditionActivity extends AppCompatActivity {
 
         if(Locale.getDefault().getDisplayLanguage().equals("עברית")) {
 
-            cCarBrandEdit.setGravity(Gravity.END);
-            cCarBrandEdit.setGravity(Gravity.RIGHT);
-            cCarBrandEdit.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
+            languageDirection.widgetLanguageDirection(cCarBrandEdit,1);
+            languageDirection.widgetLanguageDirection(cCarModelEdit,1);
+            languageDirection.widgetLanguageDirection(cCarColorEdit,1);
+            languageDirection.widgetLanguageDirection(cCarYearEdit,1);
+            languageDirection.widgetLanguageDirection(cCarPlateNEdit,1);
 
-            cCarModelEdit.setGravity(Gravity.END);
-            cCarModelEdit.setGravity(Gravity.RIGHT);
-            cCarModelEdit.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
+        }else{
 
-            cCarColorEdit.setGravity(Gravity.END);
-            cCarColorEdit.setGravity(Gravity.RIGHT);
-            cCarColorEdit.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
-
-            cCarYearEdit.setGravity(Gravity.END);
-            cCarYearEdit.setGravity(Gravity.RIGHT);
-            cCarYearEdit.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
-
-            cCarPlateNEdit.setGravity(Gravity.END);
-            cCarPlateNEdit.setGravity(Gravity.RIGHT);
-            cCarPlateNEdit.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
-
-        }else if(Locale.getDefault().getDisplayLanguage().equals("English")){
-
-            cCarBrandEdit.setGravity(Gravity.START);
-            cCarBrandEdit.setGravity(Gravity.LEFT);
-            cCarBrandEdit.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
-
-            cCarModelEdit.setGravity(Gravity.START);
-            cCarModelEdit.setGravity(Gravity.LEFT);
-            cCarModelEdit.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
-
-            cCarColorEdit.setGravity(Gravity.START);
-            cCarColorEdit.setGravity(Gravity.LEFT);
-            cCarColorEdit.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
-
-            cCarYearEdit.setGravity(Gravity.START);
-            cCarYearEdit.setGravity(Gravity.LEFT);
-            cCarYearEdit.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
-
-            cCarPlateNEdit.setGravity(Gravity.START);
-            cCarPlateNEdit.setGravity(Gravity.LEFT);
-            cCarPlateNEdit.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
+            languageDirection.widgetLanguageDirection(cCarBrandEdit,0);
+            languageDirection.widgetLanguageDirection(cCarModelEdit,0);
+            languageDirection.widgetLanguageDirection(cCarColorEdit,0);
+            languageDirection.widgetLanguageDirection(cCarYearEdit,0);
+            languageDirection.widgetLanguageDirection(cCarPlateNEdit,0);
         }
     }
 

@@ -58,9 +58,10 @@
 
     <!--Others-->
     <string name="shekel">₪</string>
-    <string name="thirty">₪ 30</string>
-    <string name="seventy">₪ 70</string>
-    <string name="twenty">₪ 20</string>
+    <string name="dollar">$</string>
+    <string name="thirty">₪ 30.0</string>
+    <string name="seventy">₪ 70.0</string>
+    <string name="twenty">₪ 20.0</string>
     <!--//////-->
 
     <!--activity_wash_requests-->
@@ -470,6 +471,7 @@
     <string name="act_my_services_centerOfYourService">Center of your service area</string>
     <string name="act_my_services_serviceAreaRange">Center and area of your service</string>
     <string name="act_my_services_serviceArea">Service area</string>
+    <string name="act_my_services_marketPrice">(Market Price)</string>
     <!--///////////////-->
 
     <!--STRINGS ONLY ON JAVA FILES (.class)-->
@@ -777,6 +779,9 @@
     <string name="splasher_services_selectEpicenter">Select the center of your area of service</string>
     <string name="splasher_services_selectHowWide">Select the range of your area of work</string>
     <string name="splasher_services_setEpicenter">set epicenter</string>
+    <string name="splasher_services_priceOver">Price over the limit</string>
+    <string name="splasher_services_PricesCannotGo">Prices cannot go over 99.9. Please try again</string>
+    <string name="splasher_services_ok">OK</string>
     <!--/////////////////////////////-->
 
     <!--SplasherOnboardingActivity.java-->

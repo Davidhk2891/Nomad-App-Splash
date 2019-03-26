@@ -204,6 +204,7 @@
     <string name="act_my_services_defaultPrice">…</string>
     <string name="act_my_services_extInt">חיצוני + פנימי:</string>
     <string name="act_my_services_external">חיצוני:</string>
+    <string name="act_my_services_marketPrice">(מחיר שוק)</string>
     <string name="act_my_services_motorcycle">אופנוע:</string>
     <string name="act_my_services_save">שומר</string>
     <string name="act_my_services_serviceArea">אזור שירות</string>
@@ -464,6 +465,7 @@
     <string name="connectionLost_java_checkYourInternet">בדוק את החיבור לאינטרנט ונסה שוב</string>
     <string name="connectionLost_java_connectionLost">אין חיבור</string>
     <string name="contactAgreement">אני מסכים שיצרו איתי קשר בדוא"ל או בטלפון(כולל באמצעים אוטומטיים) בכתובת הדוא”ל או מספר שאני מספק, כולל למטרות שיווק. קראתי והסקמתי להצהרת הפרטיות</string>
+    <string name="dollar">$</string>
     <string name="equipment">    חומר שטיפת ללא מים \nמגבת מיקרופיבר</string>
     <string name="facebook_app_id">399400473846538</string>
     <string msgid="4133737464567140336" name="fcm_fallback_notification_channel_label">"שונות"</string>
@@ -581,6 +583,7 @@
     <string name="splasher_row_splasherName">שם השוטף</string>
     <string name="splasher_row_splasherPrice">xx</string>
     <string name="splasher_row_splasherWashes">(מס שטיפות)</string>
+    <string name="splasher_services_PricesCannotGo">המחירים לא יכולים לעבור מעל 99.9. בבקשה נסה שוב.</string>
     <string name="splasher_services_cantUpdateSamePrice">לא ניתן לעדכן לאותם מחירים. הגדר מחירים חדשים לפני העדכון</string>
     <string name="splasher_services_dialogAreaMsg">לשנות את הגדרות האזור?</string>
     <string name="splasher_services_dialogAreaNo">לבטל</string>
@@ -590,8 +593,10 @@
     <string name="splasher_services_dialogNo">לבטל</string>
     <string name="splasher_services_dialogTitle">מחירי השירות</string>
     <string name="splasher_services_dialogYes">כן</string>
+    <string name="splasher_services_ok">מאושר</string>
     <string name="splasher_services_pleaseChooseYourServiceArea">בחר מוקד שירות</string>
     <string name="splasher_services_pleaseSetAll">הגדר את כל מחירי השירות שלך לפני העדכון</string>
+    <string name="splasher_services_priceOver">מחיר מעל הגבול</string>
     <string name="splasher_services_pricesCantBeZero">המחירים אינם יכולים להיות 0. אנא קבע מחיר אחר ונסה שוב</string>
     <string name="splasher_services_selectEpicenter">בחר את מרכז אזור השירות שלך</string>
     <string name="splasher_services_selectHowWide">בחר את הטווח אזור העבודה שלך</string>

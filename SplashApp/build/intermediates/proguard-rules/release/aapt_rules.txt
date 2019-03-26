@@ -1,0 +1,342 @@
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:195
+-keep class android.support.v4.content.FileProvider { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:83
+-keep class com.facebook.CustomTabActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:221
+-keep class com.facebook.CustomTabMainActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:78
+-keep class com.facebook.FacebookActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:303
+-keep class com.facebook.internal.FacebookInitProvider { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:311
+-keep class com.firebase.jobdispatcher.GooglePlayReceiver { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:280
+-keep class com.google.android.gms.common.api.GoogleApiActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:242
+-keep class com.google.android.gms.measurement.AppMeasurementReceiver { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:248
+-keep class com.google.android.gms.measurement.AppMeasurementService { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:252
+-keep class com.google.firebase.components.ComponentDiscoveryService { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:260
+-keep class com.google.firebase.iid.FirebaseInstanceIdReceiver { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:272
+-keep class com.google.firebase.iid.FirebaseInstanceIdService { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:234
+-keep class com.google.firebase.messaging.FirebaseMessagingService { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:285
+-keep class com.google.firebase.provider.FirebaseInitProvider { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:41
+-keep class com.nomadapp.splash.model.server.StarterApplication { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:142
+-keep class com.nomadapp.splash.ui.activity.carownerside.AddressAdditionActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:117
+-keep class com.nomadapp.splash.ui.activity.carownerside.CarAdditionActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:127
+-keep class com.nomadapp.splash.ui.activity.carownerside.DetailedImageComparisonActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:205
+-keep class com.nomadapp.splash.ui.activity.carownerside.QuickTourActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:113
+-keep class com.nomadapp.splash.ui.activity.carownerside.WashReqParamsActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:124
+-keep class com.nomadapp.splash.ui.activity.carownerside.WashServiceShowActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:181
+-keep class com.nomadapp.splash.ui.activity.carownerside.payment.PaymentBillActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:139
+-keep class com.nomadapp.splash.ui.activity.carownerside.payment.PaymentSettingsActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:121
+-keep class com.nomadapp.splash.ui.activity.splasherside.SplasherCameraActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:109
+-keep class com.nomadapp.splash.ui.activity.splasherside.SplasherClientRouteActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:213
+-keep class com.nomadapp.splash.ui.activity.splasherside.SplasherServicesActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:209
+-keep class com.nomadapp.splash.ui.activity.splasherside.SplasherWalletActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:105
+-keep class com.nomadapp.splash.ui.activity.splasherside.WashRequestsActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:148
+-keep class com.nomadapp.splash.ui.activity.standard.AboutActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:184
+-keep class com.nomadapp.splash.ui.activity.standard.AccountActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:145
+-keep class com.nomadapp.splash.ui.activity.standard.AlertsActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:187
+-keep class com.nomadapp.splash.ui.activity.standard.ContactUsActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:97
+-keep class com.nomadapp.splash.ui.activity.standard.HomeActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:49
+-keep class com.nomadapp.splash.ui.activity.standard.SignUpLogInActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:130
+-keep class com.nomadapp.splash.ui.activity.standard.SplashScreenActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:102
+-keep class com.nomadapp.splash.ui.activity.standard.SplasherApplicationActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:217
+-keep class com.nomadapp.splash.ui.activity.standard.SplasherOnboarding { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:178
+-keep class com.nomadapp.splash.ui.activity.standard.web.WebActivity { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:167
+-keep class com.parse.ParsePushBroadcastReceiver { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:154
+-keep class com.parse.fcm.ParseFirebaseInstanceIdService { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:223
+-keep class com.parse.fcm.ParseFirebaseJobService { <init>(); }
+# Referenced at C:\Splash\SplashApp\build\intermediates\merged_manifests\release\AndroidManifest.xml:161
+-keep class com.parse.fcm.ParseFirebaseMessagingService { <init>(); }
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\design-27.1.1.aar\290066a74120e67cbc7ef20a76a0df3e\res\layout\design_bottom_navigation_item.xml:26
+-keep class android.support.design.internal.BaselineLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\design-27.1.1.aar\290066a74120e67cbc7ef20a76a0df3e\res\layout\design_navigation_item.xml:17
+-keep class android.support.design.internal.NavigationMenuItemView { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\design-27.1.1.aar\290066a74120e67cbc7ef20a76a0df3e\res\layout\design_navigation_menu.xml:17
+-keep class android.support.design.internal.NavigationMenuView { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\design-27.1.1.aar\290066a74120e67cbc7ef20a76a0df3e\res\layout\design_layout_snackbar_include.xml:18
+-keep class android.support.design.internal.SnackbarContentLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\design-27.1.1.aar\290066a74120e67cbc7ef20a76a0df3e\res\layout\design_text_input_password_icon.xml:18
+-keep class android.support.design.widget.CheckableImageButton { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\fragment_splasher_list.xml:46
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\design-27.1.1.aar\290066a74120e67cbc7ef20a76a0df3e\res\layout\design_bottom_sheet_dialog.xml:26
+-keep class android.support.design.widget.CoordinatorLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_home.xml:807
+-keep class android.support.design.widget.NavigationView { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\design-27.1.1.aar\290066a74120e67cbc7ef20a76a0df3e\res\layout\design_layout_snackbar.xml:18
+-keep class android.support.design.widget.Snackbar$SnackbarLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_quick_tour.xml:8
+-keep class android.support.v4.view.ViewPager { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_home.xml:2
+-keep class android.support.v4.widget.DrawerLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\fragment_splasher_list.xml:54
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_alert_dialog_material.xml:41
+-keep class android.support.v4.widget.NestedScrollView { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_select_dialog_material.xml:23
+-keep class android.support.v7.app.AlertController$RecycleListView { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\mediarouter-v7-27.1.1.aar\8165f091ce2541e65c56c61316978eee\res\layout\mr_volume_control.xml:43
+-keep class android.support.v7.app.MediaRouteExpandCollapseButton { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\mediarouter-v7-27.1.1.aar\8165f091ce2541e65c56c61316978eee\res\layout\mr_volume_control.xml:34
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\mediarouter-v7-27.1.1.aar\8165f091ce2541e65c56c61316978eee\res\layout\mr_controller_volume_item.xml:43
+-keep class android.support.v7.app.MediaRouteVolumeSlider { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\mediarouter-v7-27.1.1.aar\8165f091ce2541e65c56c61316978eee\res\layout\mr_controller_material_dialog_b.xml:87
+-keep class android.support.v7.app.OverlayListView { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_action_menu_item_layout.xml:17
+-keep class android.support.v7.view.menu.ActionMenuItemView { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_expanded_menu_layout.xml:17
+-keep class android.support.v7.view.menu.ExpandedMenuView { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_popup_menu_item_layout.xml:17
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_list_menu_item_layout.xml:17
+-keep class android.support.v7.view.menu.ListMenuItemView { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_screen_toolbar.xml:27
+-keep class android.support.v7.widget.ActionBarContainer { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_screen_toolbar.xml:43
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_action_mode_bar.xml:19
+-keep class android.support.v7.widget.ActionBarContextView { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_screen_toolbar.xml:17
+-keep class android.support.v7.widget.ActionBarOverlayLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_action_menu_layout.xml:17
+-keep class android.support.v7.widget.ActionMenuView { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_activity_chooser_view.xml:19
+-keep class android.support.v7.widget.ActivityChooserView$InnerLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_alert_dialog_material.xml:18
+-keep class android.support.v7.widget.AlertDialogLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\facebook-common-4.29.0.aar\bb285e4e84ee8031593df70234b5fb5b\res\layout\com_facebook_smart_device_dialog_fragment.xml:47
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\facebook-common-4.29.0.aar\bb285e4e84ee8031593df70234b5fb5b\res\layout\com_facebook_device_auth_dialog_fragment.xml:45
+-keep class android.support.v7.widget.AppCompatImageView { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_alert_dialog_button_bar_material.xml:26
+-keep class android.support.v7.widget.ButtonBarLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\splasher_row.xml:9
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\facebook-common-4.29.0.aar\bb285e4e84ee8031593df70234b5fb5b\res\layout\com_facebook_smart_device_dialog_fragment.xml:22
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\facebook-common-4.29.0.aar\bb285e4e84ee8031593df70234b5fb5b\res\layout\com_facebook_device_auth_dialog_fragment.xml:22
+-keep class android.support.v7.widget.CardView { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_screen_content_include.xml:19
+-keep class android.support.v7.widget.ContentFrameLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_alert_dialog_title_material.xml:45
+-keep class android.support.v7.widget.DialogTitle { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_screen_simple_overlay_action_mode.xml:23
+-keep class android.support.v7.widget.FitWindowsFrameLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_screen_simple.xml:17
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_dialog_title_material.xml:22
+-keep class android.support.v7.widget.FitWindowsLinearLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_search_view.xml:75
+-keep class android.support.v7.widget.SearchView$SearchAutoComplete { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_client_route.xml:45
+-keep class android.support.v7.widget.SwitchCompat { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\custom_nav_bar.xml:2
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_screen_toolbar.xml:36
+-keep class android.support.v7.widget.Toolbar { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_screen_simple_overlay_action_mode.xml:32
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_screen_simple.xml:25
+-keep class android.support.v7.widget.ViewStubCompat { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_alert_dialog_title_material.xml:56
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_alert_dialog_material.xml:52
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\64e11d35004c56be87425303af1caa7c\res\layout\abc_alert_dialog_button_bar_material.xml:43
+-keep class android.widget.Space { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Users\David\.gradle\caches\transforms-1\files-1.1\customtabs-27.1.1.aar\7284be03c62d8e16414b659e694753c3\res\layout\browser_actions_context_menu_page.xml:5
+-keep class androidx.browser.browseractions.BrowserActionsFallbackMenuView { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_client_route.xml:8
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_home.xml:19
+-keep class com.google.android.gms.maps.SupportMapFragment { <init>(); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_home.xml:740
+-keep class com.nomadapp.splash.utils.radar.RadarView { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\splasher_row.xml:78
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\fragment_splasher_list.xml:123
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_wash_service_show.xml:293
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_home.xml:157
+-keep class me.zhanghai.android.materialratingbar.MaterialRatingBar { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_wash_service_show.xml:52
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_home.xml:265
+-keep class net.qiujuer.genius.ui.widget.SeekBar { <init>(android.content.Context, android.util.AttributeSet); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_account.xml:36
+-keepclassmembers class * { *** accChooseFromGallery(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_account.xml:28
+-keepclassmembers class * { *** accTakePhoto(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_address_addition.xml:28
+-keepclassmembers class * { *** addAddress(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_client_route.xml:239
+-keepclassmembers class * { *** callCarOwner(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_home.xml:218
+-keepclassmembers class * { *** callSplasher(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_home.xml:712
+-keepclassmembers class * { *** cancelCODets(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_payment_bill.xml:187
+-keepclassmembers class * { *** checkout(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_camera.xml:117
+-keepclassmembers class * { *** dispatchAfterPictures(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_camera.xml:105
+-keepclassmembers class * { *** dispatchBeforePictures(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_application.xml:326
+-keepclassmembers class * { *** docsFromCamera(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_application.xml:339
+-keepclassmembers class * { *** docsFromGallery(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_wallet.xml:75
+-keepclassmembers class * { *** editBankDets(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_services.xml:87
+-keepclassmembers class * { *** editPrices(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_services.xml:76
+-keepclassmembers class * { *** editServiceArea(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_car_addition.xml:164
+-keepclassmembers class * { *** finitoAddingCar(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_signuplogin.xml:235
+-keepclassmembers class * { *** forgotPassword(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_signuplogin.xml:392
+-keepclassmembers class * { *** fpCancel(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_signuplogin.xml:403
+-keepclassmembers class * { *** fpSend(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_client_route.xml:354
+-keepclassmembers class * { *** getDirections(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_home.xml:723
+-keepclassmembers class * { *** goCODets(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_wallet.xml:168
+-keepclassmembers class * { *** goToCamera(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_wash_service_show.xml:344
+-keepclassmembers class * { *** goToCheckout(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_wallet.xml:181
+-keepclassmembers class * { *** goToGallery(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_home.xml:233
+-keepclassmembers class * { *** goToMyWallet(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_camera.xml:313
+-keepclassmembers class * { *** iAmDone(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_home.xml:448
+-keepclassmembers class * { *** letsWashACar(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_signuplogin.xml:290
+-keepclassmembers class * { *** logIn(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_signuplogin.xml:140
+-keepclassmembers class * { *** logInSignUpNow(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_contact_us.xml:58
+-keepclassmembers class * { *** photoUpload(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_contact_us.xml:127
+-keepclassmembers class * { *** sendMessage(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_home.xml:466
+-keepclassmembers class * { *** setNewArea(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_signuplogin.xml:277
+-keepclassmembers class * { *** signUp(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_application.xml:468
+-keepclassmembers class * { *** splasherLogIn(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_application.xml:457
+-keepclassmembers class * { *** splasherSignUp(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_camera.xml:37
+-keepclassmembers class * { *** takePic(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_wash_service_show.xml:141
+-keepclassmembers class * { *** toDetail(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_signuplogin.xml:173
+-keepclassmembers class * { *** toTOU(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_wallet.xml:200
+-keepclassmembers class * { *** updateBankDetails(android.view.View); }
+
+# Referenced at C:\Splash\SplashApp\src\main\res\layout\activity_splasher_services.xml:284
+-keepclassmembers class * { *** updateChanges(android.view.View); }
+
