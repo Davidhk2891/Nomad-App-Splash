@@ -340,6 +340,8 @@
     <string name="act_wash_my_car_price">מחיר</string>
     <string name="act_wash_my_car_requestOrder">בקש הזמנה</string>
     <string name="act_wash_my_car_loading">&#8230;טוען</string>
+    <string name="act_wash_my_car_select">בחר</string>
+    <string name="act_wash_my_car_selectAll">בחר הכל</string>
     <!--///////////////-->
 
     <!--splasher_row-->
@@ -369,6 +371,7 @@
     <!--header-->
     <string name="header_profPic">תמונת פרופיל</string>
     <string name="header_username">שם משתמש</string>
+    <string name="header_email">דואר אלקטרוני</string>
     <string name="header_usertype">סוג משתמש</string>
     <string name="header_ratingBadge">דירוג תג</string>
     <string name="header_hiPleaseLogIn">היי אנא התחבר</string>
@@ -696,6 +699,9 @@
 
     <!--BoxedLoadingDialog-->
     <string name="boxedLoadingDialog_act_java_pleasewait">&#8230;אנא המתן</string>
+    <string name="boxedLoadingDialog_act_java_errTitle">בעיית חיבור</string>
+    <string name="boxedLoadingDialog_act_java_errMessage">השרת לוקח זמן רב מהצפוי להגיב. בדוק את חיבור האינטרנט שלך ונסה שוב.</string>
+    <string name="boxedLoadingDialog_act_java_errOk">מאושר</string>
     <!--//////////////////-->
 
     <!--LogoutMessage.java-->

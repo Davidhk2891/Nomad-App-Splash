@@ -332,7 +332,7 @@
             android:id="@+id/selectServicesPageTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
             android:text="@string/act_wash_my_car_selectService"
             android:textColor="@color/colorfirst"
@@ -522,10 +522,12 @@
         <RelativeLayout
             android:id="@+id/soloOrSelectRelative"
             android:layout_centerHorizontal="true"
-            android:visibility="gone"
-            android:layout_marginTop="20dp"
+            android:visibility="visible"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_below="@+id/crServicesGridLayout"
             android:background="#ffffff"
+            android:layout_above="@+id/selectAll_checkbox"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -543,11 +545,21 @@
                 android:background="#ffffff"
                 android:layout_below="@+id/soloOrSelectTitle"
                 android:layout_marginTop="10dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
         </RelativeLayout>
+
+        <CheckBox
+            android:id="@+id/selectAll_checkbox"
+            android:layout_marginStart="20dp"
+            android:text="@string/act_wash_my_car_selectAll"
+            android:textSize="16sp"
+            android:textColor="@color/colorfirst"
+            android:layout_above="@+id/finallyOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/finallyOrder"

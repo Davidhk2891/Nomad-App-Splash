@@ -19,6 +19,7 @@ anim design_snackbar_out
 anim fadeinout
 anim shake
 animator design_appbar_state_list_animator
+animator lift_on_touch
 array g_default_loading_fg
 attr actionBarDivider
 attr actionBarItemBackground
@@ -953,6 +954,7 @@ color primary_text_default_material_dark
 color primary_text_default_material_light
 color primary_text_disabled_material_dark
 color primary_text_disabled_material_light
+color pureWhite
 color purple_100
 color purple_200
 color purple_300
@@ -1405,6 +1407,7 @@ drawable bg_blueborder_stroke_andcolor_curved
 drawable bg_green
 drawable bigbikepinforrequest
 drawable bigcarpinforrequest
+drawable bottom_sheet_bg
 drawable bottom_stroke
 drawable bronzebadge
 drawable btn_shape
@@ -2349,7 +2352,6 @@ id reqDetsSepa2
 id reqDetsSepa3
 id req_header
 id req_header2
-id requestAWashTo
 id requestPageTitle
 id request_window_info
 id right
@@ -2367,7 +2369,6 @@ id rowPriceItem
 id rowSName
 id rowSNumWashes
 id rowSPrice
-id rowSPriceTitle
 id rowSRatingBar
 id rowThumbNail
 id satellite
@@ -2399,10 +2400,12 @@ id search_voice_btn
 id secondRel
 id secondaries
 id securityStatement
+id selectAll_checkbox
 id selectPricePageTitle
 id selectRangeAction
 id selectRangeTitle
 id selectServicesPageTitle
+id selectSplasher
 id select_dialog_listview
 id sendMessage
 id sendingPicsText
@@ -2417,7 +2420,6 @@ id sepaInAlerts2
 id sepaInArea
 id sepaInBill
 id sepaInRoute1
-id sepaInSL
 id sepaInSL2
 id sepaInSL3
 id sepaInServices
@@ -2481,6 +2483,7 @@ id splashWalletRelative
 id splashWalletTextView
 id splashWantedLinear
 id splasherCardRelative
+id splasherCardView
 id splasherGrid
 id splasherGridFetchLinear
 id splasherGridFetchProgressBar
@@ -3021,12 +3024,9 @@ string act_payment_settings_cvv
 string act_payment_settings_done
 string act_payment_settings_expiryDate
 string act_payment_settings_idNumber
-string act_payment_settings_issuedInIsrael
 string act_payment_settings_nameOnCard
-string act_payment_settings_no
 string act_payment_settings_phoneNumber
 string act_payment_settings_saveCcNumber
-string act_payment_settings_yes
 string act_quick_tour_back
 string act_quick_tour_finish
 string act_quick_tour_next
@@ -3064,6 +3064,8 @@ string act_wash_my_car_ratingAndPayment
 string act_wash_my_car_requestAWashFrom
 string act_wash_my_car_requestOrder
 string act_wash_my_car_requestSent
+string act_wash_my_car_select
+string act_wash_my_car_selectAll
 string act_wash_my_car_selectPrice
 string act_wash_my_car_selectService
 string act_wash_my_car_selectSplasher

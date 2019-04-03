@@ -278,9 +278,6 @@
     <string name="act_payment_settings_phoneNumber">Phone Number: </string>
     <string name="act_payment_settings_saveCcNumber">Save credit card details for future transactions.</string>
     <string name="act_payment_settings_done">Done</string>
-    <string name="act_payment_settings_issuedInIsrael">Israeli credit card?</string>
-    <string name="act_payment_settings_yes">yes</string>
-    <string name="act_payment_settings_no">no</string>
     <string name="act_payment_settings_idNumber">Identification number:</string>
     <!--////////////////////-->
 
@@ -317,7 +314,7 @@
     <string name="act_wash_my_car_order">Order</string>
     <string name="act_wash_my_car_2of2">2 0f 2</string>
     <string name="act_wash_my_car_services">Services</string>
-    <string name="act_wash_my_car_selectService">Select service:</string>
+    <string name="act_wash_my_car_selectService">Select service</string>
     <string name="act_wash_my_car_selectPrice">Fixed price:</string>
     <string name="act_wash_my_car_comingSoon">Coming soon</string>
     <string name="act_wash_car_pressPlusToAdd">Press + to add a car</string>
@@ -328,7 +325,7 @@
     <string name="act_wash_my_car_externalWash">External \nwash</string>
     <string name="act_wash_my_car_extAndIntWash">External &amp;\n Internal</string>
     <string name="act_wash_my_car_motorcycle">Motorcycle \nwash</string>
-    <string name="act_wash_my_car_selectSplasher">Select splasher:</string>
+    <string name="act_wash_my_car_selectSplasher">Select splasher</string>
     <string name="act_wash_my_car_autoSelect">Auto Select:</string>
     <string name="act_wash_my_car_requestSent">Request sent</string>
     <string name="act_wash_my_car_requestAWashFrom">Request a wash from</string>
@@ -338,13 +335,15 @@
     <string name="act_wash_my_car_price">price</string>
     <string name="act_wash_my_car_requestOrder">Request order</string>
     <string name="act_wash_my_car_loading">Loading&#8230;</string>
+    <string name="act_wash_my_car_select">Select</string>
+    <string name="act_wash_my_car_selectAll">Select all</string>
     <!--///////////////-->
 
     <!--splasher_row-->
     <string name="splasher_row_splasherName">Splasher name</string>
     <string name="splasher_row_splasherPrice">xx</string>
     <string name="spalsher_row_splasherPriceTitle">Price</string>
-    <string name="splasher_row_splasherWashes">(xx washes)</string>
+    <string name="splasher_row_splasherWashes">(xx)</string>
     <!--////////////-->
 
     <!--car_owner_row-->
@@ -474,7 +473,7 @@
     <string name="act_my_services_marketPrice">(Market Price)</string>
     <!--///////////////-->
 
-    <!--STRINGS ONLY ON JAVA FILES (.class)-->
+    <!--STRINGS ONLY ON JAVA FILES-->
     <!--SignUpLogInActivity.java-->
     <string name="main_act_java_emailSent">"An email was sent to you with instructions to reset your password"</string>
     <string name="main_act_java_enterValidEmail">Please enter a valid email</string>

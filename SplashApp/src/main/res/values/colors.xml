@@ -6,5 +6,6 @@
         <color name="ColorAccent">#03a9f4</color>
         <color name="colorfirst">#2196F3</color>
         <color name="colorRatingBarSplasher">#ffffff</color>
+        <color name="pureWhite">#ffffff</color>
 
 </resources>

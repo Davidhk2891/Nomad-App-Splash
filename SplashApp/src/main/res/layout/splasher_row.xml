@@ -7,12 +7,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/splasherCardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:focusable="false"
-        android:elevation="3dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:stateListAnimator="@animator/lift_on_touch"
+        android:elevation="4dp"
         android:layout_margin="8dp"
         app:cardCornerRadius="2dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
         tools:ignore="UnusedAttribute">
 
         <RelativeLayout
@@ -40,37 +46,39 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/rowSPriceTitle"
-                android:text="@string/spalsher_row_splasherPriceTitle"
-                android:layout_marginTop="6dp"
-                android:textColor="#4990E2"
-                android:layout_below="@+id/rowSRatingBar"
-                android:layout_alignStart="@+id/rowSName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
                 android:id="@+id/rowSPrice"
                 android:text="@string/splasher_row_splasherPrice"
-                android:layout_toEndOf="@+id/rowSPriceTitle"
+                android:layout_below="@+id/rowSRatingBar"
                 android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:textSize="14sp"
                 android:textColor="#ffffff"
                 android:padding="5dp"
                 android:background="@color/green_500"
-                android:layout_alignTop="@+id/rowSPriceTitle"
-                android:layout_marginTop="-6dp"
-                android:layout_marginBottom="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/selectSplasher"
+                android:layout_alignTop="@+id/rowSPrice"
+                android:layout_toEndOf="@+id/rowSPrice"
+                android:layout_marginStart="6dp"
+                android:layout_alignParentEnd="true"
+                android:text="@string/act_wash_my_car_select"
+                android:textColor="@color/colorfirst"
+                android:textSize="11sp"
+                android:layout_marginEnd="6dp"
+                android:layout_width="100dp"
+                android:layout_height="35dp" />
 
             <TextView
                 android:id="@+id/rowSNumWashes"
                 android:text="@string/splasher_row_splasherWashes"
                 android:layout_marginTop="4dp"
                 android:textColor="#4990E2"
-                android:layout_below="@+id/rowSRatingBar"
-                android:layout_toEndOf="@+id/rowSPrice"
+                android:layout_alignTop="@+id/rowSRatingBar"
+                android:layout_toEndOf="@+id/rowSRatingBar"
                 android:layout_marginStart="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

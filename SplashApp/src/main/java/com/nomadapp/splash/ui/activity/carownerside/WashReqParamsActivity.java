@@ -1100,7 +1100,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         cSaveRequest.setVisibility(View.GONE);
         Log.i("fragVisible",String.valueOf(isFragmentVisible()));
         if (isFragmentVisible()){
-            cFinallyOrder.setVisibility(View.GONE);
+            cFinallyOrder.setVisibility(View.VISIBLE);
         }else {
             cFinallyOrder.setVisibility(View.VISIBLE);
         }
@@ -1203,7 +1203,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         fragmentTransaction.commit();
 
         if (isFragmentVisible()){
-            cFinallyOrder.setVisibility(View.GONE);
+            cFinallyOrder.setVisibility(View.VISIBLE);
         }
     }
 

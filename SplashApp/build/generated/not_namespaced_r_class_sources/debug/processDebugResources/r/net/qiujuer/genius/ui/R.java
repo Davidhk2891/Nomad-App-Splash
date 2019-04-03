@@ -152,7 +152,7 @@ public final class R {
     public static final class drawable {
         private drawable() {}
 
-        public static final int g_button_background = 0x7f0800b5;
+        public static final int g_button_background = 0x7f0800b6;
     }
     public static final class id {
         private id() {}
@@ -169,15 +169,15 @@ public final class R {
         public static final int longClick = 0x7f090187;
         public static final int none = 0x7f0901c7;
         public static final int press = 0x7f09020c;
-        public static final int right = 0x7f090236;
-        public static final int ripple = 0x7f090239;
-        public static final int slide = 0x7f09029f;
+        public static final int right = 0x7f090235;
+        public static final int ripple = 0x7f090238;
+        public static final int slide = 0x7f09029e;
         public static final int top = 0x7f090322;
     }
     public static final class string {
         private string() {}
 
-        public static final int g_font_file = 0x7f0f01f5;
+        public static final int g_font_file = 0x7f0f01f4;
     }
     public static final class style {
         private style() {}

@@ -1,6 +1,5 @@
 package com.nomadapp.splash.model.objects.users;
 
-import android.app.Activity;
 import android.content.Context;
 import android.widget.ImageView;
 
