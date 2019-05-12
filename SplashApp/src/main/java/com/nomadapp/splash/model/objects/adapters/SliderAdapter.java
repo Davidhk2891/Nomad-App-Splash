@@ -1,7 +1,6 @@
 package com.nomadapp.splash.model.objects.adapters;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -48,7 +47,8 @@ public class SliderAdapter extends PagerAdapter{
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService
+                (context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.quicktour_slide_layout, container
                 , false);
         ImageView mSlide_image = view.findViewById(R.id.slide_image);

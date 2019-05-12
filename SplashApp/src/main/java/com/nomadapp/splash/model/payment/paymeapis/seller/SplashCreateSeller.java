@@ -1,9 +1,11 @@
 package com.nomadapp.splash.model.payment.paymeapis.seller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.nomadapp.splash.model.constants.PaymeConstants;
+import com.nomadapp.splash.ui.activity.standard.HomeActivity;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -47,6 +49,7 @@ public class SplashCreateSeller {
     ,String sellerAddressStreet, int sellerAddressStreetNumber, String sellerAddressCountry
     ,Double sellerMarketFee, String sellerFileSocialId, String sellerFileCheque
     ,String sellerFileCorporate, String sellerPlan){
+
         //----Send data to Payme API through a network client with a POST request-----//
 
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -82,9 +85,9 @@ public class SplashCreateSeller {
         params.put("seller_file_cheque", sellerFileCheque);
         params.put("seller_file_corporate", sellerFileCorporate);
 
-        //--PARAMETER RELEVANT TO APP IN PRODUCTION ONLY--//
+        //--PARAMETER RELEVANT TO APP IN PRODUCTION ONLY!--//
         params.put("seller_plan", sellerPlan);
-        //------------------------------------------------//
+        //-------------------------------------------------//
         JSONObject parameter = new JSONObject(params);
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSON, parameter.toString());
@@ -135,8 +138,12 @@ public class SplashCreateSeller {
                                 @Override
                                 public void done(ParseException e) {
                                     if(e == null){
-                                        toastMessages.debugMesssage(context.getApplicationContext(),
-                                                "You are now a splasher",1);
+                                        toastMessages.productionMessage(context.getApplicationContext(),
+                                                "You are now an independent splasher",1);
+                                        context.startActivity(new Intent(context, HomeActivity.class));
+                                    }else{
+                                        toastMessages.productionMessage(context.getApplicationContext(),
+                                                "Something went wrong. Try again",1);
                                     }
                                 }
                             });
@@ -146,5 +153,4 @@ public class SplashCreateSeller {
             }
         });
     }
-
 }

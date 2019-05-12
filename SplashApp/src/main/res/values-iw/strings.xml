@@ -126,6 +126,7 @@
     <string name="becomeSplasher_act_java_splasherType">סוג שוטף</string>
     <string name="becomeSplasher_act_java_independent">עצמאי</string>
     <string name="becomeSplasher_act_java_hired">שכיר</string>
+    <string name="seller_account_creator">יוצר חשבון המוכר</string>
     <!--////////////////////////-->
 
 
@@ -411,6 +412,7 @@
     <string name="payment_bill_carWash">- שטיפת מכונית:</string>
     <string name="payment_bill_splasherFee">- עמלת Splash:</string>
     <string name="payment_bill_creditCardFee">- עמלת כרטיס אשראי:</string>
+    <string name="payment_bill_taxesFee">- מע\"מ:</string>
     <string name="payment_bill_tip">- טיפ:</string>
     <string name="payment_bill_total">סה\"כ</string>
     <string name="payment_bill_pay">לשלם</string>
@@ -581,6 +583,7 @@
     <string name="becomeSplasher_act_java_telAviv">תל אביב</string>
     <string name="becomeSplasher_act_java_ramatGan">רמת גן</string>
     <string name="becomeSplasher_act_java_herzliya">הרצליה</string>
+    <string name="becomeSplasher_act_java_givatayim">גבעתיים</string>
     <string name="becomeSplasher_act_java_ok">מאושר</string>
     <string name="becomeSplasher_act_java_pleaseLoginThroughRespec">היכנס באמצעות סוג החשבון המתאים: בעל רכב</string>
     <string name="becomeSplasher_act_java_wrongUserType">סוג משתמש שגוי</string>
@@ -670,6 +673,8 @@
     <string name="washMyCar_act_java_givataim">גבעתיים</string>
     <string name="washMyCar_act_java_cityOutOfRange">העיר מחוץ לטווח</string>
     <string name="washMyCar_act_java_thisCityIs">העיר הזו נמצאת כעת מחוץ לטווח שלנו. ספלאש פועלת כיום בתל אביב, בגבעתיים וברמת גן. בחר אחת מהערים האלה.</string>
+    <string name="washMyCar_act_java_noSplasherSelected">לא נבחרה שוטף</string>
+    <string name="washMyCar_act_java_youMustSelectAtLeast">עליך לבחור לפחות שוטף אחד לפני שליחת הבקשה</string>
     <!--//////////////////////-->
 
     <!--PaymentSettingsActivity.java-->

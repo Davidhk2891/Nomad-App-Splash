@@ -9,8 +9,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nomadapp.splash"
-    android:versionCode="34"
-    android:versionName="1.7.0" >
+    android:versionCode="35"
+    android:versionName="1.8.0" >
 
     <uses-sdk
         android:minSdkVersion="19"
@@ -46,7 +46,6 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
-        android:testOnly="true"
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.nomadapp.splash.ui.activity.standard.SignUpLogInActivity"
@@ -318,11 +317,6 @@
                 <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY" />
             </intent-filter>
         </service>
-
-        <provider
-            android:name="com.android.tools.ir.server.InstantRunContentProvider"
-            android:authorities="com.nomadapp.splash.com.android.tools.ir.server.InstantRunContentProvider"
-            android:multiprocess="true" />
     </application>
 
 </manifest>

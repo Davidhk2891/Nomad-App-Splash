@@ -160,24 +160,24 @@ public final class R {
         public static final int all = 0x7f090046;
         public static final int always = 0x7f090047;
         public static final int auto = 0x7f09004c;
-        public static final int bottom = 0x7f090083;
-        public static final int circle = 0x7f0900c1;
-        public static final int click = 0x7f0900c3;
-        public static final int ease = 0x7f090109;
-        public static final int left = 0x7f090178;
-        public static final int line = 0x7f09017d;
-        public static final int longClick = 0x7f090187;
-        public static final int none = 0x7f0901c7;
-        public static final int press = 0x7f09020c;
-        public static final int right = 0x7f090235;
-        public static final int ripple = 0x7f090238;
-        public static final int slide = 0x7f09029e;
-        public static final int top = 0x7f090322;
+        public static final int bottom = 0x7f090085;
+        public static final int circle = 0x7f0900c3;
+        public static final int click = 0x7f0900c5;
+        public static final int ease = 0x7f09010b;
+        public static final int left = 0x7f09017a;
+        public static final int line = 0x7f09017f;
+        public static final int longClick = 0x7f090189;
+        public static final int none = 0x7f0901c9;
+        public static final int press = 0x7f09020e;
+        public static final int right = 0x7f090237;
+        public static final int ripple = 0x7f09023a;
+        public static final int slide = 0x7f0902a0;
+        public static final int top = 0x7f090320;
     }
     public static final class string {
         private string() {}
 
-        public static final int g_font_file = 0x7f0f01f4;
+        public static final int g_font_file = 0x7f0f01f5;
     }
     public static final class style {
         private style() {}

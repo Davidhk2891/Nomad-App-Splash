@@ -103,11 +103,11 @@ public class SplashGenerateSaleAutomatic {
                                                         for (ParseObject unPayedObj : objects) {
                                                             rawCOUsername12 = unPayedObj.getString("username");
                                                             rawUntilTime12 = unPayedObj.getString("untilTime");
-                                                            rawPrice12 = unPayedObj.getString("priceWanted");
+                                                            rawPrice12 = unPayedObj.getString("priceOriginal");
                                                             rawLocation12 = unPayedObj.getString("carAddress");
                                                             rawLocationDets12 = unPayedObj.getString("carAddressDesc");
                                                             rawServiceGiven12 = unPayedObj.getString("serviceType");
-                                                            rawBuyerKey12 = unPayedObj.getString("buyerKey");//READY//
+                                                            rawBuyerKey12 = unPayedObj.getString("buyerKey");
 
                                                             color = unPayedObj.getString("carColor");
                                                             brand = unPayedObj.getString("carBrand");
@@ -214,12 +214,12 @@ public class SplashGenerateSaleAutomatic {
                                                                 } else if (fetchedPrice12H.contains("$")) {
                                                                     fetchedPrice12HNoSign = fetchedPrice12H.replace("$", "");
                                                                 }
-                                                                double doubleFetchedPrice12H = Double.parseDouble(fetchedPrice12HNoSign);
-                                                                definitivePriceRegular = doubleFetchedPrice12H;//12.217>this goes to parse
-                                                                double splashFee = splashFeeProcessor(doubleFetchedPrice12H);
-                                                                double ccFee = creditCardFeeProcessor(doubleFetchedPrice12H);
-                                                                double definitivePriceToPayme = definitivePriceRegular + splashFee + ccFee;
+                                                                definitivePriceRegular = Double.parseDouble(fetchedPrice12HNoSign);
+                                                                //double splashFee = splashFeeProcessor(doubleFetchedPrice12H);
+                                                                //double ccFee = creditCardFeeProcessor(doubleFetchedPrice12H);
+                                                                double definitivePriceToPayme = PaymeConstants.priceShownToCarOwner(definitivePriceRegular);
                                                                 doubleProcFetchedPrice12HFull = definitivePriceToPayme * 100;//READY//
+                                                                Log.i("doublePrice", String.valueOf(definitivePriceToPayme));
                                                                 Log.i("doublePricePayme", String.valueOf(doubleProcFetchedPrice12HFull));
                                                                 //-------------------------------------//
                                                                 if (!executeOncePerLifeBackup) {

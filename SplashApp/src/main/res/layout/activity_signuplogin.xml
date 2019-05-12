@@ -301,17 +301,6 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/becomeASplash2"
-            android:text="@string/act_main_becomeASplasher"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="6dp"
-            android:textColor="#00A2FF"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
             android:id="@+id/become_independent_splasher"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

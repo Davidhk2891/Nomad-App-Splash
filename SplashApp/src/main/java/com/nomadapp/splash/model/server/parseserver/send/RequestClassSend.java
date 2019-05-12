@@ -18,6 +18,8 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.util.Arrays;
+
 /**
  * Created by David on 7/10/2018 for Splash.
  */
@@ -38,8 +40,9 @@ public class RequestClassSend {
             , final String fullDate, final String selectedTime, final String getServiceType
             , String carBrandToUpload, String carModelToUpload, String carColorToUpload
             , String carPlateToUpload, String dollarSetPrice, int numericalBadge
-            , boolean temporalKeyActive, String splasherUsername, String splasherShowingName,
-                            String requestType) {
+            , boolean temporalKeyActive, String[] splashersWanted, String[] splasherPrices
+            , String[] carOwnerPrices, String splasherUsername, String splasherShowingName
+            , String requestType) {
 
         String profilePicToUpload;
         String profPicNoFbString = "none";
@@ -70,41 +73,42 @@ public class RequestClassSend {
         request.put("carModel", carModelToUpload); //7
         request.put("carColor", carColorToUpload); //8
         request.put("carplateNumber", carPlateToUpload); //10
-        String shekels = context.getResources().getString(R.string.shekel);
-        String shekelsSetPriceFinal = dollarSetPrice + " " + shekels;
-        request.put("priceWanted", shekelsSetPriceFinal);
-        request.put("fbProfilePic", profilePicToUpload); //13
+        request.put("priceWanted", dollarSetPrice);//11
+        request.put("fbProfilePic", profilePicToUpload); //12
         if (!profilePicToUpload.contains("https")) {
-            request.put("ProfPicNoFb", profPicNoFbString); //14
+            request.put("ProfPicNoFb", profPicNoFbString); //13
         }
         //Temporary until we implement back the badge system://
         numericalBadge = 2;
-        request.put("badgeWanted", String.valueOf(numericalBadge)); //15
-        request.put("taken", "no"); //16
-        request.put("splasherUsername", splasherUsername); //17
-        request.put("splasherShowingName", splasherShowingName);
-        request.put("picturesInbound", "false"); //18
-        request.put("washFinished", "no");//19
-        request.put("paid", "no");//20
-        request.put("requestType", requestType);//21
+        request.put("badgeWanted", String.valueOf(numericalBadge)); //14
+        request.put("taken", "no"); //15
+        request.put("splashersWanted", Arrays.asList(splashersWanted)); //16
+        request.put("splasherPrices", Arrays.asList(splasherPrices));//17
+        request.put("carOwnerPrices", Arrays.asList(carOwnerPrices));//18
+        request.put("splasherUsername", splasherUsername);//19
+        request.put("splasherShowingName", splasherShowingName);//20
+        request.put("picturesInbound", "false"); //21
+        request.put("washFinished", "no");//22
+        request.put("paid", "no");//23
+        request.put("requestType", requestType);//24
         //TODO: Payme Code: Sending Car owner's buyer_key to Request PUT
         //!writeReadDataInFile.readFromFile("buyer_key_permanent").equals("")
         if(writeReadDataInFile.readFromFile("buyer_key_permanent").equals("") &&
                 !writeReadDataInFile.readFromFile("buyer_key_temporal").equals("")){
             //Temporal buyer_key
             request.put("buyerKey", writeReadDataInFile.readFromFile
-                    ("buyer_key_temporal"));//22
+                    ("buyer_key_temporal"));//25
             //Activate boolean value that marks it is a temporal buyer_key
             temporalKeyActive = true;
         }else if(writeReadDataInFile.readFromFile("buyer_key_temporal").equals("") &&
                 !writeReadDataInFile.readFromFile("buyer_key_permanent").equals("")){
             //Permanent buyer_key
             request.put("buyerKey", writeReadDataInFile.readFromFile
-                    ("buyer_key_permanent"));//22
+                    ("buyer_key_permanent"));//26
         }
         String carOwnerPhoneNum = writeReadDataInFile.readFromFile("cleanStringPhoneN");
         Log.i("carOwnerPhoneNum", carOwnerPhoneNum);
-        request.put("carOwnerPhoneNum",carOwnerPhoneNum);
+        request.put("carOwnerPhoneNum",carOwnerPhoneNum);//27
         //-----------------------------------------------
         final boolean finalTemporalKeyActive = temporalKeyActive;
         request.saveInBackground(new SaveCallback() {
@@ -152,5 +156,4 @@ public class RequestClassSend {
             }
         });
     }
-
 }

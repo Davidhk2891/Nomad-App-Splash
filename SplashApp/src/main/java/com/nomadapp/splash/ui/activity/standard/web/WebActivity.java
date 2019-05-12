@@ -18,6 +18,8 @@ import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.constants.WebConstants;
 import com.nomadapp.splash.utils.sysmsgs.connectionlost.ConnectionLost;
 
+import java.util.Locale;
+
 public class WebActivity extends AppCompatActivity {
 
     private String webUrlHolderString;
@@ -103,6 +105,14 @@ public class WebActivity extends AppCompatActivity {
                     case "store":
                         setTitle("Store");
                         webUrlHolderString = WebConstants.SPLASHER_STORE_LINK;
+                        break;
+                    case "splasherFaq":
+                        setTitle("Splasher FAQ");
+                        if (Locale.getDefault().getDisplayLanguage().equals("עברית")) {
+                            webUrlHolderString = WebConstants.SPLASHER_FAQ_IW;
+                        }else{
+                            webUrlHolderString = WebConstants.SPLASHER_FAQ;
+                        }
                 }
             }
         }

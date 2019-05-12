@@ -1,7 +1,6 @@
 package com.nomadapp.splash.ui.activity.standard;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -10,18 +9,14 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -33,19 +28,21 @@ import android.widget.TextView;
 import com.nomadapp.splash.model.constants.PaymeConstants;
 
 import com.nomadapp.splash.R;
-import com.nomadapp.splash.model.constants.serverconstants.ProfileConstants;
 import com.nomadapp.splash.model.imagehandler.ImageFileStorage;
 import com.nomadapp.splash.model.localdatastorage.StoragePermission;
-import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
+import com.nomadapp.splash.model.payment.paymeapis.seller.SplashCreateSeller;
+import com.nomadapp.splash.model.server.parseserver.DocumentsClassInterface;
+import com.nomadapp.splash.model.server.parseserver.ProfileClassInterface;
+import com.nomadapp.splash.model.server.parseserver.queries.DocumentsClassQuery;
+import com.nomadapp.splash.model.server.parseserver.queries.ProfileClassQuery;
+import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
+import com.nomadapp.splash.model.server.parseserver.send.DocumentsClassSend;
 import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
-import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
-import com.parse.ParseUser;
 import com.parse.SaveCallback;
-import com.parse.SignUpCallback;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -69,24 +66,13 @@ public class SplasherApplicationActivity extends AppCompatActivity {
 
     private Spinner cSplasherSignUpCity;
     private EditText cSplasherSignUpName, cSplasherSignUpLastName, cSplasherSignUpEmail,
-                     cSplasherSignUpPhoneNumber, cSplasherSignUpPassword, cSplasherSignUpPassword2,
-                     cSplasherSignUpUserName;
-    private Button cSplasherSignUpButton, cSplasherLogInButton;
-    private TextView cOrSplashLogin;
-    private TextView cCityTitle, cSplasherSignUpContractAgreement;
-    private ImageView cSplasherLogoSignUp;
-    private TextView cFirstText;
-    private boolean signUpCheck = false;//<--SignUp Check. Login always showing first. So SignUp
-    // always 'false' first
-    ParseUser splasherUser = new ParseUser();
-    //ParseUser currentUser = ParseUser.getCurrentUser();
+                     cSplasherSignUpPhoneNumber;
 
     //Variables for functionality and Data holding relevant to Payme's create_seller API calls----//
 
     //Android widgets (EditText, RadioGroup, RadioButton)//
     private EditText cSplasherSignUpCountryID, cSplasherSignUpCountryIdIssued, cSplasherSignUpDateOfBirth;
     private RadioGroup cSplasherSignUpGender;
-    private RadioButton cRadioM, cRadioF;
     private EditText cSplasherSignUpBankCodeNum, cSplasherSignUpBankBranchNum, cSplasherSignUpBankAccNum;
     private EditText cSplasherSignUpAddress, cSplasherSignUpAddressNum;
     //---------------------------------------------------//
@@ -106,18 +92,24 @@ public class SplasherApplicationActivity extends AppCompatActivity {
     private boolean fromCam = false;
     private boolean fromGallery = false;
     private ParseFile socialFile, bankFile, incDocFile;
+    private String sellerFileSocialId, sellerFileCheque, sellerFileCorporate;
     //-----------------------------------------------------------------------------------//
 
     //Variables for everything related to the UI for the 3 files upload//
-    private RelativeLayout cSocialIDProofRelative, cBankAccProofRelative, cIncProofRelative;
     private TextView cSocialIDProofTextView, cBankAccProofTextView, cIncDocProofTextView;
     //camera function for all camera-file-upload operations: docsFromCamera()
     //gallery function for all gallery-file-upload operations: docsFromGallery()
     //-----------------------------------------------------------------//
 
     private BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog(ctx);
-    ToastMessages toastMessages = new ToastMessages();
-    ConnectionLost clm = new ConnectionLost(ctx);
+    private ToastMessages toastMessages = new ToastMessages();
+    private ConnectionLost clm = new ConnectionLost(ctx);
+    private UserClassQuery ucq = new UserClassQuery(SplasherApplicationActivity.this);
+
+    private boolean social_id_sent = false;
+    private boolean bank_proof_sent = false;
+    private boolean corp_entity_sent = false;
+    private boolean requestSent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,50 +123,32 @@ public class SplasherApplicationActivity extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        //
-        cSplasherSignUpUserName = findViewById(R.id.splasherSignUpUserName);
-        cSplasherSignUpPassword = findViewById(R.id.splasherSignUpPassword);
-        cOrSplashLogin = findViewById(R.id.orSplashLogIn);
-        cSplasherSignUpButton = findViewById(R.id.splasherSignUpButton);
-        cSplasherLogInButton = findViewById(R.id.splasherLogInButton);
-        //
-        cFirstText = findViewById(R.id.firstText);
+        TextView cFirstText = findViewById(R.id.firstText);
         cSplasherSignUpCity = findViewById(R.id.splasherSignUpCity);
         cSplasherSignUpName = findViewById(R.id.SplasherSignUpName);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         cSplasherSignUpLastName = findViewById(R.id.SplasherSignUpLastName);//<<<<<<<<<<<<<<<<<<<<<<
         cSplasherSignUpEmail = findViewById(R.id.splasherSignUpEmail);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         cSplasherSignUpPhoneNumber = findViewById(R.id.splasherSignUpPhoneNumber);//<<<<<<<<<<<<<<<<
-        cSplasherSignUpPassword2 = findViewById(R.id.splasherSignUpPassword2);
-        cSplasherLogoSignUp = findViewById(R.id.splasherLogoSignUp);
+        ImageView cSplasherLogoSignUp = findViewById(R.id.splasherLogoSignUp);
         RelativeLayout cBecomeSplasherRelative = findViewById(R.id.becomeSplashRelative);
-        cCityTitle = findViewById(R.id.cityTitle);
-        cSplasherSignUpContractAgreement = findViewById(R.id.splasherSignUpContactAgreement);
         //Variables for functionality and Data holding relevant to Payme's create_seller API calls//
         //Android widgets (EditText, RadioGroup, RadioButton)//
         cSplasherSignUpCountryID = findViewById(R.id.splasherSignUpCountryID);//<<<<<<<<<<<<<<<<<<<<
         cSplasherSignUpCountryIdIssued = findViewById(R.id.splasherSignUpCountryIdIssued);//<<<<<<<<
         cSplasherSignUpDateOfBirth = findViewById(R.id.splasherSignUpDateOfBirth);//<<<<<<<<<<<<<<<<
         cSplasherSignUpGender = findViewById(R.id.splasherSignUpGender);
-        cRadioM = findViewById(R.id.radioM);                                //////<<<<<<<<<<<<<<<<<<
-        cRadioF = findViewById(R.id.radioF);
         cSplasherSignUpBankCodeNum = findViewById(R.id.SplasherSignUpBankCodeNum);//<<<<<<<<<<<<<<<<
         cSplasherSignUpBankBranchNum = findViewById(R.id.SplasherSignUpBankBranchNum);//<<<<<<<<<<<<
         cSplasherSignUpBankAccNum = findViewById(R.id.splasherSignUpBankAccNum);//<<<<<<<<<<<<<<<<<<
         cSplasherSignUpAddress = findViewById(R.id.SplasherSignUpAddress);//<<<<<<<<<<<<<<<<<<<<<<<<
         cSplasherSignUpAddressNum = findViewById(R.id.SplasherSignUpAddressNum);//<<<<<<<<<<<<<<<<<<
 
-        cSocialIDProofRelative = findViewById(R.id.socialIDProofLinear);
-        cBankAccProofRelative = findViewById(R.id.bankAccProofLinear);
-        cIncProofRelative = findViewById(R.id.incDocProofLinear);
         cSocialIDProofTextView = findViewById(R.id.socialIDProofTextView);
         cBankAccProofTextView = findViewById(R.id.bankAccProofTextView);
         cIncDocProofTextView = findViewById(R.id.incDocProofTextView);
 
         //hide fields for signUp
         cFirstText.setText(getResources().getString(R.string.becomeSplasher_act_java_welcomeBack));
-        hideOrShowFields(View.GONE, R.id.splasherSignUpPassword);
-        centerStuff(cFirstText);
-        centerLogo();
 
         cSplasherLogoSignUp.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -188,84 +162,22 @@ public class SplasherApplicationActivity extends AppCompatActivity {
                 hideKeyboard();
             }
         });
-        cOrSplashLogin.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-
-                if(!signUpCheck){
-
-                    cFirstText.setText(getResources().getString(R.string.splashPartnersProgramsTitle));
-                    hideOrShowFields(View.VISIBLE, R.id.incDocProofLinear);
-                    moveUpStuff(cFirstText);
-                    moveUpLogo();
-
-                    cSplasherSignUpButton.setVisibility(View.VISIBLE);
-
-                    cSplasherLogInButton.setVisibility(View.INVISIBLE);
-
-                    //or login
-                    cOrSplashLogin.setText(getResources().getString
-                            (R.string.becomeSplasher_act_java_login));
-
-                    signUpCheck = true;
-
-                    Log.i("Status", "SignUp enabled");
-
-                } else {
-
-                    cFirstText.setText(getResources().getString(R.string.becomeSplasher_act_java_welcomeBack));
-                    hideOrShowFields(View.GONE, R.id.splasherSignUpPassword2);
-                    centerStuff(cFirstText);
-                    centerLogo();
-
-                    cSplasherSignUpButton.setVisibility(View.INVISIBLE);
-
-                    cSplasherLogInButton.setVisibility(View.VISIBLE);
-
-                    // or signup
-                    cOrSplashLogin.setText(getResources().getString(R.string.becomeSplasher_act_java_signup));
-
-                    signUpCheck = false;
-
-                    Log.i("Status", "Login enabled");
-
-                }
-
-            }
-        });
-
         spinnerCities();
-
         clm.connectivityStatus(ctx);
-
     }
 
-    public void splasherSignUp(View view){
-
-        final String splasher = ProfileConstants.CLASS_PROFILE_SPLAHER;//<-- TYPE OF USER
-        final String washes = ProfileConstants.CLASS_PROFILE_WASHES;
-        final String oldAvgRating = ProfileConstants.CLASS_PROFILE_OLD_AVG_RATING;
-        final String washesCanceled = ProfileConstants.CLASS_PROFILE_WASHES_CANCELED;
-        final String numericalBadge = ProfileConstants.CLASS_PROFILE_NUMERICAL_BADGE;
-        final String setPrice = ProfileConstants.CLASS_PROFILE_SET_PRICE;
-        final String setPriceEInt = ProfileConstants.CLASS_PROFILE_SET_PRICE_E_INT;
-        final String setPriceMoto = ProfileConstants.CLASS_PROFILE_SET_PRICE_MOTO;
+    public void applyToSeller(View view){
 
         //If im giving 3 of Rating, then it has to be counted as 1 done wash for math porpuses.
         //When it'll come to show number of washes to the Splasher, simply substract 1 from the var.
+        //SWITCH TO PAYME DEV MODE AND RUN THIS WHOLE THING TO SEE IF IT WORKS
 
-        //convert city to string before doing check
-
-        String  cityText = String.valueOf(cSplasherSignUpCity.getSelectedItem());
+        String cityText = String.valueOf(cSplasherSignUpCity.getSelectedItem());
 
         if(cityText.isEmpty() || cSplasherSignUpName.getText().toString().isEmpty() ||
                 cSplasherSignUpLastName.getText().toString().isEmpty() ||
                 cSplasherSignUpEmail.getText().toString().isEmpty() ||
-                cSplasherSignUpUserName.getText().toString().isEmpty() ||
                 cSplasherSignUpPhoneNumber.getText().toString().isEmpty() ||
-                cSplasherSignUpPassword.getText().toString().isEmpty() ||
-                cSplasherSignUpPassword2.getText().toString().isEmpty() ||
                 cSplasherSignUpCountryID.getText().toString().isEmpty() ||
                 cSplasherSignUpCountryIdIssued.getText().toString().isEmpty() ||
                 cSplasherSignUpDateOfBirth.getText().toString().isEmpty() ||
@@ -276,268 +188,49 @@ public class SplasherApplicationActivity extends AppCompatActivity {
                 cSplasherSignUpAddressNum.getText().toString().isEmpty() ||
                 cSocialIDProofTextView.getText().toString().isEmpty() ||
                 cBankAccProofTextView.getText().toString().isEmpty() ||
-                cIncDocProofTextView.getText().toString().isEmpty()){
+                cIncDocProofTextView.getText().toString().isEmpty()) {
 
             toastMessages.productionMessage(ctx
-                    ,getResources().getString(R.string.becomeSplasher_act_java_pleaseFillAll),
+                    , getResources().getString(R.string.becomeSplasher_act_java_pleaseFillAll),
                     1);
 
-        } else if(!cSplasherSignUpPassword.getText().toString().equals(cSplasherSignUpPassword2
-                .getText().toString())) {
-
-            toastMessages.productionMessage(ctx
-                    ,getResources().getString(R.string.becomeSplasher_act_java_bothPasswords),
-                    1);
-
-        } else if(!cSplasherSignUpEmail.getText().toString().contains("@")
+        }else if(!cSplasherSignUpEmail.getText().toString().contains("@")
                 || !cSplasherSignUpEmail.getText().toString().contains(".com")) {
-
             toastMessages.productionMessage(ctx
                     ,getResources().getString(R.string
                             .becomeSplasher_act_java_pleaseEnterValidEmail),
                     1);
-
         } else {
-
             boxedLoadingDialog.showLoadingDialog();
-            splasherUser = new ParseUser();
-            splasherUser.setUsername(cSplasherSignUpUserName.getText().toString());
-            splasherUser.setPassword(cSplasherSignUpPassword.getText().toString());
-            splasherUser.setEmail(cSplasherSignUpEmail.getText().toString());//<<<<<<<<<<<<<<<<<<<<<
-            splasherUser.put("city", cityText);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-            splasherUser.put("phonenumber", cSplasherSignUpPhoneNumber.getText().toString());//<<<<<
-            splasherUser.put("name", cSplasherSignUpName.getText().toString());//<<<<<<<<<<<<<<<<<<<
-            splasherUser.put("lastname", cSplasherSignUpLastName.getText().toString());//<<<<<<<<<<<
-            splasherUser.put("CarOwnerOrSplasher", splasher);
-            //upload images
-            splasherUser.signUpInBackground(new SignUpCallback() {
+            //need to query profile, then update (no object creation)
+            //then query Documents, then update
+            ProfileClassQuery pcq = new ProfileClassQuery
+                    (SplasherApplicationActivity.this);
+            pcq.fetchAllSplashersInfo(ucq.userName()
+                    , new ProfileClassInterface.allSplashersInfo() {
                 @Override
-                public void done(ParseException e) {
-                    if (e == null){
-                        Log.i("splasherSignUp", "signUp SuccessFul");
+                public void getInfo(ParseObject object) {
+                   object.put("splasherType", "independent");
+                   object.saveInBackground(new SaveCallback() {
+                       @Override
+                       public void done(ParseException e) {
+                           backToMainFromSignUp();
+                       }
+                   });
+                }
+                @Override
+                public void afterLoop(List<ParseObject> objects) {
 
-                        ParseObject profile = new ParseObject("Profile");
-                        profile.put("username", ParseUser.getCurrentUser().getUsername());
-                        profile.put("CarOwnerOrSplasher", splasher);
-                        profile.put("splasherType", "independent");
-
-                        profile.put("oldAvgRating", oldAvgRating);
-                        profile.put("washes", washes);
-                        profile.put("washesCanceled", washesCanceled);
-
-                        profile.put("numericalBadge", numericalBadge);
-                        profile.put("setPrice", setPrice);
-                        profile.put("setPriceEInt",setPriceEInt);
-                        profile.put("setPriceMoto",setPriceMoto);
-
-                        profile.put("serviceRange", "not set");
-                        profile.put("serviceEC", "not set");
-                        profile.put("ECCoords", "not set");
-
-                        profile.put("status", "active");
-
-                        profile.saveInBackground(new SaveCallback() {
-                            @Override
-                            public void done(ParseException e) {
-                                backToMainFromSignUp();
-                            }
-                        });
-
-                    } else {
-                        Log.i("splasherSignUp", "signUp Failed");
-                        toastMessages.productionMessage(getApplicationContext(), e.getMessage()
-                                , 1);
-                    }
                 }
             });
         }
     }
 
-    public void hideOrShowFields(int visibility, int belowId){
-
-        cSplasherSignUpCity.setVisibility(visibility);
-        cSplasherSignUpName.setVisibility(visibility);
-        cSplasherSignUpLastName.setVisibility(visibility);
-        cSplasherSignUpEmail.setVisibility(visibility);
-        cSplasherSignUpPhoneNumber.setVisibility(visibility);
-        cSplasherSignUpPassword2.setVisibility(visibility);
-        cCityTitle.setVisibility(visibility);
-        cSplasherSignUpContractAgreement.setVisibility(visibility);
-        cSplasherSignUpCountryIdIssued.setVisibility(visibility);
-        cSplasherSignUpCountryID.setVisibility(visibility);
-        cSplasherSignUpDateOfBirth.setVisibility(visibility);
-        cSplasherSignUpGender.setVisibility(visibility);
-        cRadioF.setVisibility(visibility);
-        cRadioM.setVisibility(visibility);
-        cSplasherSignUpBankCodeNum.setVisibility(visibility);
-        cSplasherSignUpBankBranchNum.setVisibility(visibility);
-        cSplasherSignUpBankAccNum.setVisibility(visibility);
-        cSplasherSignUpAddress.setVisibility(visibility);
-        cSplasherSignUpAddressNum.setVisibility(visibility);
-        cSocialIDProofRelative.setVisibility(visibility);
-        cBankAccProofRelative.setVisibility(visibility);
-        cIncProofRelative.setVisibility(visibility);
-
-        RelativeLayout.LayoutParams params1 = new RelativeLayout
-                .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
-                ,ViewGroup.LayoutParams.WRAP_CONTENT);
-        params1.addRule(RelativeLayout.BELOW, belowId);
-        params1.addRule(Gravity.CENTER);
-        params1.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        //cSplasherLogInButton/signUp -- centerHorizontal
-        //fix photo ID camera and uploadFile icons
-        cSplasherLogInButton.setLayoutParams(params1);
-        cSplasherSignUpButton.setLayoutParams(params1);
-    }
-
-    public void centerStuff(View view){
-        RelativeLayout.LayoutParams params2 = new RelativeLayout
-                .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
-                ,ViewGroup.LayoutParams.WRAP_CONTENT);
-        params2.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        params2.addRule(RelativeLayout.CENTER_VERTICAL);
-        view.setLayoutParams(params2);
-    }
-
-    public void moveUpStuff(View view){
-        RelativeLayout.LayoutParams params3 = new RelativeLayout
-                .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
-                ,ViewGroup.LayoutParams.WRAP_CONTENT);
-        params3.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        params3.addRule(RelativeLayout.BELOW, R.id.splasherLogoSignUp);
-        view.setLayoutParams(params3);
-    }
-
-    public void centerLogo(){
-        RelativeLayout.LayoutParams params4 = new RelativeLayout
-                .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
-                ,ViewGroup.LayoutParams.WRAP_CONTENT);
-        params4.addRule(RelativeLayout.ABOVE, R.id.firstText);
-        params4.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        cSplasherLogoSignUp.setLayoutParams(params4);
-    }
-
-    public void moveUpLogo(){
-        RelativeLayout.LayoutParams params5 = new RelativeLayout
-                .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
-                ,ViewGroup.LayoutParams.WRAP_CONTENT);
-        params5.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        params5.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        cSplasherLogoSignUp.setLayoutParams(params5);
-    }
-
-    public void splasherLogIn(View view) {
-        final String carOwnerWrong = "carOwner";
-        cSplasherSignUpUserName = findViewById(R.id.splasherSignUpUserName);
-        cSplasherSignUpPassword = findViewById(R.id.splasherSignUpPassword);
-        if (cSplasherSignUpUserName.getText().toString().isEmpty()
-                || cSplasherSignUpPassword.getText().toString().isEmpty()) {
-            toastMessages.productionMessage(getApplicationContext(),getResources(
-            ).getString(R.string.becomeSplasher_act_java_userNameAndPass),1);
-        } else {
-            ParseUser.logInInBackground(cSplasherSignUpUserName.getText().toString()
-                    , cSplasherSignUpPassword.getText().toString()
-                    , new LogInCallback() {
-                        @Override
-                        public void done(ParseUser user, ParseException e) {
-                            if (user != null && e == null) {
-                                if (user.getString("CarOwnerOrSplasher")
-                                        .equals(carOwnerWrong)) {
-                                    cWrongUserTypeDialog();
-                                } else {
-                                    Log.i("LogIn", "logIn Successful");
-                                    backToMainFromLogin();
-                                }
-                            } else {
-                                Log.i("LogIn", "LogIn Failed");
-                                toastMessages.productionMessage(getApplicationContext()
-                                        ,getResources()
-                                        .getString(R.string.becomeSplasher_act_java_loginFailed)
-                                        ,1);
-                            }
-                        }
-                    });
-        }
-    }
-
-    public void hideKeyboard(){
-        try {
-            InputMethodManager imm = (InputMethodManager) getApplicationContext()
-                    .getSystemService(INPUT_METHOD_SERVICE);
-            if(imm != null) {
-                if(getCurrentFocus() != null)
-                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public void backToMainFromLogin(){
-        Intent intent = new Intent(ctx, HomeActivity. class);
-        startActivity(intent);
-    }
-
     public void backToMainFromSignUp(){
-
-        final Intent intent = new Intent(ctx, HomeActivity. class);
-
-        intent.putExtra("PaymentClientKey", PaymeConstants.PAYMENT_CLIENT_KEY);//READY//
-        intent.putExtra("sellerFirstName", cSplasherSignUpName.getText().toString());//READY//
-        intent.putExtra("sellerLastName", cSplasherSignUpLastName.getText()
-                .toString());//READY//
-        intent.putExtra("sellerSocialId", cSplasherSignUpCountryID.getText()
-                .toString());//READY//
-        intent.putExtra("sellerBirthDate", cSplasherSignUpDateOfBirth.getText()
-                .toString());//READY//
-        intent.putExtra("sellerSocialIdIssued", cSplasherSignUpCountryIdIssued.getText()
-                .toString());//READY//
-        intent.putExtra("sellerGender",
-                splasherGenderProcessor(cSplasherSignUpGender));//READY// ----//Int//----
-        intent.putExtra("sellerEmail", cSplasherSignUpEmail.getText().toString());//READY//
-        intent.putExtra("sellerPhoneNumber", cSplasherSignUpPhoneNumber.getText()
-                .toString());//READY//
-
-        intent.putExtra("sellerBankCode", Integer.parseInt(cSplasherSignUpBankCodeNum
-                .getText().toString()));//READY// ----//Int//----
-        intent.putExtra("sellerBankBranch", Integer.parseInt(cSplasherSignUpBankBranchNum
-                .getText().toString()));//READY// ----//Int//----
-        intent.putExtra("sellerBankAccountNumber", Integer.parseInt(cSplasherSignUpBankAccNum
-                .getText().toString()));//READY// ----//Int//----
-        WriteReadDataInFile writeReadDataInFile = new WriteReadDataInFile(ctx);
-        writeReadDataInFile.writeToFile("sellerBankCode",cSplasherSignUpBankCodeNum
-                .getText().toString());
-        writeReadDataInFile.writeToFile("sellerBankBranch",cSplasherSignUpBankBranchNum
-                .getText().toString());
-        writeReadDataInFile.writeToFile("sellerBankAccountNumber",cSplasherSignUpBankAccNum
-                .getText().toString());
-
-        intent.putExtra("sellerDescription", PaymeConstants.SELLER_DESCRIPTION);//READY//
-        intent.putExtra("sellerSiteUrl", PaymeConstants.SELLER_SITE_URL);//READY//
-        intent.putExtra("sellerPersonBussinessType"
-                ,PaymeConstants.SELLER_PERSON_BUSINESS_TYPE);//READY//
-        intent.putExtra("sellerInc", PaymeConstants.SELLER_INC);//READY// ----//Int//----
-
-        intent.putExtra("sellerAddressCity", cSplasherSignUpCity.getSelectedItem()
-                .toString());//READY//
-        intent.putExtra("sellerAddressStreet", cSplasherSignUpAddress.getText()
-                .toString());//READY//
-        intent.putExtra("sellerAddressStreetNumber", Integer
-                .parseInt(cSplasherSignUpAddressNum.getText().toString()));//READY// ----//Int//----
-        intent.putExtra("sellerAddressCountry", PaymeConstants.SELLER_COUNTRY);//READY//
-
-        intent.putExtra("sellerMarketFee", PaymeConstants.MARKET_FEE);//READY//----//Double//-
-
-        //--PARAMETER RELEVANT TO APP IN PRODUCTION ONLY--//
-        intent.putExtra("sellerPlan", PaymeConstants.MONTHLY_CREDIT_TRACK);
-        //------------------------------------------------//
-
         byte[] bytes1;
         byte[] bytes2;
         byte[] bytes3;
         if(fromGallery && !fromCam){
-
-            intent.putExtra("fromGallery", true);
 
             ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
             socialBitmapGal.compress(Bitmap.CompressFormat.JPEG, 20, stream1);
@@ -555,8 +248,6 @@ public class SplasherApplicationActivity extends AppCompatActivity {
             incDocFile = new ParseFile("incDocFile.png", bytes3);
 
         }else if(!fromGallery && fromCam){
-
-            intent.putExtra("fromGallery", false);
 
             ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
             Bitmap socialBitmap = BitmapFactory.decodeFile(rawImageString1);
@@ -577,61 +268,119 @@ public class SplasherApplicationActivity extends AppCompatActivity {
             incDocFile = new ParseFile("incDocFile.jpeg", bytes3);
         }
 
-        final ParseObject documents = new ParseObject("Documents");
-        documents.put("username", cSplasherSignUpUserName.getText().toString());
-        documents.put("socialIdProof", socialFile);
-        documents.saveInBackground(new SaveCallback() {
+        DocumentsClassQuery dcq = new DocumentsClassQuery(SplasherApplicationActivity.this);
+        dcq.fetchSplasherDocuments(ucq.userName(), new DocumentsClassInterface.getSplasherDocs() {
             @Override
-            public void done(ParseException e) {
-                if(e == null){
-                    documents.put("bankProof", bankFile);
-                    documents.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            if(e == null){
-                                documents.put("incDocProof", incDocFile);
-                                documents.saveInBackground(new SaveCallback() {
-                                    @Override
-                                    public void done(ParseException e) {
-                                        if(e == null) {
-                                            startActivity(intent);
+            public void getDocs(final ParseObject object) {
+                object.put("socialIdProof", socialFile);
+                object.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e == null){
+                            object.put("bankProof", bankFile);
+                            object.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if(e == null){
+                                        object.put("incDocProof", incDocFile);
+                                        object.saveInBackground(new SaveCallback() {
+                                            @Override
+                                            public void done(ParseException e) {
+                                                if(e == null) {
+                                                    dispatchDocumentsSplasherSignUp();
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    private void dispatchDocumentsSplasherSignUp(){
+        final SplashCreateSeller splashCreateSeller = new SplashCreateSeller
+                (SplasherApplicationActivity.this);
+        DocumentsClassSend documentsClassSend
+                = new DocumentsClassSend(SplasherApplicationActivity.this);
+        documentsClassSend.sendSplasherDocumentsToServer
+            (new DocumentsClassInterface.sendSplasherDocs() {
+                @Override
+                public void sendDocs(ParseObject fileObject) {
+                    ParseFile socialIdFile = fileObject
+                            .getParseFile("socialIdProof");
+                    if(socialIdFile != null){
+                        if (!social_id_sent) {
+                            Log.i("socialIdProof", socialIdFile.getUrl());
+                            sellerFileSocialId = socialIdFile.getUrl();
+
+                            ParseFile bankFile = fileObject.getParseFile("bankProof");
+                            if (bankFile != null) {
+                                if (!bank_proof_sent) {
+                                    Log.i("bankProof", bankFile.getUrl());
+                                    sellerFileCheque = bankFile.getUrl();
+
+                                    ParseFile incDocFile = fileObject
+                                            .getParseFile("incDocProof");
+                                    if (incDocFile != null) {
+                                        if (!corp_entity_sent) {
+                                            Log.i("incDocProof", incDocFile.getUrl());
+                                            sellerFileCorporate = incDocFile.getUrl();
+                                            if (!requestSent) {
+                                                splashCreateSeller.sendDataToPaymentServer(
+                                                        PaymeConstants.PAYMENT_CLIENT_KEY
+                                                        , cSplasherSignUpName.getText().toString()
+                                                        , cSplasherSignUpLastName.getText().toString()
+                                                        , cSplasherSignUpCountryID.getText().toString()
+                                                        , cSplasherSignUpDateOfBirth.getText().toString()
+                                                        , cSplasherSignUpCountryIdIssued.getText().toString()
+                                                        , splasherGenderProcessor(cSplasherSignUpGender)
+                                                        , cSplasherSignUpEmail.getText().toString()
+                                                        , cSplasherSignUpPhoneNumber.getText().toString()
+                                                        , Integer.parseInt(cSplasherSignUpBankCodeNum.getText().toString())
+                                                        , Integer.parseInt(cSplasherSignUpBankBranchNum.getText().toString())
+                                                        , Integer.parseInt(cSplasherSignUpBankAccNum.getText().toString())
+                                                        , PaymeConstants.SELLER_DESCRIPTION
+                                                        , PaymeConstants.SELLER_SITE_URL
+                                                        , PaymeConstants.SELLER_PERSON_BUSINESS_TYPE
+                                                        , PaymeConstants.SELLER_INC
+                                                        , cSplasherSignUpCity.getSelectedItem().toString()
+                                                        , cSplasherSignUpAddress.getText().toString()
+                                                        , Integer.parseInt(cSplasherSignUpAddressNum
+                                                                .getText().toString())
+                                                        , PaymeConstants.SELLER_COUNTRY
+                                                        , PaymeConstants.MARKET_FEE
+                                                        , sellerFileSocialId
+                                                        , sellerFileCheque
+                                                        , sellerFileCorporate
+                                                        , PaymeConstants.MONTHLY_CREDIT_TRACK
+                                                );
+                                                boxedLoadingDialog.hideLoadingDialog();
+                                                requestSent = true;
+                                            }
+                                            corp_entity_sent = true;
                                         }
                                     }
-                                });
+                                    bank_proof_sent = true;
+                                }
                             }
+                            social_id_sent = true;
                         }
-                    });
+                    }
                 }
-            }
-        });
+            });
     }
 
-    public void cWrongUserTypeDialog(){
-        ParseUser.logOut();
-        AlertDialog.Builder wrongUserTypeDialog = new AlertDialog
-                .Builder(ctx);
-        wrongUserTypeDialog.setTitle(getResources().getString(R.string
-                .becomeSplasher_act_java_wrongUserType));
-        wrongUserTypeDialog.setIcon(android.R.drawable.ic_dialog_alert);
-        wrongUserTypeDialog.setMessage(getResources()
-                .getString(R.string.becomeSplasher_act_java_pleaseLoginThroughRespec));
-        wrongUserTypeDialog.setPositiveButton(getResources().getString(R.string
-                .becomeSplasher_act_java_ok), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(ctx, SignUpLogInActivity.class);
-                startActivity(intent);
-            }
-        });
-        wrongUserTypeDialog.show();
-    }
-
-    public void spinnerCities(){
+    private void spinnerCities(){
         cSplasherSignUpCity = findViewById(R.id.splasherSignUpCity);
         List<String> cityList = new ArrayList<>();
         cityList.add(getResources().getString(R.string.becomeSplasher_act_java_telAviv));
         cityList.add(getResources().getString(R.string.becomeSplasher_act_java_herzliya));
         cityList.add(getResources().getString(R.string.becomeSplasher_act_java_ramatGan));
+        cityList.add(getResources().getString(R.string.becomeSplasher_act_java_givatayim));
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(ctx, android.R.layout
                 .simple_spinner_item, cityList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -641,7 +390,7 @@ public class SplasherApplicationActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            startActivity(new Intent(ctx, SignUpLogInActivity.class));
+            finish();
         }
         return false;
     }
@@ -861,9 +610,10 @@ public class SplasherApplicationActivity extends AppCompatActivity {
         }
     }
 
-    public int splasherGenderProcessor(RadioGroup radioGroup){
+    private int splasherGenderProcessor(RadioGroup radioGroup){
         //gender: male=0; female=1;
-        int gender = 3;
+        //Set to Male (0) by default
+        int gender = 0;
         int selectedId = radioGroup.getCheckedRadioButtonId();
         RadioButton genderRadioButton = findViewById(selectedId);
         if(genderRadioButton.getText().equals("Male")){
@@ -872,5 +622,18 @@ public class SplasherApplicationActivity extends AppCompatActivity {
             gender = 1;
         }
         return gender;
+    }
+
+    private void hideKeyboard(){
+        try {
+            InputMethodManager imm = (InputMethodManager) getApplicationContext()
+                    .getSystemService(INPUT_METHOD_SERVICE);
+            if(imm != null) {
+                if(getCurrentFocus() != null)
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

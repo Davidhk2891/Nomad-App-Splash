@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="15dp"
     android:id="@+id/becomeSplashRelative"
     tools:context="com.nomadapp.splash.ui.activity.standard.SplasherApplicationActivity">
 
@@ -12,6 +11,7 @@
         android:id="@+id/splasherLogoSignUp"
         android:src="@drawable/newsplashercertifiedlogo"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:ignore="ContentDescription" />
@@ -22,7 +22,7 @@
         android:layout_below="@+id/splasherLogoSignUp"
         android:layout_marginTop="17dp"
         android:textSize="17sp"
-        android:text="@string/splashPartnersProgramsTitle"
+        android:text="@string/seller_account_creator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -31,6 +31,8 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/firstText"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/splasherSignUpButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -43,7 +45,6 @@
                 android:id="@+id/nameAndLastSplasherSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/splasherSignUpPassword2"
                 android:layout_alignStart="@+id/splasherSignUpPhoneNumber"
                 android:layout_alignEnd="@+id/splasherSignUpPhoneNumber"
                 android:gravity="center_horizontal"
@@ -217,42 +218,6 @@
             </RelativeLayout>
             <!--////////////////////////////-->
 
-            <EditText
-                android:id="@+id/splasherSignUpUserName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_alignStart="@+id/splasherSignUpDateOfBirth"
-                android:ems="15"
-                android:hint="@string/act_become_splash_signUp_userName"
-                android:inputType="textPersonName"
-                android:textAllCaps="false" />
-
-            <EditText
-                android:id="@+id/splasherSignUpPassword"
-                android:ems="15"
-                android:textAllCaps="false"
-                android:inputType="textPassword"
-                android:hint="@string/act_become_splash_signUp_password"
-                android:layout_marginTop="6dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/splasherSignUpUserName"
-                android:layout_centerHorizontal="true" />
-
-            <EditText
-                android:id="@+id/splasherSignUpPassword2"
-                android:ems="15"
-                android:textAllCaps="false"
-                android:inputType="textPassword"
-                android:hint="@string/act_become_splash_signUp_repeatPass"
-                android:layout_marginTop="6dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/splasherSignUpPassword"
-                android:layout_centerHorizontal="true" />
-
             <LinearLayout
                 android:id="@+id/splashSignUpLocalAddressLinear"
                 android:orientation="horizontal"
@@ -304,8 +269,8 @@
                 android:id="@+id/socialIDProofLinear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/splasherSignUpPassword2"
-                android:layout_alignStart="@+id/splasherSignUpPassword2"
+                android:layout_alignEnd="@+id/splasherSignUpEmail"
+                android:layout_alignStart="@+id/splasherSignUpEmail"
                 android:layout_below="@+id/splashSignUpLocalAddressLinear"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
@@ -356,8 +321,8 @@
                 android:layout_below="@+id/socialIDProofLinear"
                 android:layout_centerHorizontal="true"
                 android:orientation="horizontal"
-                android:layout_alignStart="@+id/splasherSignUpPassword2"
-                android:layout_alignEnd="@+id/splasherSignUpPassword2"
+                android:layout_alignStart="@+id/splasherSignUpEmail"
+                android:layout_alignEnd="@+id/splasherSignUpEmail"
                 android:background="@drawable/bg_blueborder_stroke_andcolor"
                 android:layout_marginTop="6dp"
                 android:padding="7dp"
@@ -407,8 +372,8 @@
                 android:layout_below="@+id/bankAccProofLinear"
                 android:layout_centerHorizontal="true"
                 android:orientation="horizontal"
-                android:layout_alignStart="@+id/splasherSignUpPassword2"
-                android:layout_alignEnd="@+id/splasherSignUpPassword2"
+                android:layout_alignStart="@+id/splasherSignUpEmail"
+                android:layout_alignEnd="@+id/splasherSignUpEmail"
                 android:background="@drawable/bg_blueborder_stroke_andcolor"
                 android:layout_marginTop="6dp"
                 android:padding="7dp"
@@ -453,54 +418,24 @@
 
             </RelativeLayout>
 
-
-            <Button
-                android:id="@+id/splasherSignUpButton"
-                android:layout_centerHorizontal="true"
-                android:onClick="splasherSignUp"
-                android:layout_below="@+id/incDocProofLinear"
-                android:layout_marginTop="6dp"
-                android:visibility="invisible"
-                android:text="@string/act_become_splash_signUp_signUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/splasherLogInButton"
-                android:layout_centerHorizontal="true"
-                android:onClick="splasherLogIn"
-                android:layout_below="@+id/incDocProofLinear"
-                android:layout_marginTop="6dp"
-                android:text="@string/act_become_splash_signUp_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/orSplashLogIn"
-                android:textAllCaps="false"
-                android:text="@string/act_become_splash_signUp_orLogin"
-                android:layout_below="@+id/splashSignUpLocalAddressLinear"
-                android:layout_toEndOf="@+id/splasherSignUpButton"
-                android:layout_alignBaseline="@+id/splasherSignUpButton"
-                android:layout_alignBottom="@+id/splasherSignUpButton"
-                android:layout_marginStart="19dp"
-                android:textColor="#2196f3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/splasherSignUpContactAgreement"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/splasherSignUpButton"
-                android:layout_marginTop="12dp"
-                android:layout_marginStart="10dp"
-                android:padding="14dp"
-                android:text="@string/contactAgreement"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
         </RelativeLayout>
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/splasherSignUpButton"
+        android:layout_centerHorizontal="true"
+        android:onClick="applyToSeller"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/btn_shape"
+        android:textColor="#ffffff"
+        android:layout_alignParentBottom="true"
+        android:text="@string/act_become_splash_signUp_signUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

@@ -2,12 +2,12 @@ package com.nomadapp.splash.ui.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.app.Fragment;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.nomadapp.splash.R;
+import com.nomadapp.splash.model.constants.PaymeConstants;
 import com.nomadapp.splash.model.imagehandler.GlideImagePlacement;
 import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
 import com.nomadapp.splash.model.objects.MySplasher;
@@ -31,7 +32,6 @@ import com.nomadapp.splash.model.server.parseserver.ProfileClassInterface;
 import com.nomadapp.splash.model.server.parseserver.queries.ProfileClassQuery;
 import com.nomadapp.splash.model.server.parseserver.send.RequestClassSend;
 import com.nomadapp.splash.ui.activity.carownerside.WashReqParamsActivity;
-import com.nomadapp.splash.ui.activity.carownerside.payment.PaymentSettingsActivity;
 import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 
@@ -55,7 +55,8 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
  */
 public class SplasherListFragment extends Fragment {
 
-    private String splasherName,splasherShowingName,splasherPrice,splasherNumWash,splasherProfPic;
+    private String splasherName,splasherShowingName,splasherPrice, carOwnerPrice
+            ,splasherNumWash,splasherProfPic;
     private String splasherNameToSend;
     private int splasherAvgRating;
 
@@ -65,6 +66,7 @@ public class SplasherListFragment extends Fragment {
     private ArrayList<String> splasherUserProfPic = new ArrayList<>();
     private ArrayList<String> splasherUserAvgRat = new ArrayList<>();
     private ArrayList<String> splasherUserPrice = new ArrayList<>();
+    private ArrayList<String> carOwnerUserPrice = new ArrayList<>();
     private ArrayList<String> splasherUserNumWash = new ArrayList<>();
     //----------------------------------------------------//
 
@@ -77,7 +79,7 @@ public class SplasherListFragment extends Fragment {
     private ImageButton mExitBtmSheet;
     private ImageView mSlProfilePic;
     private MaterialRatingBar mSlRatingBar;
-    private Button mSlFinallyOrder;
+    private Button mMarkSplasher;
     private LinearLayout mSplasherGridFetchLinear;
     private boolean bottomSheetUp = false;
     //---------------------------------------------//
@@ -94,6 +96,7 @@ public class SplasherListFragment extends Fragment {
     private String wash;
     private String washes;
     private String rawPrice;
+    private String fullUserPrice;
     //------------------------------//
 
     // TODO: Rename parameter arguments, choose names that match
@@ -122,7 +125,26 @@ public class SplasherListFragment extends Fragment {
     private WriteReadDataInFile writeReadDataInFile;
     private ProfileClassQuery profileClassQuery;
     private SplasherSelector splasherSelector;
+
+    private int grandPosition;
+    private View grandView;
+    private CardView splasherCard;
+    private TextView splasherText1;
+    private TextView splasherText2;
     //-------------------------------------------------------------------------------------------//
+
+
+    public ArrayList<String> getSplasherUserNames() {
+        return splasherUserNames;
+    }
+
+    public ArrayList<String> getSplasherUserPrice() {
+        return splasherUserPrice;
+    }
+
+    public ArrayList<String> getCarOwnerUserPrice() {
+        return carOwnerUserPrice;
+    }
 
     public SplasherListFragment() {
         // Required empty public constructor
@@ -165,7 +187,7 @@ public class SplasherListFragment extends Fragment {
         mExitBtmSheet = v.findViewById(R.id.exitBtmSheet);
         mSlProfilePic = v.findViewById(R.id.slProfPic);
         mSlRatingBar = v.findViewById(R.id.slRatingBar);
-        mSlFinallyOrder = v.findViewById(R.id.slFinallyOrder);
+        mMarkSplasher = v.findViewById(R.id.slFinallyOrder);
         mSlUsername = v.findViewById(R.id.slUsername);
         mSlNumWashes = v.findViewById(R.id.slNumWashes);
         mSlStatus = v.findViewById(R.id.slStatus);
@@ -173,7 +195,7 @@ public class SplasherListFragment extends Fragment {
         mSplasherGridFetchLinear = v.findViewById(R.id.splasherGridFetchLinear);
 
         fetchedServiceType = washReqParamsActivity.getGetServiceType();
-        //HERE IS THE ERROR: fetchedServiceType returns null
+
         Log.i("fetchedServiceType","is " + washReqParamsActivity.getGetServiceType());
 
         if (getActivity() != null) {
@@ -183,7 +205,8 @@ public class SplasherListFragment extends Fragment {
                     , splasherList);
             splasherList.clear();
             gridView.setAdapter(splasherListAdapter);
-            getSplasherList(fetchedServiceType);
+            getSplasherList(fetchedServiceType,getResources().getColor(R.color.pureWhite)
+            ,getResources().getColor(R.color.ColorPrimaryDark));
             onCardViewClick();
 
             collapseBtmSheetFromX();
@@ -222,46 +245,6 @@ public class SplasherListFragment extends Fragment {
         Log.i("f11",fetchedDollar);Log.i("f12",String.valueOf(fetchedNumericalBadge));
         Log.i("f13",String.valueOf(isTemporalKeyActive));
         //--------------------------//
-    }
-
-    public void sendReqOrderToSl(){
-        mSlFinallyOrder.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                //selectSplasher();
-                Log.i("green2", "ran");
-                if((writeReadDataInFile.readFromFile("buyer_key_temporal")
-                                .isEmpty()) && writeReadDataInFile
-                                .readFromFile("buyer_key_permanent").isEmpty()) {
-                    toastMessages.productionMessage(getActivity().getApplicationContext()
-                            ,getResources().getString(R.string.act_wash_my_car_pleaseChoosePaymentM)
-                            ,1);
-                    startActivity(new Intent(getActivity().getApplicationContext()
-                            , PaymentSettingsActivity.class));
-                }else{
-                    boxedLoadingDialog.showLoadingDialog();
-                    fetchRequestDataToOrder();
-                    String splasherUsername = splasherNameToSend;
-                    String splasherShowingNameSend = mSlUsername.getText().toString();
-                    String requestType = "private";
-                    cleanUntilTime();
-                    requestClassSend.loadRequest(fetchedAddress,fetchedCoords,fetchedAddressDesc
-                            ,fetchedFullDate,fetchedSelectedTime,fetchedServiceType,fetchedCBrand
-                            ,fetchedCModel,fetchedCColor,fetchedCPlate,fetchedDollar,
-                            fetchedNumericalBadge,isTemporalKeyActive,splasherUsername
-                            , splasherShowingNameSend, requestType);
-                }
-            }
-        });
-    }
-
-    private void cleanUntilTime(){
-        if (fetchedSelectedTime.contains(getResources()
-                .getString(R.string.act_wash_my_car_until2))) {
-            String selectedTimePre = fetchedSelectedTime;
-            fetchedSelectedTime = selectedTimePre.replace(getResources()
-                    .getString(R.string.act_wash_my_car_until2), ""); //<--FINAL
-        }
     }
 
     public void collapseBtmSheetFromX(){
@@ -381,23 +364,44 @@ public class SplasherListFragment extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("orange1", "is " + String.valueOf(position));
-                getSelectedGridItemData(position);
+                if (!WashReqParamsActivity.allListSelected) {
+                    Log.i("orange1", "is " + String.valueOf(position));
+                    grandPosition = position;
+                    grandView = view;
+                    getSelectedGridItemData(view, position);
+                }
             }
         });
     }
 
-    public void getSelectedGridItemData(final int position){
+    private void sendReqOrderToSl(){
+        mMarkSplasher.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if (!WashReqParamsActivity.allListSelected) {
+                    Log.i("green2", "ran");
+                    splasherSelector.selectSplashers(splasherCard, splasherText1, splasherText2
+                            , splasherNameToSend, rawPrice, fullUserPrice);
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                    bottomSheetUp = false;
+                    splasherSelector.splasherListCheckerToOrder
+                            (((WashReqParamsActivity) getActivity()).cFinallyOrder);
+                }
+            }
+        });
+    }
+
+    public void getSelectedGridItemData(View view, final int position){
         //Get data for selected card from grid
         //Slide up the bottom_sheet
         if (!bottomSheetUp) {
             mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-            allocateDataForSL(position);
+            allocateDataForSL(view, position);
             bottomSheetUp = true;
         }else{
             if (!splasherUserNames.get(position).equals(mSlUsername.getText()
                     .toString())){
-                allocateDataForSL(position);
+                allocateDataForSL(view, position);
                 bottomSheetUp = true;
             }else {
                 mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
@@ -406,17 +410,19 @@ public class SplasherListFragment extends Fragment {
         }
     }
 
-    public void allocateDataForSL(int position){
+    public void allocateDataForSL(View view, int position){
+        //------------------------------------------------------------------------//
+        splasherCard = view.findViewById(R.id.splasherCardView);
+        splasherText1 = view.findViewById(R.id.rowSName);
+        splasherText2 = view.findViewById(R.id.rowSNumWashes);
+        Log.i("orange2", "is " + splasherCard);
+        //------------------------------------------------------------------------//
+
         //This is the actual splasherUserName(Email) used for comparing in backend//
         splasherNameToSend = splasherUserNames.get(position);
         //------------------------------------------------------------------------//
 
-        String request_wash_from = getResources().getString(R.string
-                .act_wash_my_car_requestAWashFrom);
-
         mSlUsername.setText(splasherShowingNames.get(position));
-
-        String fullRequestTitle = request_wash_from + " " + splasherShowingNames.get(position);
 
         mSlRatingBar.setProgress(Integer.parseInt(splasherUserAvgRat.get(position)) * 2);
 
@@ -428,15 +434,16 @@ public class SplasherListFragment extends Fragment {
         }
         mSlNumWashes.setText(fullNumWashes);
 
-        String fullUserPrice;
-        if (!splasherUserPrice.get(position).contains(".")) {
+        if (!carOwnerUserPrice.get(position).contains(".")) {
             //a.k.a the number is whole...then
-            fullUserPrice = "₪" + " " + splasherUserPrice.get(position) + ".00";
-            rawPrice = splasherUserPrice.get(position);
+            rawPrice = "₪" + " " + splasherUserPrice.get(position);
+
+            fullUserPrice = "₪" + " " + carOwnerUserPrice.get(position) + ".00";
             mSlPriceData.setText(fullUserPrice);
         } else {
-            fullUserPrice = "₪" + " " + splasherUserPrice.get(position);
-            rawPrice = splasherUserPrice.get(position);
+            rawPrice = "₪" + " " + splasherUserPrice.get(position);
+
+            fullUserPrice = "₪" + " " + carOwnerUserPrice.get(position);
             mSlPriceData.setText(fullUserPrice);
         }
         Log.i("finalPrice", rawPrice);
@@ -446,7 +453,8 @@ public class SplasherListFragment extends Fragment {
 
     //need to query this twice from same source to both here and after coming back from place
     //picker to refresh splasher list
-    public void getSplasherList(final String filterServiceType){
+    public void getSplasherList(final String filterServiceType, final int cardColor
+            , final int txtColor){
 
         profileClassQuery.getSplashersList(new ProfileClassInterface() {
             @Override
@@ -466,6 +474,7 @@ public class SplasherListFragment extends Fragment {
                         splasherUserProfPic.clear();
                         splasherUserNumWash.clear();
                         splasherUserPrice.clear();
+                        carOwnerUserPrice.clear();
 
                         for (ParseObject splasherObj : objects){
 
@@ -504,28 +513,43 @@ public class SplasherListFragment extends Fragment {
                                 if (Integer.parseInt(splasherObj
                                         .getString("oldAvgRating")) <= 5) {
                                     splasherAvgRating = Integer.parseInt(splasherObj
-                                            .getString("oldAvgRating"));//<<<<<<<<<<<<<<<<<<<<<<
+                                            .getString("oldAvgRating"));//<<<<<<<<<<<<<<<<<<<<<
                                 } else {
                                     splasherAvgRating = 5;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
                                 }
-                                if (filterServiceType.equals(external)) {//BUG>NPE
-                                    splasherPrice = splasherObj.getString("setPrice");//<<<<<<<
+                                if (filterServiceType.equals(external)) {
+                                    splasherPrice = splasherObj.getString("setPrice");
+                                    carOwnerPrice = String.valueOf(PaymeConstants
+                                            .priceShownToCarOwner((Double.parseDouble(splasherObj
+                                                    .getString("setPrice")))));//<<<
                                 } else if (filterServiceType.equals(extInt)) {
-                                    splasherPrice = splasherObj.getString("setPriceEInt");//<<<
+                                    splasherPrice = splasherObj.getString("setPriceEInt");
+                                    carOwnerPrice = String.valueOf(PaymeConstants
+                                            .priceShownToCarOwner((Double.parseDouble(splasherObj
+                                                    .getString("setPriceEInt")))));//<<<
                                 } else if (filterServiceType.equals(moto)) {
-                                    splasherPrice = splasherObj.getString("setPriceMoto");//<<<
+                                    splasherPrice = splasherObj.getString("setPriceMoto");
+                                    carOwnerPrice = String.valueOf(PaymeConstants
+                                            .priceShownToCarOwner((Double.parseDouble(splasherObj
+                                                    .getString("setPriceMoto")))));//<<<
                                 }
-                                Log.i("splasherPrice", splasherPrice);
+                                Log.i("blueSplasherPrice", splasherPrice);
+                                Log.i("blueCarOwnerPrice", carOwnerPrice);
                                 splasherNumWash = splasherObj.getString("washes");//<<<<<<<<<<<
 
                                 //Apply Data to MySplasher object//
                                 //left here. need to add arraylist in which to deposit the
                                 // indivudual data in strings. nums etc
                                 MySplasher splasher = new MySplasher();
+                                splasher.setSplasherCardColor(cardColor);
+                                splasher.setSplasherTxtColor(txtColor);
                                 splasher.setSplasherUsername(splasherShowingName);
+                                splasher.setSplasherActualName(splasherName);
                                 splasher.setSplasherProfPic(splasherProfPic);
-                                String price = "₪ " + splasherPrice;
-                                splasher.setSplasherPrice(price);
+                                String finalCarOwnerPrice = "₪ " + carOwnerPrice;
+                                String finalSplasherPrice = "₪ " + splasherPrice;
+                                splasher.setCarOwnerPrice(finalCarOwnerPrice);
+                                splasher.setSplasherPrice(finalSplasherPrice);
                                 splasher.setSplasherAvgRating(splasherAvgRating);
 
                                 String numOfWashes;
@@ -540,6 +564,7 @@ public class SplasherListFragment extends Fragment {
                                 Log.i("splasherShowingName", splasherShowingName);
                                 Log.i("splasherProfPic", splasherProfPic);
                                 Log.i("splasherPrice", splasherPrice);
+                                Log.i("carOwnerPrice", carOwnerPrice);
                                 Log.i("splasherRating", String.valueOf(splasherAvgRating));
                                 Log.i("splasherWashes", numOfWashes);
                                 splasherList.add(splasher);
@@ -549,6 +574,7 @@ public class SplasherListFragment extends Fragment {
                                 splasherUserNames.add(splasherName);
                                 splasherShowingNames.add(splasherShowingName);
                                 splasherUserPrice.add(splasherPrice);
+                                carOwnerUserPrice.add(carOwnerPrice);
                                 splasherUserNumWash.add(splasherNumWash);
                                 splasherUserProfPic.add(splasherProfPic);
                                 splasherUserAvgRat.add(String.valueOf(splasherAvgRating));

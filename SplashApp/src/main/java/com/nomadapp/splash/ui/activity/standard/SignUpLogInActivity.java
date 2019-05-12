@@ -66,7 +66,7 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
     private EditText cUserInput;
     private EditText cPassword, cPassword2;
     private EditText cEmailInput;
-    private TextView cBecomeASplash, cBecomeASplash2, cVisiblePasswordHelper;
+    private TextView cBecomeASplash, cVisiblePasswordHelper;
     private CheckBox mAgreementTOU;
     private TextView mAgreementTOULink;
     private LinearLayout mAgreementTOULinear;
@@ -90,8 +90,6 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
     private ForcedAlertDialog forcedAlertDialog = new ForcedAlertDialog(SignUpLogInActivity.this);
     private ConnectionLost clm = new ConnectionLost(SignUpLogInActivity.this);
     ProfileClassQuery profileClassQuery = new ProfileClassQuery(SignUpLogInActivity.this);
-
-    private int secLockInt = 0;
 
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -230,7 +228,9 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
                 toastMessages.productionMessage(getApplicationContext()
                         , getResources().getString(R.string.main_act_java_bothPassMustMatch),1);
 
-            } else if (!cEmailInput.getText().toString().contains("@") || !cEmailInput.getText().toString().contains(".com")) {
+            } else if (!cEmailInput.getText().toString().contains("@")
+                    || !cEmailInput.getText().toString().contains(".com")
+                    || !cEmailInput.getText().toString().contains(".co")) {
 
                 toastMessages.productionMessage(getApplicationContext()
                         ,getResources().getString(R.string.main_act_java_enterValidEmail),1);
@@ -386,7 +386,6 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
       cPassword2 = findViewById(R.id.passwordInput2);
       cEmailInput = findViewById(R.id.emailInput);
       cBecomeASplash = findViewById(R.id.becomeASplash);
-      cBecomeASplash2 = findViewById(R.id.becomeASplash2);
       cLogInSignUpNow = findViewById(R.id.logInNow);
       cVisiblePasswordHelper = findViewById(R.id.visiblePasswordHelper);
       mAgreementTOU = findViewById(R.id.agreementTOU);
@@ -497,22 +496,6 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
                 startActivity(intent);
           }
       });
-      cBecomeASplash2.setOnClickListener(new View.OnClickListener(){
-          @Override
-          public void onClick(View v) {
-              if (secLockInt == 0 || secLockInt == 1 || secLockInt == 2 || secLockInt == 3
-              || secLockInt == 4 || secLockInt == 5){
-                  secLockInt++;
-                  Log.i("secretLevel", " is at: " + String.valueOf(secLockInt));
-              } else if (secLockInt == 6) {
-                  toastMessages.productionMessage(SignUpLogInActivity.this
-                          , "Secret Level Unlocked", 1);
-                  Intent intent2 = new Intent(SignUpLogInActivity.this,
-                          SplasherApplicationActivity.class);
-                  startActivity(intent2);
-              }
-          }
-      });
 
       cBackgroundRelativelayout.setOnClickListener(new View.OnClickListener(){
           @Override
@@ -583,9 +566,6 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
 
       cBecomeASplash.setEnabled(state);
       cBecomeASplash.setClickable(state);
-
-      cBecomeASplash2.setEnabled(state);
-      cBecomeASplash2.setClickable(state);
 
       cForgotPassword.setEnabled(state);
       cForgotPassword.setClickable(state);

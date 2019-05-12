@@ -11,4 +11,8 @@ public interface DocumentsClassInterface {
         void sendDocs(ParseObject fileObject);
     }
 
+    interface getSplasherDocs{
+        void getDocs(ParseObject object);
+    }
+
 }

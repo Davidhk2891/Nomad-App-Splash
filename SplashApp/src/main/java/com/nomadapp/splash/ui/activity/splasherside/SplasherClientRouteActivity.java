@@ -40,6 +40,7 @@ import android.os.Vibrator;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -54,7 +55,9 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.mapops.MarkersOps;
+import com.nomadapp.splash.model.objects.users.SplasherSelector;
 import com.nomadapp.splash.model.server.parseserver.ProfileClassInterface;
+import com.nomadapp.splash.model.server.parseserver.UserClassInterface;
 import com.nomadapp.splash.model.server.parseserver.queries.ProfileClassQuery;
 import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
@@ -79,6 +82,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -176,6 +180,7 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
     private BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog
             (SplasherClientRouteActivity.this);
     private ConnectionLost clm = new ConnectionLost(SplasherClientRouteActivity.this);
+    private UserClassQuery userClassQuery = new UserClassQuery(SplasherClientRouteActivity.this);
     private MenuItem cancelItem;
 
     @Override
@@ -792,7 +797,6 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
     }
 
     public void checkForUnacceptedCancelRequest(){
-
         /*
          PROBLEM:
          If both (2 or many) phones click on take the request at the same time, The first phone
@@ -1236,6 +1240,46 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
                             String ssn = ParseUser.getCurrentUser().getString("name") + " " +
                                     ParseUser.getCurrentUser().getString("lastname");
 
+                            Log.i("greengreen", object.get("splashersWanted").toString());
+                            Log.i("greengreen2", object.get("splasherPrices").toString());
+                            Log.i("greengreen3", object.get("carOwnerPrices").toString());
+                            List<Object> allSplashers = object.getList("splashersWanted");
+                            List<Object> allSplasherPrices = object.getList("splasherPrices");
+                            List<Object> allCarOwnerPrices = object.getList("carOwnerPrices");
+                            String splasherNprice;
+                            String splasherNOGprice;
+                            String correctSplasher;
+                            String ogPrice;
+                            String correctPrice;
+                            for(int i = 0;i < allSplashers.size(); i++){
+                                splasherNprice = allSplashers.get(i) + ":"
+                                        + allCarOwnerPrices.get(i);
+                                splasherNOGprice = allSplashers.get(i) + ":"
+                                        +allSplasherPrices.get(i);
+                                Log.i("greengreen3", splasherNprice);
+                                if (allSplashers.get(i).equals(userClassQuery.userName())){
+                                    if (splasherNprice.contains(userClassQuery.userName())){
+
+                                        correctSplasher = allSplashers.get(i).toString();
+                                        Log.i("greengreen4", "is: " + correctSplasher);
+                                        Log.i("greengreen5", "should be: "
+                                                + splasherNOGprice + " and " + splasherNprice);
+                                        correctPrice = splasherNprice.substring
+                                                (splasherNprice.lastIndexOf(":") + 1);
+                                        ogPrice = splasherNOGprice.substring
+                                                (splasherNOGprice.lastIndexOf(":") + 1);
+                                        Log.i("greengreen6", "is: " + ogPrice);
+                                        Log.i("greengreen7", "is: " + correctPrice);
+                                        //now need to update "correctPrice" into RequestClass's
+                                        //"priceWanted" and also have it displayed in car owner
+                                        //request dashboard
+                                        object.put("priceOriginal", ogPrice);
+                                        object.put("priceWanted", correctPrice);
+
+                                    }
+                                }
+                            }
+
                             object.put("splasherUsername", ParseUser.getCurrentUser().getEmail());
                             object.put("splasherShowingName", ssn);
                             object.put("taken","yes");
@@ -1546,14 +1590,18 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
                             if(objects.size() > 0){
                                 for (final ParseObject object : objects){
                                     object.put("splasherUsername", "canceled");
+                                    object.put("splasherShowingName", "clear");
                                     object.put("taken", "no");
+                                    Log.i("white1", "ran");
                                     object.saveInBackground(new SaveCallback() {
                                         @Override
                                         public void done(ParseException e) {
+                                            Log.i("white2", "ran");
                                             if(pressed) {
+                                                Log.i("white3", "ran");
                                                 ParseQuery<ParseObject> directionQuery = ParseQuery
                                                         .getQuery("Profile");
-                                                directionQuery.whereEqualTo("username", ParseUser
+                                                directionQuery.whereEqualTo("email", ParseUser
                                                         .getCurrentUser().getUsername());
                                                 directionQuery.findInBackground(
                                                         new FindCallback<ParseObject>() {
@@ -1562,6 +1610,7 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
                                                             , ParseException e) {
                                                         if (e == null) {
                                                             if (objects.size() > 0) {
+                                                                Log.i("white4", "ran");
                                                                 int totalCanceledWashes;
                                                                 int newTotalCanceledWashes;
                                                                 for (ParseObject object : objects) {
@@ -1572,7 +1621,8 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
                                                                     newTotalCanceledWashes =
                                                                             totalCanceledWashes + 1;
                                                                     object.put("washesCanceled",
-                                                                            newTotalCanceledWashes);
+                                                                            String.valueOf
+                                                                                    (newTotalCanceledWashes));
                                                                     object.saveInBackground(new
                                                                               SaveCallback() {
                                                                         @Override
@@ -1616,7 +1666,7 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
             }
         });
         cancelingRequestDialog.setNegativeButton(getResources().getString(R.string
-                .carOwnerLocation_act_java_ok), null);
+                .carOwnerLocation_act_java_no), null);
         cancelingRequestDialog.setCancelable(false);
         cancelingRequestDialog.show();
     }

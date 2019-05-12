@@ -1890,7 +1890,6 @@ id barAnimationBfPics
 id barAnimationWashingCar
 id barrier
 id becomeASplash
-id becomeASplash2
 id becomeSplashRelative
 id become_independent_splasher
 id beforeAfterTitle
@@ -1914,11 +1913,14 @@ id billDescriptionTitle
 id billPriceTitle
 id billSplashFeeItem
 id billSplashFeePrice
+id billTaxesPrice
 id billTipItem
 id billTipPrice
 id billTitleTitle
 id billTotalItem
 id billTotalPrice
+id bill_inner_relative
+id bill_scroll_view
 id blocking
 id bottom
 id bottomSheetSplasherList
@@ -2254,7 +2256,6 @@ id ofTomorrow
 id oneNav
 id open_graph
 id or
-id orSplashLogIn
 id otherAddress1
 id otherAddress2
 id otherAddress3
@@ -2269,6 +2270,7 @@ id parentPanel
 id parent_matrix
 id passwordInput
 id passwordInput2
+id payme_seller_app_btn
 id paymentRelative
 id paymentScroll
 id paymentSecondRelative
@@ -2490,7 +2492,6 @@ id splasherGridFetchProgressBar
 id splasherGridFetchTitle
 id splasherGridFragment
 id splasherInfoHolder
-id splasherLogInButton
 id splasherLogoSignUp
 id splasherPicInStatusWindow
 id splasherPriceLinear
@@ -2501,18 +2502,14 @@ id splasherSignUpBankAccNum2
 id splasherSignUpBankDetailsRelative
 id splasherSignUpButton
 id splasherSignUpCity
-id splasherSignUpContactAgreement
 id splasherSignUpCountryID
 id splasherSignUpCountryIdIssued
 id splasherSignUpDateOfBirth
 id splasherSignUpEmail
 id splasherSignUpGender
-id splasherSignUpPassword
-id splasherSignUpPassword2
 id splasherSignUpPhoneNumber
 id splasherSignUpRelative
 id splasherSignUpScroll
-id splasherSignUpUserName
 id splasherStatus
 id splasher_fragment_container
 id splasher_info_toco_back_space
@@ -2561,6 +2558,7 @@ id switchBeforeText
 id tabMode
 id tag_transition_group
 id takePhoto
+id taxesTitle
 id termsIcon
 id termsLinear
 id termsRelativeFirst
@@ -3085,6 +3083,7 @@ string afterWash
 string app_name
 string appbar_scrolling_view_behavior
 string becomeSplasher_act_java_bothPasswords
+string becomeSplasher_act_java_givatayim
 string becomeSplasher_act_java_herzliya
 string becomeSplasher_act_java_hired
 string becomeSplasher_act_java_independent
@@ -3383,6 +3382,7 @@ string payment_bill_description
 string payment_bill_pay
 string payment_bill_price
 string payment_bill_splasherFee
+string payment_bill_taxesFee
 string payment_bill_thankYouForChoosing
 string payment_bill_tip
 string payment_bill_total
@@ -3396,6 +3396,7 @@ string place_autocomplete_search_hint
 string please_wait
 string project_id
 string search_menu_title
+string seller_account_creator
 string serviceShow_menu_reportUser
 string seventy
 string shekel
@@ -3455,6 +3456,7 @@ string washMyCar_act_java_inputLocationDetails
 string washMyCar_act_java_minimumDuration
 string washMyCar_act_java_missingFields
 string washMyCar_act_java_motorcycle
+string washMyCar_act_java_noSplasherSelected
 string washMyCar_act_java_ok
 string washMyCar_act_java_pleaseFillAll
 string washMyCar_act_java_ramatGan
@@ -3464,6 +3466,7 @@ string washMyCar_act_java_thisCityIs
 string washMyCar_act_java_washRequestSent
 string washMyCar_act_java_washTimeLimit
 string washMyCar_act_java_yes
+string washMyCar_act_java_youMustSelectAtLeast
 string washMyCar_act_java_yourWashLimitShort
 string washMyCar_act_java_yourWashTimeLimit
 string x

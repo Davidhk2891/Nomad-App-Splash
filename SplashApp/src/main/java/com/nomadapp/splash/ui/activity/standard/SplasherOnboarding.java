@@ -85,7 +85,8 @@ public class SplasherOnboarding extends AppCompatActivity {
                             ,getResources().getString(R.string
                                     .becomeSplasher_act_java_bothPasswords), 1);
                 } else if(!mSplasher_onboarding_email.getText().toString().contains("@")
-                            || !mSplasher_onboarding_email.getText().toString().contains(".com")) {
+                            || !mSplasher_onboarding_email.getText().toString().contains(".com")
+                            || !mSplasher_onboarding_email.getText().toString().contains(".co")) {
                         toastMessages.productionMessage(SplasherOnboarding.this
                                 ,getResources().getString(R.string
                                         .becomeSplasher_act_java_pleaseEnterValidEmail),
@@ -99,7 +100,7 @@ public class SplasherOnboarding extends AppCompatActivity {
     }
 
     private void createParseSplasherUser(){
-        final String splasher = ProfileConstants.CLASS_PROFILE_SPLAHER;//<-- TYPE OF USER
+        final String splasher = ProfileConstants.CLASS_PROFILE_SPLAHER;
         ParseUser splasherUser = new ParseUser();
         splasherUser.setUsername(mSplasher_onboarding_email.getText().toString());
         splasherUser.setPassword(mSplasher_onboarding_password.getText().toString());

@@ -17,6 +17,7 @@ import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.imagehandler.GlideImagePlacement;
 import com.nomadapp.splash.model.objects.MySplasher;
 import com.nomadapp.splash.model.objects.users.SplasherSelector;
+import com.nomadapp.splash.ui.activity.carownerside.WashReqParamsActivity;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 
 import java.util.ArrayList;
@@ -46,7 +47,6 @@ public class SplasherListAdapter extends ArrayAdapter<MySplasher> {
         splasherSelector = new SplasherSelector(ctx);
 
         notifyDataSetChanged();
-
     }
 
     public MySplasher getSplasher() {
@@ -109,8 +109,16 @@ public class SplasherListAdapter extends ArrayAdapter<MySplasher> {
         holder.holderSplasher = getItem(position);
 
         if (holder.holderSplasher != null){
+
+            if (!WashReqParamsActivity.individuallyChecked){
+                holder.mSplasherCardView.setCardBackgroundColor(holder.holderSplasher
+                        .getSplasherCardColor());
+                holder.mSplasherName.setTextColor(holder.holderSplasher.getSplasherTxtColor());
+                holder.mSplasherNumWashes.setTextColor(holder.holderSplasher.getSplasherTxtColor());
+            }
+
             holder.mSplasherName.setText(holder.holderSplasher.getSplasherUsername());
-            holder.mSplasherPrice.setText(holder.holderSplasher.getSplasherPrice());
+            holder.mSplasherPrice.setText(holder.holderSplasher.getCarOwnerPrice());
             holder.mSplasherNumWashes.setText(holder.holderSplasher.getSplasherNumOfWashes());
             int fixedProgress = (holder.holderSplasher.getSplasherAvgRating()) * 2;
             holder.mSplasherRatingBar.setProgress(fixedProgress);
@@ -126,15 +134,23 @@ public class SplasherListAdapter extends ArrayAdapter<MySplasher> {
         holder.mSelectSplasher.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Log.i("green1", "ran");
-                splasherSelector.selectSplashers(holder.mSplasherCardView, holder.mSplasherName
-                        ,holder.mSplasherNumWashes);
+                if (!WashReqParamsActivity.allListSelected) {
+                    Log.i("green1", "ran");
+                    Log.i("green2", holder.holderSplasher.getSplasherUsername());
+                    splasherSelector.selectSplashers(holder.mSplasherCardView, holder.mSplasherName
+                            , holder.mSplasherNumWashes
+                            , holder.holderSplasher.getSplasherActualName()
+                            , holder.holderSplasher.getSplasherPrice()
+                            , holder.holderSplasher.getCarOwnerPrice());
+                    splasherSelector.splasherListCheckerToOrder
+                            (((WashReqParamsActivity) context).cFinallyOrder);
+                }
             }
         });
         return row;
     }
 
-    class ViewHolder{
+    public static class ViewHolder{
         MySplasher holderSplasher;
         CardView mSplasherCardView;
         TextView mSplasherName;

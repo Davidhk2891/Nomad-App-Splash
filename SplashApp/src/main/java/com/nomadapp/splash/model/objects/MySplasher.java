@@ -6,10 +6,38 @@ package com.nomadapp.splash.model.objects;
 public class MySplasher {
 
     private String splasherUsername;
+    private String splasherActualName;
     private String splasherPrice;
+    private String carOwnerPrice;
     private String splasherNumOfWashes;
     private int splasherAvgRating;
     private String splasherProfPic;
+    private int splasherCardColor;
+    private int splasherTxtColor;
+
+    public int getSplasherTxtColor() {
+        return splasherTxtColor;
+    }
+
+    public void setSplasherTxtColor(int splasherTxtColor) {
+        this.splasherTxtColor = splasherTxtColor;
+    }
+
+    public int getSplasherCardColor() {
+        return splasherCardColor;
+    }
+
+    public void setSplasherCardColor(int splasherCardColor) {
+        this.splasherCardColor = splasherCardColor;
+    }
+
+    public String getSplasherActualName() {
+        return splasherActualName;
+    }
+
+    public void setSplasherActualName(String splasherActualName) {
+        this.splasherActualName = splasherActualName;
+    }
 
     public String getSplasherProfPic() {
         return splasherProfPic;
@@ -33,6 +61,14 @@ public class MySplasher {
 
     public void setSplasherPrice(String splasherPrice) {
         this.splasherPrice = splasherPrice;
+    }
+
+    public String getCarOwnerPrice() {
+        return carOwnerPrice;
+    }
+
+    public void setCarOwnerPrice(String carOwnerPrice) {
+        this.carOwnerPrice = carOwnerPrice;
     }
 
     public String getSplasherNumOfWashes() {

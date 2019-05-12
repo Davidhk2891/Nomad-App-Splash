@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,9 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -28,6 +25,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -47,6 +45,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
 import com.nomadapp.splash.model.constants.PaymeConstants;
+import com.nomadapp.splash.model.objects.users.SplasherSelector;
 import com.nomadapp.splash.model.server.parseserver.queries.MetricsClassQuery;
 import com.nomadapp.splash.model.server.parseserver.send.RequestClassSend;
 import com.nomadapp.splash.ui.activity.carownerside.payment.PaymentSettingsActivity;
@@ -59,19 +58,17 @@ import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.nomadapp.splash.model.localdatastorage.CarLocalDatabaseHandler;
 import com.nomadapp.splash.utils.sysmsgs.connectionlost.ConnectionLost;
 import com.nomadapp.splash.model.objects.MyCar;
-import com.nomadapp.splash.model.imagehandler.GlideApp;
 import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 public class WashReqParamsActivity extends AppCompatActivity implements
         SplasherListFragment.OnFragmentInteractionListener{
-
-    private static final int REQUEST_CC_FROM_CCDETS = 50;
 
     //Location, Time, Services
     private EditText cCrLocationDescriptionEdit;
@@ -82,7 +79,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     private Button cSetTimeNow, cCancelTimeNow;
     private boolean todaySwitchedToTomorrow = false;
     private TextView cOfTomorrow;
-    private Switch cUntilTimeSwitchTodayTomorrow;
     private String externalWash;
     private String intExtWash;
     private String motorcycle;
@@ -97,7 +93,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     private AlertDialog.Builder deleteCarDialog;
     private ImageView cSpinnerArrow;
     private boolean carListVisible = false;
-    private boolean justAddedCar = false;
 
     //loadRequest()
     private boolean locationChecked = false;
@@ -115,10 +110,8 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     private static String carModelToUpload;
     private static String carColorToUpload;
     private static String carPlateToUpload;
-    private static String profilePicToUpload;
-    private static String profPicNoFbString;
     private String stringPriceSet;
-    private static String dollarSetPrice;
+    private static String initialSetPrice;
     private static String fullDate;
 
     //Rating and pricing
@@ -126,14 +119,12 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     private ImageView cTheRating;
     private SeekBar cThePrice;
     private TextView cSplasherPriceSet;
-    private double readyPrice;
-    private double dpValue;
     private static int numericalBadge;
     private static boolean temporalKeyActive = false;
     private WriteReadDataInFile writeReadDataInFile =
             new WriteReadDataInFile(WashReqParamsActivity.this);
-    private Button cFinallyOrder;
-    private String[] items;
+    public Button cFinallyOrder;
+    private CheckBox mSelectAll_checkbox;
 
     //primitive variables
     private int PLACE_PICKER_REQUEST = 1;
@@ -154,6 +145,9 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     private int splashDarkBlue;
     private int white;
 
+    public static boolean individuallyChecked = false;
+    public static boolean allListSelected = false;
+
     private ToastMessages toastMessages = new ToastMessages();
     private ConnectionLost clm = new ConnectionLost(WashReqParamsActivity.this);
     private BoxedLoadingDialog boxedLoadingDialog =
@@ -161,7 +155,10 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     private MetricsClassQuery metricsClassQuery =
             new MetricsClassQuery(WashReqParamsActivity.this);
     private SplasherListFragment splasherListFragment = new SplasherListFragment();
-    private ForcedAlertDialog forcedAlertDialog = new ForcedAlertDialog(WashReqParamsActivity.this);
+    private ForcedAlertDialog forcedAlertDialog =
+            new ForcedAlertDialog(WashReqParamsActivity.this);
+    private SplasherSelector splasherSelector =
+            new SplasherSelector(WashReqParamsActivity.this);
 
     //Getters//
     //TRY THIS METHOD
@@ -196,10 +193,12 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     public String getCarPlateToUpload() {
         return carPlateToUpload;
     }
-    public String getDollarSetPrice(){
-        //TEMPORARY//
-        return String.valueOf(PaymeConstants.STATIC_TEMPORAL_PRICE);
-    }
+    /*
+        public String getDollarSetPrice(){
+            //TEMPORARY//
+            return String.valueOf(PaymeConstants.STATIC_TEMPORAL_PRICE);
+        }
+        */
     public int getNumericalBadge(){
         return numericalBadge;
     }
@@ -269,7 +268,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         mExtIntButton = findViewById(R.id.extIntButton);
         mMotoButton = findViewById(R.id.motoButton);
         LinearLayout cSetTimeCancelTTLinear = findViewById(R.id.setTimeCancelTTLinear);
-        cUntilTimeSwitchTodayTomorrow = findViewById(R.id.untilTimeSwitchTodayTomorrow);
+        Switch cUntilTimeSwitchTodayTomorrow = findViewById(R.id.untilTimeSwitchTodayTomorrow);
         cOfTomorrow = findViewById(R.id.ofTomorrow);
         cTimePick.setIs24HourView(false);
         cTimePick.bringToFront();
@@ -310,6 +309,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         cThePrice = findViewById(R.id.thePrice);
         cSplasherPriceSet = findViewById(R.id.splasherPriceSet);
         cFinallyOrder = findViewById(R.id.finallyOrder);
+        mSelectAll_checkbox = findViewById(R.id.selectAll_checkbox);
         cRatingAndPricingRelative.setVisibility(View.GONE);
 
         splashDarkBlue = getResources().getColor(R.color.ColorPrimaryDark);
@@ -362,7 +362,9 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                                 .getString(R.string.washMyCar_act_java_givataim))){
 
                     getServiceType = externalWash;
-                    splasherListFragment.getSplasherList(getServiceType);
+                    splasherListFragment.getSplasherList(getServiceType,getResources()
+                            .getColor(R.color.pureWhite),getResources()
+                            .getColor(R.color.ColorPrimaryDark));
 
                     flipBgServiceBtn(mExternalButton,splashDarkBlue,white);
                     setWhiteBgBlueStroke(mExtIntButton,splashDarkBlue);
@@ -523,23 +525,41 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                                 .isEmpty()) && (writeReadDataInFile
                                 .readFromFile("buyer_key_permanent").isEmpty())) {
                     toastMessages.productionMessage(getApplicationContext()
-                    ,getResources().getString(R.string.act_wash_my_car_pleaseChoosePaymentM)
-                    ,1);
+                            , getResources().getString(R.string.act_wash_my_car_pleaseChoosePaymentM)
+                            , 1);
                     startActivity(new Intent(WashReqParamsActivity.this
-                            ,PaymentSettingsActivity.class));
+                            , PaymentSettingsActivity.class));
+                }else if(SplasherSelector.COLLECTOR_LIST.size() == 0){
+                    Log.i("orange3", String.valueOf(SplasherSelector.COLLECTOR_LIST.size()));
+                    forcedAlertDialog.generalPurposeForcedDialogNoAction(
+                            getResources().getString(R.string.washMyCar_act_java_noSplasherSelected)
+                            ,getResources().getString(R.string.washMyCar_act_java_youMustSelectAtLeast)
+                            ,getResources().getString(R.string.washMyCar_act_java_ok));
                 }else{
+                    String[] splasherswanted = splasherSelector.getCollectorArrayToSend();
+                    String[] ogPricesWanted = splasherSelector.getRespectiveOgPricesArrayToSend();
+                    String[] pricesWanted = splasherSelector.getRespectivePricesArrayToSend();
+                    Log.i("orange", Arrays.asList(splasherswanted).toString());
                     String splasherUsername = "clear";
                     String splasherShowingName = "clear";
-                    String requestType = "public";
+                    String requestType = "";
+                    if (SplasherSelector.COLLECTOR_LIST.size() == 1) {
+                        requestType = "private";
+                    }else if (SplasherSelector.COLLECTOR_LIST.size() >= 2){
+                        requestType = "public";
+                    }
                     boxedLoadingDialog.showLoadingDialog();
                     RequestClassSend requestClassSend = new RequestClassSend
                             (WashReqParamsActivity.this);
                     loadDataToFile();
+                    cleanUntilTime();
                     requestClassSend.loadRequest(address,carCoordinates,carAddressDescription
                     ,fullDate,selectedTime,getServiceType,carBrandToUpload
-                    ,carModelToUpload,carColorToUpload,carPlateToUpload,dollarSetPrice
-                    ,numericalBadge,temporalKeyActive,splasherUsername, splasherShowingName,requestType);
-                    //Metrics class attached to the button finallyOrder. inside LOADREQUEST method
+                    ,carModelToUpload,carColorToUpload,carPlateToUpload,initialSetPrice
+                    ,numericalBadge,temporalKeyActive,splasherswanted,ogPricesWanted
+                    ,pricesWanted,splasherUsername,splasherShowingName,requestType);
+                    //Need to figure out a way to access this button from 2 other classes
+                    //and change its properties
                 }
             }
         });
@@ -1089,6 +1109,19 @@ public class WashReqParamsActivity extends AppCompatActivity implements
             getServiceType = externalWash;
             splasherListFragmentInit();
         }
+        finallyOrderBtnInactiveBg();
+
+        //Empty Splashers collection as soon as activity starts
+        splasherSelector.deleteSplasherCollection();
+    }
+
+    private void cleanUntilTime(){
+        if (selectedTime.contains(getResources()
+                .getString(R.string.act_wash_my_car_until2))) {
+            String selectedTimePre = selectedTime;
+            selectedTime = selectedTimePre.replace(getResources()
+                    .getString(R.string.act_wash_my_car_until2), "");
+        }
     }
 
     private String deadLinePrefix(String string){
@@ -1125,60 +1158,96 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         mExternalButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                individuallyChecked = false;
                 cSplasherPriceSet.setVisibility(View.VISIBLE);
                 cSplasherPriceSet.setText(getResources().getString(R.string.thirty));
-                finallyOrderBtnActiveBg();
                 cFinallyOrder.setEnabled(true);
                 cFinallyOrder.setClickable(true);
-
                 gridLayoutState(false);
                 flipBgServiceBtn(mExternalButton,splashDarkBlue,white);
                 setWhiteBgBlueStroke(mExtIntButton,splashDarkBlue);
                 setWhiteBgBlueStroke(mMotoButton,splashDarkBlue);
                 getServiceType = externalWash;
-                splasherListFragment.getSplasherList(getServiceType);
+                unselectAllSplashersOps();
+                mSelectAll_checkbox.setChecked(false);
                 gridLayoutState(true);
             }
         });
         mExtIntButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //HERE
                 hideKeyboardTwo();
+                individuallyChecked = false;
                 cSplasherPriceSet.setVisibility(View.VISIBLE);
                 cSplasherPriceSet.setText(getResources().getString(R.string.seventy));
                 if (!internalWashedPicked) {
                     updateInternalWashCounter();
                     internalWashedPicked = true;
                 }
-
                 gridLayoutState(false);
                 setWhiteBgBlueStroke(mExternalButton,splashDarkBlue);
                 flipBgServiceBtn(mExtIntButton,splashDarkBlue,white);
                 setWhiteBgBlueStroke(mMotoButton,splashDarkBlue);
                 getServiceType = intExtWash;
-                splasherListFragment.getSplasherList(getServiceType);
+                unselectAllSplashersOps();
+                mSelectAll_checkbox.setChecked(false);
                 gridLayoutState(true);
             }
         });
         mMotoButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                individuallyChecked = false;
                 cSplasherPriceSet.setVisibility(View.VISIBLE);
                 cSplasherPriceSet.setText(getResources().getString(R.string.twenty));
-                finallyOrderBtnActiveBg();
                 cFinallyOrder.setEnabled(true);
                 cFinallyOrder.setClickable(true);
-
                 gridLayoutState(false);
                 setWhiteBgBlueStroke(mExternalButton,splashDarkBlue);
                 setWhiteBgBlueStroke(mExtIntButton,splashDarkBlue);
                 flipBgServiceBtn(mMotoButton,splashDarkBlue,white);
                 getServiceType = motorcycle;
-                splasherListFragment.getSplasherList(getServiceType);
+                unselectAllSplashersOps();
+                mSelectAll_checkbox.setChecked(false);
                 gridLayoutState(true);
             }
         });
+        //Select All Splashers
+        mSelectAll_checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                individuallyChecked = false;
+                if (isChecked){
+                    selectAllSplashersOps();
+                }else{
+                    unselectAllSplashersOps();
+                }
+            }
+        });
+    }
+
+    private void selectAllSplashersOps(){
+        allListSelected = true;
+        splasherListFragment.getSplasherList(getServiceType,getResources()
+                .getColor(R.color.ColorPrimary), getResources()
+                .getColor(R.color.pureWhite));
+        splasherSelector.addWholeSplasherColletion(splasherListFragment
+                .getSplasherUserNames(), splasherListFragment.getSplasherUserPrice(),
+                splasherListFragment.getCarOwnerUserPrice());
+        Log.i("greenList", SplasherSelector.COLLECTOR_LIST.toString() + " - "
+            + SplasherSelector.RESPECTIVE_OG_PRICES_LIST.toString() + " - "
+            + SplasherSelector.RESPECTIVE_PRICES_LIST.toString());
+        splasherSelector.splasherListCheckerToOrder(cFinallyOrder);
+    }
+
+    private void unselectAllSplashersOps(){
+        allListSelected = false;
+        splasherListFragment.getSplasherList(getServiceType,getResources()
+                .getColor(R.color.pureWhite),getResources()
+                .getColor(R.color.ColorPrimaryDark));
+        splasherSelector.deleteSplasherCollection();
+        Log.i("greenList1", SplasherSelector.COLLECTOR_LIST.toString());
+        splasherSelector.splasherListCheckerToOrder(cFinallyOrder);
     }
 
     private void flipBgServiceBtn(Button button, int bgWhiteBlueStroke, int textColor){
@@ -1275,9 +1344,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     public void finallyOrderBtnInactiveBg(){
         cFinallyOrder.setBackgroundResource(R.drawable.btn_shape_grey);
     }
-    public void finallyOrderBtnActiveBg(){
-        cFinallyOrder.setBackgroundResource(R.drawable.btn_shape);
-    }
     //--------------------------------------------------------------------------------------------//
 
     public void clockState(int layoutState1, int layoutState2 ,boolean clockState){
@@ -1304,12 +1370,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
             cCrUntilEdit.setText(writeReadDataInFile.readFromFile("untilTime"));
         }
         timePickerMoved = false;
-    }
-
-    //Hide page index 1 of 2 (2)
-    public static float dpToPx(Context context) {
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) 200, metrics);
     }
 
     //Until Time Extention
@@ -1360,9 +1420,9 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                  */
                 //getServiceType = externalWash;
                 //splasherListFragment.getSplasherList(getServiceType);//FIIIXXX
-            } else if (requestCode == REQUEST_CC_FROM_CCDETS) {
-                String ccMask = data.getStringExtra("paymeCCMask");
-            }
+            } //else if (requestCode == REQUEST_CC_FROM_CCDETS) {
+                //String ccMask = data.getStringExtra("paymeCCMask");
+            //}
         }
     }
 
@@ -1394,14 +1454,12 @@ public class WashReqParamsActivity extends AppCompatActivity implements
 
             toastMessages.debugMesssage(getApplicationContext(),"there is a permanent key"
             ,1);
-            finallyOrderBtnActiveBg();
 
         }else if(writeReadDataInFile.readFromFile("buyer_key_permanent").equals("") &&
                 !writeReadDataInFile.readFromFile("buyer_key_temporal").equals("")){
 
             toastMessages.debugMesssage(getApplicationContext()
                     ,"there is a temporal key",1);
-            finallyOrderBtnActiveBg();
 
         }else if(writeReadDataInFile.readFromFile("buyer_key_permanent").equals("") &&
                 writeReadDataInFile.readFromFile("buyer_key_temporal").equals("")){
@@ -1453,11 +1511,11 @@ public class WashReqParamsActivity extends AppCompatActivity implements
             stringPriceSet = String.valueOf(PaymeConstants.STATIC_TEMPORAL_PRICE_MOTO);
         }
 
-        dollarSetPrice = setPrice;//<--FINAL
+        initialSetPrice = "clear";//<--FINAL
         String setRawNum = stringPriceSet;
         writeReadDataInFile.writeToFile(setRawNum, "setPrice"); //writtenToFile5
         writeReadDataInFile.writeToFile(setPrice, "thePriceIsRight"); //writtenToFile6
-        writeReadDataInFile.writeToFile(String.valueOf(cThePrice.getProgress()), "progress");
+        writeReadDataInFile.writeToFile(String.valueOf(cThePrice.getProgress()),"progress");
         //Language state safety//
         writeReadDataInFile.writeToFile(String.valueOf(Locale.getDefault().getDisplayLanguage())
                 , "languageSateSafety");
@@ -1625,12 +1683,12 @@ public class WashReqParamsActivity extends AppCompatActivity implements
 //        }
     }
 
-    public void defaultBadgePrice(String defaultPrice){
-        showBadge(R.drawable.bronzebadge);
-        numericalBadge = 1; //BAD
-        cThePrice.setProgress(1);
-        cSplasherPriceSet.setText(defaultPrice);
-    }
+//    public void defaultBadgePrice(String defaultPrice){
+//        showBadge(R.drawable.bronzebadge);
+//        numericalBadge = 1; //BAD
+//        cThePrice.setProgress(1);
+//        cSplasherPriceSet.setText(defaultPrice);
+//    }
 
     private void refreshData(){
 
@@ -1670,7 +1728,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                 cCarList.setVisibility(View.VISIBLE);
                 cSpinnerArrow.setRotation(180);
                 carListVisible = true;
-                justAddedCar = true;
                 carBrandToUpload = keyToKeepListOpen.getString("carBrand");
                 carModelToUpload = keyToKeepListOpen.getString("carModel");
                 carColorToUpload = keyToKeepListOpen.getString("carColor");
@@ -1700,10 +1757,10 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         private Activity activity;
         private int layoutResource;
         private ArrayList<MyCar> mData;
-        private int finalSelecId;
+        //private int finalSelecId;
 
         //Constructor
-        public CarAdapter(Activity act, int resource, ArrayList<MyCar> data){
+        private CarAdapter(Activity act, int resource, ArrayList<MyCar> data){
             super(act, resource, data);
 
             activity = act;
@@ -1805,7 +1862,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
 
                     Log.i("values", carBrandToUpload);
 
-                    finalSelecId = finalHolder.holderCar.getItemId(); //I think here is how to do it
+                    //finalSelecId = finalHolder.holderCar.getItemId(); //I think here is how to do it
 
                     String carSelectedHolder = carBrandToUpload + " " + carModelToUpload;
                     cCarSelected.setText(carSelectedHolder);
@@ -1880,13 +1937,13 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         TextView mPlate;
     }
 
-    public void showBadge(int drawable){
-        GlideApp
-                .with(WashReqParamsActivity.this)
-                .load(drawable)
-                .timeout(20000)
-                .into(cTheRating);
-    }
+//    public void showBadge(int drawable){
+//        GlideApp
+//                .with(WashReqParamsActivity.this)
+//                .load(drawable)
+//                .timeout(20000)
+//                .into(cTheRating);
+//    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

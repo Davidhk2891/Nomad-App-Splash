@@ -49,6 +49,7 @@ public class PaymentBillActivity extends AppCompatActivity {
 
         TextView mBillCarWashPrice = findViewById(R.id.billCarWashPrice);
         TextView mBillSplashFeePrice = findViewById(R.id.billSplashFeePrice);
+        TextView mBillTaxes = findViewById(R.id.billTaxesPrice);
         TextView mBillCCFeePrice = findViewById(R.id.billCCFeePrice);
         TextView mBillTipPrice = findViewById(R.id.billTipPrice);
         TextView mBillTotalPrice = findViewById(R.id.billTotalPrice);
@@ -72,7 +73,7 @@ public class PaymentBillActivity extends AppCompatActivity {
         //-------------------//
 
         splashGenerateSaleManual.getAllDataForManualPayment(mBillCarWashPrice, mBillTipPrice
-                , mBillSplashFeePrice, mBillCCFeePrice, mBillTotalPrice);
+                , mBillSplashFeePrice, mBillCCFeePrice, mBillTaxes, mBillTotalPrice);
 
     }
 

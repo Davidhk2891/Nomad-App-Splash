@@ -124,6 +124,7 @@
     <string name="becomeSplasher_act_java_splasherType">Splasher type</string>
     <string name="becomeSplasher_act_java_independent">Independent</string>
     <string name="becomeSplasher_act_java_hired">Hired</string>
+    <string name="seller_account_creator">Seller Account Creator</string>
     <!--////////////////////////-->
 
     <!-- activity_splasher_camera-->
@@ -406,6 +407,7 @@
     <string name="payment_bill_carWash">- Car wash:</string>
     <string name="payment_bill_splasherFee">- Splash fee:</string>
     <string name="payment_bill_creditCardFee">- Credit card fee:</string>
+    <string name="payment_bill_taxesFee">- Taxes:</string>
     <string name="payment_bill_tip">- Tip:</string>
     <string name="payment_bill_total">- Total:</string>
     <string name="payment_bill_pay">Pay</string>
@@ -591,6 +593,7 @@
     <string name="becomeSplasher_act_java_telAviv">Tel Aviv</string>
     <string name="becomeSplasher_act_java_ramatGan">Ramat Gan</string>
     <string name="becomeSplasher_act_java_herzliya">Herzliya</string>
+    <string name="becomeSplasher_act_java_givatayim">Giv\'atayim</string>
     <string name="becomeSplasher_act_java_ok">OK</string>
     <string name="becomeSplasher_act_java_pleaseLoginThroughRespec">Please log in through your respective user type account: Car Owner</string>
     <string name="becomeSplasher_act_java_wrongUserType">Wrong user type</string>
@@ -686,6 +689,8 @@
     <string name="washMyCar_act_java_cityOutOfRange">City out of range</string>
     <string name="washMyCar_act_java_thisCityIs">This city is currently out of our range. Splash operates in
         Tel Aviv, Giv\'ataim and Ramat Gan at the moment. Please choose one of these cities.</string>
+    <string name="washMyCar_act_java_noSplasherSelected">No Splasher Selected</string>
+    <string name="washMyCar_act_java_youMustSelectAtLeast">You must select at least one Splasher before sending your request</string>
     <!--//////////////////////-->
 
     <!--PaymentSettingsActivity.java-->

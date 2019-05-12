@@ -17,16 +17,20 @@ import android.widget.TextView;
 
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.server.parseserver.MessageClassInterface;
+import com.nomadapp.splash.model.server.parseserver.ProfileClassInterface;
+import com.nomadapp.splash.model.server.parseserver.queries.ProfileClassQuery;
 import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.model.server.parseserver.send.MessageClassSend;
 import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class ContactUsActivity extends AppCompatActivity {
 
@@ -43,6 +47,8 @@ public class ContactUsActivity extends AppCompatActivity {
     private UserClassQuery userClassQuery = new UserClassQuery(ctx);
     private ToastMessages toastMessages = new ToastMessages();
     private BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog(ctx);
+
+    private int secLockInt = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,15 +68,34 @@ public class ContactUsActivity extends AppCompatActivity {
         mPhotoUploadCUTextView = findViewById(R.id.photoUploadCUTextView);
 
         getUserData();
-
     }
 
     public void getUserData(){
         if (userClassQuery.userExists()){
             currentUsername = userClassQuery.userName();
             currentEmail = userClassQuery.email();
-            mContactUsUsername.setText(currentUsername);
-            mContactUsEmail.setText(currentEmail);
+            //get profile here user here
+            UserClassQuery ucq = new UserClassQuery(ctx);
+            ProfileClassQuery pcq = new ProfileClassQuery(ctx);
+            String splasher = "splasher";
+            if (ucq.userIsCarOwnerOrSplasher(splasher)){
+                pcq.fetchAllSplashersInfo(userClassQuery.userName(), new ProfileClassInterface
+                        .allSplashersInfo() {
+                    @Override
+                    public void getInfo(ParseObject object) {
+                        mContactUsUsername.setText(object.get("username").toString());
+                        mContactUsEmail.setText(currentEmail);
+                    }
+
+                    @Override
+                    public void afterLoop(List<ParseObject> objects) {
+
+                    }
+                });
+            }else{
+                mContactUsUsername.setText(currentUsername);
+                mContactUsEmail.setText(currentEmail);
+            }
         }
     }
 
@@ -132,10 +157,13 @@ public class ContactUsActivity extends AppCompatActivity {
             if (requestCode == 1){
                 Uri targetUriID = data.getData();
                 if (targetUriID != null) {
-                    String onlyFileNameID = targetUriID.toString().substring(targetUriID.getPath().lastIndexOf(File.separator) + 1);
-                    String onlyFileNameID2 = onlyFileNameID.substring(onlyFileNameID.lastIndexOf("/") + 1);
+                    String onlyFileNameID = targetUriID.toString().substring(targetUriID.getPath()
+                            .lastIndexOf(File.separator) + 1);
+                    String onlyFileNameID2 = onlyFileNameID.substring(onlyFileNameID
+                            .lastIndexOf("/") + 1);
                     try {
-                        socialBitmapGal = MediaStore.Images.Media.getBitmap(this.getContentResolver(), targetUriID);
+                        socialBitmapGal = MediaStore.Images.Media.getBitmap(this
+                                .getContentResolver(), targetUriID);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -165,7 +193,6 @@ public class ContactUsActivity extends AppCompatActivity {
                 Log.i("permission","Permission is granted, press again");
                 return true;
             } else {
-
                 Log.i("permission","Permission is revoked");
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest
                         .permission. READ_EXTERNAL_STORAGE}, 1);
@@ -175,6 +202,27 @@ public class ContactUsActivity extends AppCompatActivity {
         else { //permission is automatically granted on sdk<23 upon installation
             Log.i("permission","Permission is granted, press again");
             return true;
+        }
+    }
+
+    public void toSellerApp(View view){
+        Log.i("secretLevel", " is tapped");
+        if (userClassQuery.userExists()) {
+            if (secLockInt == 0 || secLockInt == 1 || secLockInt == 2 || secLockInt == 3
+                    || secLockInt == 4 || secLockInt == 5) {
+                secLockInt++;
+                Log.i("secretLevel", " is at: " + String.valueOf(secLockInt));
+            } else if (secLockInt == 6) {
+                secLockInt = 0;
+                toastMessages.productionMessage(ContactUsActivity.this
+                        , "Secret Level Unlocked", 1);
+                Intent intent2 = new Intent(ContactUsActivity.this,
+                        SplasherApplicationActivity.class);
+                startActivity(intent2);
+            }
+        }else{
+            toastMessages.productionMessage(ContactUsActivity.this
+                    ,"Not yet", 1);
         }
     }
 }

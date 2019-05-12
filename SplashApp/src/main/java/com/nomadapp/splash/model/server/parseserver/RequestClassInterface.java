@@ -18,6 +18,7 @@ public interface RequestClassInterface {
 
     interface TakenRequest{
         void fetchThisTakenRequest(ParseObject object);
+        void afterUpdates();
     }
 
     interface clearData{

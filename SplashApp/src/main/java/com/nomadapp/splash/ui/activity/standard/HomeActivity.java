@@ -61,7 +61,6 @@ import com.nomadapp.splash.model.mapops.OnAddressFetched;
 import com.nomadapp.splash.model.payment.paymeapis.seller.SplashCreateSeller;
 import com.nomadapp.splash.model.payment.paymeapis.ssale.SplashGenerateSaleAutomatic;
 import com.nomadapp.splash.model.server.Installation;
-import com.nomadapp.splash.model.server.parseserver.DocumentsClassInterface;
 import com.nomadapp.splash.model.server.parseserver.HistoryClassInterface;
 import com.nomadapp.splash.model.server.parseserver.ProfileClassInterface;
 import com.nomadapp.splash.model.server.parseserver.RequestClassInterface;
@@ -72,7 +71,6 @@ import com.nomadapp.splash.model.server.parseserver.queries.ProfileClassQuery;
 import com.nomadapp.splash.model.server.parseserver.queries.RequestClassQuery;
 import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.model.server.parseserver.send.AddressesClassSend;
-import com.nomadapp.splash.model.server.parseserver.send.DocumentsClassSend;
 import com.nomadapp.splash.model.server.parseserver.send.MetricsClassSend;
 import com.nomadapp.splash.ui.activity.carownerside.QuickTourActivity;
 import com.nomadapp.splash.ui.activity.splasherside.SplasherServicesActivity;
@@ -107,6 +105,7 @@ import com.parse.SaveCallback;
 import com.paymeservice.android.PayMe;
 import com.paymeservice.android.model.Settings;
 import static com.paymeservice.android.model.Settings.Environment.PRODUCTION;
+import static com.paymeservice.android.model.Settings.Environment.STAGING;
 
 import net.qiujuer.genius.ui.widget.SeekBar;
 
@@ -140,7 +139,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private boolean alreadyExecuted6 = false;
     private boolean alreadyExecuted8 = false;
     private boolean alreadyExecuted9 = false;
-    private boolean alreadyExecuted10 = false;
     private boolean splasherActive = false;
     private boolean background = false;
     private boolean shutDownChecker = false;
@@ -174,6 +172,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private TextView cSplasherStatus;
     private LatLng userLocation;
     private String isThereASplasher, splasherShowingName;
+    private String splasherPrice;
     private TextView mSplasher_stats_co_splasherName;
     private TextView mSplasher_stats_co_numWashes;
     private TextView mSplasher_status_co_distance_text;
@@ -280,27 +279,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private boolean weHaveMotorcycle = false;
 
-    //Documents for Splasher signUp coming from SplasherApplicationActivity.java-----//
-    private String paymeClientKey, sellerFirstName, sellerLastName, sellerSocialId, sellerBirthDate,
-            sellerSocialIdIssued, sellerEmail, sellerPhoneNumber;
-
-    private int sellerGender, sellerBankCode, sellerBankBranch, sellerBankAccountNumber;
-
-    private String sellerDescription, sellerSiteUrl, sellerPersonBussinessType;
-    private int sellerInc;
-
-    private String sellerAddressCity, sellerAddressStreet, sellerAddressCountry;
-    private int sellerAddressStreetNumber;
-
-    private Double sellerMarketFee;
-
-    private String sellerFileSocialId, sellerFileCheque, sellerFileCorporate;
-
-    //--PARAMETER RELEVANT TO APP IN PRODUCTION ONLY--//
-    private String sellerPlan;
-    //------------------------------------------------//
-    //------------------------------------------------------------------------------//
-
     private static final int REQUEST_EXTERNAL_STORAGE_RESULT = 2;
 
     //Splasher wallet//
@@ -336,7 +314,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private HourDifferentiator hd = new HourDifferentiator(HomeActivity.this);
 
     //PAYME---------------//
-    private SplashCreateSeller splashCreateSeller = new SplashCreateSeller(HomeActivity.this);
     private SplashGenerateSaleAutomatic splashGenerateSaleAutomatic = new
             SplashGenerateSaleAutomatic(HomeActivity.this);
     //--------------------//
@@ -556,8 +533,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                             }
                         }
                     });
-                    //create seller operations
-                    dispatchDocumentsSplasherSignUp();
 
                     //Send new splashers to set up their services
                     runTakeNewSplasherToServices();
@@ -631,7 +606,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (userClassQuery.userIsCarOwnerOrSplasher(splasher)) {
                     //Irrelevant to SplasherType, the following menu items should not be shown:
                     navigationView.getMenu().findItem(R.id.twoNav).setVisible(false);
-                    navigationView.getMenu().findItem(R.id.threePointSeventyFiveNav).setVisible(false);
                     navigationView.getMenu().findItem(R.id.oneNav).setVisible(false);
                     profileClassQuery.splasherType(new ProfileClassInterface.walletStatus() {
                         @Override
@@ -706,10 +680,17 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     , AboutActivity.class));
                             return true;
                         case R.id.threePointSeventyFiveNav:
-                            Intent faqIntent = new Intent(HomeActivity.this
-                                    , WebActivity.class);
-                            faqIntent.putExtra("webKey", "faq");
-                            startActivity(faqIntent);
+                            if (userClassQuery.userIsCarOwnerOrSplasher(carOwner)) {
+                                Intent faqIntent = new Intent(HomeActivity.this
+                                        , WebActivity.class);
+                                faqIntent.putExtra("webKey", "faq");
+                                startActivity(faqIntent);
+                            }else if(userClassQuery.userIsCarOwnerOrSplasher(splasher)){
+                                Intent faqIntent = new Intent(HomeActivity.this
+                                        , WebActivity.class);
+                                faqIntent.putExtra("webKey", "splasherFaq");
+                                startActivity(faqIntent);
+                            }
                             return true;
                         case R.id.fourNav:
                             //have to figure out a way to kill the request when logout
@@ -1014,10 +995,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         requestUpdateChecker.run();
     }
 
-    public void fetchCurrentSplasherIfExists(final ParseObject object){
+    private void fetchCurrentSplasherIfExists(final ParseObject object){
         splasherActive = true; //-->if so, updateMap() = inactive (false).
         isThereASplasher = object.getString("splasherUsername");
         splasherShowingName = object.getString("splasherShowingName");
+        splasherPrice = object.getString("priceWanted");
         final String splasherWashNum = object.getString("splasherWashesNum")
                 + " " + getResources().getString(R.string.act_car_owner_washes);
         String splasherRatingNum = object.getString("splasherRatingNum");
@@ -1081,7 +1063,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                             notiForCarOwnerRan = true;
                         }
                     }
-
                     //Splasher Location
                     ParseGeoPoint splasherLocation = userClassQuery.getUserFetchedLocation();
                     Log.i("splasherLocation", " is " + splasherLocation.toString());
@@ -1107,8 +1088,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     final Double distanceOneDP = (double) Math.round(distanceInKm * 10) / 10;
                     cRadarView.stopAnimation();
                     cRadarView.setVisibility(View.GONE);
-                    mSplasher_stats_co_splasherName.setText(splasherShowingName);//TEST WHOLE SYSTEM
+                    mSplasher_stats_co_splasherName.setText(splasherShowingName);
                     mSplasher_stats_co_numWashes.setText(splasherWashNum);
+                    mWindowPrice.setText(splasherPrice);
                     int fixedRating = finalIntSplasherRating * 2;
                     mSplasher_status_co_ratingBar.setProgress(fixedRating);
                     Bitmap defaultPic = BitmapFactory.decodeResource(getResources()
@@ -1595,6 +1577,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                         }
                     }
                 }
+                @Override
+                public void afterUpdates() {}
             });
             /*- do all the resets to bring it back to "searching for a splasher"
               - This triggers if splasherCanceledCheck is true which occurs when a splasher
@@ -2285,6 +2269,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 );
                             }
                         }
+                        @Override
+                        public void afterUpdates() {}
                     });
             }
         }
@@ -2327,8 +2313,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                         alreadyExecuted5 = true;
                     }
                 }
-                //LEFT HERE. KEEP ON REFACTORING AND WHEN YOU ARE DONE WITH THE CLASS(ACTIVITY)
-                //TEST.
                 requestClassQuery.fetchCurrCloseRequestsForSplasher(userClassQuery.userName()
                         , splasherLocation, new RequestClassInterface.clearData() {
                             @Override
@@ -2368,21 +2352,16 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     getCloseRequestInfoOperations(object,requestLocation
                                             ,splasherLocation);
 
-                                }else if(object.getString("requestType").equals("private")
-                                        && object.getString("splasherUsername")
-                                        .equals(userClassQuery.userName())){
+                                }else if(object.getString("requestType").equals("private")){
                                     ParseGeoPoint requestLocation = (ParseGeoPoint)//1
                                             object.get("carCoordinates");
                                     //mount logo and stuff here//
                                     getCloseRequestInfoOperations(object,requestLocation
                                             ,splasherLocation);
-
-                                    if (!alreadyExecuted10) {
-                                        alertDialog.takePrivateRequest();
-                                        alreadyExecuted10 = true;
-                                    }
                                 }
                             }
+                            @Override
+                            public void afterUpdates() {}
                         });
                 if(!writeReadDataInFile.readFromFile("savedServiceArea").isEmpty()
                         || !writeReadDataInFile.readFromFile("savedServiceArea")
@@ -3075,113 +3054,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         */
         return false;
-    }
-
-    public void dispatchDocumentsSplasherSignUp(){
-        Log.i("data payme 1st","1st call");
-        if(userClassQuery.userIsCarOwnerOrSplasher(splasher)) {
-            Log.i("data payme 2nd","2nd call");
-            String paymeKey;
-            Bundle dataFromSplasherSignUp = getIntent().getExtras();
-            if(dataFromSplasherSignUp != null) {
-                Log.i("data payme 3rd","3rd call");
-                paymeKey = dataFromSplasherSignUp.getString("PaymentClientKey");
-                if (paymeKey != null) {
-                    Log.i("data payme 4th","4th call");
-                    if (paymeKey.equals(PaymeConstants.PAYMENT_CLIENT_KEY)) {
-                        Log.i("data payme", "We in payme function");
-                        paymeClientKey = dataFromSplasherSignUp.getString("PaymentClientKey");
-                        Log.i("data payme2", paymeClientKey);
-                        sellerFirstName = dataFromSplasherSignUp.getString("sellerFirstName");
-                        Log.i("data payme3", sellerFirstName);
-                        sellerLastName = dataFromSplasherSignUp.getString("sellerLastName");
-                        sellerSocialId = dataFromSplasherSignUp.getString("sellerSocialId");
-                        sellerBirthDate = dataFromSplasherSignUp.getString("sellerBirthDate");
-                        sellerSocialIdIssued = dataFromSplasherSignUp
-                                .getString("sellerSocialIdIssued");
-                        sellerGender = dataFromSplasherSignUp.getInt("sellerGender");//Int//
-                        sellerEmail = dataFromSplasherSignUp.getString("sellerEmail");
-                        sellerPhoneNumber = dataFromSplasherSignUp
-                                .getString("sellerPhoneNumber");
-
-                        sellerBankCode = dataFromSplasherSignUp.getInt("sellerBankCode");//Int//
-                        sellerBankBranch = dataFromSplasherSignUp
-                                .getInt("sellerBankBranch");//Int//
-                        sellerBankAccountNumber = dataFromSplasherSignUp
-                                .getInt("sellerBankAccountNumber");//Int//
-
-                        sellerDescription = dataFromSplasherSignUp
-                                .getString("sellerDescription");
-                        sellerSiteUrl = dataFromSplasherSignUp.getString("sellerSiteUrl");
-                        sellerPersonBussinessType = dataFromSplasherSignUp
-                                .getString("sellerPersonBussinessType");
-                        sellerInc = dataFromSplasherSignUp.getInt("sellerInc");//Int//
-
-                        sellerAddressCity = dataFromSplasherSignUp
-                                .getString("sellerAddressCity");
-                        sellerAddressStreet = dataFromSplasherSignUp
-                                .getString("sellerAddressStreet");
-                        sellerAddressStreetNumber = dataFromSplasherSignUp
-                                .getInt("sellerAddressStreetNumber");//Int//
-                        sellerAddressCountry = dataFromSplasherSignUp
-                                .getString("sellerAddressCountry");
-
-                        sellerMarketFee = dataFromSplasherSignUp
-                                .getDouble("sellerMarketFee");//Double//
-
-                        //--PARAMETER RELEVANT TO APP IN PRODUCTION ONLY--//
-                        sellerPlan = dataFromSplasherSignUp.getString("sellerPlan");
-                        //------------------------------------------------//
-
-                        //Query URLs of all 3 documents from the Parse server 'Documents' class://
-                        //Test that both from gal and from cam work well first
-                        DocumentsClassSend documentsClassSend
-                                = new DocumentsClassSend(HomeActivity.this);
-                        documentsClassSend.sendSplasherDocumentsToServer
-                                (new DocumentsClassInterface.sendSplasherDocs() {
-                            @Override
-                            public void sendDocs(ParseObject fileObject) {
-                                ParseFile socialIdFile = fileObject
-                                        .getParseFile("socialIdProof");
-                                if(socialIdFile != null){
-                                    Log.i("socialIdProof", socialIdFile.getUrl());
-                                    sellerFileSocialId = socialIdFile.getUrl();
-
-                                    ParseFile bankFile = fileObject.getParseFile("bankProof");
-                                    if(bankFile != null){
-                                        Log.i("bankProof", bankFile.getUrl());
-                                        sellerFileCheque = bankFile.getUrl();
-
-                                        ParseFile incDocFile = fileObject
-                                                .getParseFile("incDocProof");
-                                        if(incDocFile != null){
-                                            Log.i("incDocProof", incDocFile.getUrl());
-                                            sellerFileCorporate = incDocFile.getUrl();
-
-                                            splashCreateSeller.sendDataToPaymentServer(
-                                                    paymeClientKey,sellerFirstName
-                                                    ,sellerLastName, sellerSocialId
-                                                    ,sellerBirthDate,sellerSocialIdIssued
-                                                    ,sellerGender, sellerEmail
-                                                    ,sellerPhoneNumber,sellerBankCode
-                                                    ,sellerBankBranch,sellerBankAccountNumber
-                                                    ,sellerDescription,sellerSiteUrl
-                                                    ,sellerPersonBussinessType,sellerInc
-                                                    ,sellerAddressCity,sellerAddressStreet
-                                                    ,sellerAddressStreetNumber,sellerAddressCountry
-                                                    ,sellerMarketFee,sellerFileSocialId
-                                                    ,sellerFileCheque,sellerFileCorporate
-                                                    ,sellerPlan
-                                            );
-                                        }
-                                    }
-                                }
-                            }
-                        });
-                    }
-                }
-            }
-        }
     }
 
     //Query all the money the Splasher has made

@@ -33,8 +33,11 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.imagehandler.GlideImagePlacement;
+import com.nomadapp.splash.model.server.parseserver.RequestClassInterface;
+import com.nomadapp.splash.model.server.parseserver.queries.RequestClassQuery;
 import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
@@ -118,6 +121,8 @@ public class WashRequestsActivity extends AppCompatActivity {
     private ToastMessages toastMessages = new ToastMessages();
     private ConnectionLost clm = new ConnectionLost(WashRequestsActivity.this);
     private UserClassQuery userClassQuery = new UserClassQuery(WashRequestsActivity.this);
+    private RequestClassQuery requestClassQuery = new RequestClassQuery
+            (WashRequestsActivity.this);
 
     //TODO:1
     private ArrayList<MyRequest> requestList = new ArrayList<>();
@@ -127,18 +132,13 @@ public class WashRequestsActivity extends AppCompatActivity {
     private boolean runRequestUpdateChecker = false;
 
     public void loadRequests() {
-
         new CountDownTimer(3100, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-
                 cLoadingPanel.setVisibility(View.VISIBLE);
-
             }
-
             @Override
             public void onFinish() {
-
                 cLoadingPanel.setVisibility(View.GONE);
                 emptyListReady = true;
                 if (requestList.size() == 0) {
@@ -146,68 +146,44 @@ public class WashRequestsActivity extends AppCompatActivity {
                 }else{
                     cEmptyList.setVisibility(View.GONE);
                 }
-
             }
-
         }.start();
-
     }
 
     public void updateListView(Location location) {
-
         if (location != null) {
-
-            final ParseQuery<ParseObject> requestQuery = ParseQuery.getQuery("Request");
-
-            final ParseGeoPoint geoPointSelfLocation = new ParseGeoPoint(location.getLatitude()
-                    , location.getLongitude());
-
-            String[] splashStatus = {"clear", "canceled", userClassQuery.userName()};
-
-            requestQuery.whereNear("carCoordinates", geoPointSelfLocation);
-
-            requestQuery.whereContainedIn("splasherUsername", Arrays.asList(splashStatus));
-
-            requestQuery.whereEqualTo("taken", "no");
-
-            requestQuery.setLimit(30);
-
-            requestQuery.findInBackground(new FindCallback<ParseObject>() {
-                @Override
-                public void done(List<ParseObject> objects, ParseException e) {
-
-                    if (e == null) {
-
-                        requestList.clear();
-                        //requests.clear();
-
-                        requestLatitudes.clear();
-                        requestLongitudes.clear();
-
-                        distanceList.clear();
-                        userNameList.clear();
-                        carAddressList.clear();
-                        carAddressDescList.clear();
-                        carUntilTimeList.clear();
-                        carServiceTypeList.clear();
-                        carOwnerSetPrice.clear();
-                        requestNumBadgeList.clear();
-                        carOwnerPhoneNumList.clear();
-                        //--------------------------//
-                        carBrandList.clear();
-                        carModelList.clear();
-                        carColorList.clear();
-                        carYearList.clear();
-                        carPlateList.clear();
-                        //-------------------------//
-
-                        if (objects.size() > 0) {
-
-                            for (ParseObject object : objects) {
-
-                                //Rating request////////////////////////////////////////////////////
+            final LatLng splasherLocation = new LatLng(location.getLatitude(), location
+                    .getLongitude());
+            requestClassQuery.fetchCurrCloseRequestsForSplasher(userClassQuery.userName()
+                    , splasherLocation, new RequestClassInterface.clearData() {
+                        @Override
+                        public void clearAllDataOnly() {
+                            requestList.clear();
+                            requestLatitudes.clear();
+                            requestLongitudes.clear();
+                            distanceList.clear();
+                            userNameList.clear();
+                            carAddressList.clear();
+                            carAddressDescList.clear();
+                            carUntilTimeList.clear();
+                            carServiceTypeList.clear();
+                            carOwnerSetPrice.clear();
+                            requestNumBadgeList.clear();
+                            carOwnerPhoneNumList.clear();
+                            //--------------------------//
+                            carBrandList.clear();
+                            carModelList.clear();
+                            carColorList.clear();
+                            carYearList.clear();
+                            carPlateList.clear();
+                            //--------------------------//
+                        }
+                    }, new RequestClassInterface.TakenRequest() {
+                        @Override
+                        public void fetchThisTakenRequest(ParseObject object) {
+                            //Rating request////////////////////////////////////////////////////
                             /*
-                                All in all, the demands on this query for showing me the requests, are:
+                                The demands on this query for showing me the requests, are:
                                 -1. to be "near" the splasher's geoLocation.
                                 -2. For the set splasher in the request
                                     to be "clear"(Meaning that request is indeed avaliable).
@@ -215,158 +191,160 @@ public class WashRequestsActivity extends AppCompatActivity {
                                  actual com.kid.splash.utils.rating to be
                                 equal to X requested com.kid.splash.utils.rating or higher.
                              */
-                                //Rating request////////////////////////////////////////////////////
-                                // show me such list :D
-                                ParseGeoPoint requestLocation = (ParseGeoPoint)//1
-                                        object.get("carCoordinates");
+                            //Rating request////////////////////////////////////////////////////
+                            // show me such list :D
+                            ParseGeoPoint requestLocation = (ParseGeoPoint)//1
+                                    object.get("carCoordinates");
 
-                                carOwnerUsername = object.getString("username");//2  //<--------
-                                carOwnerCarAddress = object.getString("carAddress");//3
-                                carOwnerCarAddressDesc = object.getString("carAddressDesc");//4
-                                carOwnerCarUntilTime = object.getString("untilTime");//5
-                                carOwnerCarServiceType = object.getString("serviceType");//6
-                                price = object.getString("priceWanted");
-                                if(object.getString("fbProfilePic") != null) {
-                                    fbPic = Uri.parse(object.getString("fbProfilePic"));
-                                }
-                                if(object.getString("ProfPicNoFb") != null){
-                                    noFbPic = Uri.parse(object.getString("ProfPicNoFb"));//FIX
-                                }
-                                requestNumBadge = object.getString("badgeWanted");
-                                carOwnerPhoneNum = object.getString("carOwnerPhoneNum");
-                                //--------------------------------------------------------
-                                carOwnerCarBrand = object.getString("carBrand");//7
-                                carOwnerCarModel = object.getString("carModel");//8
-                                carOwnerCarColor = object.getString("carColor");//9
-                                carOwnerCarYear = object.getString("carYear");//10
-                                carOwnerCarPlate = object.getString("carplateNumber");//11
-                                carOwnerReqType = object.getString("requestType");
+                            carOwnerUsername = object.getString("username");//2  //<--------
+                            carOwnerCarAddress = object.getString("carAddress");//3
+                            carOwnerCarAddressDesc = object.getString("carAddressDesc");//4
+                            carOwnerCarUntilTime = object.getString("untilTime");//5
+                            carOwnerCarServiceType = object.getString("serviceType");//6
+                            price = object.getString("priceWanted");
+                            if(object.getString("fbProfilePic") != null) {
+                                fbPic = Uri.parse(object.getString("fbProfilePic"));
+                            }
+                            if(object.getString("ProfPicNoFb") != null){
+                                noFbPic = Uri.parse(object.getString("ProfPicNoFb"));//FIX
+                            }
+                            requestNumBadge = object.getString("badgeWanted");
+                            carOwnerPhoneNum = object.getString("carOwnerPhoneNum");
+                            //--------------------------------------------------------
+                            carOwnerCarBrand = object.getString("carBrand");//7
+                            carOwnerCarModel = object.getString("carModel");//8
+                            carOwnerCarColor = object.getString("carColor");//9
+                            carOwnerCarYear = object.getString("carYear");//10
+                            carOwnerCarPlate = object.getString("carplateNumber");//11
+                            carOwnerReqType = object.getString("requestType");
 
-                                Log.i("stuff", carOwnerCarAddress + " "
-                                        + carOwnerCarAddressDesc + " " +
-                                        carOwnerCarUntilTime + " " + carOwnerCarServiceType + " " +
-                                        carOwnerCarBrand + " " + carOwnerCarModel + " "
-                                        + carOwnerCarColor + " " +
-                                        carOwnerCarYear + " " + carOwnerCarPlate + " " +
-                                        carOwnerReqType);
+                            Log.i("stuff", carOwnerCarAddress + " "
+                                    + carOwnerCarAddressDesc + " " +
+                                    carOwnerCarUntilTime + " " + carOwnerCarServiceType + " " +
+                                    carOwnerCarBrand + " " + carOwnerCarModel + " "
+                                    + carOwnerCarColor + " " +
+                                    carOwnerCarYear + " " + carOwnerCarPlate + " " +
+                                    carOwnerReqType);
 
-                                Double distanceToRequestsInKm = geoPointSelfLocation
-                                        .distanceInKilometersTo(requestLocation);
+                            ParseGeoPoint geoPointSelfLocation = new ParseGeoPoint
+                                    (splasherLocation.latitude, splasherLocation.longitude);
 
-                                Double distanceInOneDP = (double) Math.round(distanceToRequestsInKm
-                                        * 10) / 10;//<--------
+                            Double distanceToRequestsInKm = geoPointSelfLocation
+                                    .distanceInKilometersTo(requestLocation);
 
-                                String distanceString = distanceInOneDP.toString() + " Km";
+                            Double distanceInOneDP = (double) Math.round(distanceToRequestsInKm
+                                    * 10) / 10;//<--------
 
-                                //requests.add(carOwnerUsername + " " + distanceString +
-                                //" " + carOwnerCarUntilTime);
+                            String distanceString = distanceInOneDP.toString() + " Km";
 
-                                //FILTER OF TIME (ZELDA?) STARTS HERE (i think)-------------------//
-                                //Phone's Actual time and date--------------------------------//
-                                Calendar listViewCalendar = Calendar.getInstance();
-                                int hourSplasherSide = listViewCalendar.get(Calendar.HOUR_OF_DAY);
-                                int minuteSplasherSide = listViewCalendar.get(Calendar.MINUTE);
-                                int daySplasherSide = listViewCalendar.get(Calendar.DATE);
+                            //requests.add(carOwnerUsername + " " + distanceString +
+                            //" " + carOwnerCarUntilTime);
 
-                                int monthSplasherSide = listViewCalendar.get(Calendar.MONTH);
-                                if (monthSplasherSide == 12)
-                                    monthSplasherSide = 1;
-                                else
-                                    monthSplasherSide = listViewCalendar.get(Calendar.MONTH) + 1;
+                            //FILTER OF TIME (ZELDA?) STARTS HERE (i think)-------------------//
+                            //Phone's Actual time and date--------------------------------//
+                            Calendar listViewCalendar = Calendar.getInstance();
+                            int hourSplasherSide = listViewCalendar.get(Calendar.HOUR_OF_DAY);
+                            int minuteSplasherSide = listViewCalendar.get(Calendar.MINUTE);
+                            int daySplasherSide = listViewCalendar.get(Calendar.DATE);
 
-                                int yearSplasherSide = listViewCalendar.get(Calendar.YEAR);
-                                String newFullDateSS;
-                                newFullDateSS = String.valueOf(daySplasherSide) + "-"
-                                        + String.valueOf(monthSplasherSide)
-                                        + "-" + String.valueOf(yearSplasherSide);
+                            int monthSplasherSide = listViewCalendar.get(Calendar.MONTH);
+                            if (monthSplasherSide == 12)
+                                monthSplasherSide = 1;
+                            else
+                                monthSplasherSide = listViewCalendar.get(Calendar.MONTH) + 1;
 
-                                int hourPlusOneSS;
-                                if (hourSplasherSide == 24)
-                                    hourPlusOneSS = 1;
-                                else
-                                    hourPlusOneSS = hourSplasherSide + 1;
+                            int yearSplasherSide = listViewCalendar.get(Calendar.YEAR);
+                            String newFullDateSS;
+                            newFullDateSS = String.valueOf(daySplasherSide) + "-"
+                                    + String.valueOf(monthSplasherSide)
+                                    + "-" + String.valueOf(yearSplasherSide);
 
-                                @SuppressLint("DefaultLocale")
-                                final String fullTotalDateSS = newFullDateSS + " " +
-                                        String.format("%02d:%02d", hourPlusOneSS,
-                                                minuteSplasherSide).toUpperCase(Locale
-                                                .getDefault());
-                                //------------------------------------------------------------//
+                            int hourPlusOneSS;
+                            if (hourSplasherSide == 24)
+                                hourPlusOneSS = 1;
+                            else
+                                hourPlusOneSS = hourSplasherSide + 1;
 
-                                //Selected Until Time Request---------------------------------//
-                                String cutCarOwnerCarUntilTime;
-                                if (carOwnerCarUntilTime.contains(" AM")) {
-                                    cutCarOwnerCarUntilTime = carOwnerCarUntilTime
-                                            .replace(" AM", "");
-                                } else {
-                                    cutCarOwnerCarUntilTime = carOwnerCarUntilTime
-                                            .replace(" PM", "");
-                                }
-                                //------------------------------------------------------------//
+                            @SuppressLint("DefaultLocale")
+                            final String fullTotalDateSS = newFullDateSS + " " +
+                                    String.format("%02d:%02d", hourPlusOneSS,
+                                            minuteSplasherSide).toUpperCase(Locale
+                                            .getDefault());
+                            //------------------------------------------------------------//
 
-                                //Current Request's 'Until Time' and phone's Date-------------//
-                                @SuppressLint("SimpleDateFormat")
-                                SimpleDateFormat sdf = new
-                                        SimpleDateFormat("dd-MM-yyyy HH:mm");
-                                Date currentSSDate1 = null;
-                                Date savedSSDate2 = null;
-                                try {
-                                    currentSSDate1 = sdf.parse(fullTotalDateSS);
-                                    savedSSDate2 = sdf.parse(cutCarOwnerCarUntilTime);
-                                } catch (java.text.ParseException eDate) {
-                                    eDate.printStackTrace();
-                                }
-                                //------------------------------------------------------------//
+                            //Selected Until Time Request---------------------------------//
+                            String cutCarOwnerCarUntilTime;
+                            if (carOwnerCarUntilTime.contains(" AM")) {
+                                cutCarOwnerCarUntilTime = carOwnerCarUntilTime
+                                        .replace(" AM", "");
+                            } else {
+                                cutCarOwnerCarUntilTime = carOwnerCarUntilTime
+                                        .replace(" PM", "");
+                            }
+                            //------------------------------------------------------------//
 
-                                if(currentSSDate1 != null) {
-                                    if (!(currentSSDate1.compareTo(savedSSDate2) > 0)) {
-                                        //TODO:1.5
-                                        MyRequest request = new MyRequest();
-                                        request.setDistance(distanceString);
-                                        request.setUntilTime(carOwnerCarUntilTime);
-                                        request.setPrice(price);
-                                        String ofTomorrow = getResources().
-                                                getString(R.string
-                                                        .carOWnerRequest_act_java_ofTomorrow);
-                                        request.setTomorrow(ofTomorrow);
-                                        request.setProfPicFbUri(fbPic);
-                                        request.setProfPicUri(noFbPic);
-                                        request.setBikeService(carOwnerCarServiceType);
-                                        request.setRequestType(carOwnerReqType);
+                            //Current Request's 'Until Time' and phone's Date-------------//
+                            @SuppressLint("SimpleDateFormat")
+                            SimpleDateFormat sdf = new
+                                    SimpleDateFormat("dd-MM-yyyy HH:mm");
+                            Date currentSSDate1 = null;
+                            Date savedSSDate2 = null;
+                            try {
+                                currentSSDate1 = sdf.parse(fullTotalDateSS);
+                                savedSSDate2 = sdf.parse(cutCarOwnerCarUntilTime);
+                            } catch (java.text.ParseException eDate) {
+                                eDate.printStackTrace();
+                            }
+                            //------------------------------------------------------------//
 
-                                        int intNumBadgeNew = Integer.parseInt(requestNumBadge);
-                                        request.setNumBadge(intNumBadgeNew);
+                            if(currentSSDate1 != null) {
+                                if (!(currentSSDate1.compareTo(savedSSDate2) > 0)) {
+                                    //TODO:1.5
+                                    MyRequest request = new MyRequest();
+                                    request.setDistance(distanceString);
+                                    request.setUntilTime(carOwnerCarUntilTime);
+                                    request.setPrice(price);
+                                    String ofTomorrow = getResources().
+                                            getString(R.string
+                                                    .carOWnerRequest_act_java_ofTomorrow);
+                                    request.setTomorrow(ofTomorrow);
+                                    request.setProfPicFbUri(fbPic);
+                                    request.setProfPicUri(noFbPic);
+                                    request.setBikeService(carOwnerCarServiceType);
+                                    request.setRequestType(carOwnerReqType);
 
-                                        requestList.add(request);
-                                        cEmptyList.setVisibility(View.GONE);
+                                    int intNumBadgeNew = Integer.parseInt(requestNumBadge);
+                                    request.setNumBadge(intNumBadgeNew);
 
-                                        requestLatitudes.add(requestLocation.getLatitude());
-                                        requestLongitudes.add(requestLocation.getLongitude());
+                                    requestList.add(request);
+                                    cEmptyList.setVisibility(View.GONE);
 
-                                        distanceList.add(distanceString);
-                                        userNameList.add(carOwnerUsername);
-                                        carAddressList.add(carOwnerCarAddress);
-                                        carAddressDescList.add(carOwnerCarAddressDesc);
-                                        carUntilTimeList.add(carOwnerCarUntilTime);
-                                        carServiceTypeList.add(carOwnerCarServiceType);
-                                        carOwnerSetPrice.add(price);
-                                        requestNumBadgeList.add(intNumBadgeNew);
-                                        carOwnerPhoneNumList.add(carOwnerPhoneNum);
-                                        //---------------------------------------------//
-                                        carBrandList.add(carOwnerCarBrand);
-                                        carModelList.add(carOwnerCarModel);
-                                        carColorList.add(carOwnerCarColor);
-                                        carYearList.add(carOwnerCarYear);
-                                        carPlateList.add(carOwnerCarPlate);
-                                    }
+                                    requestLatitudes.add(requestLocation.getLatitude());
+                                    requestLongitudes.add(requestLocation.getLongitude());
+
+                                    distanceList.add(distanceString);
+                                    userNameList.add(carOwnerUsername);
+                                    carAddressList.add(carOwnerCarAddress);
+                                    carAddressDescList.add(carOwnerCarAddressDesc);
+                                    carUntilTimeList.add(carOwnerCarUntilTime);
+                                    carServiceTypeList.add(carOwnerCarServiceType);
+                                    carOwnerSetPrice.add(price);
+                                    requestNumBadgeList.add(intNumBadgeNew);
+                                    carOwnerPhoneNumList.add(carOwnerPhoneNum);
+                                    //---------------------------------------------//
+                                    carBrandList.add(carOwnerCarBrand);
+                                    carModelList.add(carOwnerCarModel);
+                                    carColorList.add(carOwnerCarColor);
+                                    carYearList.add(carOwnerCarYear);
+                                    carPlateList.add(carOwnerCarPlate);
                                 }
                             }
                         }
-                        //arrayAdapter.notifyDataSetChanged();
-                        myRequestAdapter.notifyDataSetChanged();
-                    }
-                }
-            });
+                        @Override
+                        public void afterUpdates() {
+                            myRequestAdapter.notifyDataSetChanged();
+                        }
+                    });
         }
     }
 

@@ -517,20 +517,17 @@ public class WashServiceShowActivity extends AppCompatActivity {
                         if (objects.size() > 0) {
                             for (final ParseObject object : objects) {
                                 //The sole request
-                                aboutToBeRatedSplasher = object.getString("splasherShowingName");
-
+                                aboutToBeRatedSplasher = object.getString("splasherUsername");
                                 Log.i("00ToBeRatedSplash", aboutToBeRatedSplasher
                                         + " is in da house"); //test with this
-
                                 //Add tip:
                                 object.put("tip", tipToSend);
-
                                 object.saveInBackground(new SaveCallback() {
                                     @Override
                                     public void done(ParseException e) {
                                         if(e == null){
                                             ParseQuery<ParseObject> ratingsQuery = ParseQuery.getQuery("Profile");
-                                            ratingsQuery.whereEqualTo("username", aboutToBeRatedSplasher);
+                                            ratingsQuery.whereEqualTo("email", aboutToBeRatedSplasher);
                                             Log.i("11ToBeRatedSplash", aboutToBeRatedSplasher + " is in da house"); //00 makes it through. 11 never does!
                                             ratingsQuery.findInBackground(new FindCallback<ParseObject>() {
                                                 @Override

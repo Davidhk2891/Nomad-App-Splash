@@ -109,6 +109,7 @@ public class RequestClassQuery {
         });
     }
 
+    //For ongoing request that was already taken and started
     public void fetchCurrRequestForSplasher(String parseUsername,
                                       final RequestClassInterface.TakenRequest takenRequest){
         final ParseQuery<ParseObject> forwardSplasher = ParseQuery.getQuery("Request");
@@ -129,17 +130,19 @@ public class RequestClassQuery {
         });
     }
 
+    //Opportunity request for every splasher in the SplasherWanted Array
     public void fetchCurrCloseRequestsForSplasher(String username, LatLng splasherLocation
                         ,final RequestClassInterface.clearData clearData
                         ,final RequestClassInterface.TakenRequest takenRequest){
-        String[] splashStatus = {"clear", "canceled", username};
+        String[] splashStatus = {"clear", "canceled"};
         final ParseQuery<ParseObject> dotQuery = ParseQuery.getQuery("Request");
         final ParseGeoPoint geoPointSelfLocation = new ParseGeoPoint
                 (splasherLocation.latitude, splasherLocation.longitude);
         dotQuery.whereNear("carCoordinates", geoPointSelfLocation);
         dotQuery.whereContainedIn("splasherUsername", Arrays.asList(splashStatus));
+        dotQuery.whereContains("splashersWanted", username);//test
         dotQuery.whereEqualTo("taken", "no");
-        dotQuery.setLimit(30);
+        dotQuery.setLimit(100);
         dotQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
@@ -150,6 +153,7 @@ public class RequestClassQuery {
                     if (objects.size() > 0 ){
                         for (ParseObject reqObj : objects){
                             takenRequest.fetchThisTakenRequest(reqObj);
+                            takenRequest.afterUpdates();
                         }
                     }
                 }

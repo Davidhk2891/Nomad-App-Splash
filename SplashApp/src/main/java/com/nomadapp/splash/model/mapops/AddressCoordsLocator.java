@@ -7,7 +7,6 @@ import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
-import com.nomadapp.splash.R;
 
 import java.io.IOException;
 import java.util.List;

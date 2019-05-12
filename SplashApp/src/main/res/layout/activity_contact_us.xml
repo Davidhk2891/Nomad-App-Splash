@@ -124,6 +124,19 @@
         android:layout_height="wrap_content"
         tools:ignore="LabelFor" />
 
+    <TextView
+        android:id="@+id/payme_seller_app_btn"
+        android:text="@string/becomeSplasher_act_java_splasherType"
+        android:padding="5dp"
+        android:onClick="toSellerApp"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/sendMessage"
+        android:layout_marginBottom="10dp"
+        android:textSize="16sp"
+        android:textColor="#00A2FF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/sendMessage"
         android:layout_alignParentBottom="true"

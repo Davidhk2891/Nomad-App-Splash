@@ -85,7 +85,8 @@ public class SplashGenerateSaleManual {
     //STAND ALONE METHOD; IT GETS CALLED AT THE END OF ONCREATE()
     public void getAllDataForManualPayment(final TextView mBillCarWashPrice
             , final TextView mBillTipPrice, final TextView mBillSplashFeePrice
-            , final TextView mBillCCFeePrice, final TextView mBillTotalPrice){
+            , final TextView mBillCCFeePrice, final TextView mBillTaxesFee
+            , final TextView mBillTotalPrice){
         //Details
         final BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog(context);
         boxedLoadingDialog.showLoadingDialog();
@@ -100,8 +101,9 @@ public class SplashGenerateSaleManual {
                     if(objects.size() > 0){
                         for(ParseObject payObject : objects){
                             boxedLoadingDialog.hideLoadingDialog();
-                            String originalPriceString = payObject.getString("priceWanted");
-                            String originalPriceStringFixed = originalPriceString.replace("₪", "");
+                            String originalPriceString = payObject.getString("priceOriginal");
+                            String originalPriceStringFixed = originalPriceString
+                                    .replace("₪", "");
                             originalPrice = Double.parseDouble(originalPriceStringFixed);
                             splasherName = payObject.getString("splasherUsername");
                             COusername = payObject.getString("username");
@@ -116,36 +118,47 @@ public class SplashGenerateSaleManual {
                             //
                             //originalPrice = originalPrice;//
                             //tip = tip;//
-                            splashFeeTotal = splashFeeProcessor(originalPrice + tip);
-                            creditCardfeeTotal = creditCardFeeProcessor(originalPrice + tip);
+                            //splashFeeTotal = splashFeeProcessor(originalPrice + tip);
+                            //creditCardfeeTotal = creditCardFeeProcessor(originalPrice + tip);
                             //
-                            orgPricePlusFeePlusCCPlusTip = originalPrice + tip + splashFeeTotal +
-                                    creditCardfeeTotal;//<<<FINAL PRICE
+                            orgPricePlusFeePlusCCPlusTip = PaymeConstants
+                                    .priceShownToCarOwner(originalPrice + tip);//<<FINAL PRICE
                             orgPricePlusFeePlusCCPlusTipInFull = orgPricePlusFeePlusCCPlusTip * 100;//<<<FINAL PRICE TO PAYME
-
+                            //Add and modify the new formula here.
                             Log.i("finalPricePaymeFormat", String
                                     .valueOf(orgPricePlusFeePlusCCPlusTipInFull));
 
                             String washPrice = shekel + String.valueOf(df.format(originalPrice));
-                            mBillCarWashPrice.setText(washPrice);
+                            String shownWashPrice;
+                            if (!washPrice.contains(".")){
+                                shownWashPrice = washPrice + ".0";
+                            }else{
+                                shownWashPrice = washPrice;
+                            }
+                            mBillCarWashPrice.setText(shownWashPrice);
 
                             String splasherTip = shekel + String.valueOf(tip);
                             mBillTipPrice.setText(splasherTip);
 
                             //df.format rules: deposited in a string that needs to format a double
-                            double splashFeeTwoDp = splashFeeProcessor(originalPrice + tip);//TEST//
+                            double splashFeeTwoDp = splashFeeProcessor(originalPrice + tip);
                             String splashFeeTwoDpYes = String.valueOf(df.format(splashFeeTwoDp));
                             Log.i("logDouble", String.valueOf(splashFeeTwoDp));
                             Log.i("logDouble", String.valueOf(splashFeeTwoDpYes));
                             String splashTransFee = String.valueOf(splashFeeTwoDpYes);
-                            String splashCCFee = String.valueOf(df.format(creditCardFeeProcessor(originalPrice + tip)));
+                            String splashCCFee = String.valueOf(df.format(creditCardFeeProcessor
+                                    (originalPrice + tip)));
                             String splashTransFeeComplete = shekel + splashTransFee;
                             String splashCCFeeComplete = shekel + splashCCFee;
+                            String splashTaxes = shekel + String.valueOf(df.format(PaymeConstants
+                                    .taxIsraelCalculator(originalPrice + tip)));
                             mBillSplashFeePrice.setText(splashTransFeeComplete);
                             mBillCCFeePrice.setText(splashCCFeeComplete);
-
+                            mBillTaxesFee.setText(splashTaxes);
+                            //works and ads up on the bill. Need to revise everything several times
                             double finalPriceTwoDP = orgPricePlusFeePlusCCPlusTip;
-                            String stringedFinalPriceTwoDP = String.valueOf(df.format(finalPriceTwoDP));
+                            String stringedFinalPriceTwoDP = String
+                                    .valueOf(df.format(finalPriceTwoDP));
                             String totalPrice = shekel + stringedFinalPriceTwoDP;
                             mBillTotalPrice.setText(totalPrice);
 
