@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -198,7 +199,8 @@ public class WashReqParamsActivity extends AppCompatActivity implements
             //TEMPORARY//
             return String.valueOf(PaymeConstants.STATIC_TEMPORAL_PRICE);
         }
-        */
+     */
+    private MenuItem refreshItem;
     public int getNumericalBadge(){
         return numericalBadge;
     }
@@ -219,9 +221,22 @@ public class WashReqParamsActivity extends AppCompatActivity implements
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.splasher_list_menu, menu);
+        refreshItem = menu.findItem(R.id.action_refresh);
+        if (cRatingAndPricingRelative.getVisibility() != View.VISIBLE){
+            if (refreshItem != null){
+                refreshItem.setVisible(false);
+            }
+        }
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home){
-            if(cRatingAndPricingRelative.getVisibility() == View.VISIBLE){
+            if(cRatingAndPricingRelative.getVisibility() == View.VISIBLE) {
                 cFirstRelative.setClickable(true);
                 cElPropioRelative.setClickable(true);
                 cCrLocationDescriptionEdit.setVisibility(View.VISIBLE);
@@ -232,10 +247,16 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                 cSpinnerArrow.setVisibility(View.VISIBLE);
                 cSaveRequest.setVisibility(View.VISIBLE);
                 cRatingAndPricingRelative.setVisibility(View.GONE);
+                if (refreshItem != null){
+                    refreshItem.setVisible(false);
+                }
             }else{
                 startActivity(new Intent(WashReqParamsActivity.this
                         , HomeActivity.class));
             }
+        }else if (item.getItemId() == R.id.action_refresh) {
+            Log.i("black1", "ran");
+            unselectAllSplashersOps();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -344,175 +365,183 @@ public class WashReqParamsActivity extends AppCompatActivity implements
 
         //----------------------------------------------------------------------------------------//
 
-        //Go to Rating and Price setting
         cSaveRequest.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
 
-                //UNTIL TIME: HANDLER FOR TAPPING cSaveRequest WHEN "UNTIL-TIME" WAS NOT TOUCHED--//
-                //selectedTime = cCrUntilEdit.getText().toString(); //<--FINAL
-                //fullDate + " " + selectedTime
+                if(!cCrLocationEdit.getText().toString().isEmpty() &&
+                   !cCrUntilEdit.getText().toString().isEmpty() &&
+                  (!cCarSelected.getText().toString().isEmpty() || !cCarSelected.getText()
+                          .toString().equals(getResources().getString
+                                  (R.string.act_wash_my_car_chooseACar))) &&
+                   carCoordinatesIn) {
 
-                if (cCrLocationEdit.getText().toString().contains(getResources()
-                        .getString(R.string.washMyCar_act_java_telAviv)) ||
-                        cCrLocationEdit.getText().toString().contains(getResources()
-                                .getString(R.string.washMyCar_act_java_ramatGan)) ||
-                        cCrLocationEdit.getText().toString().contains(getResources()
-                                .getString(R.string.washMyCar_act_java_givataim))){
+                    Log.i("red1", "not empty: " + cCrLocationEdit.getText().toString() +
+                            " " + cCrUntilEdit.getText().toString() +
+                            " " + cCarSelected.getText().toString() +
+                            " " + carCoordinatesIn);
 
-                    getServiceType = externalWash;
-                    splasherListFragment.getSplasherList(getServiceType,getResources()
-                            .getColor(R.color.pureWhite),getResources()
-                            .getColor(R.color.ColorPrimaryDark));
+                    if (cCrLocationEdit.getText().toString().contains(getResources()
+                            .getString(R.string.washMyCar_act_java_telAviv)) ||
+                            cCrLocationEdit.getText().toString().contains(getResources()
+                                    .getString(R.string.washMyCar_act_java_ramatGan)) ||
+                            cCrLocationEdit.getText().toString().contains(getResources()
+                                    .getString(R.string.washMyCar_act_java_givataim))) {
 
-                    flipBgServiceBtn(mExternalButton,splashDarkBlue,white);
-                    setWhiteBgBlueStroke(mExtIntButton,splashDarkBlue);
-                    setWhiteBgBlueStroke(mMotoButton,splashDarkBlue);
+                        Log.i("red2", "all good: ");
 
-                    Calendar saveRequestCalendar = Calendar.getInstance();
-                    int currentSoleHour = saveRequestCalendar.get(Calendar.HOUR_OF_DAY);
-                    Log.i("normalPrePoint", String.valueOf(currentSoleHour));
-                    int currentSoleMinute = saveRequestCalendar.get(Calendar.MINUTE);
-                    int currentDate = saveRequestCalendar.get(Calendar.DATE);
-                    //saveRequestCalendar.add(saveRequestCalendar.get(Calendar.DATE), 1);
-                    int currentDate2 = saveRequestCalendar.get(Calendar.DATE) + 1;
+                        getServiceType = externalWash;
+                        splasherListFragment.getSplasherList(getServiceType, getResources()
+                                .getColor(R.color.pureWhite), getResources()
+                                .getColor(R.color.ColorPrimaryDark));
 
-                    int currentMonth = saveRequestCalendar.get(Calendar.MONTH);
-                    if (currentMonth == 12)
-                        currentMonth = 1;
-                    else
-                        currentMonth = saveRequestCalendar.get(Calendar.MONTH) + 1;
+                        flipBgServiceBtn(mExternalButton, splashDarkBlue, white);
+                        setWhiteBgBlueStroke(mExtIntButton, splashDarkBlue);
+                        setWhiteBgBlueStroke(mMotoButton, splashDarkBlue);
 
-                    int currentYear = saveRequestCalendar.get(Calendar.YEAR);
-                    String newFullDate;
-                    newFullDate = String.valueOf(currentDate) + "-" + String.valueOf(currentMonth)
-                            + "-" + String.valueOf(currentYear);
-                    int currentSoleHourPlusOne;
-                    if(currentSoleHour == 24) {
-                        currentSoleHourPlusOne = 1;
-                        Log.i("24point", "24point");
-                    }else {
-                        currentSoleHourPlusOne = saveRequestCalendar.get(Calendar.HOUR_OF_DAY) + 1;
-                        Log.i("normalpoint", "normalpoint");
-                        Log.i("normalPoint", String.valueOf(saveRequestCalendar
-                                .get(Calendar.HOUR_OF_DAY)));
-                    }
-                    //---------------------------------//
+                        Calendar saveRequestCalendar = Calendar.getInstance();
+                        int currentSoleHour = saveRequestCalendar.get(Calendar.HOUR_OF_DAY);
+                        Log.i("normalPrePoint", String.valueOf(currentSoleHour));
+                        int currentSoleMinute = saveRequestCalendar.get(Calendar.MINUTE);
+                        int currentDate = saveRequestCalendar.get(Calendar.DATE);
+                        //saveRequestCalendar.add(saveRequestCalendar.get(Calendar.DATE), 1);
+                        int currentDate2 = saveRequestCalendar.get(Calendar.DATE) + 1;
 
-                    //FULL USER SELECTED UNTIL TIME-----------------------------------//
-                    String newFullDateForST;
-                    if(todaySwitchedToTomorrow || (writeReadDataInFile
-                            .readFromFile("todayTomorrow") != null &&
-                            writeReadDataInFile.readFromFile("todayTomorrow")
-                                    .equals("true"))) {
-                        newFullDateForST = String.valueOf(currentDate2) + "-"
-                                + String.valueOf(currentMonth)
+                        int currentMonth = saveRequestCalendar.get(Calendar.MONTH);
+                        if (currentMonth == 12)
+                            currentMonth = 1;
+                        else
+                            currentMonth = saveRequestCalendar.get(Calendar.MONTH) + 1;
+
+                        int currentYear = saveRequestCalendar.get(Calendar.YEAR);
+                        String newFullDate;
+                        newFullDate = String.valueOf(currentDate) + "-" + String.valueOf(currentMonth)
                                 + "-" + String.valueOf(currentYear);
-                    }else{
-                        newFullDateForST = String.valueOf(currentDate) + "-"
-                                + String.valueOf(currentMonth)
-                                + "-" + String.valueOf(currentYear);
-                    }
-                    String fullTotalSelectedDate = newFullDateForST + " " + selectedTime;
-                    String preCutFullTotalSelecteDate;
-                    final String cutFullTotalSelectedDate;
-                    if (fullTotalSelectedDate.contains(" AM")){
-                        preCutFullTotalSelecteDate = fullTotalSelectedDate.replace(getResources()
-                                .getString(R.string.act_wash_my_car_until2),"");
-                        cutFullTotalSelectedDate = preCutFullTotalSelecteDate.replace(" AM"
-                                , "");
-                    } else {
-                        preCutFullTotalSelecteDate = fullTotalSelectedDate.replace(getResources()
-                                .getString(R.string.act_wash_my_car_until2),"");
-                        cutFullTotalSelectedDate = preCutFullTotalSelecteDate.replace(" PM"
-                                , "");
-                    }
-                    //----------------------------------------------------------------//
-
-                    //FULL USER'S DEVICE CURRENT DATE + HOUR + MINUTE-----------------//
-                    @SuppressLint("DefaultLocale")
-                    final String cutFullTotalCurrentDateTime = newFullDate + " " +
-                            String.format("%02d:%02d", currentSoleHourPlusOne,
-                                    currentSoleMinute).toUpperCase(Locale.getDefault());
-                    //----------------------------------------------------------------//
-                    //Logs and to-Date convertion-------------------------------------//
-                    @SuppressLint("SimpleDateFormat")
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-                    Date currentDate1 = null;
-                    Date savedDate2 = null;
-                    try {
-                        currentDate1 = sdf.parse(cutFullTotalCurrentDateTime);
-                        savedDate2 = sdf.parse(cutFullTotalSelectedDate);
-                    } catch (java.text.ParseException e) {
-                        e.printStackTrace();
-                    }
-                    final Date currentFinalDate1 = currentDate1;
-                    final Date savedFinalDate2 = savedDate2;
-                    Log.i("datesWash", "is: " + currentDate1 + " and " + savedDate2);
-                    //----------------------------------------------------------------//
-                    //----------------------------------------------------------------------------//
-                    carAddressDescription = cCrLocationDescriptionEdit.getText().toString();
-                    toastMessages.debugMesssage(getApplicationContext()
-                            ,"is: " + cCarSelected.getText().toString(),1);
-                    try {
-                        if (cCrLocationEdit.getText().toString().isEmpty()
-                                || cCrUntilEdit.getText().toString().isEmpty() ||
-                                cCarSelected.getText().toString().isEmpty() ||
-                                !carCoordinatesIn) {
-
-                            warningDialog(getResources()
-                                            .getString(R.string.washMyCar_act_java_missingFields)
-                                    , getResources().getString(R.string
-                                            .washMyCar_act_java_pleaseFillAll));
-
-                        }else if(cCarSelected.getText().toString().equals(getResources()
-                                .getString(R.string.act_wash_my_car_chooseACar))){
-
-                            warningDialog(getResources()
-                                            .getString(R.string.washMyCar_act_java_missingFields)
-                                    , getResources().getString(R.string
-                                            .washMyCar_act_java_pleaseFillAll));
-
-                        } else if (cutFullTotalCurrentDateTime.equals(cutFullTotalSelectedDate)) {
-
-                            warningDialog(getResources().getString
-                                            (R.string.washMyCar_act_java_washTimeLimit)
-                                    , getResources().getString(R.string
-                                            .washMyCar_act_java_yourWashLimitShort));
-
-                        } else if (currentFinalDate1 != null && savedFinalDate2 != null) {
-
-                            Log.i("currentDate", currentFinalDate1.toString());
-                            Log.i("savedDate", savedFinalDate2.toString());
-
-                            if (currentFinalDate1.compareTo(savedFinalDate2) > 0
-                                    && !todaySwitchedToTomorrow) {
-
-                                Log.i("datesAgain", "are: " + currentFinalDate1
-                                        + " " + savedFinalDate2);
-
-                                warningDialog(getResources().getString(R.string
-                                        .washMyCar_act_java_washTimeLimit), getResources()
-                                        .getString(R.string.washMyCar_act_java_yourWashTimeLimit));
-
-                            } else {
-                                showSecondStageParams();
-                                Log.i("p1",address + " & " + getAddress());
-                                Log.i("p2",carAddressDescription);
-                                Log.i("p3",fullDate);
-                                Log.i("p4",selectedTime);
-                            }
+                        int currentSoleHourPlusOne;
+                        if (currentSoleHour == 24) {
+                            currentSoleHourPlusOne = 1;
+                            Log.i("24point", "24point");
+                        } else {
+                            currentSoleHourPlusOne = saveRequestCalendar.get(Calendar.HOUR_OF_DAY) + 1;
+                            Log.i("normalpoint", "normalpoint");
+                            Log.i("normalPoint", String.valueOf(saveRequestCalendar
+                                    .get(Calendar.HOUR_OF_DAY)));
                         }
-                    }catch(NullPointerException n1){
-                        n1.printStackTrace();
+                        //---------------------------------//
+
+                        //FULL USER SELECTED UNTIL TIME-----------------------------------//
+                        String newFullDateForST;
+                        if (todaySwitchedToTomorrow || (writeReadDataInFile
+                                .readFromFile("todayTomorrow") != null &&
+                                writeReadDataInFile.readFromFile("todayTomorrow")
+                                        .equals("true"))) {
+                            newFullDateForST = String.valueOf(currentDate2) + "-"
+                                    + String.valueOf(currentMonth)
+                                    + "-" + String.valueOf(currentYear);
+                        } else {
+                            newFullDateForST = String.valueOf(currentDate) + "-"
+                                    + String.valueOf(currentMonth)
+                                    + "-" + String.valueOf(currentYear);
+                        }
+                        String fullTotalSelectedDate = newFullDateForST + " " + selectedTime;
+                        String preCutFullTotalSelecteDate;
+                        final String cutFullTotalSelectedDate;
+                        if (fullTotalSelectedDate.contains(" AM")) {
+                            preCutFullTotalSelecteDate = fullTotalSelectedDate.replace(getResources()
+                                    .getString(R.string.act_wash_my_car_until2), "");
+                            cutFullTotalSelectedDate = preCutFullTotalSelecteDate.replace(" AM"
+                                    , "");
+                        } else {
+                            preCutFullTotalSelecteDate = fullTotalSelectedDate.replace(getResources()
+                                    .getString(R.string.act_wash_my_car_until2), "");
+                            cutFullTotalSelectedDate = preCutFullTotalSelecteDate.replace(" PM"
+                                    , "");
+                        }
+                        //----------------------------------------------------------------//
+
+                        //FULL USER'S DEVICE CURRENT DATE + HOUR + MINUTE-----------------//
+                        @SuppressLint("DefaultLocale") final String cutFullTotalCurrentDateTime = newFullDate + " " +
+                                String.format("%02d:%02d", currentSoleHourPlusOne,
+                                        currentSoleMinute).toUpperCase(Locale.getDefault());
+                        //----------------------------------------------------------------//
+                        //Logs and to-Date convertion-------------------------------------//
+                        @SuppressLint("SimpleDateFormat")
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                        Date currentDate1 = null;
+                        Date savedDate2 = null;
+                        try {
+                            currentDate1 = sdf.parse(cutFullTotalCurrentDateTime);
+                            savedDate2 = sdf.parse(cutFullTotalSelectedDate);
+                        } catch (java.text.ParseException e) {
+                            e.printStackTrace();
+                        }
+                        final Date currentFinalDate1 = currentDate1;
+                        final Date savedFinalDate2 = savedDate2;
+                        Log.i("datesWash", "is: " + currentDate1 + " and " + savedDate2);
+                        //----------------------------------------------------------------//
+                        //----------------------------------------------------------------------------//
+                        carAddressDescription = cCrLocationDescriptionEdit.getText().toString();
+                        toastMessages.debugMesssage(getApplicationContext()
+                                , "is: " + cCarSelected.getText().toString(), 1);
+                        try {
+                            if (cutFullTotalCurrentDateTime.equals(cutFullTotalSelectedDate)) {
+
+                                warningDialog(getResources().getString
+                                                (R.string.washMyCar_act_java_washTimeLimit)
+                                        , getResources().getString(R.string
+                                                .washMyCar_act_java_yourWashLimitShort));
+
+                            } else if (currentFinalDate1 != null && savedFinalDate2 != null) {
+
+                                Log.i("currentDate", currentFinalDate1.toString());
+                                Log.i("savedDate", savedFinalDate2.toString());
+
+                                if (currentFinalDate1.compareTo(savedFinalDate2) > 0
+                                        && !todaySwitchedToTomorrow) {
+
+                                    Log.i("datesAgain", "are: " + currentFinalDate1
+                                            + " " + savedFinalDate2);
+
+                                    warningDialog(getResources().getString(R.string
+                                            .washMyCar_act_java_washTimeLimit), getResources()
+                                            .getString(R.string.washMyCar_act_java_yourWashTimeLimit));
+
+                                } else {
+                                    showSecondStageParams();
+                                    Log.i("p1", address + " & " + getAddress());
+                                    Log.i("p2", carAddressDescription);
+                                    Log.i("p3", fullDate);
+                                    Log.i("p4", selectedTime);
+                                }
+                            }
+                        } catch (NullPointerException n1) {
+                            n1.printStackTrace();
+                        }
+                    } else if (!cCrLocationEdit.getText().toString().contains(getResources()
+                            .getString(R.string.washMyCar_act_java_telAviv)) ||
+                            !cCrLocationEdit.getText().toString().contains(getResources()
+                                    .getString(R.string.washMyCar_act_java_ramatGan)) ||
+                            !cCrLocationEdit.getText().toString().contains(getResources()
+                                    .getString(R.string.washMyCar_act_java_givataim))) {
+                        //city not allowed
+                        forcedAlertDialog.generalPurposeForcedDialogNoAction(getResources()
+                                        .getString(R.string.washMyCar_act_java_cityOutOfRange),
+                                getResources().getString(R.string.washMyCar_act_java_thisCityIs)
+                                , getResources().getString(R.string.washMyCar_act_java_ok));
+
+                        Log.i("red2", "Not good: ");
                     }
                 }else{
-                    //city not allowed
-                    forcedAlertDialog.generalPurposeForcedDialogNoAction(getResources()
-                                    .getString(R.string.washMyCar_act_java_cityOutOfRange),
-                            getResources().getString(R.string.washMyCar_act_java_thisCityIs)
-                            ,getResources().getString(R.string.washMyCar_act_java_ok));
+                    warningDialog(getResources()
+                                    .getString(R.string.washMyCar_act_java_missingFields)
+                            , getResources().getString(R.string
+                                    .washMyCar_act_java_pleaseFillAll));
+
+                    Log.i("red1", "empty: " + cCrLocationEdit.getText().toString() +
+                            " " + cCrUntilEdit.getText().toString() +
+                            " " + cCarSelected.getText().toString() +
+                            " " + carCoordinatesIn);
                 }
             }
         });
@@ -547,6 +576,9 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                         requestType = "private";
                     }else if (SplasherSelector.COLLECTOR_LIST.size() >= 2){
                         requestType = "public";
+                    }
+                    if (allListSelected) {
+                        metricsClassQuery.queryMetricsToUpdate("allSplashers");
                     }
                     boxedLoadingDialog.showLoadingDialog();
                     RequestClassSend requestClassSend = new RequestClassSend
@@ -1146,6 +1178,9 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         //cCrServicesEdit.setVisibility(View.GONE);
         cCarList.setVisibility(View.GONE);
         cSpinnerArrow.setVisibility(View.GONE);
+        if (refreshItem != null){
+            refreshItem.setVisible(true);
+        }
     }
 
     private void gridLayoutState(boolean state){

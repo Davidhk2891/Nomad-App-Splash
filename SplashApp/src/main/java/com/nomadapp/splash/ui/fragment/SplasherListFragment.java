@@ -82,6 +82,7 @@ public class SplasherListFragment extends Fragment {
     private Button mMarkSplasher;
     private LinearLayout mSplasherGridFetchLinear;
     private boolean bottomSheetUp = false;
+    private TextView mEmptySplasherList;
     //---------------------------------------------//
 
     //Splasher details window fields//
@@ -192,9 +193,11 @@ public class SplasherListFragment extends Fragment {
         mSlNumWashes = v.findViewById(R.id.slNumWashes);
         mSlStatus = v.findViewById(R.id.slStatus);
         mSlPriceData = v.findViewById(R.id.slPriceData);
+        mEmptySplasherList = v.findViewById(R.id.emptySplashersList);
         mSplasherGridFetchLinear = v.findViewById(R.id.splasherGridFetchLinear);
 
         fetchedServiceType = washReqParamsActivity.getGetServiceType();
+        mEmptySplasherList.setVisibility(View.GONE);
 
         Log.i("fetchedServiceType","is " + washReqParamsActivity.getGetServiceType());
 
@@ -221,6 +224,7 @@ public class SplasherListFragment extends Fragment {
         mSplasherGridFetchLinear.setVisibility(visibility);
     }
 
+    /*
     public void fetchRequestDataToOrder(){
         //values to get from getters//
         Log.i("a1",washReqParamsActivity.getAddress());
@@ -246,6 +250,7 @@ public class SplasherListFragment extends Fragment {
         Log.i("f13",String.valueOf(isTemporalKeyActive));
         //--------------------------//
     }
+    */
 
     public void collapseBtmSheetFromX(){
         mExitBtmSheet.setOnClickListener(new View.OnClickListener(){
@@ -365,7 +370,7 @@ public class SplasherListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (!WashReqParamsActivity.allListSelected) {
-                    Log.i("orange1", "is " + String.valueOf(position));
+                    Log.i("orange1", "is " + position);
                     grandPosition = position;
                     grandView = view;
                     getSelectedGridItemData(view, position);
@@ -484,9 +489,8 @@ public class SplasherListFragment extends Fragment {
 
                             splasherEC = splasherObj.getParseGeoPoint("ECCoords");
 
-                            Log.i("carCoordsFromFragment", "are " + String
-                                    .valueOf(carGeoPointLocation) + " AND " + String
-                                    .valueOf(splasherEC));
+                            Log.i("carCoordsFromFragment", "are " + carGeoPointLocation
+                                    + " AND " + splasherEC);
 
                             Double disCarToSplasher = carGeoPointLocation
                                     .distanceInKilometersTo(splasherEC);
@@ -496,9 +500,9 @@ public class SplasherListFragment extends Fragment {
                                     .replace("Km","");
                             Double splasherRange = Double.parseDouble(splasherRangeFixed);
                             Log.i("splasherRange", "is "
-                                    + String.valueOf(splasherRange));//left here
-                            Log.i("distances for filtering",String.valueOf(disCarToSplasher)
-                                    + " " + String.valueOf(splasherRange));
+                                    + splasherRange);
+                            Log.i("distances for filtering",disCarToSplasher
+                                    + " " + splasherRange);
 
                             //NEED TO REFRESH SPLASHER LIST WHEN COMING BACK FROM PLACEPICKER//
                             if (disCarToSplasher <= splasherRange) {
@@ -581,12 +585,28 @@ public class SplasherListFragment extends Fragment {
                                 //-------------------------------------------------------------//
                                 splasherListAdapter.notifyDataSetChanged();
                                 splasherGridRefresh(View.GONE);
+                                mEmptySplasherList.setVisibility(View.GONE);
                             }
                         }
+                    }else{
+                        //No splashers available near your area
+                        splasherList.clear();
+                        splasherUserNames.clear();
+                        splasherShowingNames.clear();
+                        splasherUserAvgRat.clear();
+                        splasherUserProfPic.clear();
+                        splasherUserNumWash.clear();
+                        splasherUserPrice.clear();
+                        carOwnerUserPrice.clear();
+
+                        splasherGridRefresh(View.GONE);
+                        mEmptySplasherList.setVisibility(View.VISIBLE);
                     }
                 }else{
-                    //do nothing for now
+                    //Something went wrong. Please check your connection and try again
                     splasherGridRefresh(View.GONE);
+                    toastMessages.productionMessage(getActivity(), "Something went wrong." +
+                            " Please check your connectin and try again", 1);
                 }
             }
         });

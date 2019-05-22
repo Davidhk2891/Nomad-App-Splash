@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: me.zhanghai.android.materialratingbar:library:1.0.2@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-1.0.2.aar/1068a474aa0c96185a975df830390301/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-1.0.2.aar/1068a474aa0c96185a975df830390301/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8b700f7a7f141a60eaeb6e9712d17a21/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8b700f7a7f141a60eaeb6e9712d17a21/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

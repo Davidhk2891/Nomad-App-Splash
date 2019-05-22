@@ -35,7 +35,7 @@ public class RadarView extends View {
         localPaint.setColor(Color.parseColor("#2196F3")); //Choose color
         localPaint.setAntiAlias(true);
         localPaint.setStyle(Paint.Style.STROKE);
-        localPaint.setStrokeWidth(1.0F);
+        localPaint.setStrokeWidth(2.0F);
         localPaint.setAlpha(0);
 
         int alpha_step = 255 / POINT_ARRAY_SIZE;

@@ -23,7 +23,7 @@ import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
 import com.nomadapp.splash.utils.sysmsgs.DialogAcceptInterface;
 import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
-import com.nomadapp.splash.utils.sysmsgs.questiondialogs.AlertDialog;
+import com.nomadapp.splash.utils.sysmsgs.questiondialogs.CustomAlertDialog;
 import com.nomadapp.splash.utils.sysmsgs.questiondialogs.ForcedAlertDialog;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.ParseException;
@@ -316,8 +316,8 @@ public class SplasherServicesActivity extends AppCompatActivity {
 
     public void editPrices(View v){
         //when clicked, dialog, enable widget state then edit
-        AlertDialog alertDialog = new AlertDialog(ctx);
-        alertDialog.generalPurposeQuestionDialog(ctx, getResources().getString(R.string
+        CustomAlertDialog customAlertDialog = new CustomAlertDialog(ctx);
+        customAlertDialog.generalPurposeQuestionDialog(ctx, getResources().getString(R.string
                 .splasher_services_dialogTitle), getResources().getString(R.string
                 .splasher_services_dialogMsg), getResources().getString(R.string
                 .splasher_services_dialogYes), getResources().getString(R.string
@@ -332,8 +332,8 @@ public class SplasherServicesActivity extends AppCompatActivity {
     }
 
     public void editServiceArea(View v){
-        AlertDialog alertDialog = new AlertDialog(ctx);
-        alertDialog.generalPurposeQuestionDialog(ctx, getResources().getString(R.string
+        CustomAlertDialog customAlertDialog = new CustomAlertDialog(ctx);
+        customAlertDialog.generalPurposeQuestionDialog(ctx, getResources().getString(R.string
                 .splasher_services_dialogAreaTitle), getResources().getString(R.string
                 .splasher_services_dialogAreaMsg), getResources().getString(R.string
                 .splasher_services_dialogAreaYes), getResources().getString(R.string

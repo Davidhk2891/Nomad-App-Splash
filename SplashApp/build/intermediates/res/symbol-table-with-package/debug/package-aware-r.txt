@@ -1820,6 +1820,7 @@ id action_bar_root
 id action_bar_spinner
 id action_bar_subtitle
 id action_bar_title
+id action_call
 id action_cancel_wash
 id action_container
 id action_context_bar
@@ -1833,6 +1834,7 @@ id action_menu_presenter
 id action_mode_bar
 id action_mode_bar_stub
 id action_mode_close_button
+id action_refresh
 id action_report
 id action_save_acc
 id action_text
@@ -2067,6 +2069,7 @@ id emailInput
 id emailText
 id emptyCarList
 id emptyList
+id emptySplashersList
 id end
 id end_padder
 id enterAccountInfo
@@ -2787,6 +2790,8 @@ menu home_tool_bar_menu
 menu nav_menu
 menu payment_menu
 menu service_show_menu
+menu splasher_camera_menu
+menu splasher_list_menu
 mipmap ic_launcher
 string AddCar_act_java_missingFields
 string AddCar_act_java_ok
@@ -3076,6 +3081,7 @@ string act_wash_my_car_until2
 string act_wash_my_car_untilWhatTime
 string act_wash_my_car_wash
 string act_wash_my_car_washes
+string act_wash_my_car_youHaveNoSplashers
 string act_wash_my_car_youWillBeCharged
 string action_settings
 string addAddress_act_java_tryAgain
@@ -3109,6 +3115,7 @@ string boxedLoadingDialog_act_java_errMessage
 string boxedLoadingDialog_act_java_errOk
 string boxedLoadingDialog_act_java_errTitle
 string boxedLoadingDialog_act_java_pleasewait
+string call
 string cameraIntent_act_java_areYouDoneWashing
 string cameraIntent_act_java_byPressingImDone
 string cameraIntent_act_java_cancel
@@ -3226,6 +3233,7 @@ string car_row_carPlateNum
 string car_row_carYear
 string character_counter_pattern
 string close
+string com_crashlytics_android_build_id
 string com_facebook_device_auth_instructions
 string com_facebook_image_download_unknown_error
 string com_facebook_internet_permission_error_message

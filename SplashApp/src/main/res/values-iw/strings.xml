@@ -45,6 +45,7 @@
 
     <string name="open">לפתוח</string>
     <string name="close">לסגור</string>
+    <string name="call">להתקשר</string>
 
 
     <!--Facebook App ID-->
@@ -343,6 +344,7 @@
     <string name="act_wash_my_car_loading">&#8230;טוען</string>
     <string name="act_wash_my_car_select">בחר</string>
     <string name="act_wash_my_car_selectAll">בחר הכל</string>
+    <string name="act_wash_my_car_youHaveNoSplashers">אין שוטפים בקרבת מקום :(</string>
     <!--///////////////-->
 
     <!--splasher_row-->

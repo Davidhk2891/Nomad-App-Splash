@@ -26,6 +26,7 @@ public class MetricsClassSend {
         metricsObject.put("openedApp", "0");
         metricsObject.put("washMyCar", "0");
         metricsObject.put("orderWash", "0");
+        metricsObject.put("allSplashers", "0");
         metricsObject.put("canceledWash", "0");
         metricsObject.put("internalWash", "0");
         metricsObject.put("addNewCar", "0");

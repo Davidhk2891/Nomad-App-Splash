@@ -194,8 +194,7 @@ public class SplasherApplicationActivity extends AppCompatActivity {
                     , getResources().getString(R.string.becomeSplasher_act_java_pleaseFillAll),
                     1);
 
-        }else if(!cSplasherSignUpEmail.getText().toString().contains("@")
-                || !cSplasherSignUpEmail.getText().toString().contains(".com")) {
+        }else if(!cSplasherSignUpEmail.getText().toString().contains("@")) {
             toastMessages.productionMessage(ctx
                     ,getResources().getString(R.string
                             .becomeSplasher_act_java_pleaseEnterValidEmail),

@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: net.qiujuer.genius:ui:2.0.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/ui-2.0.0.aar/3bc992dac067b816695dad28e07d5251/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/ui-2.0.0.aar/3bc992dac067b816695dad28e07d5251/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/87162ec3982e22de3719a3d3c8e67f40/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/87162ec3982e22de3719a3d3c8e67f40/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

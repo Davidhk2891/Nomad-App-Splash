@@ -52,8 +52,7 @@ public class MetricsClassQuery {
                                 intParseVarCounter++;
                                 Datetime dateTime = new Datetime(context);
                                 String timeStamp = "-" + dateTime.rawCurrentTime();
-                                finalParseVarCounter = String.valueOf(intParseVarCounter)
-                                        + timeStamp;
+                                finalParseVarCounter = intParseVarCounter + timeStamp;
                                 metObject.put(parseVarToUpdate, finalParseVarCounter);
                                 metObject.saveInBackground();
                             }catch(NumberFormatException ef){

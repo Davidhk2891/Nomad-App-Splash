@@ -1,15 +1,15 @@
 <component name="libraryTable">
   <library name="Gradle: :payme-1.1.6:@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/payme-1.1.6.aar/a49a2acaaa8d71fec30be46a0b6e40ed/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ef568d96dd47da631e300c41160cabff/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/payme-1.1.6.aar/a49a2acaaa8d71fec30be46a0b6e40ed/jars/libs/moshi-1.1.0.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/payme-1.1.6.aar/a49a2acaaa8d71fec30be46a0b6e40ed/jars/libs/logging-interceptor-3.2.0.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/payme-1.1.6.aar/a49a2acaaa8d71fec30be46a0b6e40ed/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/payme-1.1.6.aar/a49a2acaaa8d71fec30be46a0b6e40ed/jars/classes.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/payme-1.1.6.aar/a49a2acaaa8d71fec30be46a0b6e40ed/jars/libs/okhttp-3.2.0.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/payme-1.1.6.aar/a49a2acaaa8d71fec30be46a0b6e40ed/jars/libs/okio-1.8.0.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ef568d96dd47da631e300c41160cabff/jars/libs/okio-1.8.0.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ef568d96dd47da631e300c41160cabff/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ef568d96dd47da631e300c41160cabff/jars/libs/moshi-1.1.0.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ef568d96dd47da631e300c41160cabff/jars/libs/okhttp-3.2.0.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ef568d96dd47da631e300c41160cabff/jars/libs/logging-interceptor-3.2.0.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ef568d96dd47da631e300c41160cabff/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

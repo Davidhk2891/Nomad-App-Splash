@@ -48,6 +48,7 @@
 
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="call">Call</string>
 
     <!--Facebook App ID-->
     <!--IGNORE-->
@@ -338,6 +339,7 @@
     <string name="act_wash_my_car_loading">Loading&#8230;</string>
     <string name="act_wash_my_car_select">Select</string>
     <string name="act_wash_my_car_selectAll">Select all</string>
+    <string name="act_wash_my_car_youHaveNoSplashers">There are no splashers nearby :(</string>
     <!--///////////////-->
 
     <!--splasher_row-->

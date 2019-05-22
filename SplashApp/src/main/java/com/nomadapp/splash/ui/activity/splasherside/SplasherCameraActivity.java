@@ -21,6 +21,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -32,7 +34,10 @@ import android.widget.TextView;
 
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.imagehandler.GlideImagePlacement;
+import com.nomadapp.splash.utils.phonedialer.DialCall;
+import com.nomadapp.splash.utils.sysmsgs.DialogAcceptInterface;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.questiondialogs.CustomAlertDialog;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -65,7 +70,6 @@ public class SplasherCameraActivity extends AppCompatActivity {
     private RelativeLayout cWashingCarRelative;
     private Button cDispatchPictures, cDispatchPictures2;
     private TextView cBeforeAfterTitle;
-    private LinearLayout mPicturesSentStatus;
     //--//
     private Uri imageFileLocation;
     private Uri imageFileLocation2;
@@ -94,9 +98,11 @@ public class SplasherCameraActivity extends AppCompatActivity {
     private String rawImageString1, rawImageString2, rawImageString3, rawImageString4;
     private ParseFile afFrontFile, afRearFile, afLeftFile, afRightFile;
     private ParseFile bfFrontFile, bfRearFile, bfLeftFile, bfRightFile;
+    private String fetchedCOPhoneNum;
 
     private ToastMessages toastMessages = new ToastMessages();
     private ConnectionLost clm = new ConnectionLost(SplasherCameraActivity.this);
+    private CustomAlertDialog cad = new CustomAlertDialog(SplasherCameraActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +117,7 @@ public class SplasherCameraActivity extends AppCompatActivity {
         cPictureHolder2 = findViewById(pictureHolder2);
         cPictureHolder3 = findViewById(pictureHolder3);
         cPictureHolder4 = findViewById(pictureHolder4);
-        mPicturesSentStatus = findViewById(picturesSentStatus);
+        LinearLayout mPicturesSentStatus = findViewById(picturesSentStatus);
         cWashingCarRelative.setVisibility(View.GONE);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -124,6 +130,7 @@ public class SplasherCameraActivity extends AppCompatActivity {
             String fetchedUntilTime2 = newBundle.getString("fetchedUntilTime");
             String fetchedPrice2 = newBundle.getString("fetchedPrice");
             String picStatus = newBundle.getString("picStatus");
+            fetchedCOPhoneNum = newBundle.getString("fetchedPhoneNum");
             WriteReadDataInFile writeReadDataInFile = new WriteReadDataInFile(SplasherCameraActivity.this);
             writeReadDataInFile.writeToFile(fetchedUntilTime2, "untilTime12Hours");
             writeReadDataInFile.writeToFile(fetchedPrice2, "fetchedPrice12Hours");
@@ -161,6 +168,30 @@ public class SplasherCameraActivity extends AppCompatActivity {
         cDispatchPictures2.setEnabled(false);
 
         clm.connectivityStatus(SplasherCameraActivity.this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.splasher_camera_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.action_call){
+            cad.generalPurposeQuestionDialog(SplasherCameraActivity.this, null
+                    , "Call Car Owner?", "Yes", "No"
+                    , new DialogAcceptInterface() {
+                        @Override
+                        public void onAcceptOption() {
+                            //call car owner
+                            DialCall dialCall = new DialCall(SplasherCameraActivity.this);
+                            dialCall.fetchPhoneNumToDial(fetchedCOPhoneNum);
+                        }
+                    });
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void takePic(View v){

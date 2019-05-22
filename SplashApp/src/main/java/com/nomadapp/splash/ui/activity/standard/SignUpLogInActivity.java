@@ -228,9 +228,7 @@ public class SignUpLogInActivity extends AppCompatActivity implements View.OnKey
                 toastMessages.productionMessage(getApplicationContext()
                         , getResources().getString(R.string.main_act_java_bothPassMustMatch),1);
 
-            } else if (!cEmailInput.getText().toString().contains("@")
-                    || !cEmailInput.getText().toString().contains(".com")
-                    || !cEmailInput.getText().toString().contains(".co")) {
+            } else if (!cEmailInput.getText().toString().contains("@")) {
 
                 toastMessages.productionMessage(getApplicationContext()
                         ,getResources().getString(R.string.main_act_java_enterValidEmail),1);

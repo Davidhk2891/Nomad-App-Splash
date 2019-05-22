@@ -41,7 +41,6 @@ import com.nomadapp.splash.model.server.parseserver.queries.RequestClassQuery;
 import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
-import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
@@ -51,10 +50,8 @@ import com.parse.ParseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import com.nomadapp.splash.utils.sysmsgs.connectionlost.ConnectionLost;
@@ -63,8 +60,6 @@ import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
 
 public class WashRequestsActivity extends AppCompatActivity {
 
-    //private ArrayList<String> requests = new ArrayList<>();
-    //private ArrayAdapter arrayAdapter;
     private RelativeLayout cLoadingPanel;
 
     private LocationManager locationManager;
@@ -83,7 +78,6 @@ public class WashRequestsActivity extends AppCompatActivity {
     private String carOwnerCarColor;
     private String carOwnerCarYear;
     private String carOwnerCarPlate;
-    //private String wholeCurrRating;
     private String requestNumBadge;
     private String price;
     private Uri fbPic;
@@ -98,7 +92,6 @@ public class WashRequestsActivity extends AppCompatActivity {
     private ArrayList<String> carUntilTimeList = new ArrayList<>();
     private ArrayList<String> carServiceTypeList = new ArrayList<>();
     private ArrayList<String> carOwnerSetPrice = new ArrayList<>();
-    private ArrayList<String> carOwnerReqTypeList = new ArrayList<>();
     private ArrayList<Integer> requestNumBadgeList = new ArrayList<>();
     private ArrayList<String> carOwnerPhoneNumList = new ArrayList<>();
     //----------------------------------------------------------------
@@ -255,9 +248,8 @@ public class WashRequestsActivity extends AppCompatActivity {
 
                             int yearSplasherSide = listViewCalendar.get(Calendar.YEAR);
                             String newFullDateSS;
-                            newFullDateSS = String.valueOf(daySplasherSide) + "-"
-                                    + String.valueOf(monthSplasherSide)
-                                    + "-" + String.valueOf(yearSplasherSide);
+                            newFullDateSS = daySplasherSide + "-"
+                                    + monthSplasherSide + "-" + yearSplasherSide;
 
                             int hourPlusOneSS;
                             if (hourSplasherSide == 24)
@@ -352,17 +344,12 @@ public class WashRequestsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-
             if (allMarksVisible) {
                 cPicturesAfterSentStatus.setVisibility(View.GONE);
             }
-
             startActivity(new Intent(WashRequestsActivity.this, HomeActivity.class));
-
         }
-
         return super.onOptionsItemSelected(item);
-
     }
     //-------------------------------
 
@@ -399,7 +386,6 @@ public class WashRequestsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wash_requests);
 
         loadRequests();
-
         //Navigate back to parent activity
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -459,7 +445,6 @@ public class WashRequestsActivity extends AppCompatActivity {
 
         //------------------------------------------------------------------------------------------
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -481,18 +466,15 @@ public class WashRequestsActivity extends AppCompatActivity {
             public void onStatusChanged(String provider, int status, Bundle extras) {
 
             }
-
             @Override
             public void onProviderEnabled(String provider) {
 
             }
-
             @Override
             public void onProviderDisabled(String provider) {
 
             }
         };
-
         if (Build.VERSION.SDK_INT < 23) {
             //listening();
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission
@@ -512,32 +494,20 @@ public class WashRequestsActivity extends AppCompatActivity {
                     (LocationManager.NETWORK_PROVIDER);
 
             if(lastKnownLocation == null){
-
                 if(lastKnownLocation2 != null) {
-
                     updateListView(lastKnownLocation2);
-
                 }
-
             } else {
-
                 updateListView(lastKnownLocation);
-
             }
-
         } else {
-
             if(ContextCompat.checkSelfPermission(this, android.Manifest.permission
                     .ACCESS_FINE_LOCATION) !=
                     PackageManager.PERMISSION_GRANTED){
-
                 ActivityCompat.requestPermissions(this, new String[]{Manifest
                         .permission.ACCESS_FINE_LOCATION}, 1);
-
             } else {
-
                 //We have permission
-
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER
                         , 10000, 0, locationListener);
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER
@@ -549,21 +519,13 @@ public class WashRequestsActivity extends AppCompatActivity {
                         (LocationManager.NETWORK_PROVIDER);
 
                 if(lastKnownLocation == null){
-
                     if(lastKnownLocation2 != null) {
-
                         updateListView(lastKnownLocation2);
-
                     }
-
                 } else {
-
                     updateListView(lastKnownLocation);
-
                 }
-
             }
-
         }
 
         //Recieve Intent extras with a Bundle here
@@ -667,22 +629,14 @@ public class WashRequestsActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-
             startActivity(new Intent(WashRequestsActivity.this,HomeActivity.class));
-
         }
-
         /*
         if (keyCode == KeyEvent.KEYCODE_HOME) {
-
             //Do nothing for now
-
         }
         */
-
         return false;
     }
 
@@ -714,16 +668,6 @@ public class WashRequestsActivity extends AppCompatActivity {
             this.activity = activity;
         }
 
-        /*
-        public int getLayoutResource() {
-            return layoutResource;
-        }
-
-        public void setLayoutResource(int layoutResource) {
-            this.layoutResource = layoutResource;
-        }
-        */
-
         public MyRequest getRequest() {
             return request;
         }
@@ -731,23 +675,6 @@ public class WashRequestsActivity extends AppCompatActivity {
         public void setRequest(MyRequest request) {
             this.request = request;
         }
-
-        /*
-        public ArrayList<MyRequest> getmData() {
-            return mData;
-        }
-
-        public void setmData(ArrayList<MyRequest> mData) {
-            this.mData = mData;
-        }
-
-        public void setFinalSelecId(int finalSelecId) {
-            this.finalSelecId = finalSelecId;
-        }
-        */
-
-        //getCount, getItem, getPosition, getItemId, getView
-
 
         @Override
         public int getCount() {
@@ -773,51 +700,26 @@ public class WashRequestsActivity extends AppCompatActivity {
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            //return super.getView(position, convertView, parent);
-            //BUGS REPORT RELATED TO ROW VIEW//
-            /*
-             *1 bug IS triggered when one of the rows becomes unavailable due to past its time.
-                  find out why and FIX
-             *2 then add screen for when requestList is empty.
-             *3 then add refresh button on toolBar
-             */
-            //-------------------------------//
-
             View row = convertView;
             ViewHolder holder;
             GlideImagePlacement glideImagePlacement = new GlideImagePlacement
                     (WashRequestsActivity.this);
 
             if((row == null) || (row.getTag() == null)){
-
                 LayoutInflater theInflator = LayoutInflater.from(activity);
-
                 row = theInflator.inflate(layoutResource, null);
-
                 holder = new ViewHolder();
-
                 holder.mDistance = row.findViewById(R.id.rowDistanceItem);
-
                 holder.mUntiltime = row.findViewById(R.id.rowAvailableUntilItem);
-
                 holder.mPrice = row.findViewById(R.id.rowPriceItem);
-
                 holder.mTomorrow = row.findViewById(R.id.inListOfTomorrow);
-
                 holder.mProfPicUri = row.findViewById(R.id.rowThumbNail);
-
                 holder.mBadgeInRequestList = row.findViewById(R.id.badgeInRequestList);
-
                 holder.mBikeService = row.findViewById(R.id.bikeService);
-
                 holder.mReqType = row.findViewById(R.id.req_header2);
-
                 row.setTag(holder);
-
             }else{
-
                 holder = (ViewHolder) row.getTag();
-
             }
             holder.holderRequest = getItem(position);
 
@@ -841,12 +743,12 @@ public class WashRequestsActivity extends AppCompatActivity {
                 monthSplasherSideIW = getViewCalendar.get(Calendar.MONTH) + 1;
 
             int yearSplasherSideIW = getViewCalendar.get(Calendar.YEAR);
-            String newFullDateIW = String.valueOf(daySplasherSideIW) + "-"
-                    + String.valueOf(monthSplasherSideIW)
-                    + "-" + String.valueOf(yearSplasherSideIW);
-            String newFullDateIW2 = String.valueOf(daySplasherSideIW2) + "-"
-                    + String.valueOf(monthSplasherSideIW)
-                    + "-" + String.valueOf(yearSplasherSideIW);
+            String newFullDateIW = daySplasherSideIW + "-"
+                    + monthSplasherSideIW
+                    + "-" + yearSplasherSideIW;
+            String newFullDateIW2 = daySplasherSideIW2 + "-"
+                    + monthSplasherSideIW
+                    + "-" + yearSplasherSideIW;
             Log.i("info dates", uncutFullUntilTime + "." + newFullDateIW);
             //18-1-2018 20:30 PM..
             //0123456789
@@ -953,9 +855,7 @@ public class WashRequestsActivity extends AppCompatActivity {
     }
 
     class ViewHolder{
-
         MyRequest holderRequest;
-
         TextView mDistance;
         TextView mUntiltime;
         TextView mPrice;
@@ -965,6 +865,5 @@ public class WashRequestsActivity extends AppCompatActivity {
         ImageView mBadgeInRequestList;
         ImageView mBikeService;
         //int mId;
-
     }
 }

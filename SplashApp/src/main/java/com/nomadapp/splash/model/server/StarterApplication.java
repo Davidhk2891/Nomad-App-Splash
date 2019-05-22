@@ -15,6 +15,7 @@ import android.util.Log;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.nomadapp.splash.model.constants.serverconstants.AppStarterConstants;
 import com.nomadapp.splash.utils.forcedupdate.ForceUpdateChecker;
 import com.parse.Parse;
 import com.parse.ParseACL;
@@ -83,10 +84,10 @@ public class StarterApplication extends MultiDexApplication {
          //--------------------------------------------//
       //CHANGE IP TO ACTUAL ONE
       Parse.initialize(new Parse.Configuration.Builder(getApplicationContext())
-           .applicationId("7d47144127c5aff85ea549497ef60cd3c11a99fa")
-           .clientKey("9f402152713abf7701ab5123719dbbd1e2b588f3")
+           .applicationId(AppStarterConstants.PARSE_APP_ID)
+           .clientKey(AppStarterConstants.PARSE_MASTER_KEY)
            //PAY ATTENTION TO WETHER IT STANDS ON HTTP OR HTTPS//
-           .server("https://backdoor.splashmycar.com/parse/")
+           .server(AppStarterConstants.PARSE_SERVER_URL)
            .build()
       );
 

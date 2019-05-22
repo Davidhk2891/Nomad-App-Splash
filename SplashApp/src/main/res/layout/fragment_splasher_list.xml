@@ -32,9 +32,19 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/emptySplashersList"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:text="@string/act_wash_my_car_youHaveNoSplashers"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <GridView
         android:id="@+id/splasherGrid"
         android:numColumns="2"
+        android:gravity="center"
         android:clickable="true"
         android:focusable="true"
         android:padding="3dp"
@@ -101,7 +111,8 @@
                     android:layout_toEndOf="@+id/slProfPic"
                     android:text=""
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="RelativeOverlap" />
 
                 <me.zhanghai.android.materialratingbar.MaterialRatingBar
                     android:id="@+id/slRatingBar"

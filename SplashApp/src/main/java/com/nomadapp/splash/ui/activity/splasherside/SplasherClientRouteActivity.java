@@ -311,6 +311,7 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
                                         SplasherCameraActivity.class);
                                     intent.putExtra("fetchedUntilTime", recievedCOUntilTime);
                                     intent.putExtra("fetchedPrice", recievedCOUPrice);
+                                    intent.putExtra("fetchedPhoneNum", recievedCOPhoneNum);
                                     startActivity(intent);
                                 }
                             }else{
@@ -959,7 +960,7 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
 
                 if(e == null && objects.size() == 0){//request with above requirements has to be non existent for down code to fire up
                     if(!alreadyExecuted3) {
-                        COCanceledRequestDialog = new AlertDialog.Builder(SplasherClientRouteActivity.this);
+                        COCanceledRequestDialog = new CustomAlertDialog.Builder(SplasherClientRouteActivity.this);
                         COCanceledRequestDialog.setTitle("Car Owner Canceled");
                         COCanceledRequestDialog.setIcon(android.R.drawable.ic_dialog_alert);
                         COCanceledRequestDialog.setMessage("Your Car Owner has either canceled his/her request or reached its time deadline, the Splash team encourages you to" +

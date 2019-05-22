@@ -14,7 +14,7 @@ import com.nomadapp.splash.model.constants.PaymeConstants;
 import com.nomadapp.splash.model.constants.serverconstants.ProfileConstants;
 import com.nomadapp.splash.utils.sysmsgs.DialogAcceptInterface;
 import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
-import com.nomadapp.splash.utils.sysmsgs.questiondialogs.AlertDialog;
+import com.nomadapp.splash.utils.sysmsgs.questiondialogs.CustomAlertDialog;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.LogOutCallback;
 import com.parse.ParseException;
@@ -84,13 +84,13 @@ public class SplasherOnboarding extends AppCompatActivity {
                     toastMessages.productionMessage(SplasherOnboarding.this
                             ,getResources().getString(R.string
                                     .becomeSplasher_act_java_bothPasswords), 1);
-                } else if(!mSplasher_onboarding_email.getText().toString().contains("@")
-                            || !mSplasher_onboarding_email.getText().toString().contains(".com")
-                            || !mSplasher_onboarding_email.getText().toString().contains(".co")) {
-                        toastMessages.productionMessage(SplasherOnboarding.this
-                                ,getResources().getString(R.string
-                                        .becomeSplasher_act_java_pleaseEnterValidEmail),
-                                1);
+                } else if(!mSplasher_onboarding_email.getText().toString().contains("@")){
+                    Log.i("white1","is: " + mSplasher_onboarding_email.getText()
+                            .toString());
+                    toastMessages.productionMessage(SplasherOnboarding.this
+                            ,getResources().getString(R.string
+                                    .becomeSplasher_act_java_pleaseEnterValidEmail),
+                            1);
                 }else{
                     boxedLoadingDialog.showLoadingDialog();
                     createParseSplasherUser();
@@ -191,8 +191,8 @@ public class SplasherOnboarding extends AppCompatActivity {
             public void done(ParseException e) {
                 if (e == null){
                     boxedLoadingDialog.hideLoadingDialog();
-                    AlertDialog alertDialog = new AlertDialog(SplasherOnboarding.this);
-                    alertDialog.generalPurposeQuestionDialog(SplasherOnboarding.this
+                    CustomAlertDialog customAlertDialog = new CustomAlertDialog(SplasherOnboarding.this);
+                    customAlertDialog.generalPurposeQuestionDialog(SplasherOnboarding.this
                             , getResources().getString(R.string
                                     .splasher_onboarding_alert_accBeing_title)
                             , getResources().getString(R.string

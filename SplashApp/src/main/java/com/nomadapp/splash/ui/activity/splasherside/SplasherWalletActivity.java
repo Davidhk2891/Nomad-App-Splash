@@ -29,7 +29,7 @@ import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.model.server.parseserver.send.MessageClassSend;
 import com.nomadapp.splash.utils.sysmsgs.DialogAcceptInterface;
 import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
-import com.nomadapp.splash.utils.sysmsgs.questiondialogs.AlertDialog;
+import com.nomadapp.splash.utils.sysmsgs.questiondialogs.CustomAlertDialog;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -67,7 +67,7 @@ public class SplasherWalletActivity extends AppCompatActivity {
     private boolean fromCamera = false;
 
     private WriteReadDataInFile writeReadDataInFile = new WriteReadDataInFile(ctx);
-    private AlertDialog alertDialog = new AlertDialog(ctx);
+    private CustomAlertDialog customAlertDialog = new CustomAlertDialog(ctx);
     private BoxedLoadingDialog boxedLoadingDialog = new BoxedLoadingDialog(ctx);
     private UserClassQuery userClassQuery = new UserClassQuery(ctx);
     private ToastMessages toastMessages = new ToastMessages();
@@ -101,7 +101,7 @@ public class SplasherWalletActivity extends AppCompatActivity {
     }
 
     public void editBankDets(View v){
-        alertDialog.editBankDetsDialog(new DialogAcceptInterface() {
+        customAlertDialog.editBankDetsDialog(new DialogAcceptInterface() {
             @Override
             public void onAcceptOption() {
                 bankTextViewsState(true,R.drawable.btn_shape);
