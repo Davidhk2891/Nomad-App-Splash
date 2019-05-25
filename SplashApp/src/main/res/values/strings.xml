@@ -167,7 +167,7 @@
     <string name="act_car_owner_cancelWash">Cancel wash</string>
     <string name="act_car_owner_letWashCar">Let\'s wash a car</string>
     <string name="act_car_owner_splasherStatus">Splasher status</string>
-    <string name="act_car_owner_carOwnerDets">Car-Owner Details</string>
+    <string name="act_car_owner_requestDets">Request Details</string>
     <string name="act_car_owner_profPicWindow">Profile pic</string>
     <string name="act_car_owner_responsibility">Responsibility: 0</string>
     <string name="act_car_owner_generosity">Generosity: 0</string>
@@ -177,7 +177,7 @@
     <string name="act_car_owner_distanceValue">XXXm</string>
     <string name="act_car_owner_availableTitle">- Available Until:</string>
     <string name="act_car_owner_availableValue">00:00</string>
-    <string name="act_car_owner_youGetTitle">- You Get:</string>
+    <string name="act_car_owner_serviceTitle">- Service:</string>
     <string name="act_car_owner_youGetValue">$XXX</string>
     <string name="act_car_owner_cancel">Cancel</string>
     <string name="act_car_owner_go">Go</string>
@@ -353,7 +353,7 @@
     <string name="car_owner_row_profilePic">Profile Picture</string>
     <string name="car_owner_row_distance">Distance:</string>
     <string name="car_owner_row_availableUntil">Available until:</string>
-    <string name="car_owner_row_youGet">You get:</string>
+    <string name="car_owner_row_service">Service:</string>
     <string name="car_owner_row_xxx">XXX</string>
     <string name="car_owner_row_badge">badge</string>
     <!--/////////////-->
@@ -663,6 +663,7 @@
     <string name="carOwnerLocation_act_java_youHaveAnActiveRequest">You have an active request. If you leave, the request will be canceled and affect
         your rating directly. Continue?</string>
     <string name="carOwnerLocation_act_java_youNeedToBe100m">You need to be at least 100 meters from the car</string>
+    <string name="carOwnerLocation_act_java_callCarOwner">Call car owner?</string>
     <!--/////////////////////////////-->
 
     <!--WashReqParamsActivity.java-->

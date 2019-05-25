@@ -1871,7 +1871,6 @@ id auto
 id automatic
 id availableUntilDetsTitle
 id availableUntilDetsValue
-id badgeInRequestList
 id balanceNum
 id balanceTitle
 id bankAccProofCameraUpload
@@ -2045,7 +2044,6 @@ id design_menu_item_action_area
 id design_menu_item_action_area_stub
 id design_menu_item_text
 id design_navigation_view
-id detsPicsAndStatsLinearHor
 id dimensions
 id direct
 id disableHome
@@ -2161,7 +2159,6 @@ id incDocProofFileUpload
 id incDocProofLinear
 id incDocProofTextView
 id info
-id infoWindowSplashBadge
 id inline
 id invisible
 id italic
@@ -2356,7 +2353,6 @@ id reqDetsSepa1
 id reqDetsSepa2
 id reqDetsSepa3
 id req_header
-id req_header2
 id requestPageTitle
 id request_window_info
 id right
@@ -2375,6 +2371,7 @@ id rowSName
 id rowSNumWashes
 id rowSPrice
 id rowSRatingBar
+id rowServiceItem
 id rowThumbNail
 id satellite
 id saveCarOwner
@@ -2486,7 +2483,6 @@ id splashSignUpLocalAddressLinear
 id splashWalletImg
 id splashWalletRelative
 id splashWalletTextView
-id splashWantedLinear
 id splasherCardRelative
 id splasherCardView
 id splasherGrid
@@ -2916,7 +2912,6 @@ string act_car_owner_cancel
 string act_car_owner_cancelWash
 string act_car_owner_car
 string act_car_owner_carAvailableUntil
-string act_car_owner_carOwnerDets
 string act_car_owner_cdcTime
 string act_car_owner_comingsoon
 string act_car_owner_contentDesc
@@ -2958,11 +2953,13 @@ string act_car_owner_location_vertSepa
 string act_car_owner_motorcycle
 string act_car_owner_notSpecified
 string act_car_owner_profPicWindow
+string act_car_owner_requestDets
 string act_car_owner_request_Under
 string act_car_owner_request_gettingNearRequests
 string act_car_owner_request_sendingPics
 string act_car_owner_responsibility
 string act_car_owner_searchingForAvailSp
+string act_car_owner_serviceTitle
 string act_car_owner_splasherStatus
 string act_car_owner_timeLeft
 string act_car_owner_version
@@ -2970,7 +2967,6 @@ string act_car_owner_waitingForAResponse
 string act_car_owner_washMyCar
 string act_car_owner_washes
 string act_car_owner_yes
-string act_car_owner_youGetTitle
 string act_car_owner_youGetValue
 string act_car_owner_youHaveNewOrders
 string act_car_owner_yourSplasher
@@ -3146,6 +3142,7 @@ string carOWnerRequest_act_java_public
 string carOWnerRequest_act_java_yourRatingIsntHigh
 string carOwnerLocation_act_java_acceptingRequests
 string carOwnerLocation_act_java_areYouSure
+string carOwnerLocation_act_java_callCarOwner
 string carOwnerLocation_act_java_cancelingRequestsWill
 string carOwnerLocation_act_java_carOwnerCanceled
 string carOwnerLocation_act_java_connected
@@ -3224,8 +3221,8 @@ string car_owner_row_availableUntil
 string car_owner_row_badge
 string car_owner_row_distance
 string car_owner_row_profilePic
+string car_owner_row_service
 string car_owner_row_xxx
-string car_owner_row_youGet
 string car_row_carBrand
 string car_row_carColor
 string car_row_carModel

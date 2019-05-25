@@ -10,7 +10,7 @@ public class MyRequest {
 
     public String distance;
     public String untilTime;
-    public String price;
+    public String service;
     public String tomorrow;
     public String bikeService;
     public String requestType;
@@ -35,12 +35,12 @@ public class MyRequest {
         this.untilTime = untilTime;
     }
 
-    public String getPrice() {
-        return price;
+    public String getService() {
+        return service;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setService(String price) {
+        this.service = price;
     }
 
     public Uri getProfPicFbUri() {

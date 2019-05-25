@@ -172,7 +172,7 @@
     <string name="act_car_owner_cancelWash">ביטול שטיפה</string>
     <string name="act_car_owner_letWashCar">לשטוף רכב</string>
     <string name="act_car_owner_splasherStatus">סטטוס</string>
-    <string name="act_car_owner_carOwnerDets">פרטי בעל הרכב</string>
+    <string name="act_car_owner_requestDets">פרטי הבקשה</string>
     <string name="act_car_owner_profPicWindow">תמונת פרופיל</string>
     <string name="act_car_owner_responsibility">אחריות: 0</string>
     <string name="act_car_owner_generosity">נדיבות: 0</string>
@@ -182,7 +182,7 @@
     <string name="act_car_owner_distanceValue">XXXm</string>
     <string name="act_car_owner_availableTitle"> זמין עד</string>
     <string name="act_car_owner_availableValue">00:00</string>
-    <string name="act_car_owner_youGetTitle"> סכום</string>
+    <string name="act_car_owner_serviceTitle"> שירות</string>
     <string name="act_car_owner_youGetValue">$XXX</string>
     <string name="act_car_owner_cancel">לבטל</string>
     <string name="act_car_owner_go">ללכת</string>
@@ -358,7 +358,7 @@
     <string name="car_owner_row_profilePic">תמונת פרופיל</string>
     <string name="car_owner_row_distance">מרחק</string>
     <string name="car_owner_row_availableUntil">זמין עד</string>
-    <string name="car_owner_row_youGet">סכום</string>
+    <string name="car_owner_row_service">שירות</string>
     <string name="car_owner_row_xxx">XXX</string>
     <string name="car_owner_row_badge">תג</string>
     <!--/////////////-->
@@ -648,6 +648,7 @@
     <string name="carOwnerLocation_act_java_cancelingRequestsWill">ביטול הבקשות ישפיע על הדירוג שלך ישירות. להשיך?</string>
     <string name="carOwnerLocation_act_java_youHaveAnActiveRequest">יש בקשה פעילה. אם תצא, הבקשה תבוטל ותשפיע על הדירוג שלך ישירות. להמשיך?</string>
     <string name="carOwnerLocation_act_java_youNeedToBe100m">אתה צריך להיות לפחות 100 מטר מהמכונית</string>
+    <string name="carOwnerLocation_act_java_callCarOwner">התקשר לבעל הרכב?</string>
     <!--/////////////////////////////-->
 
 

@@ -85,7 +85,6 @@ public class WashRequestsActivity extends AppCompatActivity {
 
     private ArrayList<Double> requestLatitudes = new ArrayList<>();
     private ArrayList<Double> requestLongitudes = new ArrayList<>();
-    private ArrayList<String> distanceList = new ArrayList<>();
     private ArrayList<String> userNameList = new ArrayList<>();
     private ArrayList<String> carAddressList = new ArrayList<>();
     private ArrayList<String> carAddressDescList = new ArrayList<>();
@@ -154,7 +153,6 @@ public class WashRequestsActivity extends AppCompatActivity {
                             requestList.clear();
                             requestLatitudes.clear();
                             requestLongitudes.clear();
-                            distanceList.clear();
                             userNameList.clear();
                             carAddressList.clear();
                             carAddressDescList.clear();
@@ -295,7 +293,7 @@ public class WashRequestsActivity extends AppCompatActivity {
                                     MyRequest request = new MyRequest();
                                     request.setDistance(distanceString);
                                     request.setUntilTime(carOwnerCarUntilTime);
-                                    request.setPrice(price);
+                                    request.setService(carOwnerCarServiceType);
                                     String ofTomorrow = getResources().
                                             getString(R.string
                                                     .carOWnerRequest_act_java_ofTomorrow);
@@ -314,7 +312,6 @@ public class WashRequestsActivity extends AppCompatActivity {
                                     requestLatitudes.add(requestLocation.getLatitude());
                                     requestLongitudes.add(requestLocation.getLongitude());
 
-                                    distanceList.add(distanceString);
                                     userNameList.add(carOwnerUsername);
                                     carAddressList.add(carOwnerCarAddress);
                                     carAddressDescList.add(carOwnerCarAddressDesc);
@@ -640,7 +637,6 @@ public class WashRequestsActivity extends AppCompatActivity {
         return false;
     }
 
-    //TODO:3
     public class RequestAdapter extends ArrayAdapter<MyRequest> {
 
         Activity activity;
@@ -649,7 +645,7 @@ public class WashRequestsActivity extends AppCompatActivity {
         ArrayList<MyRequest> mData;
 
         //Constructor
-        public RequestAdapter(Activity act, int resource, ArrayList<MyRequest> data) {
+        private RequestAdapter(Activity act, int resource, ArrayList<MyRequest> data) {
             super(act, resource, data);
 
             activity = act;
@@ -711,12 +707,10 @@ public class WashRequestsActivity extends AppCompatActivity {
                 holder = new ViewHolder();
                 holder.mDistance = row.findViewById(R.id.rowDistanceItem);
                 holder.mUntiltime = row.findViewById(R.id.rowAvailableUntilItem);
-                holder.mPrice = row.findViewById(R.id.rowPriceItem);
+                holder.mService = row.findViewById(R.id.rowServiceItem);
                 holder.mTomorrow = row.findViewById(R.id.inListOfTomorrow);
                 holder.mProfPicUri = row.findViewById(R.id.rowThumbNail);
-                holder.mBadgeInRequestList = row.findViewById(R.id.badgeInRequestList);
                 holder.mBikeService = row.findViewById(R.id.bikeService);
-                holder.mReqType = row.findViewById(R.id.req_header2);
                 row.setTag(holder);
             }else{
                 holder = (ViewHolder) row.getTag();
@@ -792,12 +786,10 @@ public class WashRequestsActivity extends AppCompatActivity {
             }else{
                 holder.mTomorrow.setVisibility(View.GONE);
             }
-            //Here
-            //Log.i("info dates2", "is: " + newUntilTime);
             //cAvailableUntilDetsValue.setText(newUntilTime);
             holder.mUntiltime.setText(newUntilTime);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-            holder.mPrice.setText(holder.holderRequest.getPrice());//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+            holder.mService.setText(holder.holderRequest.getService());//<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
             if(holder.holderRequest.getBikeService().equals("motorcycle") ||
                     holder.holderRequest.getBikeService().equals("אופנוע")){
@@ -807,7 +799,6 @@ public class WashRequestsActivity extends AppCompatActivity {
             }else{
                 holder.mBikeService.setVisibility(View.GONE);
             }
-            //------------------------------------------------------------------------------------//
             //----Image Resource1(prof pic)----//
             String fbPicString = holder.holderRequest.getProfPicFbUri().toString();
             if (fbPicString.contains("https")) {
@@ -823,33 +814,6 @@ public class WashRequestsActivity extends AppCompatActivity {
                         (holder.holderRequest.getProfPicUri(),holder.mProfPicUri);
             }
             //---------------------------------//
-
-            //----Image Resource1(badge)-------//
-            //holder.holderRequest.getNumBadge()
-            if (holder.holderRequest.getNumBadge() == 4) {//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-                glideImagePlacement.squaredImagePlacementFromDrawable
-                        (R.drawable.platbadge,holder.mBadgeInRequestList);
-            } else if (holder.holderRequest.getNumBadge() == 3) {
-                glideImagePlacement.squaredImagePlacementFromDrawable
-                        (R.drawable.goldbadge,holder.mBadgeInRequestList);
-            } else if (holder.holderRequest.getNumBadge() == 2) {
-                glideImagePlacement.squaredImagePlacementFromDrawable
-                        (R.drawable.silverbadge,holder.mBadgeInRequestList);
-            } else if (holder.holderRequest.getNumBadge() == 1) {
-                glideImagePlacement.squaredImagePlacementFromDrawable
-                        (R.drawable.bronzebadge,holder.mBadgeInRequestList);
-            }
-            //---------------------------------//
-            //holder.reqType work logic//
-            if (holder.holderRequest.getRequestType().equals("private")){
-                holder.mReqType.setVisibility(View.VISIBLE);
-                holder.mReqType.setText(getResources().getString(R.string
-                        .carOWnerRequest_act_java_private));
-            }else if (holder.holderRequest.getRequestType().equals("public")){
-                holder.mReqType.setVisibility(View.INVISIBLE);
-            }
-            //-------------------------//
-            //ENDS HERE---------------------------------------------------------------------------//
             return row;
         }
     }
@@ -858,11 +822,9 @@ public class WashRequestsActivity extends AppCompatActivity {
         MyRequest holderRequest;
         TextView mDistance;
         TextView mUntiltime;
-        TextView mPrice;
+        TextView mService;
         TextView mTomorrow;
-        TextView mReqType;
         ImageView mProfPicUri;
-        ImageView mBadgeInRequestList;
         ImageView mBikeService;
         //int mId;
     }

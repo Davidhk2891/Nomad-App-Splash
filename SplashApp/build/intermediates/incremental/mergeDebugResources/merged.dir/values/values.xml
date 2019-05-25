@@ -1052,7 +1052,6 @@
     <string name="act_car_owner_cancelWash">Cancel wash</string>
     <string name="act_car_owner_car">car</string>
     <string name="act_car_owner_carAvailableUntil">Car available until</string>
-    <string name="act_car_owner_carOwnerDets">Car-Owner Details</string>
     <string name="act_car_owner_cdcTime">00:00:00</string>
     <string name="act_car_owner_comingsoon">Coming soon</string>
     <string name="act_car_owner_contentDesc">Splasher Badge</string>
@@ -1095,12 +1094,14 @@
     <string name="act_car_owner_motorcycle">Motorcycle</string>
     <string name="act_car_owner_notSpecified">Not specified</string>
     <string name="act_car_owner_profPicWindow">Profile pic</string>
+    <string name="act_car_owner_requestDets">Request Details</string>
     <string name="act_car_owner_request_Under">_</string>
     <string name="act_car_owner_request_gettingNearRequests">Getting nearby requests…</string>
     <string name="act_car_owner_request_sendingPics">Sending Pictures: </string>
     <string name="act_car_owner_responsibility">Responsibility: 0</string>
     <string name="act_car_owner_searchingForAvailSp">Looking for Splashers - You will be notified
         when your request is taken</string>
+    <string name="act_car_owner_serviceTitle">- Service:</string>
     <string name="act_car_owner_splasherStatus">Splasher status</string>
     <string name="act_car_owner_timeLeft">Time left</string>
     <string name="act_car_owner_version">V.1.0.1</string>
@@ -1109,7 +1110,6 @@
     <string name="act_car_owner_washMyCar">Wash my car</string>
     <string name="act_car_owner_washes">Washes</string>
     <string name="act_car_owner_yes">yes</string>
-    <string name="act_car_owner_youGetTitle">- You Get:</string>
     <string name="act_car_owner_youGetValue">$XXX</string>
     <string name="act_car_owner_youHaveNewOrders">You have new orders!</string>
     <string name="act_car_owner_yourSplasher">Your splasher</string>
@@ -1290,6 +1290,7 @@
     <string name="carOWnerRequest_act_java_yourRatingIsntHigh">Your rating is not high enough to take this request</string>
     <string name="carOwnerLocation_act_java_acceptingRequests">Accepting requests</string>
     <string name="carOwnerLocation_act_java_areYouSure">Are you sure?</string>
+    <string name="carOwnerLocation_act_java_callCarOwner">Call car owner?</string>
     <string name="carOwnerLocation_act_java_cancelingRequestsWill">Canceling requests will affect your splasher rating directly. Continue?</string>
     <string name="carOwnerLocation_act_java_carOwnerCanceled">Car owner canceled</string>
     <string name="carOwnerLocation_act_java_connected">Connected</string>
@@ -1390,8 +1391,8 @@
     <string name="car_owner_row_badge">badge</string>
     <string name="car_owner_row_distance">Distance:</string>
     <string name="car_owner_row_profilePic">Profile Picture</string>
+    <string name="car_owner_row_service">Service:</string>
     <string name="car_owner_row_xxx">XXX</string>
-    <string name="car_owner_row_youGet">You get:</string>
     <string name="car_row_carBrand">Car Brand</string>
     <string name="car_row_carColor">Car Color</string>
     <string name="car_row_carModel">Car Model</string>
@@ -1399,7 +1400,7 @@
     <string name="car_row_carYear">Car Year</string>
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
     <string name="close">Close</string>
-    <string name="com.crashlytics.android.build_id" ns2:ignore="UnusedResources,TypographyDashes" translatable="false">86635d88-fd47-49f3-8a3c-cf29c7c92301</string>
+    <string name="com.crashlytics.android.build_id" ns2:ignore="UnusedResources,TypographyDashes" translatable="false">e3ab9ca8-6cd8-447b-9c6d-20c3cc260fcd</string>
     <string name="com_facebook_device_auth_instructions">Visit &lt;b>facebook.com/device&lt;/b> and enter the code shown above.</string>
     <string name="com_facebook_image_download_unknown_error">Unexpected error while downloading an image.</string>
     <string name="com_facebook_internet_permission_error_message">WebView login requires INTERNET permission</string>

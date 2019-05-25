@@ -117,10 +117,8 @@ public class WashReqParamsActivity extends AppCompatActivity implements
 
     //Rating and pricing
     private RelativeLayout cRatingAndPricingRelative;
-    private ImageView cTheRating;
     private SeekBar cThePrice;
     private TextView cSplasherPriceSet;
-    private static int numericalBadge;
     private static boolean temporalKeyActive = false;
     private WriteReadDataInFile writeReadDataInFile =
             new WriteReadDataInFile(WashReqParamsActivity.this);
@@ -162,52 +160,17 @@ public class WashReqParamsActivity extends AppCompatActivity implements
             new SplasherSelector(WashReqParamsActivity.this);
 
     //Getters//
-    //TRY THIS METHOD
     public String getAddress() {
         return address;
     }
-    public String getCarAddressDescription() {
-        return carAddressDescription;
-    }
-    //coordinates here in double//
     public LatLng getCarCoordinates(){
         return carCoordinates;
-    }
-    public String getSelectedTime() {
-        return selectedTime;
-    }
-    public String getFullDate() {
-        return fullDate;
     }
     public String getGetServiceType() {
         return getServiceType;
     }
-    public String getCarBrandToUpload() {
-        return carBrandToUpload;
-    }
-    public String getCarModelToUpload() {
-        return carModelToUpload;
-    }
-    public String getCarColorToUpload() {
-        return carColorToUpload;
-    }
-    public String getCarPlateToUpload() {
-        return carPlateToUpload;
-    }
-    /*
-        public String getDollarSetPrice(){
-            //TEMPORARY//
-            return String.valueOf(PaymeConstants.STATIC_TEMPORAL_PRICE);
-        }
-     */
+
     private MenuItem refreshItem;
-    public int getNumericalBadge(){
-        return numericalBadge;
-    }
-    public boolean isTemporalKeyActive() {
-        return temporalKeyActive;
-    }
-    //-------//
 
     @Override
     public void onContentChanged() {
@@ -326,7 +289,6 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                 hideKeyboardTwo();clockState(View.GONE, View.VISIBLE, true);}});
 
         cRatingAndPricingRelative = findViewById(R.id.ratingAndPriceRelative);
-        cTheRating = findViewById(R.id.theRating);
         cThePrice = findViewById(R.id.thePrice);
         cSplasherPriceSet = findViewById(R.id.splasherPriceSet);
         cFinallyOrder = findViewById(R.id.finallyOrder);
@@ -340,11 +302,9 @@ public class WashReqParamsActivity extends AppCompatActivity implements
         //TODO: Handling 'know-how' for app to recognize where data comes from 1
         Log.i("Hi", "Checking");//startActivityForResult() and OnActivityResult()
 
-        address = String.valueOf(getResources()
-                .getString(R.string.washMyCar_act_java_inputLocation));
+        address = getResources().getString(R.string.washMyCar_act_java_inputLocation);
         carAddressDescription = "";
-        selectedTime = String.valueOf(getResources()
-                .getString(R.string.washMyCar_act_java_selectTime));
+        selectedTime = getResources().getString(R.string.washMyCar_act_java_selectTime);
 
         externalWash = getResources().getString(R.string.act_wash_my_car_externalWash);
         intExtWash = getResources().getString(R.string.act_wash_my_car_extAndIntWash);
@@ -588,7 +548,7 @@ public class WashReqParamsActivity extends AppCompatActivity implements
                     requestClassSend.loadRequest(address,carCoordinates,carAddressDescription
                     ,fullDate,selectedTime,getServiceType,carBrandToUpload
                     ,carModelToUpload,carColorToUpload,carPlateToUpload,initialSetPrice
-                    ,numericalBadge,temporalKeyActive,splasherswanted,ogPricesWanted
+                    , temporalKeyActive,splasherswanted,ogPricesWanted
                     ,pricesWanted,splasherUsername,splasherShowingName,requestType);
                     //Need to figure out a way to access this button from 2 other classes
                     //and change its properties

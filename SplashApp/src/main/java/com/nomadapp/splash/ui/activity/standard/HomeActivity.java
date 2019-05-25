@@ -146,7 +146,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private boolean splasherWasPrivate = false;
     private boolean timeCheckedOnce = false;
     private boolean washFinished = false;
-    private boolean notiForSplasherRan = false;
     private boolean notiForCarOwnerRan = false;
     private boolean notiForCarOwnerRan2 = false;
     private boolean sServicesInterfaceRan = false;
@@ -159,8 +158,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ImageView cMarkerView;
     private ImageView cMarkerView2;
     private LatLng savedCarLocationForUpdate;
-    private Marker dotMarker = null;
-    private MarkerOptions options;
 
     private String StringNotLoggedIn;
 
@@ -192,7 +189,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private TextView cAvailableUntilDetsValue;
     private TextView cYouGetDetsValue;
     private ImageView cCarOwnerDetsProfilePic;
-    private ImageView cInfoWindowSplashBadge;
     private TextView cTomorrowText;
     //-----------------------------//
 
@@ -206,22 +202,13 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final int WAITING_CONSTANT_SPLASHER = 5000;
 
     private ActionBarDrawerToggle mToggle;
-    private ImageView cRatingBadge;
-    private int splasherNumericalBadge;
-    private int requestNumercialBadge;
-    private String splasherType;
     private MenuItem cancelItem;
-    //-------------//
 
     private String currentSavedSelectedHour;
 
     //Local Storage----//
     private WriteReadDataInFile writeReadDataInFile = new WriteReadDataInFile(this);
     //-----------------//
-
-    //"Let's wash a car button"----------//
-    private ArrayList<Integer> idsFromRequests = new ArrayList<>();
-    //-----------------------------------//
 
     //Image Handler//
     private GlideImagePlacement glideImagePlacement = new GlideImagePlacement(HomeActivity.this);
@@ -240,11 +227,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ArrayList<String> carAddressDescListCo = new ArrayList<>();
     private ArrayList<String> carUntilTimeListCo = new ArrayList<>();
     private ArrayList<String> carServiceTypeListCo = new ArrayList<>();
-    private ArrayList<String> carOwnerSetPriceCo = new ArrayList<>();
     private ArrayList<String> carOwnerDistanceCo = new ArrayList<>();
     private ArrayList<String> profilePicListCo = new ArrayList<>();
     private ArrayList<String> profilePicListNoFbCo = new ArrayList<>();
-    private ArrayList<String> requestedNumBadgeListCo = new ArrayList<>();
     private ArrayList<String> carOwnerPhoneNumListCo = new ArrayList<>();
     //----------------------------------------------------------------
     private ArrayList<String> carBrandListCo = new ArrayList<>();
@@ -255,43 +240,36 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     //----------------------------------------------------------------
 
     private LatLng dotLocation;
-    private Double longitudeCo, getLongitudeToTransfer;
-    private Double latitudeCo, getLatitudeToTransfer;
-    private String profilePicCo;
-    private String profilePicNoFbCo;
-    private String carOwnerUsernameCo, usernameToTransfer;
-    private String carOwnerCarAddressCo, carAddressToTransfer;
-    private String carOwnerCarAddressDescCo, carAddressDescToTransfer;
-    private String carOwnerCarUntilTimeCo, carUntilTimeToTransfer;
-    private String carOwnerCarServiceTypeCo, carServiceTypeToTransfer;
-    private String requestedBadgeCo;
-    private String carOwnerPhoneNum, carOwnerPhoneNToTransfer;
-    private String priceCo, priceToTransfer;
-    private String distanceCo;
+    private double getLongitudeToTransfer;
+    private double getLatitudeToTransfer;
+    private String usernameToTransfer;
+    private String carAddressToTransfer;
+    private String carAddressDescToTransfer;
+    private String carUntilTimeToTransfer;
+    private String carServiceTypeToTransfer;
+    private String carOwnerPhoneNToTransfer;
     private String requestType;
     private String taken;
 
-    private String carOwnerCarBrandCo, carBrandToTransfer;
-    private String carOwnerCarModelCo, carModelToTransfer;
-    private String carOwnerCarColorCo, carColorToTransfer;
-    private String carOwnerCarYearCo, carYearToTransfer;
-    private String carOwnerCarPlateCo, carPlateToTransfer;
+    private String carBrandToTransfer;
+    private String carModelToTransfer;
+    private String carColorToTransfer;
+    private String carYearToTransfer;
+    private String carPlateToTransfer;
 
-    private boolean weHaveMotorcycle = false;
+    private String getProfilePicToTransfer;
+    private String getProfilePicNoFbToTransfer;
 
     private static final int REQUEST_EXTERNAL_STORAGE_RESULT = 2;
 
     //Splasher wallet//
     private String salesWithTip;
-    //private ArrayList<String> salesWithTipList = new ArrayList<>();
-    //private int amountOfSales;
     private double doubleSalesWithTip, doubleFinal;
     private String stringFinal;
     private String stringFinalShekel = "₪ 00.00";
     private TextView cSplashWalletTextView;
     private RelativeLayout cSplashWalletRelative;
     private DecimalFormat df = new DecimalFormat("#.##");
-    private int newTag = 0;
     //---------------//
 
     //to Account page//
@@ -321,7 +299,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     //--Epicenter and area Range from services--//
     private String displayedRange, justRange;
-    private int distanceToSet, rangeSBProgress;
+    private int distanceToSet;
     private SeekBar mServiceAreaSeekbar;
     private TextView mRangeText;
     private LatLng areaPointerLocation;
@@ -405,7 +383,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         TextView cUserProfileEmail = navHeader.findViewById(R.id.userProfileEmail);
         TextView cUserProfileUsertype = navHeader.findViewById(R.id.userProfileUserType);
         ImageView cUserProfilePics = navHeader.findViewById(R.id.userProfilePics);
-        cRatingBadge = navHeader.findViewById(R.id.ratingBadge);
         TextView cUserLessMsg = navHeader.findViewById(R.id.userlessMsg);
         //--------------//
 
@@ -415,7 +392,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         cAvailableUntilDetsValue = findViewById(R.id.availableUntilDetsValue);
         cYouGetDetsValue = findViewById(R.id.youGetDetsValue);
         cCarOwnerDetsProfilePic = findViewById(R.id.carOwnerDetsProfilePic);
-        cInfoWindowSplashBadge = findViewById(R.id.infoWindowSplashBadge);
         cTomorrowText = findViewById(R.id.tomorrowText);
         cGettingLocationRelativeHome = findViewById(R.id.gettinLocaionRelativeHome);
         //-----------------------------
@@ -461,7 +437,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         cSplasherStatus = findViewById(R.id.splasherStatus);
         cCarOwnerPrevDetailsRelative.setVisibility(View.GONE);
-        cRatingBadge.setVisibility(View.GONE);
         cSplashWalletRelative.setVisibility(View.GONE);
         cSplashWalletTextView.setVisibility(View.GONE);
         cGettingLocationRelativeHome.setVisibility(View.VISIBLE);
@@ -544,13 +519,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     cCarOwnerPrevDetailsRelative.setVisibility(View.GONE);
                     cLetsWashACar.setVisibility(View.VISIBLE);
                     cUserLessMsg.setVisibility(View.GONE);
-                    cRatingBadge.setVisibility(View.VISIBLE);
 
                     //R.string.carOwner_act_java_splasher
                     String stringUserType = getResources()
                             .getString(R.string.carOwner_act_java_splasher);
                     cUserProfileUsertype.setText(stringUserType);
-                    splasherNumericalBadge = profileClassQuery.getMyRatingBadge(cRatingBadge);
                     installation.parseInstallationProcess("splashers");
 
                 } else if (userClassQuery.userIsCarOwnerOrSplasher(carOwner)) {
@@ -563,7 +536,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     cLetsWashACar.setVisibility(View.GONE);
                     cUserProfileUsertype.setText(stringUserTypeTwo);
                     cUserLessMsg.setVisibility(View.GONE);
-                    cRatingBadge.setVisibility(View.GONE);
                     cCarOwnerPrevDetailsRelative.setVisibility(View.GONE);
 
                     installation.parseInstallationProcess("carowners");
@@ -595,7 +567,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             cUserProfileUsername.setVisibility(View.GONE);
             cUserProfileEmail.setVisibility(View.GONE);
             cUserProfileUsertype.setVisibility(View.GONE);
-            cRatingBadge.setVisibility(View.GONE);
 
             navigationView.getMenu().findItem(R.id.twoAndAHalfNav).setVisible(false);
             navigationView.getMenu().findItem(R.id.sixNav).setVisible(false);
@@ -948,27 +919,22 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             stringedSavedLat = writeReadDataInFile.readFromFile("lat");
             stringedSavedLon = writeReadDataInFile.readFromFile("lon");
         }
-        Double fetchedCarLat2;
-        Double fetchedCarLon2;
+        double fetchedCarLat2;
+        double fetchedCarLon2;
         if (!stringedSavedLat.equals("") && !stringedSavedLon.equals("")) {
             fetchedCarLat2 = Double.parseDouble(stringedSavedLat);
             fetchedCarLon2 = Double.parseDouble(stringedSavedLon);
-
             Log.i("saved lat n lng now", "are: "
-                    + String.valueOf(fetchedCarLat2) + ", " +
-                    String.valueOf(fetchedCarLon2));
-            savedCarLocationForUpdate = new LatLng(fetchedCarLat2,
-                    fetchedCarLon2);
+                    + fetchedCarLat2 + ", " + fetchedCarLon2);
+            savedCarLocationForUpdate = new LatLng(fetchedCarLat2, fetchedCarLon2);
         }
         if (writeReadDataInFile.readFromFile("bikeOrNot") != null) {
             if (writeReadDataInFile.readFromFile("bikeOrNot").equals("bike")) {
                 cMarkerView2.setVisibility(View.VISIBLE);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(savedCarLocationForUpdate, 13));
-                weHaveMotorcycle = true;
             } else if (writeReadDataInFile.readFromFile("bikeOrNot").equals("noBike")) {
                 cMarkerView.setVisibility(View.VISIBLE);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(savedCarLocationForUpdate, 13));
-                weHaveMotorcycle = false;
             }
         }
         cSplasherStatus.setVisibility(View.VISIBLE);
@@ -1069,8 +1035,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     //Splasher Location
                     ParseGeoPoint splasherLocation = userClassQuery.getUserFetchedLocation();
                     Log.i("splasherLocation", " is " + splasherLocation.toString());
-                    Double fetchedCarLat2;
-                    Double fetchedCarLon2;
+                    double fetchedCarLat2;
+                    double fetchedCarLon2;
                     if (writeReadDataInFile.readFromFile("lat")
                             != null && writeReadDataInFile
                             .readFromFile("lon") != null) {
@@ -1079,16 +1045,16 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                         fetchedCarLon2 = Double.parseDouble(writeReadDataInFile
                                 .readFromFile("lon"));
                         Log.i("saved lat n lng", "are: "
-                                + String.valueOf(fetchedCarLat2) + ", " +
-                                String.valueOf(fetchedCarLon2));
+                                + fetchedCarLat2 + ", " +
+                                fetchedCarLon2);
                         savedCarLocationForUpdate = new LatLng(fetchedCarLat2, fetchedCarLon2);
                     }
                     ParseGeoPoint carOwnerCarLocation = new ParseGeoPoint
                             (savedCarLocationForUpdate.latitude
                                     , savedCarLocationForUpdate.longitude);
-                    Double distanceInKm = splasherLocation
+                    double distanceInKm = splasherLocation
                             .distanceInKilometersTo(carOwnerCarLocation);
-                    final Double distanceOneDP = (double) Math.round(distanceInKm * 10) / 10;
+                    final double distanceOneDP = (double) Math.round(distanceInKm * 10) / 10;
                     cRadarView.stopAnimation();
                     cRadarView.setVisibility(View.GONE);
                     mSplasher_stats_co_splasherName.setText(splasherShowingName);
@@ -1108,7 +1074,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                     object.getString("splasherProfilePic");
                     if (!alreadyExecuted4) {
-                        String splasherUpdate = distanceOneDP.toString() + " Km";
+                        String splasherUpdate = distanceOneDP + " Km";
                         mSplasher_status_co_distance_text.setText(splasherUpdate);
                     }
                     //splasher location on car owner screen set up------------------------------
@@ -1341,7 +1307,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         background = true;
         if (userClassQuery.userExists()) {
             if (userClassQuery.userIsCarOwnerOrSplasher(splasher)) {
-                notiForSplasherRan = false;
                 countDownStartRunnable();
             }
         }
@@ -1365,14 +1330,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         public void run() {
             if(!shutDownChecker) {
                 Log.i("background job?", "Running");
-                try {
-                    if (userClassQuery.userExists()) {
-                        if (userClassQuery.userIsCarOwnerOrSplasher(carOwner)){
-                            checkForUpdates();
-                        }
+                if (userClassQuery.userExists()) {
+                    if (userClassQuery.userIsCarOwnerOrSplasher(carOwner)){
+                        checkForUpdates();
                     }
-                } catch (java.text.ParseException e) {
-                    e.printStackTrace();
                 }
                 handler.postDelayed(this, WAITING_CONSTANT_ALL_RUNNABLE); //30 seconds
             }
@@ -1446,8 +1407,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             currentMonth = calendarforAutoCancel.get(Calendar.MONTH) + 1;
 
         int currentYear = calendarforAutoCancel.get(Calendar.YEAR);
-        String fullDate = String.valueOf(currentDate) + "-" + String.valueOf(currentMonth)
-                + "-" + String.valueOf(currentYear);
+        String fullDate = currentDate + "-" + currentMonth
+                + "-" + currentYear;
         //---------------------------------//
 
         int currentSoleHourPlusOne;
@@ -1551,7 +1512,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    public void checkForUpdates() throws java.text.ParseException {
+    public void checkForUpdates() {
         if (userClassQuery.userIsCarOwnerOrSplasher(carOwner)) {
             requestClassQuery.fetchCurrentTakenRequest(new RequestClassInterface.TakenRequest() {
                 @Override
@@ -1825,33 +1786,28 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                             , WAITING_CONSTANT_SPLASHER, 0, locationListener);
                 }
 
-                Location lastKnownLocation = null;
-                LatLng lastLatLong = null;
-                Location lastKnownLocation2 = null;
-                LatLng lastLatLong2 = null;
+                //Revert to how this location setting was built before
+                //Check that the "- ??" from UntilTime in sending request is well handled
                 try {
-                    lastKnownLocation = locationManager.getLastKnownLocation(LocationManager
-                            .GPS_PROVIDER);
-                    lastLatLong = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation
-                            .getLongitude());
-                    lastKnownLocation2 = locationManager.getLastKnownLocation(LocationManager
-                            .NETWORK_PROVIDER);
-                    lastLatLong2 = new LatLng(lastKnownLocation2.getLatitude(), lastKnownLocation2
-                            .getLongitude());
-                }catch (NullPointerException npe){
-                    npe.printStackTrace();
-                }
+                    Location lastKnownLocation = locationManager
+                            .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    LatLng lastLatLong = new LatLng(lastKnownLocation.getLatitude()
+                            , lastKnownLocation.getLongitude());
+                    Location lastKnownLocation2 = locationManager.getLastKnownLocation
+                            (LocationManager.NETWORK_PROVIDER);
+                    LatLng lastLatLong2 = new LatLng(lastKnownLocation2.getLatitude()
+                            , lastKnownLocation2.getLongitude());
 
-                if (lastKnownLocation == null) {
-                    if (lastKnownLocation2 != null) {
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLatLong2, 13));
-                        updateMap(lastKnownLocation2);
-                        callSplasherOps(lastKnownLocation2);
-                    }
-                } else {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLatLong2, 13));
+                    updateMap(lastKnownLocation2);
+                    callSplasherOps(lastKnownLocation2);
+
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLatLong, 13));
                     updateMap(lastKnownLocation);
                     callSplasherOps(lastKnownLocation);
+
+                }catch (NullPointerException npe){
+                    npe.printStackTrace();
                 }
             }
         }
@@ -2173,7 +2129,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Log.i("radiusTracker2", distanceToSet + " has a " +
                             "factor of " + factor);
                 }
-                rangeSBProgress = progress;
                 justRange = factor + " Km";
                 displayedRange = "- " + factor + " Km -";
                 mRangeText.setText(displayedRange);
@@ -2343,11 +2298,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 carAddressDescListCo.clear();
                                 carUntilTimeListCo.clear();
                                 carServiceTypeListCo.clear();
-                                carOwnerSetPriceCo.clear();
                                 carOwnerDistanceCo.clear();
                                 profilePicListCo.clear();
                                 profilePicListNoFbCo.clear();
-                                requestedNumBadgeListCo.clear();
                                 carOwnerPhoneNumListCo.clear();
                                 //--------------------------//
                                 carBrandListCo.clear();
@@ -2356,7 +2309,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 carYearListCo.clear();
                                 carPlateListCo.clear();
                                 //-------------------------//
-                                idsFromRequests.clear();
 
                                 mMap.clear();
                                 serviceLimits.setServiceLimits();
@@ -2405,22 +2357,20 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void getCloseRequestInfoOperations(ParseObject object, ParseGeoPoint requestLoc
             ,LatLng splasherLocation){
-        carOwnerUsernameCo = object.getString("username");//2
-        carOwnerCarAddressCo = object.getString("carAddress");//3
-        profilePicCo = object.getString("fbProfilePic");
-        profilePicNoFbCo = object.getString("ProfPicNoFb");
-        carOwnerCarAddressDescCo = object.getString("carAddressDesc");//4
-        carOwnerCarUntilTimeCo = object.getString("untilTime");//5
-        carOwnerCarServiceTypeCo = object.getString("serviceType");//6
-        priceCo = object.getString("priceWanted");//7
-        requestedBadgeCo = object.getString("badgeWanted");//8
-        carOwnerPhoneNum = object.getString("carOwnerPhoneNum");//9
+        String carOwnerUsernameCo = object.getString("username");//2
+        String carOwnerCarAddressCo = object.getString("carAddress");//3
+        String profilePicCo = object.getString("fbProfilePic");
+        String profilePicNoFbCo = object.getString("ProfPicNoFb");
+        String carOwnerCarAddressDescCo = object.getString("carAddressDesc");//4
+        String carOwnerCarUntilTimeCo = object.getString("untilTime");//5
+        String carOwnerCarServiceTypeCo = object.getString("serviceType");//6
+        String carOwnerPhoneNum = object.getString("carOwnerPhoneNum");//7
         //--------------------------------------------------------//
-        carOwnerCarBrandCo = object.getString("carBrand");//10
-        carOwnerCarModelCo = object.getString("carModel");//11
-        carOwnerCarColorCo = object.getString("carColor");//12
-        carOwnerCarYearCo = object.getString("carYear");//13
-        carOwnerCarPlateCo = object.getString("carplateNumber");//14
+        String carOwnerCarBrandCo = object.getString("carBrand");//8
+        String carOwnerCarModelCo = object.getString("carModel");//9
+        String carOwnerCarColorCo = object.getString("carColor");//10
+        String carOwnerCarYearCo = object.getString("carYear");//11
+        String carOwnerCarPlateCo = object.getString("carplateNumber");//12
 
         Log.i("stuff", carOwnerCarAddressCo + " "
                 + carOwnerCarAddressDescCo + " " +
@@ -2436,7 +2386,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .distanceInKilometersTo(requestLoc);
         Double distanceInOneDP = (double) Math.round
                 (distanceToRequestsInKm * 10) / 10;
-        distanceCo = String.valueOf(distanceInOneDP);
+        String distanceCo = String.valueOf(distanceInOneDP);
 
         //Populating...
         //maybe all i need is the strings holding the data from
@@ -2515,6 +2465,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         //--------------------------------------------------//
 
         //TODO: motorbike or car 4
+        MarkerOptions options;
         if (object.getString("serviceType").contains("Motorcycle")
                 || object.getString("serviceType")
                 .contains("אופנוע")) {
@@ -2537,18 +2488,13 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         //error//sometimes untilTime Date get sets to null in the server
         if (currentSSDate1 != null) {
             if (!(currentSSDate1.compareTo(savedSSDate2) > 0)) {
-                dotMarker = mMap.addMarker(options);
+                Marker dotMarker = mMap.addMarker(options);
                 dotMarker.setTag(tag);
-                idsFromRequests.add(tag);
             }
         }
 
-        Log.i("tagList tag", "is:" + tag);
-        Log.i("tagList total", "is:"
-                + idsFromRequests.size());
-
-        longitudeCo = dotLocation.longitude;
-        latitudeCo = dotLocation.latitude;
+        Double longitudeCo = dotLocation.longitude;
+        Double latitudeCo = dotLocation.latitude;
 
         longitudeListCo.add(longitudeCo);
         latitudeListCo.add(latitudeCo);
@@ -2559,9 +2505,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         carAddressDescListCo.add(carOwnerCarAddressDescCo);
         carUntilTimeListCo.add(carOwnerCarUntilTimeCo);
         carServiceTypeListCo.add(carOwnerCarServiceTypeCo);
-        carOwnerSetPriceCo.add(priceCo);
         carOwnerDistanceCo.add(distanceCo);
-        requestedNumBadgeListCo.add(requestedBadgeCo);
         carOwnerPhoneNumListCo.add(carOwnerPhoneNum);
         //--------------------------//
         carBrandListCo.add(carOwnerCarBrandCo);
@@ -2581,18 +2525,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             //Data from Car Owner Profile and his request TO BE SHOWN ON INFOWINDOW
             String distanceInKm = carOwnerDistanceCo.get(position) + " Km";
             cDistanceDetsValue.setText(distanceInKm);
-            cYouGetDetsValue.setText(carOwnerSetPriceCo.get(position));
+            cYouGetDetsValue.setText(carServiceTypeListCo.get(position));
             String uncutFullUntilTime = carUntilTimeListCo.get(position) + "  ";
-            requestNumercialBadge = Integer.parseInt(requestedNumBadgeListCo.get(position));
-            if(requestNumercialBadge == 4){
-                showBadge2(R.drawable.platbadge);
-            }else if(requestNumercialBadge == 3){
-                showBadge2(R.drawable.goldbadge);
-            }else if(requestNumercialBadge == 2){
-                showBadge2(R.drawable.silverbadge);
-            }else if(requestNumercialBadge == 1){
-                showBadge2(R.drawable.bronzebadge);
-            }
+
             //Phone's DATE for infoWindow Date removal---//
             Calendar someDataCalendar = Calendar.getInstance();
 
@@ -2607,10 +2542,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             int yearSplasherSideIW = someDataCalendar.get(Calendar.YEAR);
 
-            String newFullDateIW = String.valueOf(daySplasherSideIW) + "-" + String
-                    .valueOf(monthSplasherSideIW) + "-" + String.valueOf(yearSplasherSideIW);
-            String newFullDateIW2 = String.valueOf(daySplasherSideIW2) + "-" + String
-                    .valueOf(monthSplasherSideIW) + "-" + String.valueOf(yearSplasherSideIW);
+            String newFullDateIW = daySplasherSideIW + "-" + monthSplasherSideIW
+                    + "-" + yearSplasherSideIW;
+            String newFullDateIW2 = daySplasherSideIW2 + "-" + monthSplasherSideIW
+                    + "-" + yearSplasherSideIW;
             Log.i("info dates", uncutFullUntilTime + "." + newFullDateIW);
             //18-1-2018 20:30 PM..
             //0123456789
@@ -2661,14 +2596,13 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             //Data to Transfer to CarOwnerLocation activity1
             getLongitudeToTransfer = longitudeListCo.get(position);
             getLatitudeToTransfer = latitudeListCo.get(position);
-            String getProfilePicToTransfer = profilePicListCo.get(position);
-            String getProfilePicNoFbToTransfer = profilePicListNoFbCo.get(position);
+            getProfilePicToTransfer = profilePicListCo.get(position);
+            getProfilePicNoFbToTransfer = profilePicListNoFbCo.get(position);
             usernameToTransfer = userNameListCo.get(position);
             carAddressToTransfer = carAddressListCo.get(position);
             carAddressDescToTransfer = carAddressDescListCo.get(position);
             carUntilTimeToTransfer = carUntilTimeListCo.get(position);
             carServiceTypeToTransfer = carServiceTypeListCo.get(position);
-            priceToTransfer = carOwnerSetPriceCo.get(position);
             carOwnerPhoneNToTransfer = carOwnerPhoneNumListCo.get(position);
             //distanceToTransfer = carOwnerDistanceCo.get(position);
             carBrandToTransfer = carBrandListCo.get(position);
@@ -2677,57 +2611,47 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             carYearToTransfer = carYearListCo.get(position);
             carPlateToTransfer = carPlateListCo.get(position);
             //---------------------------------------------
+            getProfilePicInfoWindow();
+        }
+    }
 
-            //Toast.makeText(getApplicationContext(), "works even", Toast.LENGTH_LONG).show();
-            //Toast.makeText(getApplicationContext(), getProfilePicToTransfer
-            // , Toast.LENGTH_LONG).show();
-            //Toast.makeText(getApplicationContext(), getProfilePicNoFbToTransfer
-            // , Toast.LENGTH_LONG).show();
-
-            //ProfilePic
-            try {
-                if (getProfilePicToTransfer.contains("https")) {
-                    Uri uriProfilePic = Uri.parse(getProfilePicToTransfer);
-                    if (!getProfilePicToTransfer.equals("none")) {
-                        toastMessages.debugMesssage(getApplicationContext()
-                                ,"face",1);
-                        glideImagePlacement.roundImagePlacementFromUri(uriProfilePic
-                                , cCarOwnerDetsProfilePic);
-                        //cBeforeWashFull.setRotation(90);
-                    }
-
-                } else if (!getProfilePicToTransfer.contains("https")) {
-                    toastMessages.debugMesssage(getApplicationContext()
-                            ,"local",1);
-                    if (getProfilePicNoFbToTransfer != null) {
-                        Uri profilePicNoFb = Uri.parse(getProfilePicNoFbToTransfer);
-                        glideImagePlacement.roundImagePlacementFromUri(profilePicNoFb
-                                , cCarOwnerDetsProfilePic);
-                        //cBeforeWashFull.setRotation(90);
-                    }
-                    if (getProfilePicNoFbToTransfer != null && !getProfilePicNoFbToTransfer
-                            .contains("content")) {
-                        Bitmap defaultPic = BitmapFactory.decodeResource(getResources()
-                                , R.drawable.theemptyface);
-                        cCarOwnerDetsProfilePic.setImageBitmap(defaultPic);
-                    }
-                } else {
-                    toastMessages.debugMesssage(getApplicationContext(), "none", 1);
+    private void getProfilePicInfoWindow(){
+        try {
+            if (getProfilePicToTransfer.contains("https")) {
+                Uri uriProfilePic = Uri.parse(getProfilePicToTransfer);
+                toastMessages.debugMesssage(getApplicationContext()
+                        ,"face",1);
+                glideImagePlacement.roundImagePlacementFromUri(uriProfilePic
+                        , cCarOwnerDetsProfilePic);
+                //cBeforeWashFull.setRotation(90);
+            } else if (!getProfilePicToTransfer.contains("https")) {
+                toastMessages.debugMesssage(getApplicationContext()
+                        ,"local",1);
+                if (getProfilePicNoFbToTransfer != null) {
+                    Uri profilePicNoFb = Uri.parse(getProfilePicNoFbToTransfer);
+                    glideImagePlacement.roundImagePlacementFromUri(profilePicNoFb
+                            , cCarOwnerDetsProfilePic);
+                    //cBeforeWashFull.setRotation(90);
+                }else{
                     Bitmap defaultPic = BitmapFactory.decodeResource(getResources()
                             , R.drawable.theemptyface);
                     cCarOwnerDetsProfilePic.setImageBitmap(defaultPic);
                 }
-            }catch(NullPointerException npe1){
-                npe1.printStackTrace();
+            } else {
+                toastMessages.debugMesssage(getApplicationContext(), "none", 1);
                 Bitmap defaultPic = BitmapFactory.decodeResource(getResources()
                         , R.drawable.theemptyface);
                 cCarOwnerDetsProfilePic.setImageBitmap(defaultPic);
             }
+        }catch(NullPointerException npe1){
+            npe1.printStackTrace();
+            Bitmap defaultPic = BitmapFactory.decodeResource(getResources()
+                    , R.drawable.theemptyface);
+            cCarOwnerDetsProfilePic.setImageBitmap(defaultPic);
         }
     }
 
     public void goCODets(View view) {
-
         //Here need to do something to prevent crashing if the splasher clicks on a marker,
         // and after sometime
         //of not doing anythign with its window, the request is gone for wahtever reason.
@@ -2735,39 +2659,26 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         //Trigger some kind of (-if-)
 
         //Data to transfer to CarOwnerLocation activity2
-        if (requestNumercialBadge <= splasherNumericalBadge) {
-            Intent intent = new Intent(HomeActivity.this,
-                    SplasherClientRouteActivity.class);
-
-            intent.putExtra("requestLatitudes", getLatitudeToTransfer);
-            intent.putExtra("requestLongitudes", getLongitudeToTransfer);
-            intent.putExtra("carOwnerUsername", usernameToTransfer); //keep changing the
-            // keys to the exact ones from CarOWnerRequestsActivity
-            intent.putExtra("carOwnerCarAddress", carAddressToTransfer);
-            intent.putExtra("carOwnerCarAddressDesc", carAddressDescToTransfer);
-            intent.putExtra("carOwnerCarUntilTime", carUntilTimeToTransfer);
-            intent.putExtra("carOwnerCarServiceType", carServiceTypeToTransfer);
-            intent.putExtra("setPrice", priceToTransfer);
-            intent.putExtra("carOwnerPhoneNum", carOwnerPhoneNToTransfer);
-            //intent.putExtra("carOwnerDistanceFromMap", distanceToTransfer);
-
-            intent.putExtra("carOwnerCarBrand", carBrandToTransfer);
-            intent.putExtra("carOwnerCarModel", carModelToTransfer);
-            intent.putExtra("carOwnerCarColor", carColorToTransfer);
-            intent.putExtra("carOwnerCarYear", carYearToTransfer);
-            intent.putExtra("carOwnerCarPlate", carPlateToTransfer);
-            intent.putExtra("specData", "COAKey");
-            startActivity(intent);
-            //----------------------------------------------
-
-            Log.i("transfer Lat:", "is" + getLatitudeToTransfer);
-        } else if (requestNumercialBadge > splasherNumericalBadge) {
-            toastMessages.productionMessage(getApplicationContext()
-                    , getResources().getString(R.string.carOwner_act_java_yourRatingNotHigh)
-                    , 1);
-        }
-        Log.i("badgeRequested", String.valueOf(requestNumercialBadge));
-        Log.i("badgeSplasher", String.valueOf(splasherNumericalBadge));
+        Intent intent = new Intent(HomeActivity.this,
+                SplasherClientRouteActivity.class);
+        intent.putExtra("requestLatitudes", getLatitudeToTransfer);
+        intent.putExtra("requestLongitudes", getLongitudeToTransfer);
+        intent.putExtra("carOwnerUsername", usernameToTransfer); //keep changing the
+        // keys to the exact ones from CarOWnerRequestsActivity
+        intent.putExtra("carOwnerCarAddress", carAddressToTransfer);
+        intent.putExtra("carOwnerCarAddressDesc", carAddressDescToTransfer);
+        intent.putExtra("carOwnerCarUntilTime", carUntilTimeToTransfer);
+        intent.putExtra("carOwnerCarServiceType", carServiceTypeToTransfer);
+        intent.putExtra("setPrice", "...");
+        intent.putExtra("carOwnerPhoneNum", carOwnerPhoneNToTransfer);
+        //intent.putExtra("carOwnerDistanceFromMap", distanceToTransfer);
+        intent.putExtra("carOwnerCarBrand", carBrandToTransfer);
+        intent.putExtra("carOwnerCarModel", carModelToTransfer);
+        intent.putExtra("carOwnerCarColor", carColorToTransfer);
+        intent.putExtra("carOwnerCarYear", carYearToTransfer);
+        intent.putExtra("carOwnerCarPlate", carPlateToTransfer);
+        intent.putExtra("specData", "COAKey");
+        startActivity(intent);
     }
 
     public void cancelCODets(View view) {
@@ -2859,20 +2770,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    public void showBadge(int drawable){
-        glideImagePlacement.roundImagePlacementFromDrawable(drawable, cRatingBadge);
-    }
-    public void showBadge2(int drawable){
-        glideImagePlacement.roundImagePlacementFromDrawable(drawable, cInfoWindowSplashBadge);
-    }
-
     public void letsWashACar(View view) {
         if (userClassQuery.userExists()) {
             toastMessages.debugMesssage(getApplicationContext()
                     , "Car Owner request pressed", 1);
             Intent intent = new Intent(HomeActivity.this, WashRequestsActivity.class);
-            writeReadDataInFile.writeToFile(String.valueOf(splasherNumericalBadge)
-                    , "mySplasherBadge");
             startActivity(intent);
         } else {
             String stringNotLoggedIn2 = getResources().getString
@@ -3101,7 +3003,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     stringFinal = String.valueOf(df.format(doubleFinal));
                     stringFinalShekel = shekel + " " + stringFinal;
                     cSplashWalletTextView.setText(stringFinalShekel);
-                    newTag++;
                 }
             });
         }catch(NullPointerException npe2){

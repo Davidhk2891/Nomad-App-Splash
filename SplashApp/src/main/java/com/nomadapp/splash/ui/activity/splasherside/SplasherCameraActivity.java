@@ -121,8 +121,7 @@ public class SplasherCameraActivity extends AppCompatActivity {
         cWashingCarRelative.setVisibility(View.GONE);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        if(getSupportActionBar() != null)
-        getSupportActionBar().hide();
+
         createImageGallery();
 
         Bundle newBundle = getIntent().getExtras();
@@ -180,8 +179,14 @@ public class SplasherCameraActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_call){
-            cad.generalPurposeQuestionDialog(SplasherCameraActivity.this, null
-                    , "Call Car Owner?", "Yes", "No"
+            cad.generalPurposeQuestionDialog(SplasherCameraActivity.this
+                    , getApplicationContext().getResources().getString
+                            (R.string.carOwnerLocation_act_java_callCarOwner)
+                    , null
+                    , getApplicationContext().getResources().getString
+                            (R.string.carOwnerLocation_act_java_yes)
+                    , getApplicationContext().getResources().getString
+                            (R.string.carOwnerLocation_act_java_no)
                     , new DialogAcceptInterface() {
                         @Override
                         public void onAcceptOption() {
@@ -694,18 +699,12 @@ public class SplasherCameraActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-
             moveTaskToBack(true);
-
         }
-
         /*
         if (keyCode == KeyEvent.KEYCODE_HOME) {
-
             //Do nothing for now
-
         }
         */
         return false;

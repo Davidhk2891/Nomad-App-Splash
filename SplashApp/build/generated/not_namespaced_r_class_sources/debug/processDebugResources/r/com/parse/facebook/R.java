@@ -90,30 +90,30 @@ public final class R {
         private id() {}
 
         public static final int automatic = 0x7f09004f;
-        public static final int bottom = 0x7f090087;
-        public static final int box_count = 0x7f090089;
-        public static final int button = 0x7f090090;
-        public static final int center = 0x7f0900be;
-        public static final int com_facebook_body_frame = 0x7f0900d0;
-        public static final int com_facebook_button_xout = 0x7f0900d1;
-        public static final int com_facebook_fragment_container = 0x7f0900d3;
-        public static final int com_facebook_tooltip_bubble_view_bottom_pointer = 0x7f0900d7;
-        public static final int com_facebook_tooltip_bubble_view_text_body = 0x7f0900d8;
-        public static final int com_facebook_tooltip_bubble_view_top_pointer = 0x7f0900d9;
-        public static final int display_always = 0x7f090106;
-        public static final int inline = 0x7f090175;
-        public static final int large = 0x7f090179;
-        public static final int left = 0x7f09017d;
-        public static final int messenger_send_button = 0x7f09019d;
-        public static final int never_display = 0x7f0901c9;
-        public static final int normal = 0x7f0901cd;
-        public static final int open_graph = 0x7f0901d4;
-        public static final int page = 0x7f0901dd;
-        public static final int right = 0x7f09023a;
-        public static final int small = 0x7f0902a5;
-        public static final int standard = 0x7f0902f5;
-        public static final int top = 0x7f090323;
-        public static final int unknown = 0x7f090333;
+        public static final int bottom = 0x7f090086;
+        public static final int box_count = 0x7f090088;
+        public static final int button = 0x7f09008f;
+        public static final int center = 0x7f0900bd;
+        public static final int com_facebook_body_frame = 0x7f0900cf;
+        public static final int com_facebook_button_xout = 0x7f0900d0;
+        public static final int com_facebook_fragment_container = 0x7f0900d2;
+        public static final int com_facebook_tooltip_bubble_view_bottom_pointer = 0x7f0900d6;
+        public static final int com_facebook_tooltip_bubble_view_text_body = 0x7f0900d7;
+        public static final int com_facebook_tooltip_bubble_view_top_pointer = 0x7f0900d8;
+        public static final int display_always = 0x7f090104;
+        public static final int inline = 0x7f090172;
+        public static final int large = 0x7f090176;
+        public static final int left = 0x7f09017a;
+        public static final int messenger_send_button = 0x7f09019a;
+        public static final int never_display = 0x7f0901c6;
+        public static final int normal = 0x7f0901ca;
+        public static final int open_graph = 0x7f0901d1;
+        public static final int page = 0x7f0901da;
+        public static final int right = 0x7f090236;
+        public static final int small = 0x7f0902a2;
+        public static final int standard = 0x7f0902f1;
+        public static final int top = 0x7f09031f;
+        public static final int unknown = 0x7f09032f;
     }
     public static final class layout {
         private layout() {}
@@ -131,23 +131,23 @@ public final class R {
     public static final class string {
         private string() {}
 
-        public static final int com_facebook_image_download_unknown_error = 0x7f0f01ba;
-        public static final int com_facebook_internet_permission_error_message = 0x7f0f01bb;
-        public static final int com_facebook_internet_permission_error_title = 0x7f0f01bc;
-        public static final int com_facebook_like_button_liked = 0x7f0f01bd;
-        public static final int com_facebook_like_button_not_liked = 0x7f0f01be;
-        public static final int com_facebook_loading = 0x7f0f01bf;
-        public static final int com_facebook_loginview_cancel_action = 0x7f0f01c0;
-        public static final int com_facebook_loginview_log_in_button = 0x7f0f01c1;
-        public static final int com_facebook_loginview_log_in_button_long = 0x7f0f01c3;
-        public static final int com_facebook_loginview_log_out_action = 0x7f0f01c4;
-        public static final int com_facebook_loginview_log_out_button = 0x7f0f01c5;
-        public static final int com_facebook_loginview_logged_in_as = 0x7f0f01c6;
-        public static final int com_facebook_loginview_logged_in_using_facebook = 0x7f0f01c7;
-        public static final int com_facebook_send_button_text = 0x7f0f01c8;
-        public static final int com_facebook_share_button_text = 0x7f0f01c9;
-        public static final int com_facebook_tooltip_default = 0x7f0f01cf;
-        public static final int messenger_send_button_text = 0x7f0f0219;
+        public static final int com_facebook_image_download_unknown_error = 0x7f0f01bb;
+        public static final int com_facebook_internet_permission_error_message = 0x7f0f01bc;
+        public static final int com_facebook_internet_permission_error_title = 0x7f0f01bd;
+        public static final int com_facebook_like_button_liked = 0x7f0f01be;
+        public static final int com_facebook_like_button_not_liked = 0x7f0f01bf;
+        public static final int com_facebook_loading = 0x7f0f01c0;
+        public static final int com_facebook_loginview_cancel_action = 0x7f0f01c1;
+        public static final int com_facebook_loginview_log_in_button = 0x7f0f01c2;
+        public static final int com_facebook_loginview_log_in_button_long = 0x7f0f01c4;
+        public static final int com_facebook_loginview_log_out_action = 0x7f0f01c5;
+        public static final int com_facebook_loginview_log_out_button = 0x7f0f01c6;
+        public static final int com_facebook_loginview_logged_in_as = 0x7f0f01c7;
+        public static final int com_facebook_loginview_logged_in_using_facebook = 0x7f0f01c8;
+        public static final int com_facebook_send_button_text = 0x7f0f01c9;
+        public static final int com_facebook_share_button_text = 0x7f0f01ca;
+        public static final int com_facebook_tooltip_default = 0x7f0f01d0;
+        public static final int messenger_send_button_text = 0x7f0f021a;
     }
     public static final class style {
         private style() {}

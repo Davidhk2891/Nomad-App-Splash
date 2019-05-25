@@ -62,7 +62,9 @@ import com.nomadapp.splash.model.server.parseserver.queries.ProfileClassQuery;
 import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
 import com.nomadapp.splash.utils.phonedialer.DialCall;
+import com.nomadapp.splash.utils.sysmsgs.DialogAcceptInterface;
 import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
+import com.nomadapp.splash.utils.sysmsgs.questiondialogs.CustomAlertDialog;
 import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -529,8 +531,23 @@ public class SplasherClientRouteActivity extends AppCompatActivity implements On
 
     public void callCarOwner(View v){
         //call car owner
-        DialCall dialCall = new DialCall(SplasherClientRouteActivity.this);
-        dialCall.fetchPhoneNumToDial(recievedCOPhoneNum);
+        CustomAlertDialog cad = new CustomAlertDialog(SplasherClientRouteActivity.this);
+        cad.generalPurposeQuestionDialog(SplasherClientRouteActivity.this
+                , getApplicationContext().getResources().getString
+                        (R.string.carOwnerLocation_act_java_callCarOwner)
+                , null
+                , getApplicationContext().getResources().getString
+                        (R.string.carOwnerLocation_act_java_yes)
+                , getApplicationContext().getResources().getString
+                        (R.string.carOwnerLocation_act_java_no)
+                , new DialogAcceptInterface() {
+                    @Override
+                    public void onAcceptOption() {
+                        //call car owner
+                        DialCall dialCall = new DialCall(SplasherClientRouteActivity.this);
+                        dialCall.fetchPhoneNumToDial(recievedCOPhoneNum);
+                    }
+                });
     }
 
     public void currentLocationToRequest(Location location) {
