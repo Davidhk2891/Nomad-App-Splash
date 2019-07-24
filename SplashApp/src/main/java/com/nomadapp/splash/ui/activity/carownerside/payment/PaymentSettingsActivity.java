@@ -29,10 +29,10 @@ import com.nomadapp.splash.model.payment.paymeapis.buyer.SplashCaptureBuyer;
 import com.nomadapp.splash.model.server.parseserver.queries.MetricsClassQuery;
 import com.nomadapp.splash.ui.activity.carownerside.WashReqParamsActivity;
 import com.nomadapp.splash.ui.activity.standard.web.WebActivity;
-import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
+import com.nomadapp.splash.utils.sysmsgs.BoxedLoadingDialog;
 import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
 
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
 import com.parse.ParseUser;
 
 import com.paymeservice.android.PayMe;

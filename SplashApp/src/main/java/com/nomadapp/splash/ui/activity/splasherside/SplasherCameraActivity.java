@@ -36,8 +36,8 @@ import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.imagehandler.GlideImagePlacement;
 import com.nomadapp.splash.utils.phonedialer.DialCall;
 import com.nomadapp.splash.utils.sysmsgs.DialogAcceptInterface;
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
-import com.nomadapp.splash.utils.sysmsgs.questiondialogs.CustomAlertDialog;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.CustomAlertDialog;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -55,7 +55,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import com.nomadapp.splash.utils.sysmsgs.connectionlost.ConnectionLost;
+import com.nomadapp.splash.utils.sysmsgs.ConnectionLost;
 import com.nomadapp.splash.model.imagehandler.ImageRotation;
 import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
 

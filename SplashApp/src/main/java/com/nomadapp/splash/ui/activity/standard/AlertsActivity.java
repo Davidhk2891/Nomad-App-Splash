@@ -9,7 +9,7 @@ import android.widget.Switch;
 import com.nomadapp.splash.R;
 
 import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
 
 public class AlertsActivity extends AppCompatActivity {
 

@@ -8,7 +8,7 @@ import com.nomadapp.splash.model.constants.PaymeConstants;
 import com.nomadapp.splash.model.server.parseserver.HistoryClassInterface;
 import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.model.server.parseserver.send.HistoryClassSend;
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -35,9 +35,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
-import static com.nomadapp.splash.model.constants.PaymeConstants.creditCardFeeProcessor;
-import static com.nomadapp.splash.model.constants.PaymeConstants.splashFeeProcessor;
 
 /**
  * Created by David on 6/2/2018 for Splash.

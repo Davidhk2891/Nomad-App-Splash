@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+  <!--
   ~ Copyright (c) 2015-present, Parse, LLC.
   ~ All rights reserved.
   ~
@@ -18,6 +19,10 @@
     <string name="x">X</string>
 
     <string name="please_wait">אנא המתן&#8230;</string>
+    <string name="coma_country">, ישראל</string>
+    <string name="failed_to_retrieve_address">אחזור הכתובת נכשל</string>
+    <string name="no_address">אין כתובת</string>
+    <string name="there_was_problem_address">אירעה בעיה בעת אחזור הכתובת שלך. בבקשה נסה שוב</string>
 
     <!--IGNORE-->
     <string name="parse_app_id">YOUR_APPLICATION_ID</string>
@@ -25,12 +30,6 @@
 
     <!--IGNORE-->
     <string name="app_name">Splash</string>
-
-    <!--IGNORE-->
-    <string name="action_settings">הגדרות</string>
-    <string name="title_activity_rider">Splash</string>
-    <string name="title_activity_driver_location">Splash</string>
-    <string name="title_activity_car_owner">Splash</string>
 
     <string name="splashPartnersProgramsTitle">תצטרף אלינו בתוכנית השותפים</string>
     <string name="contactAgreement">אני מסכים שיצרו איתי קשר בדוא"ל או בטלפון(כולל באמצעים אוטומטיים) בכתובת הדוא”ל או מספר שאני מספק, כולל למטרות שיווק. קראתי והסקמתי להצהרת הפרטיות</string>
@@ -47,7 +46,6 @@
     <string name="close">לסגור</string>
     <string name="call">להתקשר</string>
 
-
     <!--Facebook App ID-->
     <!--IGNORE-->
     <string name="facebook_app_id">399400473846538</string>
@@ -62,6 +60,31 @@
     <string name="seventy">₪ 70</string>
     <string name="twenty">₪ 20</string>
     <!--//////-->
+
+    <!--Screen_Titles-->
+    <string name="action_settings">הגדרות</string>
+    <string name="title_activity_rider">Splash</string>
+    <string name="title_activity_driver_location">Splash</string>
+    <string name="title_activity_car_owner">Splash</string>
+    <string name="title_activity_washReqParams">שירותים ושוטפים</string>
+    <string name="title_activity_splasherApplication">הפוך לשוטף מכוניות</string>
+    <string name="title_activity_washRequest">בקשות שטיפה</string>
+    <string name="title_activity_clientRoute">מסלול למכונית</string>
+    <string name="title_activity_carAddition">Splash</string>
+    <string name="title_activity_splasherCamera">שירות</string>
+    <string name="title_activity_washServiceShow">שירות ותוצאות</string>
+    <string name="title_activity_detailedImageComparison">תוצאות</string>
+    <string name="title_activity_payment">אמצעי תשלום</string>
+    <string name="title_activity_alerts">Splash</string>
+    <string name="title_activity_about">Splash</string>
+    <string name="title_activity_paymentBill">Splash</string>
+    <string name="title_activity_profile">הפרופיל שלי</string>
+    <string name="title_activity_contactUs">צור קשר</string>
+    <string name="title_activity_quickTour">Splash</string>
+    <string name="title_activity_wallet">הארנק שלי</string>
+    <string name="title_activity_services">השירותים שלי</string>
+    <string name="title_activity_createSplasher">ליצור חשבון שוטף</string>
+    <!--/////////////-->
 
     <!--activity_wash_requests-->
     <string name="act_about_about">אודות</string>
@@ -128,6 +151,7 @@
     <string name="becomeSplasher_act_java_independent">עצמאי</string>
     <string name="becomeSplasher_act_java_hired">שכיר</string>
     <string name="seller_account_creator">יוצר חשבון המוכר</string>
+    <string name="act_become_splash_next">הבא</string>
     <!--////////////////////////-->
 
 
@@ -177,7 +201,7 @@
     <string name="act_car_owner_responsibility">אחריות: 0</string>
     <string name="act_car_owner_generosity">נדיבות: 0</string>
     <string name="act_car_owner_accuracy">דיוק: 0</string>
-    <string name="act_car_owner_fairness">הֲגִינוּת: 0</string>
+    <string name="act_car_owner_fairness">הגינות: 0</string>
     <string name="act_car_owner_distanceTitle"> מרחק</string>
     <string name="act_car_owner_distanceValue">XXXm</string>
     <string name="act_car_owner_availableTitle"> זמין עד</string>
@@ -208,6 +232,7 @@
     <string name="act_car_owner_carAvailableUntil">רכב זמין עד</string>
     <string name="act_car_owner_timeLeft">הזמן שנותר</string>
     <string name="act_car_owner_cdcTime">00:00:00</string>
+    <string name="act_car_owner_whereIsYourCar">איפה הרכב שלך?</string>
     <!--//////////////////-->
 
     <!--activity_splasher_client_route-->
@@ -536,6 +561,10 @@
     <string name="carOwner_act_java_profPicDidNotSend">התמונת פרופיל לא התקבלה. נסה שוב או תמונה אחרת</string>
     <string name="carOwner_act_java_sizeTooBig">גודל מדי. בחר תמונה אחרת</string>
     <string name="carOwner_act_java_profPicSent"> התמונת פרופיל שנשלח ונשמר</string>
+    <string name="carOwner_act_java_youNeedToLogInRequestWash">אתה צריך להיתחבר כדי לבקש שטיפה</string>
+    <string name="carOwner_act_java_youNeedToLogInAddCar">אתה צריך להיתחבר כדי להוסיף מכונית</string>
+    <string name="carOwner_act_java_youNeedToLogInRequestSetTime">אתה צריך להיתחבר כדי להגדיר מגבלת זמן</string>
+    <string name="carOwner_act_java_youNeedToLogInRequestDetails">אתה צריך להיתחבר כדי להוסיף את פרטי הכתובת</string>
     <string name="carOwner_act_java_youNeedToLogInBfProfPic">עליך להתחבר לפני שתשתנה את הגדרות החשבון שלך</string>
     <string name="carOwner_act_java_youHaveToSignLogPayment">אתה צריך להתחבר כדי לשנות הגדרות התשלום שלך</string>
     <string name="carOwner_act_java_youHaveToSignLogFeedback">אתה צריך להתחבר כדי לשלוח משוב</string>
@@ -565,6 +594,8 @@
     <string name="carOwner_Act_java_forcedUpdateNo">לא תודה</string>
     <string name="carOwner_act_java_welcomeToSplash_title">ברוכים הבאים ל Splash</string>
     <string name="carOwner_act_java_welcomeToSplash_message">אנחנו יוצאים כי אתה רוצה לעבוד איתנו! כדי להתחיל, עבור אל \'השירותים שלי\' כדי להגדיר את שטח העבודה והמחירים שלך</string>
+    <string name="carOwner_act_java_outsideOurService">לא באזור שירות</string>
+    <string name="carOwner_act_java_setAreaRange">הגדר טווח אזור</string>
     <!--/////////////////////-->
 
 
@@ -597,6 +628,8 @@
     <string name="becomeSplasher_act_java_login">התחברות</string>
     <string name="becomeSplasher_act_java_signup">הירשם</string>
     <string name="becomeSplasher_act_java_welcomeBack">ברוך שובך</string>
+    <string name="becomeSplasher_act_java_missingFields">שדות חסרים</string>
+    <string name="becomeSplasher_act_java_pleaseFillAll2">מלא את כל השדות לפני שתמשיך</string>
     <!--///////////////////////////-->
 
     <!--cameraIntentActivity.java-->
@@ -768,9 +801,11 @@
     <!--/////////////////////////////-->
 
     <!--SplasherOnboardingActivity.java-->
-    <string name="splasher_onboarding_alert_accBeing_title">הבקשה נרשמה</string>
-    <string name="splasher_onboarding_alert_accBeing_message">נבדוק את בקשתך ונחזור בהקדם</string>
+    <string name="splasher_onboarding_alert_accBeing_title">חשבון שוטף נוצר</string>
+    <string name="splasher_onboarding_alert_accBeing_message">ברוכים הבאים ל Splash! לפני שתתחיל לקחת בקשות לשטוף, יש להגדיר את שטח העבודה והמחירים שלך.</string>
     <string name="splasher_onboarding_alert_accBeing_ok">מאושר</string>
+    <string name="splasher_onboarding_pleaseFillAllBeforeNext">מלא את כל השדות לפני שתמשיך</string>
+    <string name="splasher_onboarding_passwordsDontMatch">סיסמאות אינן תואמות</string>
     <!--///////////////////////////////-->
 
     <!--////////////////////////////////////-->

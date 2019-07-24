@@ -10,7 +10,7 @@ import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
 import com.nomadapp.splash.model.server.CloudTriggers;
 import com.nomadapp.splash.model.server.parseserver.queries.MetricsClassQuery;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
@@ -37,11 +37,11 @@ public class RequestClassSend {
 
     //Load Request to Parse Server 2
     public void loadRequest(String address, final LatLng carCoor, String carAddressDescription
-            , final String fullDate, final String selectedTime, final String getServiceType
-            , String carBrandToUpload, String carModelToUpload, String carColorToUpload
-            , String carPlateToUpload, String dollarSetPrice, boolean temporalKeyActive
-            , String[] splashersWanted, String[] splasherPrices, String[] carOwnerPrices
-            , String splasherUsername, String splasherShowingName, String requestType) {
+            ,final String selectedTime, final String getServiceType, String carBrandToUpload
+            , String carModelToUpload, String carColorToUpload, String carPlateToUpload
+            , String dollarSetPrice, boolean temporalKeyActive, String[] splashersWanted
+            , String[] splasherPrices, String[] carOwnerPrices, String splasherUsername
+            , String splasherShowingName, String requestType) {
 
         String profilePicToUpload;
         String profPicNoFbString = "none";
@@ -59,16 +59,6 @@ public class RequestClassSend {
             profPicNoFbString = "none";
         }
 
-        String preUntilTime = fullDate + " " + selectedTime;
-        String finalUntilTime;
-        if (preUntilTime.contains("??")) {
-            finalUntilTime = preUntilTime.replace("??", "");
-        }else if(preUntilTime.contains("- ??")){
-            finalUntilTime = preUntilTime.replace("- ??", "");
-        }else{
-            finalUntilTime = preUntilTime;
-        }
-
         final WriteReadDataInFile writeReadDataInFile = new WriteReadDataInFile(context);
         ParseObject request = new ParseObject("Request");
         request.put("username", ParseUser.getCurrentUser().getUsername());
@@ -76,7 +66,7 @@ public class RequestClassSend {
         ParseGeoPoint carGeoPoint = new ParseGeoPoint(carCoor.latitude,carCoor.longitude);
         request.put("carCoordinates", carGeoPoint); //2
         request.put("carAddressDesc", carAddressDescription); //3
-        request.put("untilTime", finalUntilTime); //4
+        request.put("untilTime", selectedTime); //4
         request.put("serviceType", getServiceType); //5
         request.put("carBrand", carBrandToUpload); //6
         request.put("carModel", carModelToUpload); //7
@@ -138,7 +128,7 @@ public class RequestClassSend {
                     intent.putExtra("requestActive", "active");
                     intent.putExtra("carLat", carCoordinatesLatitude);
                     intent.putExtra("carLon", carCoordinatesLongitude);
-                    intent.putExtra("selectedTime", fullDate + " " + selectedTime);
+                    intent.putExtra("selectedTime", selectedTime);
                     if(getServiceType.equals(context.getResources().getString(R.string
                     .act_wash_my_car_motorcycle))){
                         writeReadDataInFile.writeToFile("bike", "bikeOrNot");

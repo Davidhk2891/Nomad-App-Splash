@@ -16,8 +16,14 @@
 
     <string name="threeDots">&#8230;</string>
     <string name="x">X</string>
+    <string name="hyphen" tools:ignore="MissingTranslation">-</string>
 
     <string name="please_wait">Please wait&#8230;</string>
+    <string name="coma_country">, Israel</string>
+    <string name="failed_to_retrieve_address">Failed to retrieve address</string>
+    <string name="no_address">No address</string>
+    <string name="there_was_problem_address">There was a problem when retrieving your address
+        . Please try again</string>
 
     <!--IGNORE-->
     <string name="parse_app_id">YOUR_APPLICATION_ID</string>
@@ -25,12 +31,6 @@
 
     <!--IGNORE-->
     <string name="app_name">Splash</string>
-
-    <!--IGNORE-->
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_rider">Splash</string>
-    <string name="title_activity_driver_location">Splash</string>
-    <string name="title_activity_car_owner">Splash</string>
 
     <string name="splashPartnersProgramsTitle">Join our Splash Partners program.</string>
     <string name="contactAgreement">By proceeding, I agree that Splash or its representatives may
@@ -64,6 +64,31 @@
     <string name="seventy">₪ 70.0</string>
     <string name="twenty">₪ 20.0</string>
     <!--//////-->
+
+    <!--Screen_Titles-->
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_rider">Splash</string>
+    <string name="title_activity_driver_location">Splash</string>
+    <string name="title_activity_car_owner">Splash</string>
+    <string name="title_activity_washReqParams">Services &amp; Splashers</string>
+    <string name="title_activity_splasherApplication">Become a Splasher</string>
+    <string name="title_activity_washRequest">Wash Requests</string>
+    <string name="title_activity_clientRoute">Route to car</string>
+    <string name="title_activity_carAddition">Splash</string>
+    <string name="title_activity_splasherCamera">Your service</string>
+    <string name="title_activity_washServiceShow">Service &amp; Results</string>
+    <string name="title_activity_detailedImageComparison">Results</string>
+    <string name="title_activity_payment">Payment</string>
+    <string name="title_activity_alerts">Splash</string>
+    <string name="title_activity_about">Splash</string>
+    <string name="title_activity_paymentBill">Splash</string>
+    <string name="title_activity_profile">My Profile</string>
+    <string name="title_activity_contactUs">Contact us</string>
+    <string name="title_activity_quickTour">Splash</string>
+    <string name="title_activity_wallet">My wallet</string>
+    <string name="title_activity_services">My services</string>
+    <string name="title_activity_createSplasher">Create Splasher Account</string>
+    <!--/////////////-->
 
     <!--activity_wash_requests-->
     <string name="act_about_about">About</string>
@@ -126,6 +151,7 @@
     <string name="becomeSplasher_act_java_independent">Independent</string>
     <string name="becomeSplasher_act_java_hired">Hired</string>
     <string name="seller_account_creator">Seller Account Creator</string>
+    <string name="act_become_splash_next">Next</string>
     <!--////////////////////////-->
 
     <!-- activity_splasher_camera-->
@@ -205,6 +231,7 @@
     <string name="act_car_owner_carAvailableUntil">Car available until</string>
     <string name="act_car_owner_timeLeft">Time left</string>
     <string name="act_car_owner_cdcTime">00:00:00</string>
+    <string name="act_car_owner_whereIsYourCar">Where is your car?</string>
     <!--//////////////////-->
 
     <!--activity_splasher_client_route-->
@@ -495,7 +522,6 @@
     <string name="main_act_java_welcome">WELCOME!</string>
     <string name="main_act_java_accountNotVerified">Account Not Verified</string>
     <string name="main_act_java_yourAccountHasntBeen">Your account hasn\'t been verified yet</string>
-
     <!--/////////////////-->
 
     <!--HomeActivity.java-->
@@ -536,6 +562,13 @@
         try a different picture</string>
     <string name="carOwner_act_java_sizeTooBig">Size too big. Please choose another picture</string>
     <string name="carOwner_act_java_profPicSent">Profile pic sent and saved</string>
+    <string name="carOwner_act_java_youNeedToLogInRequestWash">You need to LogIn in order to
+        request a wash</string>
+    <string name="carOwner_act_java_youNeedToLogInAddCar">You need to LogIn in order to add a car</string>
+    <string name="carOwner_act_java_youNeedToLogInRequestSetTime">You need to LogIn in order to set
+        up a time</string>
+    <string name="carOwner_act_java_youNeedToLogInRequestDetails">You need to LogIn in order to add
+        the address details</string>
     <string name="carOwner_act_java_youNeedToLogInBfProfPic">You need to log in before changing
         you account settings</string>
     <string name="carOwner_act_java_youHaveToSignLogPayment">You have to Signup/Login in order to change
@@ -576,6 +609,8 @@
     <string name="carOwner_act_java_welcomeToSplash_title">Welcome to Splash</string>
     <string name="carOwner_act_java_welcomeToSplash_message">"We are exited that you want to work with us!
         To get started, please go to My Services to set up your area of work and prices."</string>
+    <string name="carOwner_act_java_outsideOurService">Not in service area</string>
+    <string name="carOwner_act_java_setAreaRange">Set area range</string>
     <!--/////////////////////-->
 
     <!--WashRequestsActivity.java-->
@@ -607,6 +642,8 @@
     <string name="becomeSplasher_act_java_login">LogIn</string>
     <string name="becomeSplasher_act_java_signup">SignUp</string>
     <string name="becomeSplasher_act_java_welcomeBack">Welcome back</string>
+    <string name="becomeSplasher_act_java_missingFields">Missing Fields</string>
+    <string name="becomeSplasher_act_java_pleaseFillAll2">Please fill all of the fields before proceeding</string>
     <!--///////////////////////////-->
 
     <!--cameraIntentActivity.java-->
@@ -792,12 +829,12 @@
     <!--/////////////////////////////-->
 
     <!--SplasherOnboardingActivity.java-->
-    <string name="splasher_onboarding_alert_accBeing_title">Account Verification</string>
-    <string name="splasher_onboarding_alert_accBeing_message">Your account is now being " +
-                                    "verified. A representative will contact you soon. " +
-                                    "Thank you.</string>
+    <string name="splasher_onboarding_alert_accBeing_title">Splasher Account Created</string>
+    <string name="splasher_onboarding_alert_accBeing_message">Welcome to Splash! Before you start
+        taking wash requests, please set your area of work and prices.</string>
     <string name="splasher_onboarding_alert_accBeing_ok">OK</string>
-    <!--///////////////////////////////-->
-
+    <string name="splasher_onboarding_pleaseFillAllBeforeNext">Please fill all the fields
+        before proceeding</string>
+    <string name="splasher_onboarding_passwordsDontMatch">Passwords don\'t match</string>
     <!--////////////////////////////////////-->
 </resources>

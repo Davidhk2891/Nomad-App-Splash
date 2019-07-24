@@ -56,5 +56,4 @@ public class ImageFileStorage {
         String authorities = ctx.getApplicationContext().getPackageName() + ".fileProvider";
         return FileProvider.getUriForFile(ctx, authorities, Image1);
     }
-
 }

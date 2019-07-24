@@ -53,7 +53,7 @@
         android:layout_alignStart="@+id/contactUsEmail"
         android:layout_alignEnd="@+id/contactUsEmail"
         android:layout_below="@+id/messageCon"
-        tools:ignore="LabelFor,TextFields" />
+        tools:ignore="Autofill,LabelFor,TextFields" />
 
     <RelativeLayout
         android:id="@+id/photoUploadCULinear"

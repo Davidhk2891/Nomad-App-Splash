@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.imagehandler.GlideImagePlacement;
 import com.nomadapp.splash.model.server.parseserver.ProfileClassInterface;
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;

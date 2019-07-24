@@ -32,8 +32,8 @@ import com.nomadapp.splash.model.server.parseserver.ProfileClassInterface;
 import com.nomadapp.splash.model.server.parseserver.queries.ProfileClassQuery;
 import com.nomadapp.splash.model.server.parseserver.send.RequestClassSend;
 import com.nomadapp.splash.ui.activity.carownerside.WashReqParamsActivity;
-import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.BoxedLoadingDialog;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -472,6 +472,7 @@ public class SplasherListFragment extends Fragment {
                 if (e == null){
                     if (objects.size() > 0){
 
+                        Log.i("peach_splashers","ran");
                         splasherList.clear();
                         splasherUserNames.clear();
                         splasherShowingNames.clear();
@@ -541,9 +542,6 @@ public class SplasherListFragment extends Fragment {
                                 Log.i("blueCarOwnerPrice", carOwnerPrice);
                                 splasherNumWash = splasherObj.getString("washes");//<<<<<<<<<<<
 
-                                //Apply Data to MySplasher object//
-                                //left here. need to add arraylist in which to deposit the
-                                // indivudual data in strings. nums etc
                                 MySplasher splasher = new MySplasher();
                                 splasher.setSplasherCardColor(cardColor);
                                 splasher.setSplasherTxtColor(txtColor);
@@ -583,32 +581,42 @@ public class SplasherListFragment extends Fragment {
                                 splasherUserProfPic.add(splasherProfPic);
                                 splasherUserAvgRat.add(String.valueOf(splasherAvgRating));
                                 //-------------------------------------------------------------//
+                            }
+                            if (splasherUserNames.size() > 0) {
                                 splasherListAdapter.notifyDataSetChanged();
                                 splasherGridRefresh(View.GONE);
                                 mEmptySplasherList.setVisibility(View.GONE);
+                            }else{
+                                noSplashersAvailable();
                             }
                         }
                     }else{
-                        //No splashers available near your area
-                        splasherList.clear();
-                        splasherUserNames.clear();
-                        splasherShowingNames.clear();
-                        splasherUserAvgRat.clear();
-                        splasherUserProfPic.clear();
-                        splasherUserNumWash.clear();
-                        splasherUserPrice.clear();
-                        carOwnerUserPrice.clear();
-
-                        splasherGridRefresh(View.GONE);
-                        mEmptySplasherList.setVisibility(View.VISIBLE);
+                        noSplashersAvailable();
                     }
                 }else{
-                    //Something went wrong. Please check your connection and try again
                     splasherGridRefresh(View.GONE);
                     toastMessages.productionMessage(getActivity(), "Something went wrong." +
                             " Please check your connectin and try again", 1);
+                    Log.i("QueryError", e.getMessage());//Something wrong
+
                 }
             }
         });
+    }
+    private void noSplashersAvailable(){
+        //No splashers available near your area
+        Log.i("peach_no_splashers","ran");
+        splasherListAdapter.notifyDataSetChanged();
+        splasherList.clear();
+        splasherUserNames.clear();
+        splasherShowingNames.clear();
+        splasherUserAvgRat.clear();
+        splasherUserProfPic.clear();
+        splasherUserNumWash.clear();
+        splasherUserPrice.clear();
+        carOwnerUserPrice.clear();
+
+        splasherGridRefresh(View.GONE);
+        mEmptySplasherList.setVisibility(View.VISIBLE);
     }
 }

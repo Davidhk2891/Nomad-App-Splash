@@ -29,11 +29,11 @@ import com.nomadapp.splash.model.imagehandler.GlideImagePlacement;
 import com.nomadapp.splash.ui.activity.carownerside.payment.PaymentBillActivity;
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.ui.activity.standard.ContactUsActivity;
-import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
-import com.nomadapp.splash.utils.sysmsgs.connectionlost.ConnectionLost;
-import com.nomadapp.splash.utils.sysmsgs.localnotifications.Notifications;
 import com.nomadapp.splash.utils.rating.RatingLogic;
+import com.nomadapp.splash.utils.sysmsgs.BoxedLoadingDialog;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.ConnectionLost;
+import com.nomadapp.splash.utils.sysmsgs.Notifications;
 import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
 
 import com.parse.FindCallback;

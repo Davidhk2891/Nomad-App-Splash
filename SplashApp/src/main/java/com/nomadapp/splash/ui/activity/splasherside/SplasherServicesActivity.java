@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -22,10 +20,10 @@ import com.nomadapp.splash.model.server.parseserver.queries.ProfileClassQuery;
 import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
 import com.nomadapp.splash.utils.sysmsgs.DialogAcceptInterface;
-import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
-import com.nomadapp.splash.utils.sysmsgs.questiondialogs.CustomAlertDialog;
-import com.nomadapp.splash.utils.sysmsgs.questiondialogs.ForcedAlertDialog;
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.BoxedLoadingDialog;
+import com.nomadapp.splash.utils.sysmsgs.CustomAlertDialog;
+import com.nomadapp.splash.utils.sysmsgs.ForcedAlertDialog;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
@@ -59,6 +57,8 @@ public class SplasherServicesActivity extends AppCompatActivity {
 
     private static final int REQUEST_GET_MAP_LOCATION = 0;
 
+    private boolean firstTimeServices = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,12 +79,9 @@ public class SplasherServicesActivity extends AppCompatActivity {
                 (R.id.Recommended_price_external_internal);
         mRecommended_price_motorcycle = findViewById(R.id.Recommended_price_motorcycle);
 
-        decimalConcatenator(mExternalPrice);
-        decimalConcatenator(mExtIntPrice);
-        decimalConcatenator(mMotorcyclePrice);
-
         widgetState(false,R.drawable.btn_shape_grey);
         fetchServicesInfoFromServer();
+        firstTimeServicesChecker();
         saveServiceSettingsFirst();
     }
 
@@ -143,9 +140,9 @@ public class SplasherServicesActivity extends AppCompatActivity {
 
                             areaECPlacer(actualECA,actualRange);
 
-                            mExternalPrice.setText(actualExt);
-                            mExtIntPrice.setText(actualExtInt);
-                            mMotorcyclePrice.setText(actualMoto);
+                            mExternalPrice.setText(decimalPlaceConcatenator(actualExt));
+                            mExtIntPrice.setText(decimalPlaceConcatenator(actualExtInt));
+                            mMotorcyclePrice.setText(decimalPlaceConcatenator(actualMoto));
                         }
                     }
                 }
@@ -200,31 +197,14 @@ public class SplasherServicesActivity extends AppCompatActivity {
         return string_with_currency;
     }
 
-    private void decimalConcatenator(final EditText editText){
-        editText.addTextChangedListener(new TextWatcher() {
-            int prevL = 0;
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                prevL = editText.getText().toString().length();
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                int length = s.length();
-                if ((prevL < length) && (length == 2)) {
-                    //s.append('.');
-                    String data = editText.getText().toString();
-                    String finalForm = data + ".";
-                    editText.setText(finalForm);
-                    editText.setSelection(length + 1);
-                }
-            }
-        });
+    private String decimalPlaceConcatenator(final String data){
+        String finalForm;
+        if (!data.contains(".")){
+            finalForm = data + ".0";
+        }else{
+            finalForm = data;
+        }
+        return finalForm;
     }
 
     @Override
@@ -244,6 +224,11 @@ public class SplasherServicesActivity extends AppCompatActivity {
 
     public void sendUpdatedPriceToServer(){
         boxedLoadingDialog.showLoadingDialog();
+
+        mExternalPrice.setText(decimalPlaceConcatenator(mExternalPrice.getText().toString()));
+        mExtIntPrice.setText(decimalPlaceConcatenator(mExtIntPrice.getText().toString()));
+        mMotorcyclePrice.setText(decimalPlaceConcatenator(mMotorcyclePrice.getText().toString()));
+
         profileClassQuery.getUserProfileToUpdate(new ProfileClassInterface() {
             @Override
             public void beforeQueryFetched() {
@@ -304,7 +289,12 @@ public class SplasherServicesActivity extends AppCompatActivity {
                     if (e == null){
                         toastMessages.productionMessage(ctx,getResources().getString(R.string
                                 .splasher_services_servicesUpdated),1);
-                        finish();
+                        if (!firstTimeServices) {
+                            finish();
+                        }else{
+                            startActivity(new Intent(SplasherServicesActivity.this
+                                    , HomeActivity.class));
+                        }
                     }else{
                         toastMessages.productionMessage(ctx,getResources().getString(R.string
                                 .splasher_services_thereWasAProblem),1);
@@ -353,4 +343,14 @@ public class SplasherServicesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    private void firstTimeServicesChecker(){
+        Bundle keyToKeep = getIntent().getExtras();
+        if (keyToKeep != null) {
+            String keyToOpen = keyToKeep.getString("signup");
+            if (keyToOpen != null && keyToOpen.equals("redirect")) {
+                firstTimeServices = true;
+            }
+        }
+    }
 }

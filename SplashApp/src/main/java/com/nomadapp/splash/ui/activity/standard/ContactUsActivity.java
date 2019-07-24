@@ -21,8 +21,8 @@ import com.nomadapp.splash.model.server.parseserver.ProfileClassInterface;
 import com.nomadapp.splash.model.server.parseserver.queries.ProfileClassQuery;
 import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.model.server.parseserver.send.MessageClassSend;
-import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.BoxedLoadingDialog;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -211,7 +211,7 @@ public class ContactUsActivity extends AppCompatActivity {
             if (secLockInt == 0 || secLockInt == 1 || secLockInt == 2 || secLockInt == 3
                     || secLockInt == 4 || secLockInt == 5) {
                 secLockInt++;
-                Log.i("secretLevel", " is at: " + String.valueOf(secLockInt));
+                Log.i("secretLevel", " is at: " + secLockInt);
             } else if (secLockInt == 6) {
                 secLockInt = 0;
                 toastMessages.productionMessage(ContactUsActivity.this

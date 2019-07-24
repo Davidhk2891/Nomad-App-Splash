@@ -13,7 +13,7 @@ import com.nomadapp.splash.model.constants.PaymeConstants;
 import com.nomadapp.splash.model.server.parseserver.HistoryClassInterface;
 import com.nomadapp.splash.model.server.parseserver.send.HistoryClassSend;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
-import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
+import com.nomadapp.splash.utils.sysmsgs.BoxedLoadingDialog;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;

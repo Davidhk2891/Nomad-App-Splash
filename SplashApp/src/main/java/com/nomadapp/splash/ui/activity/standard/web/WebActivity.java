@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import com.nomadapp.splash.R;
 
 import com.nomadapp.splash.model.constants.WebConstants;
-import com.nomadapp.splash.utils.sysmsgs.connectionlost.ConnectionLost;
+import com.nomadapp.splash.utils.sysmsgs.ConnectionLost;
 
 import java.util.Locale;
 

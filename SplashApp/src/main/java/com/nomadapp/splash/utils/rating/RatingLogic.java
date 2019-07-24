@@ -2,7 +2,7 @@ package com.nomadapp.splash.utils.rating;
 
 import android.content.Context;
 
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
 
 /**
  * Created by David & Isaac on 1/14/2018 for Splash.

@@ -6,7 +6,7 @@ import android.util.Log;
 
 import com.nomadapp.splash.model.constants.PaymeConstants;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;

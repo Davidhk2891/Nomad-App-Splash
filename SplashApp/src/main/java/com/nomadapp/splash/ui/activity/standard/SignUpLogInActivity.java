@@ -34,9 +34,9 @@ import com.nomadapp.splash.model.server.parseserver.ProfileClassInterface;
 import com.nomadapp.splash.model.server.parseserver.queries.ProfileClassQuery;
 import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.ui.activity.standard.web.WebActivity;
-import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
-import com.nomadapp.splash.utils.sysmsgs.questiondialogs.ForcedAlertDialog;
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.BoxedLoadingDialog;
+import com.nomadapp.splash.utils.sysmsgs.ForcedAlertDialog;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
 import com.parse.LogInCallback;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
@@ -53,7 +53,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import com.nomadapp.splash.utils.sysmsgs.connectionlost.ConnectionLost;
+import com.nomadapp.splash.utils.sysmsgs.ConnectionLost;
 
 public class SignUpLogInActivity extends AppCompatActivity implements View.OnKeyListener{
 

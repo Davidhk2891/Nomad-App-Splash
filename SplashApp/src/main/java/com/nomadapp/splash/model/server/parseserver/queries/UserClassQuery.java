@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.nomadapp.splash.model.server.parseserver.UserClassInterface;
-import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
+import com.nomadapp.splash.utils.sysmsgs.BoxedLoadingDialog;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;

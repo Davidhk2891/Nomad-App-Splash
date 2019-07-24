@@ -2,7 +2,7 @@ package com.nomadapp.splash.model.server.parseserver.send;
 
 import android.content.Context;
 
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;

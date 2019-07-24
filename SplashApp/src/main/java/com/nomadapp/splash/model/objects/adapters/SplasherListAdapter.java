@@ -18,7 +18,7 @@ import com.nomadapp.splash.model.imagehandler.GlideImagePlacement;
 import com.nomadapp.splash.model.objects.MySplasher;
 import com.nomadapp.splash.model.objects.users.SplasherSelector;
 import com.nomadapp.splash.ui.activity.carownerside.WashReqParamsActivity;
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
 
 import java.util.ArrayList;
 
@@ -91,6 +91,7 @@ public class SplasherListAdapter extends ArrayAdapter<MySplasher> {
             LayoutInflater theInflator = LayoutInflater.from(context);
             row = theInflator.inflate(layoutResource, null);
             holder = new ViewHolder();
+
             holder.mSplasherCardView = row.findViewById(R.id.splasherCardView);
             holder.mSplasherName = row.findViewById(R.id.rowSName);
             holder.mSplasherPrice = row.findViewById(R.id.rowSPrice);
@@ -100,8 +101,8 @@ public class SplasherListAdapter extends ArrayAdapter<MySplasher> {
             holder.mSplasherRatingBar.setEnabled(false);
             holder.mSplasherRatingBar.setClickable(false);
             holder.mProfPicUri = row.findViewById(R.id.splasherRowThumbNail);
-            row.setTag(holder);
 
+            row.setTag(holder);
         }else{
             holder = (ViewHolder) row.getTag();
         }

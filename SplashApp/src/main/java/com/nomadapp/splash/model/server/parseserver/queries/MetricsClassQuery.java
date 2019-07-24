@@ -1,9 +1,8 @@
 package com.nomadapp.splash.model.server.parseserver.queries;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.nomadapp.splash.utils.datetimeops.Datetime;
+import com.nomadapp.splash.utils.customclocksops.DateTime;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -50,7 +49,7 @@ public class MetricsClassQuery {
                                     intParseVarCounter = Integer.parseInt(finalParseVarCounter);
                                 }
                                 intParseVarCounter++;
-                                Datetime dateTime = new Datetime(context);
+                                DateTime dateTime = new DateTime(context);
                                 String timeStamp = "-" + dateTime.rawCurrentTime();
                                 finalParseVarCounter = intParseVarCounter + timeStamp;
                                 metObject.put(parseVarToUpdate, finalParseVarCounter);

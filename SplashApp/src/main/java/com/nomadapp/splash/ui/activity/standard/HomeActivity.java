@@ -3,6 +3,8 @@ package com.nomadapp.splash.ui.activity.standard;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,12 +36,19 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -52,12 +61,19 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.constants.WebConstants;
 import com.nomadapp.splash.model.imagehandler.GlideImagePlacement;
 import com.nomadapp.splash.model.mapops.AddressCoordsLocator;
+import com.nomadapp.splash.model.mapops.AddressSearch;
 import com.nomadapp.splash.model.mapops.MarkersOps;
 import com.nomadapp.splash.model.mapops.OnAddressFetched;
+import com.nomadapp.splash.model.mapops.OnAreaLimitsChecker;
 import com.nomadapp.splash.model.mapops.ServiceLimits;
 import com.nomadapp.splash.model.payment.paymeapis.ssale.SplashGenerateSaleAutomatic;
 import com.nomadapp.splash.model.server.Installation;
@@ -78,23 +94,23 @@ import com.nomadapp.splash.ui.activity.splasherside.SplasherWalletActivity;
 import com.nomadapp.splash.ui.activity.splasherside.WashRequestsActivity;
 import com.nomadapp.splash.model.constants.PaymeConstants;
 import com.nomadapp.splash.ui.activity.carownerside.payment.PaymentSettingsActivity;
-import com.nomadapp.splash.ui.activity.carownerside.WashReqParamsActivity;
 import com.nomadapp.splash.ui.activity.carownerside.WashServiceShowActivity;
 import com.nomadapp.splash.ui.activity.splasherside.SplasherClientRouteActivity;
 import com.nomadapp.splash.ui.activity.standard.web.WebActivity;
+import com.nomadapp.splash.ui.fragment.VehicleTimeDashboard;
 import com.nomadapp.splash.utils.customclocksops.HourDifferentiator;
 import com.nomadapp.splash.utils.forcedupdate.ForceUpdateChecker;
 import com.nomadapp.splash.utils.phonedialer.DialCall;
 import com.nomadapp.splash.utils.radar.RadarView;
 import com.nomadapp.splash.utils.sysmsgs.DialogAcceptInterface;
-import com.nomadapp.splash.utils.sysmsgs.connectionlost.ConnectionLost;
-import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
-import com.nomadapp.splash.utils.sysmsgs.localnotifications.Notifications;
+import com.nomadapp.splash.utils.sysmsgs.ConnectionLost;
+import com.nomadapp.splash.utils.sysmsgs.BoxedLoadingDialog;
+import com.nomadapp.splash.utils.sysmsgs.Notifications;
 import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
-import com.nomadapp.splash.utils.sysmsgs.questiondialogs.CustomAlertDialog;
-import com.nomadapp.splash.utils.sysmsgs.questiondialogs.ForcedAlertDialog;
-import com.nomadapp.splash.utils.sysmsgs.questiondialogs.LogoutMessage;
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.CustomAlertDialog;
+import com.nomadapp.splash.utils.sysmsgs.ForcedAlertDialog;
+import com.nomadapp.splash.utils.sysmsgs.LogoutMessage;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -121,12 +137,12 @@ import java.util.Objects;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 public class HomeActivity extends AppCompatActivity implements OnMapReadyCallback
-        , ForceUpdateChecker.OnUpdateNeededListener{
+        , ForceUpdateChecker.OnUpdateNeededListener, View.OnKeyListener
+        , VehicleTimeDashboard.OnFragmentInteractionListener{
 
     private GoogleMap mMap;
     private LocationManager locationManager;
     private LocationListener locationListener;
-    private Button cFindMeAWash;
     private SeekBar cUpdatedSeekbar;
 
     //Checkers//
@@ -158,13 +174,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ImageView cMarkerView;
     private ImageView cMarkerView2;
     private LatLng savedCarLocationForUpdate;
-
-    private String StringNotLoggedIn;
+    private LatLng savedSplasherLocationForUpdate;
 
     private ParseUser currentUser = ParseUser.getCurrentUser();
 
     //splasher Status//
-    private RelativeLayout mSplasher_info_toco_back_space;
+    private RelativeLayout mGeneral_info_dashboard_up;
     private ImageView mSplasherPicInStatusWindows;
     private TextView cSplasherStatus;
     private LatLng userLocation;
@@ -200,9 +215,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final int WAITING_CONSTANT_ALL_RUNNABLE = 30000;
     private static final int WAITING_CONSTANT_CAR_OWNER = 30000;
     private static final int WAITING_CONSTANT_SPLASHER = 5000;
+    private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
 
     private ActionBarDrawerToggle mToggle;
-    private MenuItem cancelItem;
+    private MenuItem cancelItem, center_location;
 
     private String currentSavedSelectedHour;
 
@@ -303,8 +319,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private SeekBar mServiceAreaSeekbar;
     private TextView mRangeText;
     private LatLng areaPointerLocation;
+    private RelativeLayout mWork_area_relative;
     private Button mSetArea;
     private TextView mLiveFetchedAdddress;
+    private ImageView mServiceMarkerView;
     //-----------------------------------------//
 
     //--Count down clock--//
@@ -312,6 +330,20 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private TextView mCarAvailTime;
     private LinearLayout mSplasherInfoHolder;
     //--------------------//
+
+    //--Request Details--//
+    private RelativeLayout mVehicle_time_frag_container;
+    private RelativeLayout mAddress_space;
+    private ImageView mRequestMarker;
+    private TextView mRequest_address;
+    private EditText mRequest_address_details;
+    private Animation FadeInOut;
+    private VehicleTimeDashboard vtd = new VehicleTimeDashboard();
+    private boolean outsideOfService = false;
+    //-------------------//
+
+    //Fused location//
+    private FusedLocationProviderClient fusedLocationClient;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     @SuppressLint("ClickableViewAccessibility")
@@ -323,11 +355,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         Log.i("requestActive?", String.valueOf(findCarWasherRequestActive));
 
         //ParseInstallation.getCurrentInstallation().saveInBackground();
-        //TODO:Payme code 4: Setup SELLER_KEY and APP_STAGE for Payme API
+        initializePlaces();
         PayMe.initialize(new Settings(PaymeConstants.SPLASH_SELLER_KEY, PRODUCTION));
         updateHelperCall();
         Log.i("Locale is", "here: " + Locale.getDefault().getDisplayLanguage());
@@ -363,6 +396,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             e.printStackTrace();
         }
         */
+
+        //For crashing
+        //Crashlytics.getInstance().crash();
+
         //drawer menu 2---//
         Toolbar mCustomToolBar = findViewById(R.id.custom_tool_bar);
         setSupportActionBar(mCustomToolBar);
@@ -396,10 +433,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         cGettingLocationRelativeHome = findViewById(R.id.gettinLocaionRelativeHome);
         //-----------------------------
 
-        cFindMeAWash = findViewById(R.id.findMeAWash);
-
         //Request info window//
-        mRequest_info_window = findViewById(R.id.request_window_info);
+        mRequest_info_window = findViewById(R.id.majorButtonsBackSpace);
         mCarAddressInfoText = findViewById(R.id.carAddressInfoText);
         mCarInfoText = findViewById(R.id.carInfoText);
         mCarAddDescText = findViewById(R.id.carAddDescText);
@@ -413,8 +448,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         //-------------//
 
         //Area range services//
+        mLiveFetchedAdddress = findViewById(R.id.liveFetchedAddress);
         mServiceAreaSeekbar = findViewById(R.id.serviceAreaSeekbar);
         mRangeText = findViewById(R.id.rangeText);
+        mServiceMarkerView = findViewById(R.id.serviceMarkerView);
         //-------------------//
 
         Installation installation = new Installation(HomeActivity.this);
@@ -424,7 +461,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         cMarkerView2 = findViewById(R.id.markerView2);
         //splasher status
         mSplasherPicInStatusWindows = findViewById(R.id.splasherPicInStatusWindow);
-        mSplasher_info_toco_back_space = findViewById(R.id.splasher_info_toco_back_space);
+        mGeneral_info_dashboard_up = findViewById(R.id.general_info_dashboard_up);
         mSplasherInfoHolder = findViewById(R.id.splasherInfoHolder);
         ImageView mSplasher_stats_co_call = findViewById(R.id.splasher_stats_co_call);
         mSplasher_stats_co_splasherName = findViewById(R.id.splasher_stats_co_splasherName);
@@ -435,47 +472,39 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         mCountDownClockRela = findViewById(R.id.countDownClockRela);
         mCarAvailTime = findViewById(R.id.carAvailTime);
 
+        mVehicle_time_frag_container = findViewById(R.id.vehicle_time_frag_container);
+        mAddress_space = findViewById(R.id.address_space);
+        mRequestMarker = findViewById(R.id.request_marker);
+        mRequest_address = findViewById(R.id.request_address);
+        mRequest_address_details = findViewById(R.id.request_address_details);
+        mWork_area_relative = findViewById(R.id.work_area_relative);
+        mSetArea = findViewById(R.id.setArea);
+        RelativeLayout mVehicle_time_frag_container = findViewById
+                (R.id.vehicle_time_frag_container);
+        FadeInOut = AnimationUtils.loadAnimation(HomeActivity.this, R.anim.fadeinout);
+        mRequest_address_details.setText("");
+
+        mVehicle_time_frag_container.bringToFront();
         cSplasherStatus = findViewById(R.id.splasherStatus);
         cCarOwnerPrevDetailsRelative.setVisibility(View.GONE);
         cSplashWalletRelative.setVisibility(View.GONE);
         cSplashWalletTextView.setVisibility(View.GONE);
         cGettingLocationRelativeHome.setVisibility(View.VISIBLE);
         cUpdatedSeekbar = findViewById(R.id.updatedSeekBarOne);
+        mCountDownClockRela.setVisibility(View.GONE);
         cUpdatedSeekbar.setVisibility(View.GONE);
         mRequest_info_window.setVisibility(View.GONE);
-        mSplasher_info_toco_back_space.setVisibility(View.GONE);
+        mGeneral_info_dashboard_up.setVisibility(View.VISIBLE);
         mSplasherInfoHolder.setVisibility(View.GONE);
         mSplasher_status_co_ratingBar.setEnabled(false);
         mSplasher_status_co_ratingBar.setClickable(false);
         if (!Locale.getDefault().getDisplayLanguage().equals("עברית")){
             mSplasher_stats_co_call.setScaleX(-1f);
         }
-        if (cancelItem != null) {
+        if (cancelItem != null && center_location != null) {
             cancelItem.setVisible(false);
+            center_location.setVisible(true);
         }
-        cFindMeAWash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (alreadyExecuted8) {
-                    if (!userClassQuery.userExists()) {
-                        StringNotLoggedIn = getResources().getString
-                                (R.string.carOwner_act_java_youHaveToSignLogRequest);
-                        notLoggedIn(StringNotLoggedIn);
-                    } else {
-                        if (cRadarView.getVisibility() == View.GONE) {
-                            updateWashMyCarBtnCount();
-                            Intent intent = new Intent(HomeActivity.this
-                                    ,WashReqParamsActivity.class);
-                            intent.putExtra("defaultLat", userLocation.latitude);
-                            intent.putExtra("defaultLong",userLocation.longitude);
-                            startActivity(intent);
-                            //crash test
-                            //Crashlytics.getInstance().crash();
-                        }
-                    }
-                }
-            }
-        });
         if (userClassQuery.userExists()) {
             Log.i("currentUser?", "is: " + currentUser.toString());
             String userNameForHeader = ParseUser.getCurrentUser().getUsername();
@@ -512,11 +541,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                         }
                     });
 
-                    //Send new splashers to set up their services
-                    runTakeNewSplasherToServices();
-
-                    cFindMeAWash.setVisibility(View.GONE);
+                    mAddress_space.setVisibility(View.GONE);
+                    mRequestMarker.setVisibility(View.GONE);
                     cCarOwnerPrevDetailsRelative.setVisibility(View.GONE);
+                    mWork_area_relative.setVisibility(View.VISIBLE);
                     cLetsWashACar.setVisibility(View.VISIBLE);
                     cUserLessMsg.setVisibility(View.GONE);
 
@@ -527,16 +555,17 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     installation.parseInstallationProcess("splashers");
 
                 } else if (userClassQuery.userIsCarOwnerOrSplasher(carOwner)) {
-
                     //R.string.carOwner_act_java_carOwner
                     String stringUserTypeTwo = getResources()
                             .getString(R.string.carOwner_act_java_carOwner);
                     cSplashWalletRelative.setVisibility(View.GONE);
-                    cFindMeAWash.setVisibility(View.VISIBLE);
                     cLetsWashACar.setVisibility(View.GONE);
                     cUserProfileUsertype.setText(stringUserTypeTwo);
                     cUserLessMsg.setVisibility(View.GONE);
                     cCarOwnerPrevDetailsRelative.setVisibility(View.GONE);
+
+                    vehicleTimeFragmentInit();
+                    confirmAddressDetails();
 
                     installation.parseInstallationProcess("carowners");
 
@@ -558,7 +587,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             //------------------------------------------------------------------------------------//
         }
 
-        //drawer menu  and service limits-----------------------------------------------------------
+        //drawer menu and service limits------------------------------------------------------------
         if (!userClassQuery.userExists()) {
             navigationView.getMenu().findItem(R.id.fourNav).setTitle(getResources()
                     .getString(R.string.nav_menu_login)).setIcon(R.drawable.ic_login);
@@ -574,6 +603,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             //QUICK TOUR SYSTEM: ONLY WORKS ONCE, WHEN FIRST TIME OPENING APP AFTER EMPTY DATA:
             //MEANING: APP JUST DOWNLOADED OR DATA WAS ERASED MANUALLY FROM PHONE
             runAutoQuickTourOnce();
+            vehicleTimeFragmentInit();
+            redirectForNonUsers();
 
         }else if(userClassQuery.userExists()){
             try {
@@ -600,6 +631,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 } else if (userClassQuery.userIsCarOwnerOrSplasher(carOwner)) {
                     navigationView.getMenu().findItem(R.id.twoAndAHalfNav).setVisible(false);
                     navigationView.getMenu().findItem(R.id.sixNav).setVisible(false);
+                    navigationView.getMenu().findItem(R.id.oneNav).setVisible(false);
                 }
             }catch(NullPointerException npe){
                 npe.printStackTrace();
@@ -837,23 +869,17 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         background = false;
     }
 
-    public void updateWashMyCarBtnCount(){
-        MetricsClassQuery metricsClassQuery = new MetricsClassQuery(HomeActivity.this);
-        metricsClassQuery.queryMetricsToUpdate("washMyCar");
-    }
-
     private void cdcOps(int visibility1){
         if(userClassQuery.userExists()){
             if (userClassQuery.userIsCarOwnerOrSplasher(carOwner)){
-                //mCdcTime = findViewById(R.id.cdcTime); //invalidated. can't develop for now.
-                mSplasher_info_toco_back_space.setVisibility(View.VISIBLE);
-                viewFliper(RelativeLayout.BELOW, R.id.splasher_info_toco_back_space);
+                viewFliper(RelativeLayout.BELOW, R.id.general_info_dashboard_up);
                 mCountDownClockRela.setVisibility(visibility1);
             }
         }
     }
 
     public void fetchCurrentRequestIfExists(ParseObject object){
+        dynamicCarOwnerViewMover2();
         toastMessages.debugMesssage(getApplicationContext()
                 , "I have and active request", 1);
         //this way, the user can close and even shutdown the app, as long as his request
@@ -896,14 +922,16 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         //----------------------------------------------------------------------------------------//
 
+        //fix UI handling
+        UIHandler_set_request(View.GONE);
         cdcOps(View.VISIBLE);
-        cRadarView.setVisibility(View.VISIBLE); //--> Should set the Cancel button visible
-        cFindMeAWash.setVisibility(View.GONE);
+        cRadarView.setVisibility(View.VISIBLE);
         mRequest_info_window.setVisibility(View.VISIBLE);
         cRadarView.startAnimation();
         cUpdatedSeekbar.setVisibility(View.VISIBLE);
-        if (cancelItem != null) {
+        if (cancelItem != null && center_location != null) {
             cancelItem.setVisible(true);
+            center_location.setVisible(false);
         }
         cUpdatedSeekbar.setProgress(0);
         mMap.getUiSettings().setScrollGesturesEnabled(false);
@@ -996,7 +1024,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             cRadarView.setVisibility(View.GONE);
             cSplasherStatus.setVisibility(View.GONE);
             cUpdatedSeekbar.setVisibility(View.VISIBLE);
-            mSplasher_info_toco_back_space.setVisibility(View.VISIBLE);
+            mGeneral_info_dashboard_up.setVisibility(View.VISIBLE);
             mSplasherInfoHolder.setVisibility(View.VISIBLE);
             cUpdatedSeekbar.setProgress(1);
             final int finalIntSplasherRating = intSplasherRating;
@@ -1197,8 +1225,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                             .getString(R.string.carOwner_act_java_hasArrived);
                                     cSplasherStatus.setText(wholeSplasherStatus);
                                     cUpdatedSeekbar.setProgress(2);
-                                    if(cancelItem != null) {
+                                    if(cancelItem != null && center_location != null) {
                                         cancelItem.setVisible(false);
+                                        center_location.setVisible(true);
+                                        savedSplasherLocationForUpdate = new LatLng(splasherLocation
+                                                .getLatitude(), splasherLocation.getLongitude());
                                     }
                                     new CountDownTimer(7000, 1000) {
                                         @Override
@@ -1255,7 +1286,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void viewFliper(int aboveBelow, int parentReference){
-        //RelativeLayout.ABOVE, R.id.updatedSeekBarOne
         RelativeLayout.LayoutParams params= new RelativeLayout
                 .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
                 ,ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -1265,27 +1295,37 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         cSplasherStatus.setLayoutParams(params);
     }
 
+    private void dynamicCarOwnerViewMover1(){
+        RelativeLayout.LayoutParams params= new RelativeLayout
+                .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
+                ,ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        params.addRule(RelativeLayout.ABOVE, R.id.vehicle_time_frag_container);
+        params.addRule(RelativeLayout.ALIGN_BOTTOM, R.id.general_info_dashboard_up);
+        cGettingLocationRelativeHome.setLayoutParams(params);
+    }
+    private void dynamicCarOwnerViewMover2(){
+        RelativeLayout.LayoutParams params= new RelativeLayout
+                .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
+                ,ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        cGettingLocationRelativeHome.setLayoutParams(params);
+    }
+
     private void runAutoQuickTourOnce(){
+        Log.i("QuickTour", "Ran");
+        /*
         if(writeReadDataInFile.readFromFile("autoQuickTourRan").isEmpty()){
             startActivity(new Intent(HomeActivity.this, QuickTourActivity.class));
         }
+        */
     }
 
-    private void runTakeNewSplasherToServices(){//lets copy runAutoQuickTourOnce
-        Log.i("purple1", "is " + writeReadDataInFile
-                .readFromFile("firstTimeServices"));
-        if (writeReadDataInFile.readFromFile("firstTimeServices").isEmpty()){
-            customAlertDialog.generalPurposeQuestionDialog(HomeActivity.this
-                    ,getResources().getString(R.string.carOwner_act_java_welcomeToSplash_title)
-                    ,getResources().getString(R.string.carOwner_act_java_welcomeToSplash_message)
-                    ,getResources().getString(R.string.carOwner_act_java_go)
-                    , null, new DialogAcceptInterface() {
-                        @Override
-                        public void onAcceptOption() {
-                            startActivity(new Intent(HomeActivity.this
-                                   , SplasherServicesActivity.class));
-                        }
-                    });
+    private void redirectForNonUsers(){
+        if (!userClassQuery.userExists()){
+            startActivity(new Intent(HomeActivity.this, SignUpLogInActivity.class));
         }
     }
 
@@ -1344,10 +1384,13 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home_tool_bar_menu, menu);
         cancelItem = menu.findItem(R.id.action_cancel_wash);
+        center_location = menu.findItem(R.id.action_center_location);
         if (findCarWasherRequestActive){
             cancelItem.setVisible(true);
+            center_location.setVisible(false);
         }else{
             cancelItem.setVisible(false);
+            center_location.setVisible(true);
         }
         return true;
     }
@@ -1356,7 +1399,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mToggle.onOptionsItemSelected(item)){
             return true;
-        }else if (item.getItemId() == R.id.action_cancel_wash){
+        }else if (item.getItemId() == R.id.action_cancel_wash) {
             if (cRadarView.getVisibility() == View.VISIBLE) {
                 String cancelTitle1 = getResources().getString
                         (R.string.carOwner_act_java_cancelRequest);
@@ -1371,11 +1414,30 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                         (R.string.carOwner_act_java_aSplasherIsOnTheWay);
                 cancelRequestDialog(cancelTitle2, yesSplasherCancel);
             }
+        }else if (item.getItemId() == R.id.action_center_location){
+            if (splasherActive){
+                setLocationBounds(savedCarLocationForUpdate, savedSplasherLocationForUpdate);
+            }else{
+                fusedLocationLocator();
+            }
         }else if(sServicesInterfaceRan){
             Log.i("servicesBackArrow", "Ran");
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void locationDataGetterFromFragIfNeeded(){
+        Bundle keyToKeepListOpen = getIntent().getExtras();
+        if (keyToKeepListOpen != null) {
+            String keyToOpen = keyToKeepListOpen.getString("listStatus");
+            if (keyToOpen != null && keyToOpen.equals("keepOpen")) {
+                double lat = keyToKeepListOpen.getDouble("lat");
+                double lon = keyToKeepListOpen.getDouble("lon");
+                LatLng savedLatLng = new LatLng(lat, lon);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(savedLatLng,16));
+            }
+        }
     }
 
     /**
@@ -1502,7 +1564,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
             //change splashername to showingName in lil msg that shows up when splasher has arrived
-            cdcOps(View.GONE);
             if(!cdcUntilTimeRan) {
                 Log.i("ran","ran here");
                 hd.hourDiffCalculator(phoneHourWithoutSufix, cutPMCurrentSavedSelectedHour
@@ -1634,6 +1695,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //Text watcher for splash-wallet
         //splashWalletTextWatcher();
+        fusedLocationLocator();
         locationManagement();
 
         //---Splasher---//
@@ -1689,7 +1751,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onProviderDisabled(String provider) { }
         };
-        //updateMap(lastKnownLocation);
         if (Build.VERSION.SDK_INT < 23) {
 
             listening();
@@ -1698,12 +1759,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(this, Manifest.permission
                     .ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 return;
             }
             if (userClassQuery.userExists()) {
@@ -1731,21 +1786,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             Location lastKnownLocation2 = locationManager.getLastKnownLocation(LocationManager
                     .NETWORK_PROVIDER);
 
-            LatLng lastLatLong;
-
-            LatLng lastLatLong2;
-
             try {
                 if (lastKnownLocation != null) {
-                    lastLatLong = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation
-                            .getLongitude());
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLatLong, 13));
                     updateMap(lastKnownLocation);
                     callSplasherOps(lastKnownLocation);
                 } else {
-                    lastLatLong2 = new LatLng(lastKnownLocation2.getLatitude(), lastKnownLocation2
-                            .getLongitude());
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLatLong2, 13));
                     updateMap(lastKnownLocation2);
                     callSplasherOps(lastKnownLocation2);
                 }
@@ -1791,21 +1836,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 try {
                     Location lastKnownLocation = locationManager
                             .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    LatLng lastLatLong = new LatLng(lastKnownLocation.getLatitude()
-                            , lastKnownLocation.getLongitude());
                     Location lastKnownLocation2 = locationManager.getLastKnownLocation
                             (LocationManager.NETWORK_PROVIDER);
-                    LatLng lastLatLong2 = new LatLng(lastKnownLocation2.getLatitude()
-                            , lastKnownLocation2.getLongitude());
-
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLatLong2, 13));
                     updateMap(lastKnownLocation2);
                     callSplasherOps(lastKnownLocation2);
-
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLatLong, 13));
                     updateMap(lastKnownLocation);
                     callSplasherOps(lastKnownLocation);
-
                 }catch (NullPointerException npe){
                     npe.printStackTrace();
                 }
@@ -1819,7 +1855,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             if (userClassQuery.userIsCarOwnerOrSplasher(carOwner)) {
                 if (alreadyExecuted8)
                     cGettingLocationRelativeHome.setVisibility(View.GONE);
-
                 if (!splasherActive) { //let's see if it doesn't fuck everything up
 
                     Log.i("onLocationCheck", " Is Runnings");
@@ -1841,7 +1876,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                             if (!alreadyExecuted6) {
                                 //----------------------------------------------------------------//
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation
-                                        , 13));
+                                        , 16));
+                                dynamicCarOwnerViewMover1();
+                                requestFirstStepAddressHandler(location);
+                                locationDataGetterFromFragIfNeeded();
                                 //----------------------------------------------------------------//
                                 alreadyExecuted6 = true;
                             }
@@ -1916,7 +1954,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                                 }
                                             }
                                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom
-                                                    (savedUserLocation2, 13));
+                                                    (savedUserLocation2, 16));
                                             mMap.getUiSettings().setScrollGesturesEnabled(false);
                                             mMap.getUiSettings().setZoomControlsEnabled(false);
                                             mMap.getUiSettings().setZoomGesturesEnabled(false);
@@ -1927,8 +1965,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 }
                             }
                         } else {
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation
-                                    , 13));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation
+                                    , 16));
                         }
                     }
                 }
@@ -1952,9 +1990,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 userLocation = new LatLng(location.getLatitude(), location.getLongitude());
                 if (alreadyExecuted8) {
                     if (!alreadyExecuted6) {
-                        //------------------------------------------------------------------------//
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 13));
-                        //------------------------------------------------------------------------//
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 16));
+                        requestFirstStepAddressHandler(location);
                         alreadyExecuted6 = true;
                     }
                 }
@@ -1972,7 +2009,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     String sServices = bundle.getString("fromServices");
                     if (sServices != null) {
                         Log.i("splasherLocCall","1");
-                        runIfComingFromSServices(location);
+                        addressLocator(location);
                     }else{
                         Log.i("splasherLocCall","2");
                         upToTwentyRequestDots(location);
@@ -2018,20 +2055,21 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
-    private void runIfComingFromSServices(Location location){
-        //focus epicenter location(use a 13 zoom)
+    private void addressLocator(Location location){
+        //focus epicenter location(use a 14 zoom)
         if (!sServicesInterfaceRan) {
             if (getSupportActionBar() != null) {
                 //withActionBarDrawerToggle(false);
                 //setDrawerIndicatorEnabled(false);
                 mToggle.setDrawerIndicatorEnabled(false);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                getSupportActionBar().setTitle("Set area range");
+                getSupportActionBar().setTitle(getResources().getString(R.string
+                        .carOwner_act_java_setAreaRange));
             }
 
             Button mLetsWashACar = findViewById(R.id.letsWashACar);
             mLetsWashACar.setVisibility(View.GONE);
-            mSetArea = findViewById(R.id.setArea);
+            mWork_area_relative.setVisibility(View.VISIBLE);
             mSetArea.setVisibility(View.VISIBLE);
             cGettingLocationRelativeHome.setVisibility(View.GONE);
             cSplashWalletRelative.setVisibility(View.GONE);
@@ -2046,54 +2084,74 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.getUiSettings().setZoomGesturesEnabled(true);
                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
-                locationGenerator(location);
-
+                locationGenerator(location, mLiveFetchedAdddress, mSetArea, mServiceMarkerView);
             }
-
             sServicesInterfaceRan = true;
         }
     }
-    private void locationGenerator(final Location location){
+    private void locationGenerator(final Location location, final TextView addressText
+            , final Button button, ImageView marker){
         //autoFetching the location for the center of the screen on the map//
-        ImageView mServiceMarkerView = findViewById(R.id.serviceMarkerView);
-        mLiveFetchedAdddress = findViewById(R.id.liveFetchedAddress);
-        mServiceMarkerView.setVisibility(View.VISIBLE);
-        mLiveFetchedAdddress.setVisibility(View.VISIBLE);
+        marker.setVisibility(View.VISIBLE);
+        addressText.setVisibility(View.VISIBLE);
         final LatLng areaLocation = new LatLng(location.getLatitude(), location
             .getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(areaLocation, 14));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(areaLocation, 16));
 
-        locationParser(mLiveFetchedAdddress);
+        locationParser(addressText, button);
 
         mMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
             @Override
             public void onCameraMoveStarted(int i) {
-                mLiveFetchedAdddress.setText(getResources().getString(R.string.threeDots));
-                areaButtonState(mSetArea,false,R.drawable.btn_shape_grey);
+                addressText.setText(getResources().getString(R.string.threeDots));
+                addressText.startAnimation(FadeInOut);
+                buttonState(button,false,R.drawable.btn_shape_grey);
             }
         });
         mMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
             @Override
             public void onCameraIdle() {
-                locationParser(mLiveFetchedAdddress);
+                addressText.clearAnimation();
+                locationParser(addressText, button);
             }
         });
     }
-    private void locationParser(TextView addressText){
-        areaPointerLocation = addressCoordsLocator.locationCoordsFetcher(mMap);
+    private void locationParser(final TextView addressText, final Button button){
+        areaPointerLocation = addressCoordsLocator.locationCoordsFetcher(mMap);//<------------------
         Log.i("areaPointerLocation",String.valueOf(areaPointerLocation));
-        addressText.setText(addressCoordsLocator.locationAddressFetcher(areaPointerLocation
+        addressText.setText(addressCoordsLocator.locationAddressFetcher(areaPointerLocation//<------
                 , new OnAddressFetched() {
                     @Override
                     public void setOnAddressFetched() {
-                        areaButtonState(mSetArea,true,R.drawable.btn_shape);
+                        areaLimitsCheck(areaPointerLocation, button);
                     }
                 }));
+        setAddressDataForRequest(addressText, button);
     }
-    private void areaButtonState(Button areaButton, boolean state, int color){
-        areaButton.setClickable(state);
-        areaButton.setEnabled(state);
-        areaButton.setBackgroundResource(color);
+    //left in setting up a fragment/alert dialog with a list view in it for the vehicle
+    private void areaLimitsCheck(LatLng areaPointerLocation, final Button button){
+        serviceLimits.serviceLimitsChecker(areaPointerLocation, new OnAreaLimitsChecker() {
+                    @Override
+                    public void insideLimits() {
+                        buttonState(button,true,R.drawable.btn_shape);
+                        mRequestMarker.setImageResource(R.drawable.bigcarpinforrequest);
+                        mServiceMarkerView.setImageResource(R.drawable.servicesmarker);
+                        outsideOfService = false;
+                    }
+
+                    @Override
+                    public void outsideLimits() {
+                        buttonState(button,false,R.drawable.btn_shape_grey);
+                        mRequestMarker.setImageResource(R.drawable.bigcarpinforrequestgrey);
+                        mServiceMarkerView.setImageResource(R.drawable.servicesmarkergrey);
+                        outsideOfService = true;
+                    }
+                });
+    }
+    private void buttonState(Button button, boolean state, int color){
+        button.setClickable(state);
+        button.setEnabled(state);
+        button.setBackgroundResource(color);
     }
     private void drawMarkerCircleRange(LatLng epicenter, int radius){
         mMap.clear();
@@ -2137,11 +2195,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                areaButtonState(mSetArea,false,R.drawable.btn_shape_grey);
+                buttonState(mSetArea,false,R.drawable.btn_shape_grey);
             }
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                areaButtonState(mSetArea,true,R.drawable.btn_shape);
+                buttonState(mSetArea,true,R.drawable.btn_shape);
             }
         });
     }
@@ -2153,11 +2211,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.getUiSettings().setZoomControlsEnabled(false);
             mMap.getUiSettings().setZoomGesturesEnabled(true);
             cSplasherStatus.setText(R.string.splasher_services_selectHowWide);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(areaPointerLocation, 13));
             setRangeAreaOnSeekbar(areaPointerLocation);
             areaEpicenterReady = true;
-            LatLngBounds unmovableCenter =
-                    new LatLngBounds(areaPointerLocation,areaPointerLocation);
-            mMap.setLatLngBoundsForCameraTarget(unmovableCenter);
+            disableLocationMovement(areaPointerLocation);
         }else{
             //We are in 2nd step: set area range//
             boxedLoadingDialog.showLoadingDialog();
@@ -2207,6 +2264,16 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             });
         }
+    }
+    private void disableLocationMovement(LatLng center){
+        LatLngBounds unmovableCenter =
+                new LatLngBounds(center,center);
+        mMap.setLatLngBoundsForCameraTarget(unmovableCenter);
+    }
+    private void setLocationBounds(LatLng target1, LatLng target2){
+        LatLngBounds focusedArea =
+                new LatLngBounds(target1,target2);
+        mMap.setLatLngBoundsForCameraTarget(focusedArea);
     }
     public void forwardSplasherToReqState(){
         if (userClassQuery.userExists()) {
@@ -2279,7 +2346,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                         mMap.clear();
                         serviceLimits.setServiceLimits();
                         //------------------------------------------------------------------------//
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(splasherLocation, 13));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(splasherLocation, 16));
                         //------------------------------------------------------------------------//
                         //Forward Splasher to his step on existing request if exists//
                         forwardSplasherToReqState();
@@ -2390,13 +2457,13 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //Populating...
         //maybe all i need is the strings holding the data from
-        //the servermaybe i dont need an arraylist
+        //the server. Maybe i dont need an arraylist
 
         //Delete marker if its pre hour limit has passed.
         //1 way you can solve this is by retrieving phone's
         //actual time and adding +1 to HOUR_OF_DAY var from it
         //,then running a check for when phone's HOUR_OF_DAY +1 is
-        //equal or greater than untilTime var if so, prevent the
+        //equal or greater than untilTime var. If so, prevent the
         //marker from showing. Since we are in a loop, this would
         //apply to all active requests that meet this query's
         //constraints.
@@ -2800,6 +2867,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         requestDialog.setNegativeButton(getResources().getString(R.string
                 .carOwner_act_java_cancel), null);
         requestDialog.show();
+        mRequest_address_details.setEnabled(true);
     }
 
     public void cancelAndDeleteCarWashRequest() {
@@ -2841,15 +2909,16 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         cRadarView.stopAnimation();
         cSplasherStatus.setVisibility(View.GONE);
         cancelItem.setVisible(false);
+        center_location.setVisible(true);
         mRequest_info_window.setVisibility(View.GONE);
-        mSplasher_info_toco_back_space.setVisibility(View.GONE);
+        mGeneral_info_dashboard_up.setVisibility(View.VISIBLE);
         mSplasherInfoHolder.setVisibility(View.GONE);
         cRadarView.setVisibility(View.GONE);
         cMarkerView.setVisibility(View.GONE);
         cMarkerView2.setVisibility(View.GONE);
         cUpdatedSeekbar.setVisibility(View.GONE);
         mCountDownClockRela.setVisibility(View.GONE);
-        cFindMeAWash.setVisibility(View.VISIBLE);
+        cdcOps(View.GONE);
         mMap.getUiSettings().setScrollGesturesEnabled(true);
         mMap.getUiSettings().setZoomGesturesEnabled(true);
         mMap.getUiSettings().setAllGesturesEnabled(true);
@@ -2862,12 +2931,13 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         shutDownChecker = true;
         alreadyExecuted6 = false;
         try{
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation,13));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation,16));
         }catch(NullPointerException e){
             e.printStackTrace();
         }
         mMap.clear();
         serviceLimits.setServiceLimits();
+        UIHandler_set_request(View.VISIBLE);
         //emptyCoordinatesFiles();
     }
 
@@ -3051,5 +3121,157 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         startActivity(intent);
         */
     }
-    //----------------------//
+    public void addressSearch(View v){
+        //take to search intent builder
+        AddressSearch as = new AddressSearch(HomeActivity.this, HomeActivity.this);
+        as.launchAutoCompleteAddressSearch(AUTOCOMPLETE_REQUEST_CODE);
+    }
+    private void requestFirstStepAddressHandler(Location location){
+        locationGenerator(location, mRequest_address, vtd.getmRequest_next(), mRequestMarker);
+    }
+    private void UIHandler_set_request(int visibility){
+        mAddress_space.setVisibility(visibility);
+        mRequestMarker.setVisibility(visibility);
+        mVehicle_time_frag_container.setVisibility(visibility);
+    }
+    public void editAddressDetails(View v){
+        if (userClassQuery.userExists()) {
+            mRequest_address_details.setEnabled(true);
+            mRequest_address_details.setFocusableInTouchMode(true);
+            mRequest_address_details.setFocusable(true);
+            mRequest_address_details.setCursorVisible(true);
+            showKeyboard(mRequest_address_details);
+        }else{
+            mRequest_address_details.setEnabled(false);
+            notLoggedIn(getResources().getString
+                    (R.string.carOwner_act_java_youNeedToLogInRequestDetails));
+        }
+    }
+    private void confirmAddressDetails(){
+        mRequest_address_details.setOnKeyListener(new View.OnKeyListener(){
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    mRequest_address_details.setCursorVisible(false);
+                    mRequest_address_details.setFocusable(false);
+                    mRequest_address_details.setFocusableInTouchMode(false);
+                    setAddressDetailsDataForRequest();
+                    hideKeyboard();
+                }
+                return false;
+            }
+        });
+    }
+    private void hideKeyboard(){
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        if (imm != null && getCurrentFocus() != null) {
+            try {
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            } catch (NullPointerException np1) {
+                np1.printStackTrace();
+            }
+        }
+    }
+    private void showKeyboard(EditText editText){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null && getCurrentFocus() != null) {
+            imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        return false;
+    }
+    private void initializePlaces(){
+        // Initialize Places.
+        Places.initialize(HomeActivity.this, "AIzaSyA7euvvEQ0jEw1aWLkmWPUArIqeMw4DwFE");
+        // Create a new Places client instance.
+        Places.createClient(HomeActivity.this);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = Autocomplete.getPlaceFromIntent(data);
+                Log.i("orangeAddress", "Place: " + place.getAddress());
+                if (place.getAddress() != null) {
+                    String fixedAddress;
+                    LatLng fixedLatLng;
+                    if (place.getAddress().contains(getResources()
+                            .getString(R.string.coma_country))) {
+                        fixedAddress = place.getAddress().replace(getResources()
+                                .getString(R.string.coma_country),"");
+                        fixedLatLng = place.getLatLng();
+                        Log.i("orangeAddress2", "Place: " + fixedAddress);
+                        mRequest_address.setText(fixedAddress);
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(fixedLatLng, 16));
+                        areaLimitsCheck(fixedLatLng, vtd.getmRequest_next());
+                    }
+                    setAddressDataForRequest(mRequest_address, mSetArea);
+                }
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                Status status = Autocomplete.getStatusFromIntent(data);
+                Log.e("orangeError", status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+                Log.e("orangeCanceled", "canceled");
+            }
+        }
+    }
+    public void vehicleTimeFragmentInit(){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.vehicle_time_frag_container, vtd);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        //Necessary for fragment load
+    }
+    public void setAddressDataForRequest(TextView addressText, Button button){
+        if (addressText.getText().toString().equals(getResources().getString
+                (R.string.failed_to_retrieve_address))){
+            buttonState(button,false,R.drawable.btn_shape_grey);
+        }else{
+            if (outsideOfService){
+                buttonState(button,false,R.drawable.btn_shape_grey);
+                addressText.setText(getResources()
+                        .getString(R.string.carOwner_act_java_outsideOurService));
+            }else {
+                buttonState(button, true, R.drawable.btn_shape);
+                VehicleTimeDashboard.ADDRESS = addressText.getText().toString();
+            }
+        }
+        VehicleTimeDashboard.ADDRESS_COORDS = areaPointerLocation;
+        Log.i("apple_carAddress_pre", addressText.getText().toString());
+        Log.i("apple_carAddress_prepre", "is " + VehicleTimeDashboard.ADDRESS);
+        Log.i("apple_carCoordsPrePre1", String.valueOf(areaPointerLocation));
+        Log.i("apple_carCoordsPrePre2", String.valueOf(VehicleTimeDashboard.ADDRESS_COORDS));
+    }
+
+    private void setAddressDetailsDataForRequest(){
+        VehicleTimeDashboard.ADDRESS_DETAILS = mRequest_address_details.getText().toString();
+        Log.i("carAddressDetails", mRequest_address_details.getText().toString());
+    }
+
+    private void fusedLocationLocator(){
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location.
+                        // In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom
+                                    (new LatLng(location.getLatitude()
+                                            , location.getLongitude()), 16));
+                        }else{
+                            toastMessages.productionMessage(HomeActivity.this,
+                                    "Something went wrong. Please try again", 1);
+                        }
+                    }
+                });
+    }
 }

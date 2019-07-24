@@ -46,9 +46,9 @@ public class ProfileConstants {
     public static final String CLASS_PROFILE_OLD_AVG_RATING = "3";
     public static final String CLASS_PROFILE_WASHES_CANCELED = "0";
     public static final String CLASS_PROFILE_NUMERICAL_BADGE = "2";
-    public static final String CLASS_PROFILE_SET_PRICE = "30";
-    public static final String CLASS_PROFILE_SET_PRICE_E_INT = "70";
-    public static final String CLASS_PROFILE_SET_PRICE_MOTO = "20";
+    public static final String CLASS_PROFILE_SET_PRICE = "30.0";
+    public static final String CLASS_PROFILE_SET_PRICE_E_INT = "70.0";
+    public static final String CLASS_PROFILE_SET_PRICE_MOTO = "20.0";
     public static final String CLASS_PROFILE_SET_NOT_SET = "not set";
     public static final String CLASS_PROFILE_SET_TRUE = "true";
     public static final String CLASS_PROFILE_SET_FALSE = "false";

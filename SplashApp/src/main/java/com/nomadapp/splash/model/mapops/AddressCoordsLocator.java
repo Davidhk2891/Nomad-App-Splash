@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
+import com.nomadapp.splash.R;
 
 import java.io.IOException;
 import java.util.List;
@@ -38,6 +39,11 @@ public class AddressCoordsLocator {
                     , pointerLocation.longitude, 1);
             if (pointerAddress != null) {
                 readyPointerAddress = pointerAddress.get(0).getAddressLine(0);
+                if (readyPointerAddress.contains(context.getResources()
+                        .getString(R.string.coma_country))) {
+                    readyPointerAddress = readyPointerAddress.replace(context.getResources()
+                            .getString(R.string.coma_country),"");
+                }
                 //String readyPointerCity = pointerAddress.get(0).getLocality();
                 //String readyPointerCountry = pointerAddress.get(0).getCountryName();
                 //String finalSetPointerAddress = readyPointerAddress + " " + readyPointerCity
@@ -46,7 +52,8 @@ public class AddressCoordsLocator {
             }
         } catch (IOException | IndexOutOfBoundsException e) {
             e.printStackTrace();
-            readyPointerAddress = "failed to retrieve address";
+            readyPointerAddress = context.getResources().getString(R.string
+                    .failed_to_retrieve_address);
         }
         return readyPointerAddress;
     }

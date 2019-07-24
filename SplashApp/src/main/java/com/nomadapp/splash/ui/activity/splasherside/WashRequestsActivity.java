@@ -40,7 +40,7 @@ import com.nomadapp.splash.model.server.parseserver.RequestClassInterface;
 import com.nomadapp.splash.model.server.parseserver.queries.RequestClassQuery;
 import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
@@ -54,8 +54,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import com.nomadapp.splash.utils.sysmsgs.connectionlost.ConnectionLost;
-import com.nomadapp.splash.model.objects.MyRequest;
+import com.nomadapp.splash.utils.sysmsgs.ConnectionLost;
+import com.nomadapp.splash.model.objects.SplasherRequest;
 import com.nomadapp.splash.model.localdatastorage.WriteReadDataInFile;
 
 public class WashRequestsActivity extends AppCompatActivity {
@@ -117,7 +117,7 @@ public class WashRequestsActivity extends AppCompatActivity {
             (WashRequestsActivity.this);
 
     //TODO:1
-    private ArrayList<MyRequest> requestList = new ArrayList<>();
+    private ArrayList<SplasherRequest> requestList = new ArrayList<>();
     private RequestAdapter myRequestAdapter;
     private TextView cEmptyList;
     private boolean emptyListReady;
@@ -290,7 +290,7 @@ public class WashRequestsActivity extends AppCompatActivity {
                             if(currentSSDate1 != null) {
                                 if (!(currentSSDate1.compareTo(savedSSDate2) > 0)) {
                                     //TODO:1.5
-                                    MyRequest request = new MyRequest();
+                                    SplasherRequest request = new SplasherRequest();
                                     request.setDistance(distanceString);
                                     request.setUntilTime(carOwnerCarUntilTime);
                                     request.setService(carOwnerCarServiceType);
@@ -637,15 +637,15 @@ public class WashRequestsActivity extends AppCompatActivity {
         return false;
     }
 
-    public class RequestAdapter extends ArrayAdapter<MyRequest> {
+    public class RequestAdapter extends ArrayAdapter<SplasherRequest> {
 
         Activity activity;
         int layoutResource;
-        MyRequest request;
-        ArrayList<MyRequest> mData;
+        SplasherRequest request;
+        ArrayList<SplasherRequest> mData;
 
         //Constructor
-        private RequestAdapter(Activity act, int resource, ArrayList<MyRequest> data) {
+        private RequestAdapter(Activity act, int resource, ArrayList<SplasherRequest> data) {
             super(act, resource, data);
 
             activity = act;
@@ -664,11 +664,11 @@ public class WashRequestsActivity extends AppCompatActivity {
             this.activity = activity;
         }
 
-        public MyRequest getRequest() {
+        public SplasherRequest getRequest() {
             return request;
         }
 
-        public void setRequest(MyRequest request) {
+        public void setRequest(SplasherRequest request) {
             this.request = request;
         }
 
@@ -679,12 +679,12 @@ public class WashRequestsActivity extends AppCompatActivity {
 
         @Nullable
         @Override
-        public MyRequest getItem(int position) {
+        public SplasherRequest getItem(int position) {
             return mData.get(position);
         }
 
         @Override
-        public int getPosition(@Nullable MyRequest item) {
+        public int getPosition(@Nullable SplasherRequest item) {
             return super.getPosition(item);
         }
 
@@ -819,7 +819,7 @@ public class WashRequestsActivity extends AppCompatActivity {
     }
 
     class ViewHolder{
-        MyRequest holderRequest;
+        SplasherRequest holderRequest;
         TextView mDistance;
         TextView mUntiltime;
         TextView mService;

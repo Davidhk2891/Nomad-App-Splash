@@ -9,8 +9,8 @@ android {
         applicationId "com.nomadapp.splash"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 35
-        versionName "1.8.0"
+        versionCode 36
+        versionName "1.9.0"
         multiDexEnabled true
     }
     dexOptions {
@@ -36,8 +36,14 @@ repositories {
 //-------------------------//
 
 //Payme lib code (2)//
+/*
+* WARNING: Upgrading  all of these to the latest versions, as of 7/1/2019, may mix
+* 'androidx' libraries with 'android.support' libraries thus preventing gradle builds from
+* syncing without errors and eventually preventing successful project builds.
+* PROCEED WITH CAUTION!
+* */
 dependencies {
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:support-compat:27.1.1'
     implementation 'com.android.support:cardview-v7:27.1.1'
@@ -52,6 +58,9 @@ dependencies {
     }
     implementation('com.parse:parse-fcm-android:1.17.3') {
         exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+        exclude group: 'androidx.collection', module: 'collection'
+        exclude group: 'androidx.core', module: 'core'
+        exclude group: 'androidx.fragment', module: 'fragment'
     }
     implementation 'com.facebook.android:facebook-android-sdk:4.29.0'
     implementation 'com.parse:parsefacebookutils-v4-android:1.10.4@aar'
@@ -63,15 +72,15 @@ dependencies {
     implementation 'com.google.android.gms:play-services-identity:15.0.1'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
-    implementation 'com.google.android.gms:play-services-places:15.0.1'
-    implementation 'com.google.android.gms:play-services-nearby:15.0.1'
+    implementation 'com.google.android.libraries.places:places:1.1.0'
+    implementation 'com.google.maps.android:android-maps-utils:0.5'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'me.zhanghai.android.materialratingbar:library:1.0.2'
     implementation "net.qiujuer.genius:ui:2.0.0"
     implementation "net.qiujuer.genius:res:2.0.0"
     implementation(name: 'payme-1.1.6', ext: 'aar')
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'com.android.support:exifinterface:27.1.1'
 }
 

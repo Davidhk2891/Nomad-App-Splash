@@ -23,8 +23,8 @@ import com.bumptech.glide.load.Option;
 import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy;
+import com.bumptech.glide.request.BaseRequestOptions;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
 import java.io.File;
 import java.lang.Class;
 import java.lang.Cloneable;
@@ -39,26 +39,26 @@ import java.net.URL;
 
 /**
  * Contains all public methods from {@link RequestBuilder<TranscodeType>}, all options from
- * {@link RequestOptions} and all generated options from
+ * {@link com.bumptech.glide.request.RequestOptions} and all generated options from
  * {@link com.bumptech.glide.annotation.GlideOption} in annotated methods in
  * {@link com.bumptech.glide.annotation.GlideExtension} annotated classes.
  *
  * <p>Generated code, do not modify.
  *
  * @see RequestBuilder<TranscodeType>
- * @see RequestOptions
+ * @see com.bumptech.glide.request.RequestOptions
  */
 @SuppressWarnings({
     "unused",
     "deprecation"
 })
 public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> implements Cloneable {
-  GlideRequest(Class<TranscodeType> transcodeClass, RequestBuilder<?> other) {
+  GlideRequest(@NonNull Class<TranscodeType> transcodeClass, @NonNull RequestBuilder<?> other) {
     super(transcodeClass, other);
   }
 
-  GlideRequest(Glide glide, RequestManager requestManager, Class<TranscodeType> transcodeClass,
-      Context context) {
+  GlideRequest(@NonNull Glide glide, @NonNull RequestManager requestManager,
+      @NonNull Class<TranscodeType> transcodeClass, @NonNull Context context) {
     super(glide, requestManager ,transcodeClass, context);
   }
 
@@ -74,13 +74,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> sizeMultiplier(@FloatRange(from = 0.0, to = 1.0) float arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).sizeMultiplier(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).sizeMultiplier(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> sizeMultiplier(@FloatRange(from = 0.0, to = 1.0) float value) {
+    return (GlideRequest<TranscodeType>) super.sizeMultiplier(value);
   }
 
   /**
@@ -89,12 +84,7 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @NonNull
   @CheckResult
   public GlideRequest<TranscodeType> useUnlimitedSourceGeneratorsPool(boolean flag) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).useUnlimitedSourceGeneratorsPool(flag);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).useUnlimitedSourceGeneratorsPool(flag);
-    }
-    return this;
+    return (GlideRequest<TranscodeType>) super.useUnlimitedSourceGeneratorsPool(flag);
   }
 
   /**
@@ -103,12 +93,7 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @NonNull
   @CheckResult
   public GlideRequest<TranscodeType> useAnimationPool(boolean flag) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).useAnimationPool(flag);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).useAnimationPool(flag);
-    }
-    return this;
+    return (GlideRequest<TranscodeType>) super.useAnimationPool(flag);
   }
 
   /**
@@ -117,12 +102,7 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @NonNull
   @CheckResult
   public GlideRequest<TranscodeType> onlyRetrieveFromCache(boolean flag) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).onlyRetrieveFromCache(flag);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).onlyRetrieveFromCache(flag);
-    }
-    return this;
+    return (GlideRequest<TranscodeType>) super.onlyRetrieveFromCache(flag);
   }
 
   /**
@@ -130,13 +110,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> diskCacheStrategy(@NonNull DiskCacheStrategy arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).diskCacheStrategy(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).diskCacheStrategy(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> diskCacheStrategy(@NonNull DiskCacheStrategy strategy) {
+    return (GlideRequest<TranscodeType>) super.diskCacheStrategy(strategy);
   }
 
   /**
@@ -144,13 +119,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> priority(@NonNull Priority arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).priority(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).priority(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> priority(@NonNull Priority priority) {
+    return (GlideRequest<TranscodeType>) super.priority(priority);
   }
 
   /**
@@ -158,13 +128,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> placeholder(@Nullable Drawable arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).placeholder(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).placeholder(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> placeholder(@Nullable Drawable drawable) {
+    return (GlideRequest<TranscodeType>) super.placeholder(drawable);
   }
 
   /**
@@ -172,13 +137,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> placeholder(@DrawableRes int arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).placeholder(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).placeholder(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> placeholder(@DrawableRes int id) {
+    return (GlideRequest<TranscodeType>) super.placeholder(id);
   }
 
   /**
@@ -186,13 +146,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> fallback(@Nullable Drawable arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).fallback(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).fallback(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> fallback(@Nullable Drawable drawable) {
+    return (GlideRequest<TranscodeType>) super.fallback(drawable);
   }
 
   /**
@@ -200,13 +155,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> fallback(@DrawableRes int arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).fallback(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).fallback(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> fallback(@DrawableRes int id) {
+    return (GlideRequest<TranscodeType>) super.fallback(id);
   }
 
   /**
@@ -214,13 +164,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> error(@Nullable Drawable arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).error(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).error(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> error(@Nullable Drawable drawable) {
+    return (GlideRequest<TranscodeType>) super.error(drawable);
   }
 
   /**
@@ -228,13 +173,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> error(@DrawableRes int arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).error(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).error(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> error(@DrawableRes int id) {
+    return (GlideRequest<TranscodeType>) super.error(id);
   }
 
   /**
@@ -242,13 +182,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> theme(@Nullable Resources.Theme arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).theme(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).theme(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> theme(@Nullable Resources.Theme theme) {
+    return (GlideRequest<TranscodeType>) super.theme(theme);
   }
 
   /**
@@ -257,12 +192,7 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @NonNull
   @CheckResult
   public GlideRequest<TranscodeType> skipMemoryCache(boolean skip) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).skipMemoryCache(skip);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).skipMemoryCache(skip);
-    }
-    return this;
+    return (GlideRequest<TranscodeType>) super.skipMemoryCache(skip);
   }
 
   /**
@@ -271,12 +201,7 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @NonNull
   @CheckResult
   public GlideRequest<TranscodeType> override(int width, int height) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).override(width, height);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).override(width, height);
-    }
-    return this;
+    return (GlideRequest<TranscodeType>) super.override(width, height);
   }
 
   /**
@@ -285,12 +210,7 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @NonNull
   @CheckResult
   public GlideRequest<TranscodeType> override(int size) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).override(size);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).override(size);
-    }
-    return this;
+    return (GlideRequest<TranscodeType>) super.override(size);
   }
 
   /**
@@ -298,27 +218,17 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> signature(@NonNull Key arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).signature(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).signature(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> signature(@NonNull Key key) {
+    return (GlideRequest<TranscodeType>) super.signature(key);
   }
 
   /**
-   * @see GlideOptions#set(Option<T>, T)
+   * @see GlideOptions#set(Option<Y>, Y)
    */
   @NonNull
   @CheckResult
-  public <T> GlideRequest<TranscodeType> set(@NonNull Option<T> arg0, @NonNull T arg1) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).set(arg0, arg1);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).set(arg0, arg1);
-    }
-    return this;
+  public <Y> GlideRequest<TranscodeType> set(@NonNull Option<Y> option, @NonNull Y y) {
+    return (GlideRequest<TranscodeType>) super.set(option, y);
   }
 
   /**
@@ -326,13 +236,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> decode(@NonNull Class<?> arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).decode(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).decode(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> decode(@NonNull Class<?> clazz) {
+    return (GlideRequest<TranscodeType>) super.decode(clazz);
   }
 
   /**
@@ -340,13 +245,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> encodeFormat(@NonNull Bitmap.CompressFormat arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).encodeFormat(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).encodeFormat(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> encodeFormat(@NonNull Bitmap.CompressFormat format) {
+    return (GlideRequest<TranscodeType>) super.encodeFormat(format);
   }
 
   /**
@@ -354,13 +254,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> encodeQuality(@IntRange(from = 0, to = 100) int arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).encodeQuality(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).encodeQuality(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> encodeQuality(@IntRange(from = 0, to = 100) int value) {
+    return (GlideRequest<TranscodeType>) super.encodeQuality(value);
   }
 
   /**
@@ -368,13 +263,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> frame(@IntRange(from = 0) long arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).frame(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).frame(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> frame(@IntRange(from = 0) long value) {
+    return (GlideRequest<TranscodeType>) super.frame(value);
   }
 
   /**
@@ -382,13 +272,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> format(@NonNull DecodeFormat arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).format(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).format(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> format(@NonNull DecodeFormat format) {
+    return (GlideRequest<TranscodeType>) super.format(format);
   }
 
   /**
@@ -397,12 +282,7 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @NonNull
   @CheckResult
   public GlideRequest<TranscodeType> disallowHardwareConfig() {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).disallowHardwareConfig();
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).disallowHardwareConfig();
-    }
-    return this;
+    return (GlideRequest<TranscodeType>) super.disallowHardwareConfig();
   }
 
   /**
@@ -410,13 +290,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> downsample(@NonNull DownsampleStrategy arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).downsample(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).downsample(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> downsample(@NonNull DownsampleStrategy strategy) {
+    return (GlideRequest<TranscodeType>) super.downsample(strategy);
   }
 
   /**
@@ -424,13 +299,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> timeout(@IntRange(from = 0) int arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).timeout(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).timeout(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> timeout(@IntRange(from = 0) int value) {
+    return (GlideRequest<TranscodeType>) super.timeout(value);
   }
 
   /**
@@ -439,12 +309,7 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @NonNull
   @CheckResult
   public GlideRequest<TranscodeType> optionalCenterCrop() {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).optionalCenterCrop();
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).optionalCenterCrop();
-    }
-    return this;
+    return (GlideRequest<TranscodeType>) super.optionalCenterCrop();
   }
 
   /**
@@ -453,12 +318,7 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @NonNull
   @CheckResult
   public GlideRequest<TranscodeType> centerCrop() {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).centerCrop();
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).centerCrop();
-    }
-    return this;
+    return (GlideRequest<TranscodeType>) super.centerCrop();
   }
 
   /**
@@ -467,12 +327,7 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @NonNull
   @CheckResult
   public GlideRequest<TranscodeType> optionalFitCenter() {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).optionalFitCenter();
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).optionalFitCenter();
-    }
-    return this;
+    return (GlideRequest<TranscodeType>) super.optionalFitCenter();
   }
 
   /**
@@ -481,12 +336,7 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @NonNull
   @CheckResult
   public GlideRequest<TranscodeType> fitCenter() {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).fitCenter();
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).fitCenter();
-    }
-    return this;
+    return (GlideRequest<TranscodeType>) super.fitCenter();
   }
 
   /**
@@ -495,12 +345,7 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @NonNull
   @CheckResult
   public GlideRequest<TranscodeType> optionalCenterInside() {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).optionalCenterInside();
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).optionalCenterInside();
-    }
-    return this;
+    return (GlideRequest<TranscodeType>) super.optionalCenterInside();
   }
 
   /**
@@ -509,12 +354,7 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @NonNull
   @CheckResult
   public GlideRequest<TranscodeType> centerInside() {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).centerInside();
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).centerInside();
-    }
-    return this;
+    return (GlideRequest<TranscodeType>) super.centerInside();
   }
 
   /**
@@ -523,12 +363,7 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @NonNull
   @CheckResult
   public GlideRequest<TranscodeType> optionalCircleCrop() {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).optionalCircleCrop();
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).optionalCircleCrop();
-    }
-    return this;
+    return (GlideRequest<TranscodeType>) super.optionalCircleCrop();
   }
 
   /**
@@ -537,12 +372,7 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @NonNull
   @CheckResult
   public GlideRequest<TranscodeType> circleCrop() {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).circleCrop();
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).circleCrop();
-    }
-    return this;
+    return (GlideRequest<TranscodeType>) super.circleCrop();
   }
 
   /**
@@ -550,17 +380,12 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> transform(@NonNull Transformation<Bitmap> arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).transform(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).transform(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> transform(@NonNull Transformation<Bitmap> transformation) {
+    return (GlideRequest<TranscodeType>) super.transform(transformation);
   }
 
   /**
-   * @see GlideOptions#transforms(Transformation<Bitmap>[])
+   * @see GlideOptions#transform(Transformation<Bitmap>[])
    */
   @NonNull
   @CheckResult
@@ -568,13 +393,22 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
       "unchecked",
       "varargs"
   })
-  public GlideRequest<TranscodeType> transforms(@NonNull Transformation<Bitmap>... arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).transforms(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).transforms(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> transform(@NonNull Transformation<Bitmap>... transformations) {
+    return (GlideRequest<TranscodeType>) super.transform(transformations);
+  }
+
+  /**
+   * @see GlideOptions#transforms(Transformation<Bitmap>[])
+   */
+  @Deprecated
+  @NonNull
+  @CheckResult
+  @SuppressWarnings({
+      "unchecked",
+      "varargs"
+  })
+  public GlideRequest<TranscodeType> transforms(@NonNull Transformation<Bitmap>... transformations) {
+    return (GlideRequest<TranscodeType>) super.transforms(transformations);
   }
 
   /**
@@ -582,43 +416,28 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
    */
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> optionalTransform(@NonNull Transformation<Bitmap> arg0) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).optionalTransform(arg0);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).optionalTransform(arg0);
-    }
-    return this;
+  public GlideRequest<TranscodeType> optionalTransform(@NonNull Transformation<Bitmap> transformation) {
+    return (GlideRequest<TranscodeType>) super.optionalTransform(transformation);
   }
 
   /**
-   * @see GlideOptions#optionalTransform(Class<T>, Transformation<T>)
+   * @see GlideOptions#optionalTransform(Class<Y>, Transformation<Y>)
    */
   @NonNull
   @CheckResult
-  public <T> GlideRequest<TranscodeType> optionalTransform(@NonNull Class<T> arg0,
-      @NonNull Transformation<T> arg1) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).optionalTransform(arg0, arg1);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).optionalTransform(arg0, arg1);
-    }
-    return this;
+  public <Y> GlideRequest<TranscodeType> optionalTransform(@NonNull Class<Y> clazz,
+      @NonNull Transformation<Y> transformation) {
+    return (GlideRequest<TranscodeType>) super.optionalTransform(clazz, transformation);
   }
 
   /**
-   * @see GlideOptions#transform(Class<T>, Transformation<T>)
+   * @see GlideOptions#transform(Class<Y>, Transformation<Y>)
    */
   @NonNull
   @CheckResult
-  public <T> GlideRequest<TranscodeType> transform(@NonNull Class<T> arg0,
-      @NonNull Transformation<T> arg1) {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).transform(arg0, arg1);
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).transform(arg0, arg1);
-    }
-    return this;
+  public <Y> GlideRequest<TranscodeType> transform(@NonNull Class<Y> clazz,
+      @NonNull Transformation<Y> transformation) {
+    return (GlideRequest<TranscodeType>) super.transform(clazz, transformation);
   }
 
   /**
@@ -627,12 +446,7 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @NonNull
   @CheckResult
   public GlideRequest<TranscodeType> dontTransform() {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).dontTransform();
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).dontTransform();
-    }
-    return this;
+    return (GlideRequest<TranscodeType>) super.dontTransform();
   }
 
   /**
@@ -641,46 +455,48 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @NonNull
   @CheckResult
   public GlideRequest<TranscodeType> dontAnimate() {
-    if (getMutableOptions() instanceof GlideOptions) {
-      this.requestOptions = ((GlideOptions) getMutableOptions()).dontAnimate();
-    } else {
-      this.requestOptions = new GlideOptions().apply(this.requestOptions).dontAnimate();
-    }
-    return this;
+    return (GlideRequest<TranscodeType>) super.dontAnimate();
   }
 
   @Override
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> apply(@NonNull RequestOptions arg0) {
-    return (GlideRequest<TranscodeType>) super.apply(arg0);
+  public GlideRequest<TranscodeType> apply(@NonNull BaseRequestOptions<?> options) {
+    return (GlideRequest<TranscodeType>) super.apply(options);
   }
 
   @Override
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> transition(@NonNull TransitionOptions<?, ? super TranscodeType> arg0) {
-    return (GlideRequest<TranscodeType>) super.transition(arg0);
+  public GlideRequest<TranscodeType> transition(@NonNull TransitionOptions<?, ? super TranscodeType> options) {
+    return (GlideRequest<TranscodeType>) super.transition(options);
   }
 
   @Override
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> listener(@Nullable RequestListener<TranscodeType> arg0) {
-    return (GlideRequest<TranscodeType>) super.listener(arg0);
-  }
-
-  @Override
-  @NonNull
-  public GlideRequest<TranscodeType> error(@Nullable RequestBuilder<TranscodeType> arg0) {
-    return (GlideRequest<TranscodeType>) super.error(arg0);
+  public GlideRequest<TranscodeType> listener(@Nullable RequestListener<TranscodeType> listener) {
+    return (GlideRequest<TranscodeType>) super.listener(listener);
   }
 
   @Override
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> thumbnail(@Nullable RequestBuilder<TranscodeType> arg0) {
-    return (GlideRequest<TranscodeType>) super.thumbnail(arg0);
+  public GlideRequest<TranscodeType> addListener(@Nullable RequestListener<TranscodeType> listener) {
+    return (GlideRequest<TranscodeType>) super.addListener(listener);
+  }
+
+  @Override
+  @NonNull
+  public GlideRequest<TranscodeType> error(@Nullable RequestBuilder<TranscodeType> builder) {
+    return (GlideRequest<TranscodeType>) super.error(builder);
+  }
+
+  @Override
+  @NonNull
+  @CheckResult
+  public GlideRequest<TranscodeType> thumbnail(@Nullable RequestBuilder<TranscodeType> builder) {
+    return (GlideRequest<TranscodeType>) super.thumbnail(builder);
   }
 
   @Override
@@ -688,8 +504,8 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @CheckResult
   @SafeVarargs
   @SuppressWarnings("varargs")
-  public final GlideRequest<TranscodeType> thumbnail(@Nullable RequestBuilder<TranscodeType>... arg0) {
-    return (GlideRequest<TranscodeType>) super.thumbnail(arg0);
+  public final GlideRequest<TranscodeType> thumbnail(@Nullable RequestBuilder<TranscodeType>... builders) {
+    return (GlideRequest<TranscodeType>) super.thumbnail(builders);
   }
 
   @Override
@@ -702,64 +518,64 @@ public class GlideRequest<TranscodeType> extends RequestBuilder<TranscodeType> i
   @Override
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> load(@Nullable Object arg0) {
-    return (GlideRequest<TranscodeType>) super.load(arg0);
+  public GlideRequest<TranscodeType> load(@Nullable Object o) {
+    return (GlideRequest<TranscodeType>) super.load(o);
   }
 
   @Override
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> load(@Nullable Bitmap arg0) {
-    return (GlideRequest<TranscodeType>) super.load(arg0);
+  public GlideRequest<TranscodeType> load(@Nullable Bitmap bitmap) {
+    return (GlideRequest<TranscodeType>) super.load(bitmap);
   }
 
   @Override
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> load(@Nullable Drawable arg0) {
-    return (GlideRequest<TranscodeType>) super.load(arg0);
+  public GlideRequest<TranscodeType> load(@Nullable Drawable drawable) {
+    return (GlideRequest<TranscodeType>) super.load(drawable);
   }
 
   @Override
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> load(@Nullable String arg0) {
-    return (GlideRequest<TranscodeType>) super.load(arg0);
+  public GlideRequest<TranscodeType> load(@Nullable String string) {
+    return (GlideRequest<TranscodeType>) super.load(string);
   }
 
   @Override
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> load(@Nullable Uri arg0) {
-    return (GlideRequest<TranscodeType>) super.load(arg0);
+  public GlideRequest<TranscodeType> load(@Nullable Uri uri) {
+    return (GlideRequest<TranscodeType>) super.load(uri);
   }
 
   @Override
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> load(@Nullable File arg0) {
-    return (GlideRequest<TranscodeType>) super.load(arg0);
+  public GlideRequest<TranscodeType> load(@Nullable File file) {
+    return (GlideRequest<TranscodeType>) super.load(file);
   }
 
   @Override
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> load(@RawRes @DrawableRes @Nullable Integer arg0) {
-    return (GlideRequest<TranscodeType>) super.load(arg0);
+  public GlideRequest<TranscodeType> load(@RawRes @DrawableRes @Nullable Integer id) {
+    return (GlideRequest<TranscodeType>) super.load(id);
   }
 
   @Override
   @Deprecated
   @CheckResult
-  public GlideRequest<TranscodeType> load(@Nullable URL arg0) {
-    return (GlideRequest<TranscodeType>) super.load(arg0);
+  public GlideRequest<TranscodeType> load(@Nullable URL url) {
+    return (GlideRequest<TranscodeType>) super.load(url);
   }
 
   @Override
   @NonNull
   @CheckResult
-  public GlideRequest<TranscodeType> load(@Nullable byte[] arg0) {
-    return (GlideRequest<TranscodeType>) super.load(arg0);
+  public GlideRequest<TranscodeType> load(@Nullable byte[] bytes) {
+    return (GlideRequest<TranscodeType>) super.load(bytes);
   }
 
   @Override

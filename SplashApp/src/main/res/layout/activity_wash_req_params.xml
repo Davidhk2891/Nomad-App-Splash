@@ -7,586 +7,115 @@
     android:layout_height="match_parent"
     tools:context="com.nomadapp.splash.ui.activity.carownerside.WashReqParamsActivity">
 
-    <LinearLayout
-        android:id="@+id/setTimeCancelTTLinear"
-        android:orientation="vertical"
-        android:gravity="center_vertical"
-        android:background="@drawable/selective_bg_filled_stroked"
-        android:layout_marginTop="-2dp"
-        android:layout_below="@+id/timePick"
-        android:layout_alignStart="@+id/timePick"
-        android:layout_alignEnd="@+id/timePick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/todayTomorrowHorizontal"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/untilTimeSwitchTodayText"
-                android:text="@string/act_wash_my_car_today"
-                android:layout_marginEnd="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <Switch
-                android:id="@+id/untilTimeSwitchTodayTomorrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/untilTimeSwitchTomorrowText"
-                android:text="@string/act_wash_my_car_tomorrow"
-                android:layout_marginStart="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/setAndCancelLinear"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/cancelTimeNow"
-                android:background="@drawable/selective_bg_filled_stroked"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:text="@string/act_wash_my_car_cancel"
-                android:textColor="@color/ColorPrimary"
-                android:layout_width="128dp"
-                android:layout_height="wrap_content"
-                tools:ignore="ButtonStyle" />
-
-            <Button
-                android:id="@+id/setTimeNow"
-                android:background="@drawable/selective_bg_filled_stroked"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:text="@string/act_wash_my_car_set"
-                android:textColor="@color/ColorPrimary"
-                android:layout_width="128dp"
-                android:layout_height="wrap_content"
-                tools:ignore="ButtonStyle" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <TimePicker
-        android:id="@+id/timePick"
-        android:layout_alignTop="@+id/crScrollView"
-        android:layout_marginTop="100dp"
-        android:timePickerMode="spinner"
-        android:background="@drawable/selective_bg_filled_stroked"
+    <GridLayout
+        android:id="@+id/crServicesGridLayout"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:columnCount="3"
+        android:rowCount="1"
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:ignore="UnusedAttribute">
-
-    </TimePicker>
-
-    <ScrollView
-        android:id="@+id/crScrollView"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/saveCarOwner"
-        android:layout_marginTop="40dp"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:id="@+id/firstRelative"
-            android:focusableInTouchMode="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/externalButton"
+            android:tag="externalButton"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/selective_bg_filled_stroked"
+            android:layout_column="0"
+            android:textColor="@color/ColorPrimaryDark"
+            android:textAlignment="center"
+            android:text="@string/act_wash_my_car_externalWash"
+            android:textSize="12sp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            tools:ignore="UnusedAttribute" />
 
-            <TextView
-                android:id="@+id/requestPageTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_centerHorizontal="true"
-                android:text="@string/act_wash_my_car_carDetails"
-                android:textColor="@color/colorfirst"
-                android:textSize="24sp" />
+        <Button
+            android:id="@+id/extIntButton"
+            android:tag="externalButton"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/selective_bg_filled_stroked"
+            android:layout_column="1"
+            android:textColor="@color/ColorPrimaryDark"
+            android:textSize="12sp"
+            android:text="@string/act_wash_my_car_extAndIntWash"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            tools:ignore="UnusedAttribute" />
 
-            <TextView
-                android:id="@+id/crLocationEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/requestPageTitle"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="26dp"
-                android:background="@drawable/selective_bg_stroked_thin"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:ems="17"
-                android:hint="@string/act_wash_my_car_enterAddress"
-                android:textColorHint="#BDBDBD"
-                android:maxLength="38"
-                android:maxLines="2"
-                android:padding="10dp"
-                android:textSize="17sp" />
+        <Button
+            android:id="@+id/motoButton"
+            android:tag="externalButton"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/selective_bg_filled_stroked"
+            android:layout_column="2"
+            android:textColor="@color/ColorPrimaryDark"
+            android:textSize="12sp"
+            android:text="@string/act_wash_my_car_motorcycle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            tools:ignore="UnusedAttribute" />
 
-            <ImageView
-                android:id="@+id/locationIcon"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignEnd="@+id/crLocationEdit"
-                android:layout_below="@+id/requestPageTitle"
-                android:layout_marginEnd="5dp"
-                android:layout_marginTop="34dp"
-                android:src="@drawable/locationiconblue"
-                tools:ignore="ContentDescription" />
-
-            <EditText
-                android:id="@+id/crlocationDescriptionEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/act_wash_my_car_inputLocationDetails"
-                android:textColorHint="#BDBDBD"
-                android:imeOptions="actionDone"
-                android:inputType="textPersonName"
-                android:layout_marginTop="15dp"
-                android:layout_below="@+id/crLocationEdit"
-                android:layout_centerHorizontal="true"
-                android:layout_alignStart="@+id/carSelected"
-                android:layout_alignEnd="@+id/carSelected"
-                android:ems="15"
-                android:maxLength="130"
-                android:maxLines="2"
-                android:padding="10dp"
-                android:textSize="17sp" />
-
-            <!--
-            <LinearLayout
-                android:id="@+id/locationDescLinear"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/selective_bg_stroked_thin"
-                android:layout_below="@id/carList"
-                android:layout_alignStart="@+id/carSelected"
-                android:layout_alignEnd="@+id/carSelected"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/locationDescIcon"
-                    android:layout_width="23dp"
-                    android:layout_height="23dp"
-                    android:src="@drawable/locationdesciconblue"
-                    tools:ignore="ContentDescription" />
-
-            </LinearLayout>
-            -->
-
-            <!--android:layout_below="@+id/carList"-->
-            <RelativeLayout
-                android:id="@+id/untilTimeRelative"
-                android:orientation="horizontal"
-                android:layout_alignStart="@+id/crLocationEdit"
-                android:layout_alignEnd="@+id/crLocationEdit"
-                android:layout_below="@+id/carList"
-                android:layout_marginTop="40dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/crFromEdit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:background="@drawable/selective_bg_stroked_thin"
-                    android:ems="8"
-                    android:padding="10dp"
-                    android:text="@string/act_wash_my_car_from"
-                    android:textSize="17sp" />
-
-                <TextView
-                    android:id="@+id/crUntilEdit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_toEndOf="@+id/crFromEdit"
-                    android:layout_marginStart="20dp"
-                    android:background="@drawable/selective_bg_stroked_thin"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:ems="8"
-                    android:padding="10dp"
-                    android:hint="@string/act_wash_my_car_until"
-                    android:textSize="17sp" />
-
-                <ImageView
-                    android:id="@+id/UntilTimeIcon"
-                    android:layout_width="23dp"
-                    android:layout_height="23dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_alignEnd="@+id/crUntilEdit"
-                    android:src="@drawable/untiltimeiconblue"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:id="@+id/ofTomorrow"
-                    android:text="@string/act_wash_my_car_ofTomorrow"
-                    android:visibility="invisible"
-                    android:layout_alignEnd="@+id/crUntilEdit"
-                    android:layout_below="@+id/crUntilEdit"
-                    android:layout_marginTop="3dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/carSelected"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/crlocationDescriptionEdit"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/selective_bg_stroked_thin"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:ems="17"
-                android:hint="@string/act_wash_my_car_chooseACar"
-                android:padding="10dp"
-                android:textSize="17sp" />
-
-            <ImageView
-                android:id="@+id/spinnerArrow"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_alignTop="@+id/carSelected"
-                android:layout_alignEnd="@+id/carSelected"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="14dp"
-                android:src="@drawable/triangledownspinner"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:id="@+id/emptyCarList"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_alignTop="@+id/carList"
-                android:text="@string/act_wash_car_pressPlusToAdd"
-                android:layout_marginTop="25dp"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <ListView
-                android:id="@+id/carList"
-                android:layout_width="330dp"
-                android:layout_height="110dp"
-                android:nestedScrollingEnabled="true"
-                android:scrollbars="none"
-                android:choiceMode="singleChoice"
-                android:layout_alignEnd="@+id/carSelected"
-                android:layout_alignStart="@+id/carSelected"
-                android:layout_below="@+id/carSelected"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/selective_bg_stroked_thin"
-                android:longClickable="true"
-                tools:ignore="NestedScrolling,UnusedAttribute" />
-
-            <Button
-                android:id="@+id/addCar"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignBottom="@+id/carList"
-                android:layout_alignEnd="@+id/carList"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/btn_shape"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:text="@string/act_wash_my_car_plus"
-                android:textColor="#ffffff"
-                android:textSize="20sp" />
-
-        </RelativeLayout>
-
-    </ScrollView>
-
-<!--//////Rating And Pricing/////////////////////////////////////////////-->
-    <!--SWITCH BACK TO INVISIBLE FOR TESTING AND PROD-->
+    </GridLayout>
 
     <RelativeLayout
-        android:id="@+id/ratingAndPriceRelative"
-        android:background="#ffffff"
+        android:id="@+id/soloOrSelectRelative"
+        android:layout_centerHorizontal="true"
         android:visibility="visible"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="2dp"
+        android:layout_below="@+id/crServicesGridLayout"
+        android:layout_above="@+id/selectAll_checkbox"
+        android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/selectServicesPageTitle"
+            android:id="@+id/soloOrSelectTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:text="@string/act_wash_my_car_selectService"
+            android:text="@string/act_wash_my_car_selectSplasher"
             android:textColor="@color/colorfirst"
-            android:textSize="24sp" />
+            android:textSize="24sp"/>
 
-        <GridLayout
-            android:id="@+id/crServicesGridLayout"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/selectServicesPageTitle"
-            android:layout_marginTop="10dp"
-            android:columnCount="3"
-            android:rowCount="1"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/externalButton"
-                android:tag="externalButton"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:background="@drawable/selective_bg_filled_stroked"
-                android:layout_column="0"
-                android:textColor="@color/ColorPrimaryDark"
-                android:textAlignment="center"
-                android:text="@string/act_wash_my_car_externalWash"
-                android:textSize="12sp"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"/>
-
-            <Button
-                android:id="@+id/extIntButton"
-                android:tag="externalButton"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:background="@drawable/selective_bg_filled_stroked"
-                android:layout_column="1"
-                android:textColor="@color/ColorPrimaryDark"
-                android:textSize="12sp"
-                android:text="@string/act_wash_my_car_extAndIntWash"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"/>
-
-            <Button
-                android:id="@+id/motoButton"
-                android:tag="externalButton"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:background="@drawable/selective_bg_filled_stroked"
-                android:layout_column="2"
-                android:textColor="@color/ColorPrimaryDark"
-                android:textSize="12sp"
-                android:text="@string/act_wash_my_car_motorcycle"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"/>
-
-        </GridLayout>
-
-        <ImageView
-            android:id="@+id/serviceTypeIcon"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
-            android:visibility="visible"
-            android:layout_toStartOf="@+id/selectServicesPageTitle"
-            android:layout_alignBottom="@+id/selectServicesPageTitle"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/servicetypeiconblue"
-            tools:ignore="ContentDescription" />
-
-        <ScrollView
-            android:id="@+id/ratingAndPriceScroll"
-            android:scrollbars="none"
-            android:layout_below="@+id/crServicesGridLayout"
-            android:layout_above="@+id/finallyOrder"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <RelativeLayout
-                android:id="@+id/ratingAndPriceRelative2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/theRating"
-                    android:layout_width="115dp"
-                    android:layout_height="115dp"
-                    android:visibility="gone"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="85dp"
-                    tools:ignore="ContentDescription" />
-
-                <LinearLayout
-                    android:id="@+id/splasherPriceLinear"
-                    android:layout_width="wrap_content"
-                    android:visibility="gone"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/theRating"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="25dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:id="@+id/minimumPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/act_wash_my_car_minimumPrice"
-                        android:textColor="#BDBDBD"
-                        android:textSize="18sp" />
-
-                    <SeekBar
-                        android:id="@+id/thePrice"
-                        android:layout_width="260dp"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/maximumPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/act_wash_my_car_maximumPrice"
-                        android:textColor="#BDBDBD"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/selectPricePageTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="@string/act_wash_my_car_selectPrice"
-                    android:layout_marginTop="34sp"
-                    android:textColor="@color/colorfirst"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/splasherPriceSet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/selectPricePageTitle"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="6dp"
-                    android:background="@drawable/selective_bg_stroked"
-                    android:padding="24dp"
-                    android:textAlignment="center"
-                    android:textSize="48sp"
-                    android:text="@string/thirty"/>
-
-                <!--
-                <TextView
-                    android:id="@+id/splasherPriceSetComingSoon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/splasherPriceSet"
-                    android:layout_alignEnd="@+id/splasherPriceSet"
-                    android:layout_alignBottom="@+id/splasherPriceSet"
-                    android:layout_below="@+id/selectPricePageTitle"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="6dp"
-                    android:background="@drawable/selective_bg_stroked"
-                    android:padding="15dp"
-                    android:textAlignment="center"
-                    android:textSize="30sp"
-                    android:text="@string/act_wash_my_car_comingSoon"/>
-                    -->
-
-                <TextView
-                    android:id="@+id/messageBeforeOrder"
-                    android:layout_below="@id/splasherPriceSet"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:textSize="12sp"
-                    android:padding="6dp"
-                    android:layout_marginTop="34dp"
-                    android:text="@string/act_wash_my_car_youWillBeCharged"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </RelativeLayout>
-
-        </ScrollView>
-
-        <!--Both solorOrSelectRelative and
-                    splasher_fragment_container switch visibility to
-                    :gone when deploying to production-->
         <RelativeLayout
-            android:id="@+id/soloOrSelectRelative"
-            android:layout_centerHorizontal="true"
-            android:visibility="visible"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_below="@+id/crServicesGridLayout"
+            android:id="@+id/splasher_fragment_container"
             android:background="#ffffff"
-            android:layout_above="@+id/selectAll_checkbox"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/soloOrSelectTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/act_wash_my_car_selectSplasher"
-                android:textColor="@color/colorfirst"
-                android:textSize="24sp"/>
-
-            <RelativeLayout
-                android:id="@+id/splasher_fragment_container"
-                android:background="#ffffff"
-                android:layout_below="@+id/soloOrSelectTitle"
-                android:layout_marginTop="10dp"
-                android:visibility="visible"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </RelativeLayout>
-
-        <CheckBox
-            android:id="@+id/selectAll_checkbox"
-            android:layout_marginStart="20dp"
-            android:text="@string/act_wash_my_car_selectAll"
-            android:textSize="16sp"
-            android:textColor="@color/colorfirst"
-            android:layout_above="@+id/finallyOrder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/finallyOrder"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_below="@+id/soloOrSelectTitle"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/btn_shape"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:text="@string/act_wash_my_car_order"
-            android:textColor="#ffffff" />
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </RelativeLayout>
 
-    <!--Next-->
+    <CheckBox
+        android:id="@+id/selectAll_checkbox"
+        android:layout_marginStart="14dp"
+        android:text="@string/act_wash_my_car_selectAll"
+        android:textSize="16sp"
+        android:textColor="@color/colorfirst"
+        android:layout_above="@+id/messageBeforeOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/messageBeforeOrder"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/selectAll_checkbox"
+        android:layout_marginEnd="14dp"
+        android:textSize="12sp"
+        android:layout_above="@+id/finallyOrder"
+        android:text="@string/act_wash_my_car_youWillBeCharged"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/saveCarOwner"
-        android:text="@string/act_wash_my_car_next"
-        android:textColor="#ffffff"
-        android:background="@drawable/btn_shape"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:id="@+id/finallyOrder"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -594,7 +123,10 @@
         android:layout_marginEnd="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"/>
+        android:background="@drawable/btn_shape"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="@string/act_wash_my_car_order"
+        android:textColor="#ffffff"
+        tools:ignore="UnusedAttribute" />
 
 </RelativeLayout>

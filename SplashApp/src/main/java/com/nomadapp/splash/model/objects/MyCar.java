@@ -6,11 +6,11 @@ package com.nomadapp.splash.model.objects;
 
 public class MyCar {
 
-    public String brand;
+    private String brand;
     public String model;
-    public String colorz;
-    public String plateNum;
-    public int itemId;
+    private String colorz;
+    private String plateNum;
+    private int itemId;
 
     public String getBrand() {
         return brand;

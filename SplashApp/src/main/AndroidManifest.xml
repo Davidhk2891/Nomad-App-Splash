@@ -89,31 +89,35 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activity.standard.SplasherApplicationActivity"
+            android:label="@string/title_activity_splasherApplication"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.splasherside.WashRequestsActivity"
-            android:label="Wash Requests"
+            android:label="@string/title_activity_washRequest"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.splasherside.SplasherClientRouteActivity"
-            android:label="Splash"
+            android:label="@string/title_activity_clientRoute"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.carownerside.WashReqParamsActivity"
-            android:label="Car &amp; Services"
+            android:label="@string/title_activity_washReqParams"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.carownerside.CarAdditionActivity"
-            android:label="Splash"
+            android:label="@string/title_activity_carAddition"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.splasherside.SplasherCameraActivity"
+            android:label="@string/title_activity_splasherCamera"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.carownerside.WashServiceShowActivity"
+            android:label="@string/title_activity_washServiceShow"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.carownerside.DetailedImageComparisonActivity"
+            android:label="@string/title_activity_detailedImageComparison"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.standard.SplashScreenActivity"
@@ -126,15 +130,15 @@
         </activity>
         <activity
             android:name=".ui.activity.carownerside.payment.PaymentSettingsActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.carownerside.AddressAdditionActivity"
+            android:label="@string/title_activity_payment"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.standard.AlertsActivity"
+            android:label="@string/title_activity_alerts"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.standard.AboutActivity"
+            android:label="@string/title_activity_about"
             android:screenOrientation="portrait" />
 
         <!-- ALL OF THE PUSH NOTIFICATIONS SETTINGS HERE -->
@@ -168,13 +172,15 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.carownerside.payment.PaymentBillActivity"
+            android:label="@string/title_activity_paymentBill"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.standard.AccountActivity"
+            android:label="@string/title_activity_profile"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.standard.ContactUsActivity"
-            android:label="Contact us"
+            android:label="@string/title_activity_contactUs"
             android:screenOrientation="portrait" />
         <!--
         If targetSdk >= 24, for cameraIntent, the code below needs to be implemented(kind of
@@ -192,18 +198,18 @@
         <!-- ///////////////////////////////////////////////////////////////////////////////// -->
         <activity
             android:name=".ui.activity.carownerside.QuickTourActivity"
-            android:label="Quick Tour"
+            android:label="@string/title_activity_quickTour"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.splasherside.SplasherWalletActivity"
-            android:label="My wallet"
+            android:label="@string/title_activity_wallet"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.splasherside.SplasherServicesActivity"
-            android:label="My services"
+            android:label="@string/title_activity_services"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.standard.SplasherOnboarding"
-            android:label="Create Splasher Account"
+            android:label="@string/title_activity_createSplasher"
             android:screenOrientation="portrait" />
     </application>
 

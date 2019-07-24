@@ -37,8 +37,8 @@ import com.nomadapp.splash.model.server.parseserver.queries.DocumentsClassQuery;
 import com.nomadapp.splash.model.server.parseserver.queries.ProfileClassQuery;
 import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.model.server.parseserver.send.DocumentsClassSend;
-import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.BoxedLoadingDialog;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -58,7 +58,7 @@ import static com.nomadapp.splash.R.id.socialIDProofCameraUpload;
 import static com.nomadapp.splash.R.id.bankAccProofCameraUpload;
 import static com.nomadapp.splash.R.id.incDocProofCameraUpload;
 
-import com.nomadapp.splash.utils.sysmsgs.connectionlost.ConnectionLost;
+import com.nomadapp.splash.utils.sysmsgs.ConnectionLost;
 
 public class SplasherApplicationActivity extends AppCompatActivity {
 

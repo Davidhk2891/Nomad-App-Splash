@@ -18,6 +18,7 @@ import com.nomadapp.splash.model.localdatastorage.CarLocalDatabaseHandler;
 import com.nomadapp.splash.model.objects.MyCar;
 import com.nomadapp.splash.model.server.parseserver.queries.MetricsClassQuery;
 import com.nomadapp.splash.model.server.parseserver.send.CarsClassSend;
+import com.nomadapp.splash.ui.activity.standard.HomeActivity;
 import com.nomadapp.splash.utils.rtl.LanguageDirection;
 
 public class CarAdditionActivity extends AppCompatActivity {
@@ -37,6 +38,8 @@ public class CarAdditionActivity extends AppCompatActivity {
     private MetricsClassQuery metricsClassQuery;
     private LanguageDirection languageDirection = new LanguageDirection();
 
+    private double latFromMain, lonFromMain;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,8 @@ public class CarAdditionActivity extends AppCompatActivity {
 
         metricsClassQuery = new MetricsClassQuery(ctx);
         metricsClassQuery.queryMetricsToUpdate("addNewCar");
+
+        locationDataGetterFromFragIfNeeded();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -116,6 +121,17 @@ public class CarAdditionActivity extends AppCompatActivity {
         }
     }
 
+    private void locationDataGetterFromFragIfNeeded(){
+        Bundle keyToKeep = getIntent().getExtras();
+        if (keyToKeep != null) {
+            String keyToOpen = keyToKeep.getString("coords");
+            if (keyToOpen != null && keyToOpen.equals("LatLng")) {
+                latFromMain = keyToKeep.getDouble("lat");
+                lonFromMain = keyToKeep.getDouble("lon");
+            }
+        }
+    }
+
     //CarOwner's car details 2
     private void saveToDB(){
         //ArrayList<MyCar> addData = new ArrayList<>();
@@ -142,12 +158,14 @@ public class CarAdditionActivity extends AppCompatActivity {
         cCarYearEdit.setText("");
         cCarPlateNEdit.setText("");
 
-        Intent intent = new Intent(ctx,WashReqParamsActivity. class);
+        Intent intent = new Intent(ctx, HomeActivity. class);
         intent.putExtra("listStatus", "keepOpen");
         intent.putExtra("carBrand", carBrandEdit);
         intent.putExtra("carModel", carModelEdit);
         intent.putExtra("carColor", carColorEdit);
         intent.putExtra("carPlate", carPlateEdit);
+        intent.putExtra("lat", latFromMain);
+        intent.putExtra("lon", lonFromMain);
         startActivity(intent);
     }
 

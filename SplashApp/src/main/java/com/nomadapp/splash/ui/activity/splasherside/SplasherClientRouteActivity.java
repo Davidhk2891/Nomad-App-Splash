@@ -40,7 +40,6 @@ import android.os.Vibrator;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -55,17 +54,15 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import com.nomadapp.splash.R;
 import com.nomadapp.splash.model.mapops.MarkersOps;
-import com.nomadapp.splash.model.objects.users.SplasherSelector;
 import com.nomadapp.splash.model.server.parseserver.ProfileClassInterface;
-import com.nomadapp.splash.model.server.parseserver.UserClassInterface;
 import com.nomadapp.splash.model.server.parseserver.queries.ProfileClassQuery;
 import com.nomadapp.splash.model.server.parseserver.queries.UserClassQuery;
 import com.nomadapp.splash.ui.activity.standard.HomeActivity;
 import com.nomadapp.splash.utils.phonedialer.DialCall;
 import com.nomadapp.splash.utils.sysmsgs.DialogAcceptInterface;
-import com.nomadapp.splash.utils.sysmsgs.loadingdialog.BoxedLoadingDialog;
-import com.nomadapp.splash.utils.sysmsgs.questiondialogs.CustomAlertDialog;
-import com.nomadapp.splash.utils.sysmsgs.toastmessages.ToastMessages;
+import com.nomadapp.splash.utils.sysmsgs.BoxedLoadingDialog;
+import com.nomadapp.splash.utils.sysmsgs.CustomAlertDialog;
+import com.nomadapp.splash.utils.sysmsgs.ToastMessages;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -84,11 +81,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import com.nomadapp.splash.utils.sysmsgs.connectionlost.ConnectionLost;
+import com.nomadapp.splash.utils.sysmsgs.ConnectionLost;
 import com.nomadapp.splash.model.mapops.ClientRouteDataParser;
 
 //---- GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
