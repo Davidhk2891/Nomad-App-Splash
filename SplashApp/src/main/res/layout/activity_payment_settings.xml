@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/paymentRelative"
+    android:background="@drawable/selective_bg_stroke_curved"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp"
+    android:padding="3dp"
+    tools:context=".ui.activity.carownerside.payment.PaymentSettingsActivity">
+
+    <ScrollView
+        android:id="@+id/paymentScroll"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+
+        <RelativeLayout
+            android:id="@+id/paymentSecondRelative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/PaymentPageTitle"
+                android:text="@string/act_payment_settings_addCreditCard"
+                android:textSize="24sp"
+                android:layout_marginTop="14dp"
+                android:textColor="@color/colorfirst"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/securityStatement"
+                android:layout_below="@+id/PaymentPageTitle"
+                android:layout_alignStart="@+id/ccNumber"
+                android:layout_alignEnd="@+id/ccNumber"
+                android:layout_marginTop="8dp"
+                android:textAlignment="center"
+                android:text="@string/paymentSettings_act_java_protectedPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/ccIconsLayout"
+                android:layout_below="@+id/securityStatement"
+                android:layout_marginTop="8dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/visaIcon"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/visaicon"
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/masterCardIcon"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/mastercardicon"
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
+                    tools:ignore="ContentDescription" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/cardNumberTitle"
+                android:layout_below="@+id/phoneNumberCCInput"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="30dp"
+                android:text="@string/act_payment_settings_cardNumber"
+                android:textColor="#BDBDBD"
+                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/ccNumber"
+                android:background="@drawable/selective_bg_curved_grey"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/cardNumberTitle"
+                android:inputType="phone"
+                android:digits="1234567890-"
+                android:maxLength="19"
+                android:textAlignment="center"
+                android:imeOptions="actionNext"
+                android:layout_marginTop="5dp"
+                android:layout_width="290dp"
+                android:layout_height="34dp"
+                tools:ignore="LabelFor" />
+
+            <LinearLayout
+                android:id="@+id/expDateAndCvvLinear"
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:layout_below="@+id/ccNumber"
+                android:layout_marginTop="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/expDateLinear"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/expiryDateTitle"
+                        android:text="@string/act_payment_settings_expiryDate"
+                        android:textColor="#BDBDBD"
+                        android:textSize="17sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:id="@+id/expiryDateNumber"
+                        android:background="@drawable/selective_bg_curved_grey"
+                        android:inputType="phone"
+                        android:digits="1234567890/"
+                        android:maxLength="5"
+                        android:textAlignment="center"
+                        android:imeOptions="actionNext"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="90dp"
+                        android:layout_height="34dp"
+                        tools:ignore="LabelFor" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/cvvLinear"
+                    android:orientation="vertical"
+                    android:layout_marginStart="70dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/cvvTitle"
+                        android:layout_marginStart="30dp"
+                        android:text="@string/act_payment_settings_cvv"
+                        android:textColor="#BDBDBD"
+                        android:textSize="17sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:id="@+id/cvvNumber"
+                        android:background="@drawable/selective_bg_curved_grey"
+                        android:inputType="phone"
+                        android:digits="1234567890"
+                        android:maxLength="3"
+                        android:textAlignment="center"
+                        android:imeOptions="actionDone"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="90dp"
+                        android:layout_height="34dp"
+                        tools:ignore="LabelFor" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/nameOnCardTitle"
+                android:layout_below="@+id/ccIconsLayout"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="30dp"
+                android:text="@string/act_payment_settings_nameOnCard"
+                android:textColor="#BDBDBD"
+                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/cardHolderInput"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/selective_bg_curved_grey"
+                android:inputType="textPersonName"
+                android:textAllCaps="false"
+                android:textAlignment="center"
+                android:maxLines="1"
+                android:padding="6dp"
+                android:layout_width="290dp"
+                android:layout_height="34dp"
+                android:imeOptions="actionNext"
+                android:layout_below="@+id/nameOnCardTitle"
+                android:layout_alignStart="@+id/ccNumber"
+                tools:ignore="LabelFor" />
+
+            <TextView
+                android:id="@+id/idNumberTitle"
+                android:layout_below="@+id/cardHolderInput"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="30dp"
+                android:text="@string/act_payment_settings_idNumber"
+                android:textColor="#BDBDBD"
+                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/idNumberInput"
+                android:background="@drawable/selective_bg_curved_grey"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/idNumberTitle"
+                android:inputType="phone"
+                android:digits="1234567890"
+                android:textAlignment="center"
+                android:maxLength="19"
+                android:padding="6dp"
+                android:imeOptions="actionNext"
+                android:layout_marginTop="5dp"
+                android:layout_width="290dp"
+                android:layout_height="34dp"
+                tools:ignore="LabelFor" />
+
+            <TextView
+                android:id="@+id/phoneNumberCCTitle"
+                android:layout_below="@+id/idNumberInput"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="30dp"
+                android:text="@string/act_payment_settings_phoneNumber"
+                android:textColor="#BDBDBD"
+                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/phoneNumberCCInput"
+                android:background="@drawable/selective_bg_curved_grey"
+                android:layout_alignStart="@+id/cardHolderInput"
+                android:layout_below="@+id/phoneNumberCCTitle"
+                android:inputType="phone"
+                android:digits="1234567890"
+                android:textAlignment="center"
+                android:maxLength="10"
+                android:padding="6dp"
+                android:imeOptions="actionNext"
+                android:layout_marginTop="5dp"
+                android:layout_width="290dp"
+                android:layout_height="34dp"
+                tools:ignore="LabelFor" />
+
+            <CheckBox
+                android:id="@+id/saveCardNumber"
+                android:layout_below="@+id/expDateAndCvvLinear"
+                android:layout_alignStart="@+id/cardHolderInput"
+                android:layout_alignEnd="@+id/cardHolderInput"
+                android:textColor="#BDBDBD"
+                android:checked="true"
+                android:clickable="false"
+                android:visibility="gone"
+                android:text="@string/act_payment_settings_saveCcNumber"
+                android:layout_marginTop="6dp"
+                android:buttonTint="@color/colorfirst"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/paymentTOUAgreement"
+                android:textAlignment="center"
+                android:layout_alignStart="@+id/ccNumber"
+                android:layout_alignEnd="@id/ccNumber"
+                android:layout_below="@+id/ccAdded"
+                android:layout_marginTop="10dp"
+                android:text="@string/paymentSettings_act_java_byClickingDone"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp" />
+
+            <Button
+                android:id="@+id/ccAdded"
+                android:background="@drawable/btn_shape"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="@string/act_payment_settings_done"
+                android:textColor="#ffffff"
+                android:layout_below="@+id/saveCardNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

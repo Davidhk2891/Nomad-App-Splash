@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "381056848565",
+    "firebase_url": "https://splash-production-206507.firebaseio.com",
+    "project_id": "splash-production-206507",
+    "storage_bucket": "splash-production-206507.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:381056848565:android:f35d160c1f051a02",
+        "android_client_info": {
+          "package_name": "com.nomadapp.splash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "381056848565-37rd4por3mgrpqp2j90qiil3hhdej03q.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "381056848565-37rd4por3mgrpqp2j90qiil3hhdej03q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCN3bgnX_Y_b8nFBdY14Ud-KXH46yzHNIg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

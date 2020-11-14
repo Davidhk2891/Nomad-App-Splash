@@ -1,0 +1,19 @@
+#Internal package file, do not edit.
+#Wed Jul 24 23:09:40 IDT 2019
+1.base=C\:\\Splash\\SplashApp\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
+2.path=classes3.dex
+0.baseType=DIRECTORY
+3.baseType=DIRECTORY
+2.base=C\:\\Splash\\SplashApp\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
+3.set=ASSET
+2.set=DEX
+1.baseType=DIRECTORY
+3.path=crashlytics-build.properties
+count=4
+1.set=DEX
+0.path=classes2.dex
+3.base=C\:\\Splash\\SplashApp\\build\\intermediates\\merged_assets\\debug\\out
+0.set=DEX
+0.base=C\:\\Splash\\SplashApp\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
+2.baseType=DIRECTORY
+1.path=classes.dex

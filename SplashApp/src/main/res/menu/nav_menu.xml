@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/threePointTwentyFiveNav"
+        android:title="@string/nav_menu_payment"
+        android:icon="@drawable/ic_payment_black_24dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <!--
+    <item
+        android:id="@+id/oneNav"
+        android:title="@string/nav_menu_addAddress"
+        android:icon="@drawable/ic_place_black_24dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"/>
+    -->
+
+    <item
+        android:id="@+id/twoAndAHalfNav"
+        android:title="@string/nav_menu_myServices"
+        android:icon="@drawable/servicetypeiconblue"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <item
+        android:id="@+id/twoNav"
+        android:title="@string/nav_menu_alerts"
+        android:icon="@drawable/ic_alert"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <item
+        android:id="@+id/threeNav"
+        android:title="@string/nav_menu_feedback"
+        android:icon="@drawable/ic_feedback_black_24dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <item
+        android:id="@+id/threePointSeventyFiveNav"
+        android:title="@string/nav_menu_faq"
+        android:icon="@drawable/ic_help_black_24dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <item
+        android:id="@+id/sixNav"
+        android:title="@string/nav_menu_store"
+        android:icon="@drawable/ic_shopping_cart_black_24dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"/>
+
+
+
+    <group
+        android:id="@+id/secondaries"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/oneNav"
+            android:title="@string/nav_menu_quickTour"
+            android:icon="@drawable/quicktour"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <item
+            android:id="@+id/threePointFiveNav"
+            android:title="@string/nav_menu_about"
+            android:icon="@drawable/ic_help"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <item
+            android:id="@+id/fourNav"
+            android:title="@string/nav_menu_logout"
+            android:icon="@drawable/ic_logout"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"/>
+    </group>
+
+</menu>

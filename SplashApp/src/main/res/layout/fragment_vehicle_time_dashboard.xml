@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.fragment.VehicleTimeDashboard">
+
+    <TextView
+        android:id="@+id/car_for_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/selective_bg_stroked_thin"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:hint="@string/act_wash_my_car_chooseACar"
+        android:padding="10dp"
+        android:textSize="17sp"
+        tools:ignore="UnusedAttribute" />
+
+    <RelativeLayout
+        android:id="@+id/time_for_request"
+        android:orientation="horizontal"
+        android:layout_below="@+id/car_for_request"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/time_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/time_separator"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/selective_bg_stroked_thin"
+            android:padding="10dp"
+            android:text="@string/act_wash_my_car_from"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/time_separator"
+            android:layout_centerInParent="true"
+            android:text="@string/hyphen"
+            android:textSize="22sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/time_until"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/time_separator"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/selective_bg_stroked_thin"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:padding="10dp"
+            android:hint="@string/act_wash_my_car_until"
+            android:textSize="17sp"
+            tools:ignore="UnusedAttribute" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/request_next"
+        android:background="@drawable/btn_shape"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:text="@string/act_car_owner_washMyCar"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:layout_below="@+id/time_for_request"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        tools:ignore="UnusedAttribute" />
+
+</RelativeLayout>

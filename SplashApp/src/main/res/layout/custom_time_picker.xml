@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/time_pick_setCancel_layout"
+        android:layout_below="@+id/time_pick_timePicker"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/time_pick_cancel"
+                android:background="@drawable/selective_bg_selective_borders_top"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/act_wash_my_car_cancel"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/time_pick_anchor"
+                android:textColor="@color/ColorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="ButtonStyle,UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/time_pick_anchor"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/time_pick_set"
+                android:background="@drawable/selective_bg_selective_borders_top"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/act_wash_my_car_set"
+                android:layout_toEndOf="@+id/time_pick_anchor"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/ColorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="ButtonStyle,UnusedAttribute" />
+
+    </RelativeLayout>
+
+    <TimePicker
+        android:id="@+id/time_pick_timePicker"
+        android:timePickerMode="spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="UnusedAttribute">
+
+    </TimePicker>
+
+</RelativeLayout>

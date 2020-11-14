@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/elPropioRelative"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.nomadapp.splash.ui.activity.carownerside.WashReqParamsActivity">
+
+    <GridLayout
+        android:id="@+id/crServicesGridLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:columnCount="3"
+        android:rowCount="1"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/externalButton"
+            android:tag="externalButton"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/selective_bg_filled_stroked"
+            android:layout_column="0"
+            android:textColor="@color/ColorPrimaryDark"
+            android:textAlignment="center"
+            android:text="@string/act_wash_my_car_externalWash"
+            android:textSize="12sp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            tools:ignore="UnusedAttribute" />
+
+        <Button
+            android:id="@+id/extIntButton"
+            android:tag="externalButton"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/selective_bg_filled_stroked"
+            android:layout_column="1"
+            android:textColor="@color/ColorPrimaryDark"
+            android:textSize="12sp"
+            android:text="@string/act_wash_my_car_extAndIntWash"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            tools:ignore="UnusedAttribute" />
+
+        <Button
+            android:id="@+id/motoButton"
+            android:tag="externalButton"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/selective_bg_filled_stroked"
+            android:layout_column="2"
+            android:textColor="@color/ColorPrimaryDark"
+            android:textSize="12sp"
+            android:text="@string/act_wash_my_car_motorcycle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            tools:ignore="UnusedAttribute" />
+
+    </GridLayout>
+
+    <RelativeLayout
+        android:id="@+id/soloOrSelectRelative"
+        android:layout_centerHorizontal="true"
+        android:visibility="visible"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="2dp"
+        android:layout_below="@+id/crServicesGridLayout"
+        android:layout_above="@+id/selectAll_checkbox"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/soloOrSelectTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/act_wash_my_car_selectSplasher"
+            android:textColor="@color/colorfirst"
+            android:textSize="24sp"/>
+
+        <RelativeLayout
+            android:id="@+id/splasher_fragment_container"
+            android:background="#ffffff"
+            android:layout_below="@+id/soloOrSelectTitle"
+            android:layout_marginTop="10dp"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <CheckBox
+        android:id="@+id/selectAll_checkbox"
+        android:layout_marginStart="14dp"
+        android:text="@string/act_wash_my_car_selectAll"
+        android:textSize="16sp"
+        android:textColor="@color/colorfirst"
+        android:layout_above="@+id/messageBeforeOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/messageBeforeOrder"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/selectAll_checkbox"
+        android:layout_marginEnd="14dp"
+        android:textSize="12sp"
+        android:layout_above="@+id/finallyOrder"
+        android:text="@string/act_wash_my_car_youWillBeCharged"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/finallyOrder"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/btn_shape"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="@string/act_wash_my_car_order"
+        android:textColor="#ffffff"
+        tools:ignore="UnusedAttribute" />
+
+</RelativeLayout>

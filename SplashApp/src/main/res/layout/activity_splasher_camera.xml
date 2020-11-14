@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.nomadapp.splash.ui.activity.splasherside.SplasherCameraActivity">
+
+    <TextView
+        android:id="@+id/beforeAfterTitle"
+        android:textSize="15sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:text="@string/beforeWash"
+        android:layout_marginTop="3dp"
+        android:padding="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="RelativeOverlap" />
+
+    <TextView
+        android:id="@+id/frontNBack"
+        android:textSize="18sp"
+        android:padding="5sp"
+        android:text="@string/act_camera_intent_frontNBack"
+        android:layout_marginTop="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/frontNBackLinearLayout"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/frontNBack">
+
+        <ImageView
+            android:id="@+id/pictureHolder"
+            android:layout_width="@dimen/picHolderSquareDimen"
+            android:layout_height="@dimen/picHolderSquareDimen"
+            android:adjustViewBounds="true"
+            android:onClick="takePic"
+            android:background="@drawable/selective_bg_filled_stroked"
+            android:scaleType="centerCrop"
+            android:src="@drawable/frontcar"
+            android:contentDescription="@string/act_camera_intent_frontSide" />
+
+        <ImageView
+            android:id="@+id/pictureHolder2"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/backcar"
+            android:scaleType="centerCrop"
+            android:onClick="takePic"
+            android:adjustViewBounds="true"
+            android:background="@drawable/selective_bg_filled_stroked"
+            android:layout_width="@dimen/picHolderSquareDimen"
+            android:layout_height="@dimen/picHolderSquareDimen"
+            android:contentDescription="@string/act_camera_intent_RearSide" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/leftNRightSide"
+        android:textSize="18sp"
+        android:padding="5sp"
+        android:text="@string/act_camera_intent_leftNRight_sides"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/frontNBackLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/leftNRightSideLinearLayout"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/leftNRightSide">
+
+        <ImageView
+            android:id="@+id/pictureHolder3"
+            android:src="@drawable/leftcar"
+            android:scaleType="centerCrop"
+            android:onClick="takePic"
+            android:adjustViewBounds="true"
+            android:layout_width="@dimen/picHolderSquareDimen"
+            android:layout_height="@dimen/picHolderSquareDimen"
+            android:background="@drawable/selective_bg_filled_stroked"
+            android:contentDescription="@string/act_camera_intent_LeftSide" />
+
+        <ImageView
+            android:id="@+id/pictureHolder4"
+            android:layout_width="@dimen/picHolderSquareDimen"
+            android:layout_height="@dimen/picHolderSquareDimen"
+            android:layout_marginStart="10dp"
+            android:onClick="takePic"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:background="@drawable/selective_bg_filled_stroked"
+            android:src="@drawable/rightcar"
+            android:contentDescription="@string/act_camera_intent_RightSide" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/dispatchPictures"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/btn_shape"
+        android:text="@string/act_camera_intent_send"
+        android:textColor="#ffffff"
+        android:onClick="dispatchBeforePictures"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/dispatchPictures2"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/btn_shape"
+        android:padding="6dp"
+        android:text="@string/act_camera_intent_sendNFinish"
+        android:textColor="#ffffff"
+        android:visibility="gone"
+        android:onClick="dispatchAfterPictures"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <!--switch back to visible before updating -->
+    <RelativeLayout
+        android:id="@+id/washingCarRelative"
+        android:background="#ffffff"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:id="@+id/picturesSentStatus"
+            android:orientation="horizontal"
+            android:layout_marginStart="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/sendingPicsText"
+                android:text="@string/act_camera_intent_sendingPictures"
+                android:layout_marginTop="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:id="@+id/animationsRelative"
+                android:layout_marginTop="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/picSendingAnim1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:text="@string/act_camera_intent_underScore1"
+                    android:textSize="17sp"/>
+
+                <ImageView
+                    android:id="@+id/picSent1"
+                    android:src="@drawable/checkmark"
+                    android:visibility="invisible"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/picSendingAnim2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_toEndOf="@+id/picSendingAnim1"
+                    android:text="@string/act_camera_intent_underScore1"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:id="@+id/picSent2"
+                    android:layout_toEndOf="@+id/picSent1"
+                    android:src="@drawable/checkmark"
+                    android:visibility="invisible"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/picSendingAnim3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_toEndOf="@+id/picSendingAnim2"
+                    android:text="@string/act_camera_intent_underScore1"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:id="@+id/picSent3"
+                    android:src="@drawable/checkmark"
+                    android:layout_toEndOf="@+id/picSent2"
+                    android:visibility="invisible"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/picSendingAnim4"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_toEndOf="@+id/picSendingAnim3"
+                    android:text="@string/act_camera_intent_underScore1"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:id="@+id/picSent4"
+                    android:layout_toEndOf="@+id/picSent3"
+                    android:src="@drawable/checkmark"
+                    android:visibility="invisible"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    tools:ignore="ContentDescription" />
+
+                <ProgressBar
+                    android:id="@+id/animationSending"
+                    android:layout_toEndOf="@+id/picSendingAnim4"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/finallyWashTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:text="@string/act_camera_intent_letsWash"
+            android:textSize="40sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ScrollView
+            android:id="@+id/howToScrollView"
+            android:layout_marginTop="25dp"
+            android:layout_below="@+id/finallyWashTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/howToRelativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/dryMethodTitle"
+                    android:text="@string/act_camera_intent_dryMethod"
+                    android:padding="7dp"
+                    android:textSize="25sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/equipmentTitle"
+                    android:text="@string/act_camera_intent_equipment"
+                    android:textSize="20sp"
+                    android:layout_below="@+id/dryMethodTitle"
+                    android:layout_alignStart="@+id/dryMethodTitle"
+                    android:padding="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/equipmentStuff"
+                    android:layout_below="@+id/equipmentTitle"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="18sp"
+                    android:text="@string/equipment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/stepsTitle"
+                    android:text="@string/act_camera_intent_steps"
+                    android:textSize="20sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/equipmentStuff"
+                    android:layout_alignStart="@+id/dryMethodTitle"
+                    android:padding="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/stepsStuff"
+                    android:layout_below="@+id/stepsTitle"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="18sp"
+                    android:text="@string/steps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/doneWashing"
+            android:background="@drawable/btn_shape"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/act_camera_intent_done"
+            android:onClick="iAmDone"
+            android:textColor="#ffffff"
+            android:layout_marginTop="28dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/howToScrollView"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

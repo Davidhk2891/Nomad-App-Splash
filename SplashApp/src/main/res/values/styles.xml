@@ -1,0 +1,43 @@
+<!--
+  ~ Copyright (c) 2015-present, Parse, LLC.
+  ~ All rights reserved.
+  ~
+  ~ This source code is licensed under the BSD-style license found in the
+  ~ LICENSE file in the root directory of this source tree. An additional grant
+  ~ of patent rights can be found in the PATENTS file in the same directory.
+  -->
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/ColorPrimary</item>
+        <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
+        <item name="colorAccent">@color/ColorAccent</item>
+    </style>
+    <!--/////////////////////////-->
+
+    <!--theme exclusively for HomeActivity.java-->
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/ColorPrimary</item>
+        <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
+        <item name="colorAccent">@color/ColorAccent</item>
+    </style>
+    <!--/////////////////////////-->
+
+    <style name="RatingBarz" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/colorRatingBarSplasher</item>
+    </style>
+
+    <style name="NavigationViewStyle">
+        <item name="android:textSize">16sp</item> <!-- menu item text size-->
+        <item name="android:listPreferredItemHeightSmall">60dp</item><!-- menu item height-->
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="SwitchCompatStyle" >
+        <item name="thumbTint">@color/standard_splash_switch_color</item>
+        <item name="trackTint">@color/standard_splash_switch_color</item>
+    </style>
+
+</resources>

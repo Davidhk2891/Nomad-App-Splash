@@ -1,0 +1,408 @@
+<!--
+  ~ Copyright (c) 2015-present, Parse, LLC.
+  ~ All rights reserved.
+  ~
+  ~ This source code is licensed under the BSD-style license found in the
+  ~ LICENSE file in the root directory of this source tree. An additional grant
+  ~ of patent rights can be found in the PATENTS file in the same directory.
+  -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/BackgroundRelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerVertical="true"
+    android:background="#00A2FF"
+    tools:context="com.nomadapp.splash.ui.activity.standard.SignUpLogInActivity">
+
+    <ScrollView
+        android:id="@+id/signUpLogInScroll"
+        android:scrollbars="none"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/signUpLogInRelative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/mainLogo2"
+                android:src="@drawable/splashwordlogo"
+                android:layout_width="200dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/welcomeBack"
+                android:text="@string/act_main_welcomeBack"
+                android:textColor="#ffffff"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/mainLogo2"
+                android:layout_marginTop="-10dp"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/enterAccountInfo"
+                android:text="@string/act_main_enterYourAccountInfo"
+                android:textColor="#ffffff"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/welcomeBack"
+                android:layout_marginTop="11dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/emailInput"
+                android:ems="15"
+                android:layout_below="@+id/or"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/selective_bg_filled_stroked"
+                android:layout_marginStart="15dp"
+                android:inputType="textEmailAddress"
+                android:textAllCaps="false"
+                android:maxLines="1"
+                android:hint="@string/act_main_email"
+                android:textColorHint="#00A2FF"
+                android:padding="6dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/userNameInput"
+                android:ems="15"
+                android:layout_below="@+id/emailInput"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/selective_bg_filled_stroked"
+                android:layout_marginStart="15dp"
+                android:inputType="textPersonName"
+                android:textAllCaps="false"
+                android:maxLines="1"
+                android:hint="@string/act_main_username"
+                android:textColorHint="#00A2FF"
+                android:padding="6dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/passwordInput"
+                android:ems="15"
+                android:maxLines="1"
+                android:layout_below="@+id/userNameInput"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/selective_bg_filled_stroked"
+                android:textAllCaps="false"
+                android:layout_marginStart="15dp"
+                android:inputType="textPassword"
+                android:hint="@string/act_main_password"
+                android:textColorHint="#00A2FF"
+                android:padding="6dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/visiblePasswordHelper"
+                android:text="@string/act_main_passMustContain"
+                android:textSize="12sp"
+                android:layout_alignStart="@+id/passwordInput"
+                android:layout_marginStart="8dp"
+                android:layout_alignEnd="@+id/passwordInput"
+                android:textColor="#ffffff"
+                android:layout_below="@id/passwordInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/passwordInput2"
+                android:ems="15"
+                android:maxLines="1"
+                android:layout_below="@+id/visiblePasswordHelper"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/selective_bg_filled_stroked"
+                android:textAllCaps="false"
+                android:layout_marginStart="15dp"
+                android:inputType="textPassword"
+                android:hint="@string/act_main_repeatPassword"
+                android:textColorHint="#00A2FF"
+                android:padding="6dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/logInNow"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/passwordInput2"
+                android:layout_marginTop="20dp"
+                android:onClick="logInSignUpNow"
+                android:stateListAnimator="@null"
+                android:background="@drawable/btn_shape_whitebg"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:textColor="#00A2FF"
+                android:text="@string/act_main_login"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                tools:ignore="UnusedAttribute" />
+
+            <LinearLayout
+                android:id="@+id/agreementTOULinear"
+                android:orientation="horizontal"
+                android:layout_alignStart="@+id/logInNow"
+                android:layout_below="@+id/logInNow"
+                android:layout_marginStart="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:id="@+id/agreementTOU"
+                    android:textSize="12sp"
+                    android:textColor="#ffffff"
+                    android:buttonTint="#ffffff"
+                    android:text="@string/act_main_iAgreeWith"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/agreementTOULink"
+                    android:textSize="12sp"
+                    android:textColor="#ffffff"
+                    android:text="@string/act_main_termsOfUse"
+                    android:textStyle="italic"
+                    android:onClick="toTOU"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/or"
+                android:text="@string/act_main_or"
+                android:textSize="16sp"
+                android:layout_marginTop="3dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/fb_login_button"
+                android:textColor="#ffffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!--//Facebook SDK//-->
+            <!--//Default Button height: 48 dp//-->
+            <Button
+                android:id="@+id/fb_login_button"
+                android:layout_width="300dp"
+                android:background="@drawable/btn_shape_fb_bg"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/act_main_loginWithFacebook"
+                android:layout_height="48dp"
+                android:textColor="#ffffff"
+                android:stateListAnimator="@null"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/enterAccountInfo"
+                tools:ignore="UnusedAttribute" />
+
+            <ImageView
+                android:id="@+id/fb_logo"
+                android:src="@drawable/fblogo"
+                android:padding="2dp"
+                android:layout_alignTop="@+id/fb_login_button"
+                android:layout_alignStart="@+id/fb_login_button"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="14dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                tools:ignore="ContentDescription" />
+            <!--////////////////-->
+
+            <TextView
+                android:id="@+id/becomeASplash"
+                android:text="@string/act_main_becomeASplasher"
+                android:textColor="#00A2FF"
+                android:visibility="gone"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/forgotPassword"
+                android:text="@string/act_main_forgotPassword"
+                android:textColor="#ffffff"
+                android:onClick="forgotPassword"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:layout_below="@+id/logInNow"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/relativeTwo"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00A2FF">
+
+        <ImageView
+            android:id="@+id/mainLogo1"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/newsplashicon"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_centerHorizontal="true"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/splashLogoWritten1"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/mainLogo1"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/splashwordlogo"
+            android:layout_width="200dp"
+            android:layout_height="110dp"
+            tools:ignore="ContentDescription" />
+
+        <Button
+            android:id="@+id/buttonSignUp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/splashLogoWritten1"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/btn_shape_whitebg"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="signUp"
+            android:text="@string/act_main_signUp"
+            android:textColor="#00A2FF"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/buttonSignUp"
+            android:background="@drawable/btn_shape_whitebg"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="logIn"
+            android:layout_marginTop="17dp"
+            android:textColor="#00A2FF"
+            android:text="@string/act_main_login"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/become_independent_splasher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:text="@string/act_main_becomeASplasher"
+            android:textAlignment="center"
+            android:textColor="#ffffff"/>
+
+    </RelativeLayout>
+
+    <!--Switch back to visibility: visible. Before testing-->
+    <RelativeLayout
+        android:id="@+id/forgotPassRelative"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:background="@drawable/selective_bg_filled_stroked"
+        android:layout_width="320dp"
+        android:layout_height="207dp">
+
+        <TextView
+            android:id="@+id/forgotPassTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/act_main_passwordRecovery"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/forgotPassUserName"
+            android:ems="15"
+            android:layout_below="@+id/forgotPassTitle"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/selective_bg_filled_stroked"
+            android:layout_marginStart="15dp"
+            android:inputType="textPersonName"
+            android:textAllCaps="false"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:hint="@string/act_main_username"
+            android:textColorHint="#00A2FF"
+            android:padding="6dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/forgotPassEmail"
+            android:ems="15"
+            android:layout_below="@+id/forgotPassUserName"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/selective_bg_filled_stroked"
+            android:layout_marginStart="15dp"
+            android:inputType="textEmailAddress"
+            android:textAllCaps="false"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:hint="@string/act_main_email"
+            android:textColorHint="#00A2FF"
+            android:padding="6dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/forgotPassLinearButtons"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_below="@+id/forgotPassEmail"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/forgotPassCancel"
+                android:text="@string/act_main_cancel"
+                android:textColor="#ffffff"
+                android:onClick="fpCancel"
+                android:background="@drawable/btn_shape"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/forgotPassSend"
+                android:text="@string/act_main_send"
+                android:textColor="#ffffff"
+                android:onClick="fpSend"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/btn_shape"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="ButtonStyle" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

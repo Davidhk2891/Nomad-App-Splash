@@ -1,0 +1,33 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=65:8F:AB:B7:1F:90:F2:45:7E:52:B1:59:A5:02:04:D9:EC:56:51:86%3Bcom.nomadapp.splash
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    65:8F:AB:B7:1F:90:F2:45:7E:52:B1:59:A5:02:04:D9:EC:56:51:86
+
+    SHA-1 certificate fingerprint:
+    65:8F:AB:B7:1F:90:F2:45:7E:52:B1:59:A5:02:04:D9:EC:56:51:86
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+
+    AIzaSyA7euvvEQ0jEw1aWLkmWPUArIqeMw4DwFE -production <<SWITCH BACK TO THIS KEY HERE IN DEBUG.XML BEFORE SIGNING RELEASE-APK!
+    AIzaSyDmYnVrpkJc1RCSRU5RUsT4OKS9ik_NVT4 -debug
+
+    -production:
+    AIzaSyA7euvvEQ0jEw1aWLkmWPUArIqeMw4DwFE
+    -debug:
+    AIzaSyDmYnVrpkJc1RCSRU5RUsT4OKS9ik_NVT4
+    -->
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false"> AIzaSyA7euvvEQ0jEw1aWLkmWPUArIqeMw4DwFE </string>
+</resources>
